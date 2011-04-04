@@ -41,9 +41,9 @@ further arguments passed to or from other methods.
 \deqn{rd = 1 - \frac{ \sum_{i=1}^N { \frac{(O_i - S_i)}{O_i}^2} } { \sum_{i=1}^N { \frac{ \left| S_i -  \bar{O} \right| + \left| O_i -  \bar{O}  \right|}{\bar{O}} ^2 } } }{%
 rd = 1 - [ sum( ( (obs - sim) / obs )^2  ] /  sum( ( (abs(sim - mean(obs) ) + abs(obs - mean(obs) ) ) / mean(obs)  )^2 ) } 
 
-# This index was developed to  be sensitive to systematic over- or under-prediction, in particular during low flow conditions. \cr
+%% This index was developed to  be sensitive to systematic over- or under-prediction, in particular during low flow conditions. \cr
 
-# This index quantify the difference between simulated and observed values in a relative way, in order to significatively reduce the influence of the absolute differences of high flows and to give more weight to over- or under-prediction of low flows. At the same time, differences in low flows become more important, because they are looked in a relative way. \cr
+%% This index quantify the difference between simulated and observed values in a relative way, in order to significatively reduce the influence of the absolute differences of high flows and to give more weight to over- or under-prediction of low flows. At the same time, differences in low flows become more important, because they are looked in a relative way. \cr
 
 It varies between 0 and 1. A value of 1 indicates a perfect match, and 0 indicates no agreement at all.
 }

@@ -5,8 +5,10 @@
 # External package required: 'zoo'                              #
 # External library required: 'lib_TSM_in_Hydrological_modelling #
 ################################################################# 
-#       Started:  03 Mar 2009           #
-#  Apr, May 2009                        #
+#  Started:  03 Mar 2009                #
+#  Updates:  Apr, May 2009              #
+#            2010                       #
+#                                       # 
 #########################################     
 
 
@@ -175,7 +177,7 @@ ggof <- function (sim, obs,
     # If 'sim' is 'zoo' and the user provides the dates  (probably new dates)
     if ( is.zoo(sim) ) { time(sim) <- dates }  
     
-  } else if (!is.zoo(obs)) print("Note: You didn't provide dates, so only a numeric index will be used in the time axis.", quote=FALSE)      
+  } else if (!is.zoo(obs)) message("[Note: You didn't provide dates, so only a numeric index will be used in the time axis.]")      
  
   
   require(hydroTSM) # for using the 'vector2zoo' function 
@@ -226,7 +228,7 @@ ggof <- function (sim, obs,
          col= col, lwd= lwd, lty=lty, pch=pch,
          xlab= xlab, ylab= ylab, pt.style= pt.style,
          add= FALSE,
-         tick.tstep, lab.tstep, 
+         tick.tstep, lab.tstep, lab.fmt=lab.fmt,
          cex = cex, cex.axis=cex.axis, cex.lab=cex.lab, 
          gof.leg = gof.leg, gof.digits=digits,
          legend=legend, leg.cex=leg.cex,
@@ -257,7 +259,7 @@ ggof <- function (sim, obs,
           # Drawing the original daily time series against time
           plot2(x=sim, y=obs, plot.type="single",
                 main=paste("Daily", main, sep=" "), 
-                tick.tstep=tick.tstep, lab.tstep= lab.tstep, 
+                tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt,
                 cex = cex, cex.axis=cex.axis, cex.lab=cex.lab, 
                 col = col, lwd= lwd, lty=lty, pch=pch,  
                 xlab= xlab, ylab= ylab, 
@@ -272,7 +274,7 @@ ggof <- function (sim, obs,
           # Drawing the Monthly time series against time
           plot2(x=sim.monthly, y=obs.monthly, plot.type="single",
                 main=paste("Monthly", main, sep=" "), 
-                tick.tstep=tick.tstep, lab.tstep= lab.tstep, 
+                tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt,
                 cex = cex, cex.axis=cex.axis, cex.lab=cex.lab, 
                 col = col, lwd= lwd, lty=lty, pch=pch, 
                 xlab= xlab, ylab= ylab, 
@@ -317,7 +319,7 @@ ggof <- function (sim, obs,
         # Drawing the Monthly time series against time
         plot2(x=sim, y=obs, plot.type="single",
               main=paste("Monthly", main, sep=" "), 
-              tick.tstep=tick.tstep, lab.tstep= lab.tstep, 
+              tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt,
               cex = cex, cex.axis=cex.axis, cex.lab=cex.lab, 
               col = col, lwd= lwd, lty=lty, pch=pch,
               xlab= xlab, ylab= ylab, pt.style= "ts", 
@@ -332,7 +334,7 @@ ggof <- function (sim, obs,
         plot2(x=sim.annual, y=obs.annual, plot.type="single",
               main=paste("Annual", main, sep=" "), 
               tick.tstep="years", lab.tstep= "years", 
-              cex = cex, cex.axis=cex.axis, cex.lab=cex.lab, 
+              cex = cex, cex.axis=cex.axis, cex.lab=cex.lab, lab.fmt=lab.fmt,
               col = col, lwd= lwd, lty=lty, pch=pch, 
               xlab= xlab, ylab= ylab, pt.style= pt.style, 
               add= TRUE, 
@@ -374,7 +376,7 @@ ggof <- function (sim, obs,
           # Drawing the original daily time series against time
           plot2(x=sim, y=obs, plot.type="single",
                 main=paste("Daily", main, sep=" "), 
-                tick.tstep=tick.tstep, lab.tstep= lab.tstep, 
+                tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt,
                 cex = cex, cex.axis=cex.axis, cex.lab=cex.lab, 
                 col = col, lwd= lwd, lty=lty, pch=pch,
                 xlab= xlab, ylab= ylab, pt.style= "ts", 
@@ -388,7 +390,7 @@ ggof <- function (sim, obs,
           # Drawing the Monthly time series against time
           plot2(x=sim.monthly, y=obs.monthly, plot.type="single",  
                 main=paste("Monthly", main, sep=" "), 
-                tick.tstep=tick.tstep, lab.tstep= lab.tstep, 
+                tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt,
                 cex = cex, cex.axis=cex.axis, cex.lab=cex.lab, 
                 col = col, lwd= lwd, lty=lty, pch=pch, 
                 xlab= xlab, ylab= ylab, pt.style= "ts", 
@@ -402,7 +404,7 @@ ggof <- function (sim, obs,
           # Drawing the Annual time series against time
           plot2(x=sim.annual, y=obs.annual, plot.type="single",
                   main=paste("Annual", main, sep=" "), 
-                  tick.tstep="years", lab.tstep= "years", 
+                  tick.tstep="years", lab.tstep= "years", lab.fmt=lab.fmt,
                   cex = cex, cex.axis=cex.axis, cex.lab=cex.lab, 
                   col = col, lwd= lwd, lty=lty, pch=pch,
                   xlab= xlab, ylab= ylab, pt.style= pt.style, 

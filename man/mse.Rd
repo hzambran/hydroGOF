@@ -36,9 +36,10 @@ When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{s
 further arguments passed to or from other methods.
 }
 }
-%%\details{
-%%  ~~ If necessary, more details than the description above ~~
-%%}
+\details{
+\deqn{ mse = \frac{1}{N} \sum_{i=1}^N { \left( S_i - O_i \right)^2 } }{%
+mse = mean( (sim - obs)^2, na.rm = TRUE) } 
+}
 \value{
 Mean squared error between \code{sim} and \code{obs}. \cr
 

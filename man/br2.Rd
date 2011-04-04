@@ -40,7 +40,7 @@ further arguments passed to or from other methods.
 \deqn{br2 = \mid b \mid R2, \mid b \mid \leq 1; br2= \mid b \mid R2, \mid b \mid > 1 }{%
 br2 = abs(b)*R2, b <= 1; br2= abs(b)/R2, abs(b) > 1 } 
 
-A model that systematically over or under-predicts all the time will still result in "good" \code{r2} (close to 1), even if all predctions were wrong (Krause et al., 2005).
+A model that systematically over or under-predicts all the time will still result in "good" \code{r2} (close to 1), even if all predictions were wrong (Krause et al., 2005).
 The \code{br2} coefficient allows accounting for the discrepancy in the magnitude of two signals (depicted by 'b') as well as their dynamics (depicted by 'r2')
 }
 \value{
@@ -60,7 +60,7 @@ Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
 
 The missing values in \code{obs} and \code{sim} are removed before the computation proceeds, and only those positions with non-missing values in \code{obs} and \code{sim} are considered in the computation \cr
 
-The slope 'b' is computed as the coefficient of the linear regression between \code{sim} and \code{obs}, forcing the intercept be equal to zero.
+The slope \code{b} is computed as the coefficient of the linear regression between \code{sim} and \code{obs}, forcing the intercept be equal to zero.
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~

@@ -50,11 +50,11 @@ further arguments passed to or from other methods.
 \item{rmse}{Root Mean Square Error}
 \item{nrmse}{Normalized Root Mean Square Error  ( -100\% <= nrms <= 100\% )}
 \item{PBIAS}{Percent Bias }
-\item{pbfdc}{PBIAS in the slope of the midsegment of the Flow Duration Curve}
+\item{pbiasfdc}{PBIAS in the slope of the midsegment of the Flow Duration Curve}
 \item{RSR}{Ratio of RMSE to the Standard Deviation of the Observations, RSR = rms / sd(obs). ( 0 <= RSR <= +Inf )}
 \item{rSD}{Ratio of Standard Deviations, rSD = sd(sim) / sd(obs)}
 \item{NSeff}{Nash-Sutcliffe Efficiency ( -Inf <= NSeff <= 1 )}
-\item{NSeff1}{Modified Nash-Sutcliffe Efficiency}
+\item{mNSeff}{Modified Nash-Sutcliffe Efficiency}
 \item{rNSeff}{Relative Nash-Sutcliffe Efficiency }
 \item{d}{Index of Agreement ( 0 <= d <= 1 )}
 \item{d1}{Modified Index of Agreement}
@@ -62,9 +62,10 @@ further arguments passed to or from other methods.
 \item{cp}{Persistence Index ( 0 <= PI <= 1 ) }
 \item{r}{Pearson Correlation coefficient ( -1 <= r <= 1 )}
 \item{r.Spearman}{Spearman Correlation coefficient ( -1 <= r.Spearman <= 1 ) }
-\item{R2}{ Coefficient of Determination ( 0 <= R2 <= 1 ). \cr
+\item{R2}{Coefficient of Determination ( 0 <= R2 <= 1 ). \cr
           Gives the proportion of the variance of one variable that is predictable from the other variable}
 \item{bR2}{R2 multiplied by the coefficient of the regression line between \code{sim} and \code{obs} \cr ( 0 <= bR2 <= 1 )}
+\item{KGE}{Kling-Gupta efficiency between \code{sim} and \code{obs} \cr ( 0 <= KGE <= 1 )}
 %% ...
 }
 \references{

@@ -3,7 +3,10 @@
 #        Several performance indexes for comparing two vectors, matrix  #
 #        or data.frames                                                 #
 #########################################################################
-#   15-Dic-2008 -> 03 Feb 2009; ;  06-Sep-09    #
+# Started: 15-Dic-2008 -> 03 Feb 2009; 
+# Updates: 06-Sep-09
+#          2010
+#          21-Jan-2011
 #################################################
 
 # It computes:
@@ -25,6 +28,7 @@
 # 'PI'        : Persistence Index ( 0 <= PI <= 1 ) 
 # 'PBIAS'     : Percent Bias ( -1 <= PBIAS <= 1 )
 # 'bR2'       : weighted coefficient of determination
+# 'KGE'       : Kling-Gupta efficiency
 
 gof <-function(sim, obs, ...) UseMethod("gof")
 
@@ -47,6 +51,7 @@ gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE
      cp     <- cp(sim, obs, na.rm=na.rm, ...)
      r      <- .rPearson(sim, obs)
      bR2    <- br2(sim, obs, na.rm=na.rm, ...)     
+     KGE    <- KGE(sim, obs, na.rm=na.rm, ...)     
      
      # 'r2' is the Coefficient of Determination
      # The coefficient of determination, r2, is useful because it gives the proportion of
@@ -72,7 +77,7 @@ gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE
      
      if (do.pbfdc) { pbfdc  <- pbiasfdc(sim, obs, na.rm=na.rm, plot=FALSE, ...) }
      
-     gof <- rbind(ME, MAE, MSE, RMSE, NRMSE, PBIAS, RSR, rSD, NSeff, mNSeff, rNSeff, d, md, rd, cp, r, R2, bR2)     
+     gof <- rbind(ME, MAE, MSE, RMSE, NRMSE, PBIAS, RSR, rSD, NSeff, mNSeff, rNSeff, d, md, rd, cp, r, R2, bR2, KGE)     
      
      rownames(gof)[5] <- "NRMSE %"
      rownames(gof)[6] <- "PBIAS %"    

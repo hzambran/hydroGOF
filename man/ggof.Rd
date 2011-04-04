@@ -66,7 +66,7 @@ OPTIONAL, only used when \code{leg.gof=TRUE}. Numeric, representing the decimal 
 character of length 2 to appear in the legend.  
 }
   \item{leg.cex}{
-OPTIONAL. ONLY used when \code{leg.gof=TRUE}. Character expansion factor *relative* to current 'par("cex")'. Used for text, and provides the default for 'pt.cex' and 'title.cex'. Default value = 1
+OPTIONAL. ONLY used when \code{leg.gof=TRUE}. Character expansion factor for drawing the legend, *relative*  to current 'par("cex")'. Used for text, and provides the default for 'pt.cex' and 'title.cex'. Default value = 1
 }
   \item{tick.tstep}{
 character, indicating the time step that have to be used for putting the ticks on the time axis. Valid values are: \cr
@@ -101,7 +101,7 @@ label for the 'x' axis.
 label for the 'y' axis.
 }
   \item{col}{
-numeric, representing the colors of \code{sim} and \code{obs}
+character, representing the colors of \code{sim} and \code{obs}
 }
   \item{cex}{
 numeric, representing the values controlling the size of text and symbols of 'x' and 'y' with respect to the default
@@ -138,12 +138,12 @@ If \code{gof.leg=TRUE}, it computes the numerical values of: \cr
 \item{rmse}{Root Mean Square Error}
 \item{nrmse}{Normalized Root Mean Square Error}
 \item{PBIAS}{Percent Bias}
-%%\item{pbfdc}{ PBIAS in the slope of the midsegment of the Flow Duration Curve}
+\item{pbiasfdc}{PBIAS in the slope of the midsegment of the Flow Duration Curve}
 \item{RSR}{Ratio of RMSE to the Standard Deviation of the Observations, RSR = rms / sd(obs). ( 0 <= RSR <= +Inf )}
 \item{rSD}{Ratio of Standard Deviations, rSD = sd(sim) / sd(obs)}
 \item{NSeff}{Nash-Sutcliffe Efficiency ( -Inf <= NSeff <= 1 )}
 \item{mNSeff}{Modified Nash-Sutcliffe Efficiency}
-\item{rNSeff}{Relative Nash-Sutcliffe Efficiency }
+\item{rNSeff}{Relative Nash-Sutcliffe Efficiency}
 \item{d}{Index of Agreement ( 0 <= d <= 1 )}
 \item{md}{Modified Index of Agreement}
 \item{rd}{Relative Index of Agreement}
@@ -153,6 +153,7 @@ If \code{gof.leg=TRUE}, it computes the numerical values of: \cr
 \item{R2}{ Coefficient of Determination ( 0 <= R2 <= 1 ). \cr
           Gives the proportion of the variance of one variable that is predictable from the other variable}
 \item{bR2}{R2 multiplied by the coefficient of the regression line between \code{sim} and \code{obs} \cr ( 0 <= bR2 <= 1 )}
+\item{KGE}{Kling-Gupta efficiency between \code{sim} and \code{obs} \cr ( 0 <= KGE <= 1 )}
 %% ...
 }
 \references{

@@ -2,8 +2,10 @@
 # 'plot2':     Plots 2 time series on the same graph       #
 #              It is a wrapper for the 'plot.zoo' function #
 ############################################################
-# Started on March 04, 2009  #
-# May 2009                   #
+# Started: March 04, 2009    #
+# Updates: May 2009          #
+#          2010              #
+#          21-Jan-2011       #
 ##############################
  
 # 'x', 'y'     : time series that will be plotted.
@@ -248,7 +250,7 @@ plot2 <- function (x, y,
         # Draws monthly ticks in the X axis, but labels only in years
         drawxaxis(z, tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis, cex.lab=cex.lab) 
     
-      } else Axis(side = 1, labels = TRUE)
+      } else Axis(side = 1, labels = TRUE, cex.axis=cex.axis, cex.lab=cex.lab)
                
     } else  #plot.type == "multiple"  
           {       
@@ -327,7 +329,8 @@ plot2 <- function (x, y,
              #paste( "cp =", gof.xy["cp", 1], sep=" "),
              paste( "r =", gof.xy["r", 1], sep=" "),
              paste( "R2 =", gof.xy["R2", 1], sep=" "), 
-             paste( "bR2 =", gof.xy["bR2", 1], sep=" ")             
+             paste( "bR2 =", gof.xy["bR2", 1], sep=" "),
+             paste( "KGE =", gof.xy["KGE", 1], sep=" ")               
             ), title="GoF's:", title.col="darkblue",
              bg="azure"
            )
