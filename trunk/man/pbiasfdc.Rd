@@ -32,10 +32,10 @@ numeric, zoo, matrix or data.frame with simulated values
 numeric, zoo, matrix or data.frame with observed values
 }
   \item{lQ.thr}{
-numeric, used to classify low flows. All the streamflows with a probaility of exceedence larger or equal to \code{lQ.thr} are classified as low flows
+numeric, used to classify low flows. All the streamflows with a probability of exceedence larger or equal to \code{lQ.thr} are classified as low flows
 }
   \item{hQ.thr}{
-numeric, used to classify high flows. All the streamflows with a probaility of exceedence larger or equal to \code{hQ.thr} are classified as high flows
+numeric, used to classify high flows. All the streamflows with a probability of exceedence larger or equal to \code{hQ.thr} are classified as high flows
 }
   \item{na.rm}{
 a logical value indicating whether 'NA' values should be stripped before the computation proceeds.
@@ -98,8 +98,8 @@ sim <- obs
 # Computing the relative index of agreement for the "best" (unattainable) case
 pbiasfdc(sim=sim, obs=obs)
 
-# Randomly changing the first 2000 elements of 'sim', by using a normal distribution with 
-# mean 10 and standard deviation equal to 1 (default of 'rnorm').
+# Randomly changing the first 2000 elements of 'sim', by using a normal distribution 
+# with mean 10 and standard deviation equal to 1 (default of 'rnorm').
 sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 
 # Computing the new relative index of agreement

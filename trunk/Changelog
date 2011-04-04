@@ -1,4 +1,27 @@
-v 0.2-1:
+############
+v0.2-2:    #
+############
+*) Release Date: XX-XX-2011
+
+New Functions:
+*) 'wRMSE' : -) weighted root mean squared error
+*) 'KGE'   : -) Kling-Gupta efficiency
+*) 'wbias' : -) weighted bias
+*) 'wabias': -) weighted absolute bias
+*) 'wNSeff': -) weighted Nash-Sutcliffe efficiency
+*) 'wKGE'  : -) weighted Kling-Gupta efficiency
+
+Modifications:
+*) 'ggof'     : -) argument 'lab.fmt' is used now.
+                -) KGE is showed in the GoF legend
+
+*) 'plot2'    : -) KGE is showed in the GoF legend
+
+
+
+############
+v0.2-1:    #
+############
 *) Release Date: 30-Nov-2010
 
 *) Minor changes in documentation
