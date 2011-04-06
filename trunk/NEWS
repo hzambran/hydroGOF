@@ -10,6 +10,7 @@ NEWS/ChangeLog for hydroGOF
 	o new function: 'wKGE', weighted Kling-Gupta efficiency
 	o 'ggof': argument 'lab.fmt' is used now, and 'KGE' is showed in the GoF legend
 	o 'plot2': KGE is showed in the GoF legend
+	o SVN started to be used for package develpement in Rforge (thanks to Simon Urbanek for his great support)
 
 
 0.2-1	30-Nov-2010
