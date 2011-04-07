@@ -114,7 +114,7 @@ plot2 <- function (x, y,
          stop("Missing argument: 'y'")
   
   # Checking that the user provided a valid argument for 'x'       
-  if (is.na(match(class(x), c("integer", "numeric","ts", "zoo") ) ) ) 
+  if (is.na(match(class(x), c("integer", "numeric", "ts", "zoo") ) ) ) 
          stop("Invalid argument: 'class(x)' must be in c('integer', 'numeric', 'ts', 'zoo')")
          
   # Checking that the user provided a valid argument for 'y'   
@@ -177,7 +177,7 @@ plot2 <- function (x, y,
   if ( missing(main) ) main <- "Observed vs Simulated"   
   
   # 'x' axis title: If the user didn't provide a title for the 'x' axis, a default string is used 
-  if ( missing(xlab) ) { xlab <- "Time" }   
+  if ( missing(xlab) ) xlab <- "Time" 
   
   # If the user provided a value for 'cal.ini', it is transformed into a Date class
   if ( !missing(cal.ini) ) 
@@ -205,10 +205,10 @@ plot2 <- function (x, y,
   } # ELSE end    
   
   
-  # If the type of plot is "time series"
+  # If the plot type is "time series"
   if (pt.style=="ts") {
   
-    # If both time series have to be ploted int he same plot area
+    # If both time series have to be ploted in the same plot area
     if (plot.type == "single") {
     
       # Plotting the Observed Time Series
@@ -216,10 +216,21 @@ plot2 <- function (x, y,
       # cbind(x, y) is a multivariate time series
       # 'screens = 1' can be used instead of 'plot.type="single"'
       # 'screens = c(1,2)' can be used for plotting each ts in a separate screen with the same time axis 
-      plot.zoo( cbind(x, y), plot.type=plot.type, xaxt = "n", type=c("o","o"), 
-               lwd=lwd, lty= lty, col= col, pch= pch, 
-               cex = cex, cex.axis=cex.axis, cex.lab=cex.lab,
-               main=main, xlab=xlab, ylab= ylab, ... )
+      #plot.zoo( cbind(x, y), plot.type=plot.type, xaxt = "n", type=c("o","o"), 
+      #         lwd=lwd, lty= lty, col= col, pch= pch, 
+      #         cex = cex, cex.axis=cex.axis, cex.lab=cex.lab,
+      #         main=main, xlab=xlab, ylab= ylab, ... )
+
+      require(xts)
+      x <- as.xts(x)
+      y <- as.xts(y) 
+
+      ylim <- range(range(x, na.rm=TRUE), range(y, na.rm=TRUE), na.rm=TRUE)
+
+      plot(x, type="o", lwd=lwd[1], lty= lty[1], col= col[1], pch= pch[1], cex = cex[1], 
+           cex.axis=cex.axis, cex.lab=cex.lab,
+           main=main, xlab=xlab, ylab= ylab, ylim=ylim, ... )
+      lines(y, type="o", lwd=lwd[2], lty= lty[2], col= col[2], pch= pch[2], cex = cex[2])
                
       # If the user provided a value for 'cal.ini', a vertical line is drawn
       if ( !missing(cal.ini) ) {
@@ -241,16 +252,16 @@ plot2 <- function (x, y,
       # Drawing the 'x' axis
       # If the user provided, in some way, valid values for being used as dates, 
       # they will be used, if not, only a numeric index will be used
-      if ( !is.na(match(class(x), c("ts", "zoo") ) ) | !is.na(match(class(y), c("ts", "zoo") ) ) ) {
-  
-        if ( !is.na(match(class(x), c("ts", "zoo") ) ) ) { 
-          z <- x
-        } else z <- y
-    
-        # Draws monthly ticks in the X axis, but labels only in years
-        drawxaxis(z, tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis, cex.lab=cex.lab) 
-    
-      } else Axis(side = 1, labels = TRUE, cex.axis=cex.axis, cex.lab=cex.lab)
+    #  if ( !is.na(match(class(x), c("ts", "zoo") ) ) | !is.na(match(class(y), c("ts", "zoo") ) ) ) {
+    #
+    #    if ( !is.na(match(class(x), c("ts", "zoo") ) ) ) { 
+    #      z <- x
+    #    } else z <- y
+    #
+    #    # Draws monthly ticks in the X axis, but labels only in years
+    #    drawxaxis(z, tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis, cex.lab=cex.lab) 
+    #
+    #  } else Axis(side = 1, labels = TRUE, cex.axis=cex.axis, cex.lab=cex.lab)
                
     } else  #plot.type == "multiple"  
           {       
