@@ -11,19 +11,19 @@ S3 functions implementing both statistical and graphical goodness-of-fit measure
 
 Missing values in observed and/or simulated values can removed before the computations. \cr
 
-Quantitative statistics included are: Mean Error (\bold{me}), Mean Absolute Error (\bold{mae}), Root Mean Square Error (\bold{rms}), Normalized Root Mean Square Error (\bold{nrms}), Pearson Correlation coefficient (\bold{r}), Spearman Correlation coefficient (\bold{r.Spearman}), Coefficient of Determination (\bold{R2}), Ratio of Standard Deviations (\bold{rSD}), Nash-Sutcliffe efficiency (\bold{NSeff}), Modified Nash-Sutcliffe efficiency (\bold{mNSeff}), Index of Agreement (\bold{d}), Modified Index of Agreement (\bold{md}),  Coefficient of Persistence (\bold{cp}), Percent Bias (\bold{pbias}) and the coef. of determination multiplied by the slope of the linear regression between 'sim' and 'obs' (\bold{bR2})
+Quantitative statistics included are: Mean Error (\bold{me}), Mean Absolute Error (\bold{mae}), Root Mean Square Error (\bold{rms}), Normalized Root Mean Square Error (\bold{nrms}), Pearson Correlation coefficient (\bold{r}), Spearman Correlation coefficient (\bold{r.Spearman}), Coefficient of Determination (\bold{R2}), Ratio of Standard Deviations (\bold{rSD}), Nash-Sutcliffe efficiency (\bold{NSeff}), Modified Nash-Sutcliffe efficiency (\bold{mNSeff}), Index of Agreement (\bold{d}), Modified Index of Agreement (\bold{md}),  Coefficient of Persistence (\bold{cp}), Percent Bias (\bold{pbias}), Kling-Gupta efficiency (\bold{KGE}), and the coef. of determination multiplied by the slope of the linear regression between 'sim' and 'obs' (\bold{bR2})
 
 }
 \details{
 \tabular{ll}{
 Package: \tab hydroGOF\cr
 Type: \tab Package\cr
-Version: \tab 0.2-2-8\cr
-Date: \tab 2011-02-04\cr
+Version: \tab 0.2-2\cr
+Date: \tab 2011-04-14\cr
 License: \tab GPL >= 2\cr
 LazyLoad: \tab yes\cr
-Packaged: \tab Thu Dec  2 12:38:38 CET 2010; MZB \cr
-BuiltUnder: \tab R version 2.12.0 (2010-10-15); i486-pc-linux-gnu \cr
+Packaged: \tab Thu Apr 14 14:35:24 CEST 2011; MZB \cr
+BuiltUnder: \tab 2.12.2 (2011-02-25); i486-pc-linux-gnu \cr
 }
 %%~~ An overview of how to use the package, including the most important functions ~~
 }
@@ -50,6 +50,8 @@ Maintainer: Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
 \cite{Yilmaz, K. K., H. V. Gupta, and T. Wagener  (2008), A process-based diagnostic approach to model evaluation: Application to the NWS distributed hydrologic model, Water Resour. Res., 44, W09417, doi:10.1029/2007WR006716}
 
 \cite{Fenicia, F., D. P. Solomatine, H. H. G. Savenije, and P. Matgen, Soft combination of local models in a multi-objective framework. Hydrological and Earth Systems Science, Vol. 4, pp. 91-123, 2007. DOI:10.5194/hessd-4-91-2007}
+
+\cite{Hoshin V. Gupta, Harald Kling, Koray K. Yilmaz, Guillermo F. Martinez. Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological modelling. Journal of Hydrology, Volume 377, Issues 1-2, 20 October 2009, Pages 80-91. DOI: 10.1016/j.jhydrol.2009.08.003. ISSN 0022-1694}
 }
 %%~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation directory ~~
 \keyword{ package }
