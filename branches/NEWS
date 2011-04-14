@@ -1,6 +1,13 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
 
+0.2-3	(under development)
+	o new function: 'wRMSE', weighted root mean squared error
+	o new function: 'wbias', weighted bias
+	o new function: 'wabias', weighted absolute bias
+	o new function: 'wNSeff', weighted Nash-Sutcliffe efficiency
+	o new function: 'wKGE', weighted Kling-Gupta efficiency
+
 0.2-2	14-Apr-2011
 	o new function: 'KGE', Kling-Gupta efficiency
 	o 'ggof': argument 'lab.fmt' is used now, and 'KGE' is showed in the GoF legend
