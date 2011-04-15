@@ -12,10 +12,10 @@ It requires the \pkg{hydroTSM} package.
 \usage{
 plot2(x, y, plot.type = "multiple", 
       tick.tstep = "auto", lab.tstep = "auto", lab.fmt=NULL,
-      main, xlab = "Time", ylab=c("x", "y"),
+      main, xlab = "Time", ylab,
       cal.ini=NA, val.ini=NA, date.fmt="\%Y-\%m-\%d",
       gof.leg = FALSE, gof.digits=2, 
-      legend=ylab, leg.cex = 1,
+      legend=c("obs", "sim"), leg.cex = 1,
       col = c("black", "blue"),
       cex = c(0.5, 0.5), cex.axis=1.2, cex.lab=1.2, 
       lwd= c(1,1), lty=c(1,3), pch = c(1, 9), 
