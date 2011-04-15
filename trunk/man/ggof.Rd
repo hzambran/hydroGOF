@@ -69,19 +69,13 @@ character of length 2 to appear in the legend.
 OPTIONAL. ONLY used when \code{leg.gof=TRUE}. Character expansion factor for drawing the legend, *relative*  to current 'par("cex")'. Used for text, and provides the default for 'pt.cex' and 'title.cex'. Default value = 1
 }
   \item{tick.tstep}{
-character, indicating the time step that have to be used for putting the ticks on the time axis. Valid values are: \cr
--) \kbd{days},   \cr
--) \kbd{months}, \cr
--) \kbd{years}  
+character, indicating the time step that have to be used for putting the ticks on the time axis. Valid values are: \kbd{auto}, \kbd{years}, \kbd{months},\kbd{weeks}, \kbd{days}, \kbd{hours}, \kbd{minutes}, \kbd{seconds}.
 }
-  \item{lab.tstep}{
-character indicating the time step that have to be used for putting the labels on the time axis. Valid values are: \cr
--) \kbd{days},   \cr
--) \kbd{months}, \cr
--) \kbd{years}  
+ \item{lab.tstep}{
+character, indicating the time step that have to be used for putting the labels on the time axis. Valid values are: \kbd{auto}, \kbd{years}, \kbd{months},\kbd{weeks}, \kbd{days}, \kbd{hours}, \kbd{minutes}, \kbd{seconds}.
 }
   \item{lab.fmt}{
-Character indicating with the format to be used for the label of the axis. See \code{format} in \code{\link[base]{as.Date}}. If not specified, it will try \kbd{"\%Y-\%m-\%d"} when \code{lab.tstep=="days"}, \kbd{"\%b"} when \code{lab.tstep=="month"}, and \kbd{"\%Y"} when \code{lab.tstep=="year"}. 
+Character indicating the format to be used for the label of the axis. See \code{lab.fmt} in \code{\link[hydroTSM]{drawxaxis}}.
 }
   \item{cal.ini}{
 OPTIONAL. Character, indicating the date in which the calibration period started. \cr
@@ -129,7 +123,7 @@ further arguments passed to or from other methods.
 Plots observed and simulated values in the same graph.
 
 If \code{gof.leg=TRUE}, it computes the numerical values of: \cr
-'me', 'mae', 'rms', 'nrms', 'PBIAS',  'RSR, 'rSD', 'NSeff', 'mNSeff', 'rNSeff', 'd', 'md, 'rd', 'cp', 'r', 'r.Spearman', 'R2', 'bR2'
+'me', 'mae', 'rmse', 'nrmse', 'PBIAS',  'RSR, 'rSD', 'NSeff', 'mNSeff', 'rNSeff', 'd', 'md, 'rd', 'cp', 'r', 'r.Spearman', 'R2', 'bR2', 'KGE'
 }
 \value{
 \item{me}{Mean Error}
