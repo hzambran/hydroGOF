@@ -2,6 +2,8 @@ NEWS/ChangeLog for hydroGOF
 --------------------------
 
 0.2-3	(under development)
+	o TODO: plot2.R, line 196.
+		Uncomment '#cex.axis=cex.axis,' when zoo_1.7-0 solves the issue.
 	o now it depends on 'hydroTSM' >= 0.2-3, in order to use the re-written 'drawxaxis' function.
 	o new function: 'wrmse', weighted root mean squared error
 	o new function: 'wbias', weighted bias
