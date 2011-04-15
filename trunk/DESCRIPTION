@@ -1,7 +1,7 @@
 Package: hydroGOF
 Type: Package
 Title: Goodness-of-fit functions for comparison of simulated and observed hydrological time series
-Version: 0.2-2-1
+Version: 0.2-2-10
 Date: 2011-04-15
 Author: Mauricio Zambrano Bigiarini
 Maintainer: Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
