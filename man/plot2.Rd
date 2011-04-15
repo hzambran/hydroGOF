@@ -11,7 +11,7 @@ It requires the \pkg{hydroTSM} package.
 }
 \usage{
 plot2(x, y, plot.type = "multiple", 
-      tick.tstep = "months", lab.tstep = "years", lab.fmt,
+      tick.tstep = "auto", lab.tstep = "auto", lab.fmt=NULL,
       main, xlab = "Time", ylab=c("x", "y"),
       cal.ini=NA, val.ini=NA, date.fmt="\%Y-\%m-\%d",
       gof.leg = FALSE, gof.digits=2, 
@@ -25,10 +25,10 @@ plot2(x, y, plot.type = "multiple",
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-time series that will be plotted. class(x) must be ts or zoo. If \code{leg.gof=TRUE}, then \code{x} is considered as simulated (for some goodness-of-fit functions this is important)
+time series that will be plotted. class(x) must be ts or zoo. If \code{leg.gof=TRUE}, then \code{x} is considered as \bold{simulated} (for some goodness-of-fit functions this is important)
 }
   \item{y}{
-time series that will be plotted. class(x) must be ts or zoo. If \code{leg.gof=TRUE}, then \code{y} is considered as observed values (for some goodness-of-fit functions this is important)
+time series that will be plotted. class(x) must be ts or zoo. If \code{leg.gof=TRUE}, then \code{y} is considered as \bold{observed} values (for some goodness-of-fit functions this is important)
 }
   \item{plot.type}{
 character, indicating if the 2 ts have to be plotted in the same window or in two different vertical ones. Valid values are: \cr
@@ -36,19 +36,13 @@ character, indicating if the 2 ts have to be plotted in the same window or in tw
 -) \kbd{multiple}: plots the 2 series on 2 multiple vertical plots 
 }
   \item{tick.tstep}{
-character, indicating the time step that have to be used for putting the ticks on the time axis. Valid values are: \cr
--) \kbd{days},    \cr
--) \kbd{months},  \cr
--) \kbd{years} 
+character, indicating the time step that have to be used for putting the ticks on the time axis. Valid values are: \kbd{auto}, \kbd{years}, \kbd{months},\kbd{weeks}, \kbd{days}, \kbd{hours}, \kbd{minutes}, \kbd{seconds}.
 }
   \item{lab.tstep}{
-character, indicating the time step that have to be used for putting the labels on the time axis. Valid values are: \cr
--) \kbd{days},    \cr
--) \kbd{months},  \cr
--) \kbd{years} 
+character, indicating the time step that have to be used for putting the labels on the time axis. Valid values are: \kbd{auto}, \kbd{years}, \kbd{months},\kbd{weeks}, \kbd{days}, \kbd{hours}, \kbd{minutes}, \kbd{seconds}.
 }
   \item{lab.fmt}{
-Character indicating with the format to be used for the label of the axis. See \code{format} in \code{\link[base]{as.Date}}. If not specified, it will try \kbd{"\%Y-\%m-\%d"} when \code{lab.tstep=="days"}, \kbd{"\%b"} when \code{lab.tstep=="month"}, and \kbd{"\%Y"} when \code{lab.tstep=="year"}. 
+Character indicating the format to be used for the label of the axis. See \code{lab.fmt} in \code{\link[hydroTSM]{drawxaxis}}.
 }
   \item{main}{
 an overall title for the plot: see \code{\link[graphics]{title}}
@@ -163,8 +157,11 @@ sim <- obs
 # with mean 10 and standard deviation equal to 1 (default of 'rnorm').
 sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 
-# Computing the new 'pbias'
+# Plotting 'sim' and 'obs' in 2 separate panels
 plot2(x=obs, y=sim)
+
+# Plotting 'sim' and 'obs' in the same window
+plot2(x=obs, y=sim, plot.type="single")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
