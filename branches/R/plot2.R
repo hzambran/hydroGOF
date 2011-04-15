@@ -2,78 +2,22 @@
 # 'plot2':     Plots 2 time series on the same graph       #
 #              It is a wrapper for the 'plot.zoo' function #
 ############################################################
-# Started: March 04, 2009    #
-# Updates: May 2009          #
-#          2010              #
-#          21-Jan-2011       #
-##############################
- 
-# 'x', 'y'     : time series that will be plotted.
-#                class(x) & class(y) must be 'ts' or 'zoo'
-#                If gof.leg=TRUE, then 'x' is considered as simulated and 'y'
-#                as observed values (for some gof functions this is important)
-# 'plot.type'  : String that indicates if the 2 ts have to be ploted in the 
-#                same window or in two different vertical ones
-#                Valid values are:
-#                -) "single"  : (default) superimposes the 2 ts on a single plot
-#                -) "multiple": plots the 2 series on 2 multiple vertical plots 
-# 'pt.style'   : String that indicates if the 2 ts have to be plotted as lines or bars
-#                Valid values are:
-#                -) "ts" : (default) each ts is ploted as a lines along the 'x' axis
-#                -) "bar": the 2 series are plotted as a barplot. 
-# 'var.names'  : string vector with the types (names) of variables being plotted, 
-#                e.g, "Precipitation", "Temperature" or "Flow"
-#                Only used for labelling the axes 
-# 'var.units'  : string representing the measurement unit of the variable 
-#                being plotted, e.g., "mm" for precipitation, "C" for temperature, 
-#                and "m3/s" for flow. 
-# 'tick.tstep': string indicating the time step that have to be used for 
-#               putting the ticks ont he time axis. 
-#               Possible values are: 'days', 'months', 'years' 
-# 'lab.tstep' : string indicating the time step that have to be used for 
-#               putting the labels ont he time axis. 
-#               Possible values are: 'days', 'months', 'years' 
-# 'col'       : vector with the colors of 'x' and 'y'
-# 'lwd'       : vector with the line width of 'x' and 'y'
-# 'lty'       : vector with the line type of 'x' and 'y'
-# 'pch'       : vector with the type of symbol for 'x' and 'y'. 
-#                1: whithe circle; 9: white rhombus with a cross inside
-# 'cex'       : vector with the values controlling the size of text and 
-#                symbols of 'x' and 'y' with respect to the default
-# 'add'        : logical indicating if other plots will be added in further calls
-#                to this function.
-#                -) 'add=FALSE' => the plot and the legend are plotted on the same graph
-#                -) 'add=TRUE'  => the legend is plotted in a new graph, usually
-#                                  when called from another function (e.g.: 'ggof')
-# 'xlab'       : label for the 'x' axis
-# 'ylab'       : label for the 'y' axis 
-# 'gof.leg'    : boolean indicating if several goodness of fit have to be 
-#                computed between both ts, and ploted as legends on the graph.
-#                If gof.leg=TRUE, then 'x' is considered as observed and 'y'
-#                as simulated values (for some gof functions this is important)
-# 'digits'     : OPTIONAL, only used when 'gof.leg=TRUE'. Decimal places used for rounding the goodness-of-fit indexes
-# 'leg.cex'    : OPTIONAL. Used for the GoF legend. Character expansion factor *relative* to current
-#                'par("cex")'.  Used for text, and provides the default 
-#                for 'pt.cex' and 'title.cex'. Default value = 1
-# cal.ini      : OPTIONAL. Character with the date in which the calibration period started.
-#                ONLY used for drawing a vertical red line at this date. 
-# val.ini      : OPTIONAL. Character with the date in which the validation period started.
-#                ONLY used for drawing a vertical red line at this date. 
-# date.fmt     : character indicating the format in which the dates entered are stored in 'cal.ini' adn 'val.ini'. Default value is "\%Y-\%m-\%d"
-# 'cex.axis'   : magnification of axis annotation relative to 'cex'. See '?par'.
-# 'cex.lab'    : Magnification to be used for x and y labels relative to the current setting of 'cex'. See '?par'.
-                  
+# Started: March 04, 2009                                  #
+# Updates: May 2009                                        #
+#          2010                                            #
+#          21-Jan-2011, 15-Apr-2011                        #
+############################################################
                 
 plot2 <- function (x, y, 
                    plot.type = "multiple", 
                    
-                   tick.tstep= "months", 
-                   lab.tstep= "years", 
-                   lab.fmt,
+                   tick.tstep= "auto", 
+                   lab.tstep= "auto", 
+                   lab.fmt=NULL,
                    
                    main, 
                    xlab="Time", 
-                   ylab=c("x", "y"),
+                   ylab,
                    
                    cal.ini=NA, 
                    val.ini=NA, 
@@ -82,12 +26,12 @@ plot2 <- function (x, y,
                    gof.leg = FALSE, 
                    gof.digits=2, 
                    
-                   legend=ylab,
+                   legend=c("obs", "sim"),
                    leg.cex=1,                       
                         
                    col = c("black","blue"),
                    
-                   cex=c(0.5,0.5),
+                   cex=c(0.5, 0.5),
                    cex.axis=1.2,
                    cex.lab=1.2,
                    
@@ -106,20 +50,28 @@ plot2 <- function (x, y,
   require(hydroTSM)
 
   # Checking that the user provided 'x'
-  if ( missing(x) ) 
-         stop("Missing argument: 'x'")
+  if ( missing(x) ) stop("Missing argument: 'x'")
          
   # Checking that the user provided 'y'
-  if ( missing(y) ) 
-         stop("Missing argument: 'y'")
+  if ( missing(y) ) stop("Missing argument: 'y'")
+
+  # 'xname' and 'yname' values
+  xname <- deparse(substitute(x))
+  yname <- deparse(substitute(y))
+
+  # 'legend' value
+  if (missing(legend)) legend <- c(xname, yname)
+
+  # 'ylab' value
+  if (missing(ylab)) ylab <- c(xname, yname)
   
   # Checking that the user provided a valid argument for 'x'       
-  if (is.na(match(class(x), c("integer", "numeric", "ts", "zoo") ) ) ) 
-         stop("Invalid argument: 'class(x)' must be in c('integer', 'numeric', 'ts', 'zoo')")
+  if (length(which(!is.na(match(class(x), c("integer", "numeric", "ts", "zoo", "xts") )))) <= 0) 
+         stop("Invalid argument: 'class(x)' must be in c('integer', 'numeric', 'ts', 'zoo', 'xts')")
          
   # Checking that the user provided a valid argument for 'y'   
-  if (is.na(match(class(y), c("integer", "numeric", "ts", "zoo") ) ) ) 
-         stop("Invalid argument: 'class(y)' must be in c('integer', 'numeric', 'ts', 'zoo')")
+  if (length(which(!is.na(match(class(y), c("integer", "numeric", "ts", "zoo", "xts") )))) <= 0)
+         stop("Invalid argument: 'class(y)' must be in c('integer', 'numeric', 'ts', 'zoo', 'xts')")
          
   # Checking that the user provided a valid argument for 'plot.type'       
   if (is.na(match(plot.type, c("single", "multiple") ) ) ) 
@@ -133,18 +85,10 @@ plot2 <- function (x, y,
   if (is.na(match(pt.style, c("ts", "bar") ) ) ) 
          stop("Invalid argument: 'pt.style' must be in c('ts', 'bar')")
          
-  # Checking that the user provided a valid argument for 'tick.tstep'       
-  if (is.na(match(tick.tstep, c("days", "months", "years") ) ) ) 
-         stop("Invalid argument: 'tick.tstep' must be in c('days', 'months', 'years')")
-         
-  # Checking that the user provided a valid argument for 'lab.tstep'       
-  if (is.na(match(lab.tstep, c("days", "months", "years") ) ) ) 
-         stop("Invalid argument: 'lab.tstep' must be in c('days', 'months', 'years')")
-         
   # If 'x' is 'ts' or 'zoo' and 'y' is only a vector, y is transformed into 
   # the same class of 'x', with the same times
-  if ( !is.na(match(class(x), c("ts", "zoo") ) ) & 
-       !is.na(match(class(y), c("integer", "numeric") ) ) ) {  
+  if ( (length(which(!is.na(match(class(x), c("ts", "zoo", "xts") )))) <= 0) & 
+       (length(which(!is.na(match(class(y), c("integer", "numeric") )))) <= 0) ) {  
   
     # class(time(x))== "Date" for 'daily' and 'monthly' time series
     # class(time(x))== "character" for 'annual' time series
@@ -157,17 +101,6 @@ plot2 <- function (x, y,
     
   } # IF END
 
-  
-  # If the user didn't provide a value for 'lab.fmt', default values are used
-  if (missing(lab.fmt)) {   
-    if (lab.tstep == "days") { 
-      lab.fmt <- "%Y-%m-%d"
-    } else if (lab.tstep == "months") {
-        lab.fmt <- "%b"   
-      } else if (lab.tstep == "years") {
-        lab.fmt <- "%Y"   
-        } 
-  } # IF end 
          
   # Checking that the user provied the same length for 'sim' and 'obs'      
   #if ( length(x) != length(y) )  
@@ -176,9 +109,6 @@ plot2 <- function (x, y,
   # If the user didn't provide a title for the plot, the default is used 
   if ( missing(main) ) main <- "Observed vs Simulated"   
   
-  # 'x' axis title: If the user didn't provide a title for the 'x' axis, a default string is used 
-  if ( missing(xlab) ) xlab <- "Time" 
-  
   # If the user provided a value for 'cal.ini', it is transformed into a Date class
   if ( !missing(cal.ini) ) 
     cal.ini <- as.Date(cal.ini, format=date.fmt)
@@ -186,7 +116,6 @@ plot2 <- function (x, y,
   # If the user provided a value for 'val.ini', it is transformed into a Date class
   if ( !missing(val.ini) ) 
     val.ini <- as.Date(val.ini, format=date.fmt)
-
   
   # If the legend has to be plotted AND no other plots will be added
   # IF 'add' is TRUE, the layout of the screen is set up by the calling procedure (usually 'ggof')
@@ -202,45 +131,36 @@ plot2 <- function (x, y,
   # If the legend will not be plotted, the marginns are set to 'almost' the default values
   if (!gof.leg) {  
         par(mar=c(5, 4, 4, 2) + 0.1) # default values are par(mar=c(5, 4, 4, 4) + 0.1)
-  } # ELSE end    
-  
+  } # ELSE end      
   
   # If the plot type is "time series"
   if (pt.style=="ts") {
   
     # If both time series have to be ploted in the same plot area
     if (plot.type == "single") {
-    
-      # Plotting the Observed Time Series
-      # xaxt = "n": is for avoiding drawing the x axis
-      # cbind(x, y) is a multivariate time series
-      # 'screens = 1' can be used instead of 'plot.type="single"'
-      # 'screens = c(1,2)' can be used for plotting each ts in a separate screen with the same time axis 
-      #plot.zoo( cbind(x, y), plot.type=plot.type, xaxt = "n", type=c("o","o"), 
-      #         lwd=lwd, lty= lty, col= col, pch= pch, 
-      #         cex = cex, cex.axis=cex.axis, cex.lab=cex.lab,
-      #         main=main, xlab=xlab, ylab= ylab, ... )
 
       require(xts)
-      x <- as.xts(x)
-      y <- as.xts(y) 
+      if (length(which(!is.na(match(class(x), c("ts", "zoo", "xts") )))) > 0) 
+         x <- as.xts(x)
+      if (length(which(!is.na(match(class(y), c("ts", "zoo", "xts") )))) > 0) 
+         y <- as.xts(y) 
 
       ylim <- range(range(x, na.rm=TRUE), range(y, na.rm=TRUE), na.rm=TRUE)
 
-      plot(x, type="o", lwd=lwd[1], lty= lty[1], col= col[1], pch= pch[1], cex = cex[1], 
-           cex.axis=cex.axis, cex.lab=cex.lab,
-           main=main, xlab=xlab, ylab= ylab, ylim=ylim, ... )
-      lines(y, type="o", lwd=lwd[2], lty= lty[2], col= col[2], pch= pch[2], cex = cex[2])
+      # Plotting the Observed Time Series. 
+      # It calls to 'plot', 'plot.zoo' or 'plot.xts', depending on 'x' class
+      # xaxt = "n": is for avoiding drawing the x axis
+      plot(x, axes=FALSE, type="o", lwd=lwd[1], lty= lty[1], col= col[1], 
+               pch= pch[1], cex = cex[1], cex.axis=cex.axis, cex.lab=cex.lab,
+               main=main, xlab=xlab, ylab= ylab, ylim=ylim, ... )
+      axis(2)
+      lines(y, type="o", lwd=lwd[2], lty= lty[2], col= col[2], pch= pch[2], cex = cex[2])      
                
       # If the user provided a value for 'cal.ini', a vertical line is drawn
-      if ( !missing(cal.ini) ) {
-        abline(v=cal.ini, col="red", lty=1, lwd=2)
-      } # IF end
+      if ( !missing(cal.ini) ) abline(v=cal.ini, col="red", lty=1, lwd=2)
       
       # If the user provided a value for 'cal.ini', a vertical line is drawn
-      if ( !missing(val.ini) ) {
-        abline(v=val.ini, col="red", lty=1, lwd=2)
-      } # IF end
+      if ( !missing(val.ini) ) abline(v=val.ini, col="red", lty=1, lwd=2)
                
       # Drawing a legend with 'Obs' vs 'Sim' 
       # y.intersp=0.5, is for the vertical spacin in the legend
@@ -252,23 +172,29 @@ plot2 <- function (x, y,
       # Drawing the 'x' axis
       # If the user provided, in some way, valid values for being used as dates, 
       # they will be used, if not, only a numeric index will be used
-    #  if ( !is.na(match(class(x), c("ts", "zoo") ) ) | !is.na(match(class(y), c("ts", "zoo") ) ) ) {
-    #
-    #    if ( !is.na(match(class(x), c("ts", "zoo") ) ) ) { 
-    #      z <- x
-    #    } else z <- y
-    #
-    #    # Draws monthly ticks in the X axis, but labels only in years
-    #    drawxaxis(z, tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis, cex.lab=cex.lab) 
-    #
-    #  } else Axis(side = 1, labels = TRUE, cex.axis=cex.axis, cex.lab=cex.lab)
+      if ( (length(which(!is.na(match(class(x), c("ts", "zoo", "xts") )))) > 0) | 
+           (length(which(!is.na(match(class(y), c("ts", "zoo", "xts") )))) > 0) ) {
+    
+        if ( (length(which(!is.na(match(class(x), c("ts", "zoo", "xts") )))) > 0) ) { 
+          z <- x
+        } else z <- y
+    
+        # Draws ticks in the X axis, but labels only in years
+        drawxaxis(z, tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis, cex.lab=cex.lab) 
+    
+      } else { # When 'numeric' or 'integer' values (not 'zoo' or 'xts') are plotted
+             Axis(side = 1, labels = TRUE, cex.axis=cex.axis, cex.lab=cex.lab)
+             box()
+             }
                
     } else  #plot.type == "multiple"  
           {       
             # all the work (mainly Time axis) is made automatically be the 'plot.zoo' function 
             plot.zoo( cbind(x, y), plot.type=plot.type, type=c("o","o"), 
                        lwd=lwd, lty= lty, col= col, pch= pch, 
-                       cex = cex, cex.axis=cex.axis, cex.lab=cex.lab,
+                       cex = cex, 
+                       #cex.axis=cex.axis, 
+                       cex.lab=cex.lab,
                        main=main, xlab=xlab, ylab= ylab,...)
                          
       } # ELSE end 
