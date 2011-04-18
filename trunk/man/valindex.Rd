@@ -14,10 +14,10 @@ valindex(obs, sim)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{obs}{
-numeric, zoo, matrix or data.frame with observed values
+zoo, xts, numeric, matrix or data.frame with observed values
 }
   \item{sim}{
-numeric, zoo, matrix or data.frame with simulated values
+zoo, xts, numeric, matrix or data.frame with simulated values
 }
 }
 %%\details{

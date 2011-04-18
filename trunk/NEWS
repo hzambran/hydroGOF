@@ -4,6 +4,7 @@ NEWS/ChangeLog for hydroGOF
 0.2-3	(under development)
 	o TODO: plot2.R, line 196.
 		Uncomment '#cex.axis=cex.axis,' when zoo_1.7-0 solves the issue.
+	o TODO: replace 'drawxaxis' by 'drawTimeAxis' in all the package
 	o now it depends on 'hydroTSM' >= 0.2-3, in order to use the re-written 'drawxaxis' function.
 	o new function: 'wrmse', weighted root mean squared error
 	o new function: 'wbias', weighted bias
@@ -14,7 +15,18 @@ NEWS/ChangeLog for hydroGOF
 		      The (nicer) 'plot.xts' function is used instead of the previous 'plot.zoo'.
 		   -) 'tick.tstep' and 'lab.tstep' now accept the values: "auto", "weeks", "hours", "minutes", 
 		      "seconds", which should work with sub-daily time series
-	o 'ggof': better display of time series objects (by using the new 'plot2')
+	o 'ggof' : -) better display of time series objects (by using the new 'plot2' and 'drawxaxis')
+		   -) it works with xts objects as well.
+		   -) 'tick.tstep' and 'lab.tstep' now accept the values: "auto", "quarters", "weeks", "hours", 
+	 	      "minutes", and "seconds", and its default value was changed to "auto". 
+	 	   -) the name of 'sim' and 'obs' are now used as default for the legend.
+	o 'plotbands': -) better display of time series objects. The (nicer) 'plot.xts' function is used 
+			  instead of the previous 'plot.zoo', and it uses the new 'drawTimeAxis' function.
+		       -) 'tick.tstep' and 'lab.tstep' now accept the values: "auto", "quarters", "weeks", "hours", 
+	 		  "minutes", and "seconds", and its default value was changed to "auto". 
+	o 'plotbandsonly': -) it works with xts objects as well
+			   -) 'legend' argument was removed (it was not used)
+			   -) 'leg.cex' argument was removed (it was not used)
 
 0.2-2	14-Apr-2011
 	o new function: 'KGE', Kling-Gupta efficiency
