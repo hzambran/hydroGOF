@@ -9,10 +9,10 @@
 ############################################################
                 
 plot2 <- function (x, y, 
-                   plot.type = "multiple", 
+                   plot.type="multiple", 
                    
-                   tick.tstep= "auto", 
-                   lab.tstep= "auto", 
+                   tick.tstep="auto", 
+                   lab.tstep="auto", 
                    lab.fmt=NULL,
                    
                    main, 
@@ -23,10 +23,10 @@ plot2 <- function (x, y,
                    val.ini=NA, 
                    date.fmt="%Y-%m-%d",                   
                    
-                   gof.leg = FALSE, 
+                   gof.leg= FALSE, 
                    gof.digits=2, 
                    
-                   legend=c("obs", "sim"),
+                   legend,
                    leg.cex=1,                       
                         
                    col = c("black","blue"),
@@ -65,12 +65,11 @@ plot2 <- function (x, y,
   # 'ylab' value
   if (missing(ylab)) ylab <- c(xname, yname)
   
-  # Checking that the user provided a valid argument for 'x'       
-  if (length(which(!is.na(match(class(x), c("integer", "numeric", "ts", "zoo", "xts") )))) <= 0) 
+  # Checking that the user provided a valid argument for 'x' and 'y'
+  valid.class <- c("xts", "zoo", "ts", "numeric", "integer")       
+  if (length(which(!is.na(match(class(x), valid.class )))) <= 0) 
          stop("Invalid argument: 'class(x)' must be in c('integer', 'numeric', 'ts', 'zoo', 'xts')")
-         
-  # Checking that the user provided a valid argument for 'y'   
-  if (length(which(!is.na(match(class(y), c("integer", "numeric", "ts", "zoo", "xts") )))) <= 0)
+  if (length(which(!is.na(match(class(y), valid.class )))) <= 0)
          stop("Invalid argument: 'class(y)' must be in c('integer', 'numeric', 'ts', 'zoo', 'xts')")
          
   # Checking that the user provided a valid argument for 'plot.type'       
@@ -140,16 +139,14 @@ plot2 <- function (x, y,
     if (plot.type == "single") {
 
       require(xts)
-      if (length(which(!is.na(match(class(x), c("ts", "zoo", "xts") )))) > 0) 
-         x <- as.xts(x)
-      if (length(which(!is.na(match(class(y), c("ts", "zoo", "xts") )))) > 0) 
-         y <- as.xts(y) 
+      if (length(which(!is.na(match(class(x), c("ts", "zoo", "xts") )))) > 0) x <- as.xts(x) 
+      if (length(which(!is.na(match(class(y), c("ts", "zoo", "xts") )))) > 0) y <- as.xts(y) 
 
+      # Y axis limits
       ylim <- range(range(x, na.rm=TRUE), range(y, na.rm=TRUE), na.rm=TRUE)
 
       # Plotting the Observed Time Series. 
       # It calls to 'plot', 'plot.zoo' or 'plot.xts', depending on 'x' class
-      # xaxt = "n": is for avoiding drawing the x axis
       plot(x, axes=FALSE, type="o", lwd=lwd[1], lty= lty[1], col= col[1], 
                pch= pch[1], cex = cex[1], cex.axis=cex.axis, cex.lab=cex.lab,
                main=main, xlab=xlab, ylab= ylab, ylim=ylim, ... )

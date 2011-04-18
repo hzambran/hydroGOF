@@ -8,75 +8,9 @@
 #  Started:  03 Mar 2009                #
 #  Updates:  Apr, May 2009              #
 #            2010                       #
-#                                       # 
+#            17-Apr-2011                # 
 #########################################     
-
-
-# 'var.types'	    : string representing the type of variable being plotted 
-#                     (e.g., "Precipitation", "Temperature", "Flow",...). 
-#                     ONLY used for labelling the axes 
-# 'var.units'	    : string representing the measurement unit of the variable 
-#                     being plotted (e.g., "mm" for precipitation, "C" for temperature,
-#                     "m3/s" for flow,...).
-#                     ONLY used for labelling the axes
-# 'main'            : string representing the main title of the plot
-# 'xlab'            : label for the 'x' axis
-# 'ylab'            : label for the 'y' axis 
-# 'ts.col'          : vector with the colors of 'sim' and 'obs'
-# 'ts.lwd'          : vector with the line width of sim' and 'obs'
-# 'ts.lty'          : vector with the line type of sim' and 'obs'
-# 'ts.pch'          : vector with the type of symbol for 'x' and 'y'. 
-#                     1: whithe circle; 9: white rhombus with a cross inside
-# 'ts.cex'          : vector with the values controlling the size of text and 
-#                     symbols of 'x' and 'y' with respect to the default
-# 'ftype'           : string indicating the time frequency of the plots desired by the user. 
-#                     Valid values are:
-#                     -) 'o'  : only the original 'sim' and 'obs' time series are plotted
-#                     -) 'dm' : it assumes that 'sim' and 'obs' are daily time series
-#                               and Daily and Monthly values are plotted  
-#                     -) 'ma' : it assumes that 'sim' and 'obs' are monthly time series
-#                               and Monthly and Annual values are plotted
-#                     -) 'dma': it assumes that 'sim' and 'obs' are daily time series
-#                               and Daily, Monthly and Annual values are plotted 
-# 'pt.style'        : String that indicates if the 2 ts have to be plotted as lines or bars
-#                     When 'ftype' is NOT 'o', it only applies for the annual values
-#                     Valid values are:
-#                     -) "ts" : (default) each ts is ploted as a lines along the 'x' axis
-#                     -) "bar": the 2 series are plotted as a barplot. 
-# 'tick.tstep'      : string indicating the time step that have to be used for 
-#                     putting the ticks ont he time axis. 
-#                     Possible values are: 'days', 'months', 'years' 
-# 'lab.tstep'       : string indicating the time step that have to be used for 
-#                     putting the labels ont he time axis. 
-#                     Possible values are: 'days', 'months', 'years'
-# 'gof.leg'         : boolean indicating if several goodness of fit have to be 
-#                     computed between both ts, and ploted as legends on the graph.
-#                     If gof.leg=TRUE, then 'x' is considered as observed and 'y'
-#                     as simulated values (for some gof functions this is important)
-# 'digits'          : OPTIONAL, only used when 'gof.leg=TRUE'. Decimal places used for rounding the goodness-of-fit indexes
-# 'leg.cex'         : Used for the GoF legend. Character expansion factor *relative* to current
-#                     'par("cex")'.  Used for text, and provides the default 
-#                     for 'pt.cex' and 'title.cex'. Default value = 0.7
-# 'FUN'             : ONLY required when 'ftype' is in c('dm', 'ma', 'dma')
-#                     Function that have to be applied for transforming from daily to monthly or annual time step
-#                     For precipitation FUN MUST be "sum"
-#                     For temperature and flow time series, FUN MUST be "mean"#             
-# 'na.rm'           : Logical. ONLY matters when 'step.out' is "monthly' or 'annual'
-#                     TRUE : the annual mean  value is computed considering only those values different from NA
-#                     FALSE: if there is AT LEAST one NA within a year, the monthly mean value is NA 
-# cal.ini           : OPTIONAL. Character with the date in which the calibration period started.
-#                     ONLY used for drawing a vertical red line at this date. 
-# val.ini           : OPTIONAL. Character with the date in which the validation period started.
-#                     ONLY used for drawing a vertical red line at this date. 
-# 'dates'           : Dates for the correponding values in the 'sim' and 'obs' time series
-#                     If 'dates' is a factor, it have to be converted into 'Date' class, 
-#                     using the date format  specified by 'date.fmt'
-#                     If 'dates' is already of Date class, the number of dates
-#                     must be equal to the number of elements in 'sim' and 'obs'
-# date.fmt          : character indicating the format in which the dates entered are stored in 'cal.ini' adn 'val.ini'. Default value is "\%Y-\%m-\%d"
-# 'cex.axis'        : magnification of axis annotation relative to 'cex'.
-# 'cex.lab'         : Magnification to be used for x and y labels relative to the current setting of 'cex'. See '?par'.
-                                               
+                                          
       
 ggof <- function (sim, obs, 
                   na.rm=TRUE, 
@@ -90,12 +24,12 @@ ggof <- function (sim, obs,
                   gof.leg = TRUE, 
                   digits=2, 
                   
-                  legend=c("Sim", "Obs"),
+                  legend,
                   leg.cex=1,
                   
-                  tick.tstep= "months", 
-                  lab.tstep= "years",  
-                  lab.fmt,
+                  tick.tstep= "auto", 
+                  lab.tstep= "auto",  
+                  lab.fmt=NULL,
                   
                   cal.ini=NA, 
                   val.ini=NA,                
@@ -119,41 +53,46 @@ ggof <- function (sim, obs,
   # requesting 'hydroTSM' package: 'sfreq', 'vector2zoo', 'daily2monthly', 'monthly2annual', 'daily2annual'
   require(hydroTSM)
 
-  # Checking that the user provied a valid argument for 'sim'       
-  if (is.na(match(class(sim), c("zoo", "numeric", "integer") ) ) ) 
-         stop("Invalid argument: 'class(sim)' must be in c('zoo', 'numeric', 'integer')")
-         
-  # Checking that the user provied a valid argument for 'obs'       
-  if (is.na(match(class(obs), c("zoo", "numeric", "integer") ) ) ) 
-         stop("Invalid argument: 'class(obs)' must be in c('zoo', 'numeric', 'integer')")
+  # Checking that the user provied a valid argument for 'sim' &'obs'   
+  valid.class <- c("xts", "zoo", "numeric", "integer")    
+  if (length(which(!is.na(match(class(sim), valid.class )))) <= 0)  
+         stop("Invalid argument: 'class(sim)' must be in c('xts', 'zoo', 'numeric', 'integer')")
+  if (length(which(!is.na(match(class(obs), valid.class )))) <= 0)
+         stop("Invalid argument: 'class(obs)' must be in c('xts', 'zoo', 'numeric', 'integer')")
          
   # Checking that the user provied the same length for 'sim' and 'obs'      
   if ( length(sim) != length(obs) )  
-         stop(paste("Invalid argument: 'obs' and 'sim' must have the same length ! (", 
-                   length(obs), "vs", length(sim), ")"  ,sep=" ") )
+     stop(paste("Invalid argument: 'obs' and 'sim' must have the same length ! (", 
+                length(obs), "vs", length(sim), ")"  ,sep=" ") )
+                
+  # 'xname' and 'yname' values
+  sim.name <- deparse(substitute(sim))
+  obs.name <- deparse(substitute(obs))
+
+  # 'legend' value
+  if (missing(legend)) legend <- c(sim.name, obs.name)
                    
   require(hydroTSM) # for using the 'sfreq' function
   # Checking that the user provied the same sampling frequency for 'sim' and 'obs',
   # when 'sim' and 'obs' are 'zoo' objects      
-  if ( !is.na(match(class(obs), c("zoo") ) ) ) {
+  if ( is.zoo(obs) ) {
       if ( sfreq(sim) != sfreq(obs) ) {
          stop(paste("Invalid argument: 'obs' and 'sim' have different sampling frequency ! (", 
                    sfreq(obs), "vs", sfreq(sim), ")"  ,sep=" ") ) }
   } # IF end
          
-  # Checking that the user provied a valid argument for 'ftype'       
+  # Checking 'ftype'       
   if (is.na(match(ftype, c("o", "dm", "ma", "dma") ) ) ) 
          stop("Invalid argument: 'ftype' must be in c('o', 'dm', 'ma, 'dma')")
          
-  # Checking that the user provied a valid argument for FUN when 'ftype' involves monthly or annual values     
+  # Checking FUN, when 'ftype' involves monthly or annual values     
   if (!is.na(match(ftype, c("dm", "ma", "dma") ) ) & missing(FUN) ) 
          stop("Missing argument: 'FUN' must be provided when 'ftype' is in c('dm', 'ma, 'dma')")
          
   # If the user didn't provide a title for the plot, the default is used 
-  if ( missing(main) ) main <- "Observations vs Simulations"
+  if ( missing(main) ) main <- "Observations vs Simulations"         
          
-         
-  # Requiring the Zoo Library (Zoo's ordered observations): 'is.zoo', 'as.zoo', and 'plot.zoo' functions
+  # Requiring the Zoo Library: 'is.zoo', 'as.zoo', and 'plot.zoo' functions
   require(zoo)
   
   # If the user provided values 'for 'dates'
@@ -204,20 +143,7 @@ ggof <- function (sim, obs,
       if ( class(time(sim)) == "Date" ) { dates <- time(obs) 
       } else if ( class(time(sim)) == "character" ) {  
              dates <- as.Date(time(sim), format="%Y") }
-    } #ELSE END  
-
-
-  # If the user didn't provide a value for 'lab.fmt', default values are used
-  if (missing(lab.fmt)) {   
-    if (lab.tstep == "days") { 
-      lab.fmt <- "%Y-%m-%d"
-    } else if (lab.tstep == "months") {
-        lab.fmt <- "%b"   
-      } else if (lab.tstep == "years") {
-        lab.fmt <- "%Y"   
-        } 
-  } # IF end 
-  
+    } #ELSE END    
   
   #Plotting acoording to the 'ftype' value:  
   if (ftype == "o") {

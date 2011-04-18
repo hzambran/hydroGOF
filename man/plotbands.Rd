@@ -14,7 +14,7 @@ plotbands(x, lband, uband, sim,
           gof.leg= TRUE, gof.digits=2, 
           legend=c("Obs", "Sim", "95PPU"), leg.cex=1,
           bands.col="lightblue", border= NA,
-          tick.tstep= "months", lab.tstep= "years", lab.fmt,
+          tick.tstep= "auto", lab.tstep= "auto", lab.fmt=NULL,
           cal.ini=NA, val.ini=NA, 
           main="Confidence Bounds for 'x'", 
           xlab="Time", ylab="Q, [m3/s]", ylim,
@@ -25,16 +25,16 @@ plotbands(x, lband, uband, sim,
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-ts or zoo object with the observed values.
+zoo or xts object with the observed values.
 }
   \item{lband}{
-ts or zoo object with the values of the lower band.
+zoo or xts object with the values of the lower band.
 }
   \item{uband}{
- ts or zoo object with the values of the upper band.
+zoo or xts object with the values of the upper band.
 }
   \item{sim}{
-OPTIONAL. ts or zoo object with the simulated values.
+OPTIONAL. zoo or xts object with the simulated values.
 }
   \item{dates}{
 OPTIONAL. Date, factor, or character object indicating the dates that will be assigned to \code{x}, \code{lband}, \code{uband}, and \code{sim} (when provided). \cr
@@ -67,13 +67,13 @@ See \code{\link[graphics]{polygon}}. Color to be used for filling the area betwe
 See \code{\link[graphics]{polygon}}. The color to draw the border.  The default, 'NULL', means to  use 'par("fg")'.  Use 'border = NA' to omit borders.
 }
   \item{tick.tstep}{
-character indicating the time step that have to be used for putting the ticks on the time axis. Possible values are: \kbd{days}, \kbd{months}, \kbd{years}. 
+character, indicating the time step that have to be used for putting the ticks on the time axis. Valid values are: \kbd{auto}, \kbd{years}, \kbd{months},\kbd{weeks}, \kbd{days}, \kbd{hours}, \kbd{minutes}, \kbd{seconds}.
 }
   \item{lab.tstep}{
-character indicating the time step that have to be used for putting the labels on the time axis. Possible values are: \kbd{days}, \kbd{months}, \kbd{years}. 
+character, indicating the time step that have to be used for putting the labels on the time axis. Valid values are: \kbd{auto}, \kbd{years}, \kbd{months},\kbd{weeks}, \kbd{days}, \kbd{hours}, \kbd{minutes}, \kbd{seconds}.
 }
   \item{lab.fmt}{
-Character indicating with the format to be used for the label of the axis. See \code{format} in \code{\link[base]{as.Date}}. If not specified, it will try \kbd{"\%Y-\%m-\%d"} when \code{lab.tstep=="days"}, \kbd{"\%b"} when \code{lab.tstep=="month"}, and \kbd{"\%Y"} when \code{lab.tstep=="year"}. 
+Character indicating the format to be used for the label of the axis. See \code{lab.fmt} in \code{\link[hydroTSM]{drawxaxis}}.
 }
  \item{cal.ini}{
 OPTIONAL. Character with the date in which the calibration period started. \cr

@@ -10,16 +10,15 @@ Adds a polygon representing uncertainty bounds to an existing plot.
 }
 \usage{
 plotbandsonly(lband, uband, dates, date.fmt="\%Y-\%m-\%d",
-          legend="95PPU", leg.cex=1,
           bands.col="lightblue", border= NA, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{lband}{
-ts or zoo object with the values of the lower band.
+zoo or xts object with the values of the lower band.
 }
   \item{uband}{
- ts or zoo object with the values of the upper band.
+zoo or xts object with the values of the upper band.
 }
   \item{dates}{
 OPTIONAL. Date, factor, or character object indicating the dates that will be assigned to \code{lband} and \code{uband}. \cr
@@ -28,14 +27,6 @@ When \code{lband} and \code{uband} are already of zoo class, \bold{the values pr
 }
   \item{date.fmt}{
 OPTIONAL. Character indicating the format of \code{dates}. See \code{format} in \code{\link[base]{as.Date}}.
-}
-  \item{legend}{
-OPTIONAL. logical or character vector of length 3 with the strings that will be used for the legend of the plot. \cr
--) When \code{legend} is a character vector, the first element is used for labelling the observed series, the second for labelling the simulated series and the third one for the predictive uncertainty bounds. Default value is \code{c("obs", "sim", "95PPU")} \cr
--) When \code{legend=FALSE}, the legend is not drawn.
-}
-  \item{leg.cex}{
-OPTIONAL. numeric. Used for the GoF legend. Character expansion factor *relative* to current 'par("cex")'. Used for text, and provides the default for 'pt.cex' and 'title.cex'. Default value is 1.
 }
   \item{bands.col}{
 See \code{\link[graphics]{polygon}}. Color to be used for filling the area between the lower and upper uncertainty bound.
