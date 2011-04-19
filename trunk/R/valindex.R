@@ -9,15 +9,6 @@
 #           have valid elements (NON- NA)
 valindex <- function(obs, sim) {  
 
-   if ( is.zoo(obs) & is.zoo(sim) ) {
-     if ( length(obs) != length(sim) ) {
-       ini <- start(obs)
-       fin <- end(obs)
-       sim <- window( sim, start=as.Date(ini), end=as.Date(fin) )
-       message( "[Warning: 'sim' had a time extent different from the one of 'obs'. Now it was changed !!]" )
-     } # IF end
-   } # IF end
-
    if ( length(obs) != length(sim) ) 
 	  stop("Invalid argument: 'sim' & 'obs' doesn't have the same length !") 
 	  
