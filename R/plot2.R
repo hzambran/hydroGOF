@@ -148,9 +148,9 @@ plot2 <- function (x, y,
       # Plotting the Observed Time Series. 
       # It calls to 'plot', 'plot.zoo' or 'plot.xts', depending on 'x' class
       plot(x, axes=FALSE, type="o", lwd=lwd[1], lty= lty[1], col= col[1], 
-               pch= pch[1], cex = cex[1], cex.axis=cex.axis, cex.lab=cex.lab,
-               main=main, xlab=xlab, ylab= ylab, ylim=ylim, ... )
-      axis(2)
+           pch= pch[1], cex = cex[1], cex.axis=cex.axis, cex.lab=cex.lab,
+           main=main, xlab=xlab, ylab= ylab, ylim=ylim, ... )
+      axis(2, cex.axis=cex.axis, cex.lab=cex.lab)
       lines(y, type="o", lwd=lwd[2], lty= lty[2], col= col[2], pch= pch[2], cex = cex[2])      
                
       # If the user provided a value for 'cal.ini', a vertical line is drawn
@@ -187,12 +187,12 @@ plot2 <- function (x, y,
     } else  #plot.type == "multiple"  
           {       
             # all the work (mainly Time axis) is made automatically be the 'plot.zoo' function 
-            plot.zoo( cbind(x, y), plot.type=plot.type, type=c("o","o"), 
-                       lwd=lwd, lty= lty, col= col, pch= pch, 
-                       cex = cex, 
-                       #cex.axis=cex.axis, 
-                       cex.lab=cex.lab,
-                       main=main, xlab=xlab, ylab= ylab,...)
+            plot.zoo(cbind(x, y), plot.type=plot.type, type=c("o","o"), 
+                     lwd=lwd, lty= lty, col= col, pch= pch, 
+                     cex = cex, 
+                     #cex.axis=cex.axis, 
+                     cex.lab=cex.lab,
+                     main=main, xlab=xlab, ylab= ylab,...)
                          
       } # ELSE end 
       
