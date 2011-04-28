@@ -15,35 +15,56 @@ Weighted Kling-Gupta efficiency (wKGE) between \code{sim} and \code{obs}, with t
 \usage{
 wKGE(sim, obs, ...)
 
-\method{wKGE}{default}(sim, obs, s=c(1,1,1), type="low", j=0.5, pbb=0.8, na.rm=TRUE, ...)
+\method{wKGE}{default}(sim, obs, s=c(1,1,1), j=0.5, w="wl", k=0.5, pbb=0.8, 
+                       lambda=0.5, lQ=quantile(obs, na.rm=TRUE, probs=0.3), 
+                       hQ=quantile(obs, na.rm=TRUE, probs=0.8), na.rm=TRUE, ...)
 
-\method{wKGE}{data.frame}(sim, obs, s=c(1,1,1), type="low", j=0.5, pbb=0.8, na.rm=TRUE, ...)
+\method{wKGE}{data.frame}(sim, obs, s=c(1,1,1), j=0.5, w="wl", k=0.5, pbb=0.8, 
+                       lambda=0.5, lQ=quantile(obs, na.rm=TRUE, probs=0.3), 
+                       hQ=quantile(obs, na.rm=TRUE, probs=0.8), na.rm=TRUE, ...)
 
-\method{wKGE}{matrix}(sim, obs, s=c(1,1,1), type="low", j=0.5, pbb=0.8, na.rm=TRUE, ...)
+\method{wKGE}{matrix}(sim, obs, s=c(1,1,1), j=0.5, w="wl", k=0.5, pbb=0.8, 
+                       lambda=0.5, lQ=quantile(obs, na.rm=TRUE, probs=0.3), 
+                       hQ=quantile(obs, na.rm=TRUE, probs=0.8), na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{sim}{
-numeric, zoo, matrix or data.frame with simulated values
+numeric, zoo, xts, matrix or data.frame with simulated values
 }
   \item{obs}{
-numeric, zoo, matrix or data.frame with observed values
+numeric, zoo, xts, matrix or data.frame with observed values
 }
   \item{s}{
 numeric of length 3, representing the scaling factors to be used for re-scaling the criteria space before computing the Euclidean distance from the ideal point c(1,1,1), i.e., \code{s} elements are used for adjusting the emphasis on different components.
 The first elements is used for rescaling the Pearson product-moment correlation coefficient (\code{r}), the second element is used for rescaling \code{Alpha} and the third element is used for re-scaling \code{Beta}
 }
-  \item{type}{
-character, with the type of values that will receive the highest weights in the computation of \code{wrmse}. Valid values :
-1) \kbd{high}: high values will receive the highest weights, OR \cr
-2) \kbd{low} : low values will receive the highest weights.
-}
   \item{j}{
-numeric, with the exponent to be used in the computation of the modified Nash-Sutcliffe efficiency. The default value is \code{j=1}.
+numeric, representing an arbitrary power (positive number) to be used in the computation of the numerator and denominator of \code{wKGE}.
+}
+  \item{w}{
+character, indicating the weighting function to be used in the computation of \code{wKGE}. Valid values are: \cr
+1) \kbd{wl} : weighting function to be used when focusing on low values (see \code{\link{wl}}), OR \cr
+2) \kbd{wh} : weighting function to be used when focusing on high values (see \code{\link{wh}}), OR \cr
+3) \kbd{whl}: weighting function to be used when focusing on high or low values, depending on the value of \code{whl} (see \code{\link{NSeff}}).
+}
+  \item{k}{
+numeric, representing an arbitrary power (positive number) to be used in the computation of \code{wl} and \code{wh}.
 }
   \item{pbb}{
-numeric, indicating how to compute the maximum value to be used in the computation of the weights to be given to the high and low values. \cr
-When \code{pbb=0} the maximum value of \code{qmax} is used, whereas when pbb is within 0 and 1, the maximum value to be used corresponds to \code{x} value which is larger to a \code{pbb} fraction of the \code{x} values . The default value is \code{pbb=0}.
+numeric with values in [0,1], representing the quantile used to compute the maximum value (\kbd{hQ}) involved in the computation of \code{\link{wh}} and \code{\link{wl}}. See the argument \kbd{probs} in \code{\link[stats]{quantile}}.
+}
+  \item{lambda}{
+numeric, with the weight to be assigned to the high-flows during the computation of \code{wKGE}. Low-flows will have a weight equal to \code{1-lambda}, whereas the weights to be assigned to medium flows are linearly interpolated between \code{lQ} and \code{hQ}. \cr
+The default value is \code{lambda=0.5}.
+}
+  \item{lQ}{
+numeric, low-flow separation threshold. \code{obs} values lower than \code{lQ} are considered low-flows, and then will receive a weight equal to \code{1-lambda} during the computation of \code{wKGE}. \cr
+The default value is \code{lQ=quantile(obs, na.rm=TRUE, probs=0.2)}.
+}
+  \item{hQ}{
+numeric, high-flow separation threshold. \code{obs} values larger than \code{hQ} are considered high-flows, and then will receive a weight equal to \code{lambda} during the computation of \code{wKGE}. \cr
+The default value is \code{hQ=quantile(obs, na.rm=TRUE, probs=0.8)}.
 }
   \item{na.rm}{
 a logical value indicating whether 'NA' should be stripped before the computation proceeds. \cr
