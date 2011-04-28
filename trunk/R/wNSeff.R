@@ -7,49 +7,29 @@
 # Reference: Unpublished (yet)         #
 ########################################
 
-wNSeff <-function(sim, obs, ...) UseMethod("wNSeff")
+wNSE <-function(sim, obs, ...) UseMethod("wNSE")
 
-wNSeff.default <- function(sim, obs, lambda=0.5, 
-                           lQ=quantile(obs, na.rm=TRUE, probs=0.2), 
-                           hQ=quantile(obs, na.rm=TRUE, probs=0.8), 
-                           ...){
-
-   ##############################################
-   # Weigthing function for HIGH & LOW flows II #
-   ##############################################
-   # lambda: wheight that will be given to the high flows #
-   whl <- function(x, lambda=0.5, 
-                   lQ=quantile(x, na.rm=TRUE, probs=0.2), 
-                   hQ=quantile(x, na.rm=TRUE, probs=0.8) ) {
-
-      x <- as.numeric(x)
-
-      n <- length(x)
-
-      if (lambda < 0 | lambda > 1)
-         stop("Invalid argument: 0 <= lambda <= 1")
-
-      index.high <- which(x >= hQ )
-      index.low  <- which(x <= lQ )
-      index.med  <- which(x < hQ & x > lQ)
-
-      w <- rep(NA, n)
-
-      w[index.high] <- lambda
-      w[index.low]  <- 1 - lambda
-      w[index.med]  <- 1 - lambda + (x[index.med]-lQ)*(2*lambda-1)/(hQ-lQ)
-
-       return( w )
-
-   } # 'whl' END
-
-
-   ########################################
-   #               Main body              #
-   ########################################
-   if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo"))) |
-          is.na(match(class(obs), c("integer", "numeric", "ts", "zoo")))
-     ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo')")
+wNSE.default <- function(sim, obs, j=0.5, 
+                         w="wl", k=0.5, pbb=0.8, 
+                         lambda=0.5, 
+                         lQ=quantile(obs, na.rm=TRUE, probs=0.3), 
+                         hQ=quantile(obs, na.rm=TRUE, probs=0.8), na.rm=TRUE, ...){
+   
+   if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
+        is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
+     ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo', 'xts')")
+     
+   if ( is.na(match(w, c("wl", "wh", "whl"))) )
+      stop("Invalid argument: 'w' have to be in: c('wl', 'wh', 'whl')")
+      
+   # Checking 'j'
+   if (j < 0)
+      stop("Invalid argument: 'j' must be positive !")
+   
+   # Checking 'k'
+   if (k < 0)
+      stop("Invalid argument: 'k' must be positive !")    
+   
 
    vi <- valindex(sim, obs)
 
@@ -57,49 +37,57 @@ wNSeff.default <- function(sim, obs, lambda=0.5,
    sim <- sim[vi]
 
    n <- length(obs)
-
-   w <- whl(x=obs, lambda=lambda, lQ=lQ, hQ=hQ)
    
-   denominator <- sum( ( w* (obs - mean(obs)) )^2 )
+   if (w=="wl") {
+     w <- wl.default(x=obs, k=k, pbb=pbb, ...)
+   } else if (w=="wh") {
+       w <- wh.default(x=obs, k=k, pbb=pbb, ...)
+     } else if (w=="whl") {
+       w <- whl.default(x=obs, lambda=lambda, lQ=lQ, hQ=hQ, ... )
+       } # ELSE end
+   
+   denominator <- sum( ( abs(w*(obs - median(obs))) )^j )
      
    if (denominator != 0) {
       
-     wNSeff <- 1 - ( sum( ( w * (obs - sim) )^2 ) / denominator )
+     wNSE <- 1 - ( sum( (abs( w * (obs - sim) ) )^j ) / denominator )
      
-   } else stop("'sum((w*(obs - mean(obs)))^2)=0' => it is not possible to compute 'wNSeff'")  
+   } else stop("'sum((abs(w*(obs - median(obs))))^j)=0' => it is not possible to compute 'wNSE'")  
 
-   return(wNSeff)
+   return(wNSE)
 
-} # 'wNSeff.default' end
+} # 'wNSE.default' end
 
 
-wNSeff.matrix <- function(sim, obs, lambda=0.5, 
-                          lQ=quantile(obs, na.rm=TRUE, probs=0.2), 
-                          hQ=quantile(obs, na.rm=TRUE, probs=0.8), 
-                          ...){
+wNSE.matrix <- function(sim, obs, j=0.5, 
+                        w="wl", k=0.5, pbb=0.8, 
+                        lambda=0.5, 
+                        lQ=quantile(obs, na.rm=TRUE, probs=0.3), 
+                        hQ=quantile(obs, na.rm=TRUE, probs=0.8), na.rm=TRUE, ...){
 
-  wNSeff <- rep(NA, ncol(obs))
+  wNSE <- rep(NA, ncol(obs))
 
-  wNSeff <- sapply(1:ncol(obs), function(i,x,y) {
-                 wNSeff[i] <- wNSeff.default( x[,i], y[,i], lambda=lambda, 
-                                              lQ=lQ, hQ=hQ, ... )
+  wNSE <- sapply(1:ncol(obs), function(i,x,y) {
+                 wNSE[i] <- wNSE.default( x[,i], y[,i], j=j, w=w, k=k, pbb=pbb,
+                                          lambda=lambda, lQ=lQ, hQ=hQ, na.rm=na.rm, ... )
                }, x=sim, y=obs )
 
-  names(wNSeff) <- colnames(obs)
+  names(wNSE) <- colnames(obs)
 
-  return(wNSeff)
+  return(wNSE)
 
-} # 'wNSeff.matrix' end
+} # 'wNSE.matrix' end
 
 
-wNSeff.data.frame <- function(sim, obs, lambda=0.5, 
-                              lQ=quantile(obs, na.rm=TRUE, probs=0.2), 
-                              hQ=quantile(obs, na.rm=TRUE, probs=0.8), 
-                              ...){
+wNSE.data.frame <- function(sim, obs, j=0.5, 
+                            w="wl", k=0.5, pbb=0.8, 
+                            lambda=0.5, 
+                            lQ=quantile(obs, na.rm=TRUE, probs=0.3), 
+                            hQ=quantile(obs, na.rm=TRUE, probs=0.8), na.rm=TRUE, ...){
 
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
 
-  wNSeff.matrix(sim, obs, lambda=lambda, lQ=lQ, hQ=hQ, ...)
+  wNSE.matrix(sim, obs, j=j, w=w, k=k, pbb=pbb, lambda=lambda, lQ=lQ, hQ=hQ, na.rm=na.rm,...)
 
-} # 'wNSeff.data.frame' end
+} # 'wNSE.data.frame' end

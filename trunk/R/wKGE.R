@@ -20,133 +20,103 @@
 
 wKGE <- function(sim, obs, ...) UseMethod("wKGE")
 
-wKGE.default <- function(sim, obs, s=c(1,1,1), type="low", j=0.5, pbb=0.8, na.rm=TRUE, ...) { 
+wKGE.default <- function(sim, obs, s=c(1,1,1), j=0.5, 
+                         w="wl", k=0.5, pbb=0.8, 
+                         lambda=0.5, 
+                         lQ=quantile(obs, na.rm=TRUE, probs=0.3), 
+                         hQ=quantile(obs, na.rm=TRUE, probs=0.8), na.rm=TRUE, ...) { 
 
-   ########################################
-   # Weigthing function for HIGH flows    #
-   ########################################  
-   wh <- function(x, j=2, pbb=1) { 
-
-       x    <- as.numeric(x)
-       xmin <- min(x, na.rm=TRUE)
-  
-       if (pbb < 0 | pbb > 1)
-         stop("Invalid argument: 0 <= pbb <= 1")
-  
-       xmax <- quantile(x, probs=pbb, na.rm=TRUE) 
-         
-       w <- ( (x-xmin) / xmax )^j
-      
-       # w=1 for all 'x' larger  or equal to 'xmax'
-       index <- which(x >= xmax)
-      
-       w[index] <- 1 
-       
-       return( w )
+   if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
+        is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
+     ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo', 'xts')")
      
-   } # 'wh' END
-   
-   ########################################
-   # Weigthing function for LOW flows     #
-   ########################################
-   wl <- function(x, j=0.5, pbb=1) { 
-  
-       x <- as.numeric(x)
-  
-       if (pbb < 0 | pbb > 1)
-         stop("Invalid argument: 0 <= pbb <= 1")
-  
-       xmax <- quantile(x, probs=pbb, na.rm=TRUE) 
-       xmin <- min(x, na.rm=TRUE) 
-         
-       w <- ( ( xmax - (x-xmin) ) / xmax )^j
-       
-       # w=1 for all 'x' smaller  or equal to 'xmin'
-       index <- which(x >= xmax)
+   if ( is.na(match(w, c("wl", "wh", "whl"))) )
+      stop("Invalid argument: 'w' have to be in: c('wl', 'wh', 'whl')")
       
-       w[index] <- 0
-       
-       return( w )
-       
-   } # 'wl' END
-
-
-   ########################################
-   #               Main body              #
-   ########################################
-
-     # If the user provided a value for 's'
-     if (!all.equal(s, c(1,1,1)) )  {
-       if ( length(s) != 3 ) stop("Invalid argument: lenght(s) must be equal to 3 !")
-       if ( sum(s) != 1 )    stop("Invalid argument: sum(s) must be equal to 1.0 !")
-     } # IF end
-
-     if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo"))) |
-          is.na(match(class(obs), c("integer", "numeric", "ts", "zoo")))
-     ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo')")      
+   # Checking 'j'
+   if (j < 0)
+      stop("Invalid argument: 'j' must be positive !")
    
-     vi <- valindex(sim, obs)
-	 
-     obs <- obs[vi]
-     sim <- sim[vi]
+   # Checking 'k'
+   if (k < 0)
+      stop("Invalid argument: 'k' must be positive !")    
+   
 
-     # Computing the weights
-     if ( type=="high" ) {  
-       w <- wh(x=obs, j=j, pbb=pbb)     
-     } else if ( type=="low" ) {         
-         w <- wl(x=obs, j=j, pbb=pbb)    
+   vi <- valindex(sim, obs)
+
+   obs <- obs[vi]
+   sim <- sim[vi]
+
+   n <- length(obs)
+   
+   if (w=="wl") {
+     w <- wl.default(x=obs, k=k, pbb=pbb, ...)
+   } else if (w=="wh") {
+       w <- wh.default(x=obs, k=k, pbb=pbb, ...)
+     } else if (w=="whl") {
+       w <- whl.default(x=obs, lambda=lambda, lQ=lQ, hQ=hQ, ... )
        } # ELSE end
 
-     # Mean values
-     mean.sim <- mean(sim, na.rm=na.rm)
-     mean.obs <- mean(obs, na.rm=na.rm)
+   # Mean values
+   mean.sim <- mean(w*sim, na.rm=na.rm)
+   mean.obs <- mean(w*obs, na.rm=na.rm)
 
-     # Standard deviations
-     sigma.sim <- sd(sim, na.rm=na.rm)
-     sigma.obs <- sd(obs, na.rm=na.rm)
+   # Standard deviations
+   sigma.sim <- sd(w*sim, na.rm=na.rm)
+   sigma.obs <- sd(w*obs, na.rm=na.rm)
  
-     # Pearson product-moment correlation coefficient
-     r     <- .rPearson(w*sim, w*obs)
+   # Pearson product-moment correlation coefficient
+   r     <- .rPearson(w*sim, w*obs)
 
-     # Alpha is a measure of relative variability in the simulated and observed values
-     Alpha <- sigma.sim / sigma.obs
+   # Alpha is a measure of relative variability in the simulated and observed values
+   Alpha <- sigma.sim / sigma.obs
 
-     # Beta is the ratio between the mean of the simulated values and the mean ob the observed ones
-     Beta <- mean.sim / mean.obs
+   # Beta is the ratio between the mean of the simulated values and the mean ob the observed ones
+   Beta <- mean.sim / mean.obs
 
-     # Computation of wKGE
-     if ( (mean.obs != 0) & (sigma.obs != 0) ) {
-         wKGE <- 1 - sqrt( (s[1]*(r-1))^2 + (s[2]*(Alpha-1))^2 + (s[3]*(Beta-1))^2 )
-     } else {
-         if ( mean.obs != 0)  message("Warning: 'mean(obs)==0'. Beta = -Inf")
-         if ( sigma.obs != 0) message("Warning: 'sd(obs)==0'. Beta = -Inf")
-         wKGE <- -Inf
-       } # ELSE end     
+   # Computation of wKGE
+   if ( (mean.obs != 0) & (sigma.obs != 0) ) {
+       wKGE <- 1 - sqrt( (s[1]*(r-1))^2 + (s[2]*(Alpha-1))^2 + (s[3]*(Beta-1))^2 )
+   } else {
+       if ( mean.obs != 0)  message("Warning: 'mean(obs)==0'. Beta = -Inf")
+       if ( sigma.obs != 0) message("Warning: 'sd(obs)==0'. Beta = -Inf")
+       wKGE <- -Inf
+     } # ELSE end     
  
-     return(wKGE)
+   return(wKGE)
      
 } # 'wKGE.default' end
 
 
-wKGE.matrix <- function (sim, obs, s=c(1,1,1), type="low", j=0.5, pbb=0.8, na.rm=TRUE, ...){ 
+wKGE.matrix <- function (sim, obs, s=c(1,1,1), j=0.5, 
+                         w="wl", k=0.5, pbb=0.8, 
+                         lambda=0.5, 
+                         lQ=quantile(obs, na.rm=TRUE, probs=0.3), 
+                         hQ=quantile(obs, na.rm=TRUE, probs=0.8), na.rm=TRUE, ...){ 
 
-  wKGE <- rep(NA, ncol(obs))       
-          
-  wKGE <- sapply(1:ncol(obs), function(i,x,y) { 
-                 wKGE[i] <- wKGE.default( x[,i], y[,i], s=s, type=type, j=j, pbb=pbb, na.rm=na.rm, ... )
-               }, x=sim, y=obs )    
-                     
+  wKGE <- rep(NA, ncol(obs))
+
+  wKGE <- sapply(1:ncol(obs), function(i,x,y) {
+                 wKGE[i] <- wKGE.default( x[,i], y[,i], s=s, j=j, w=w, k=k, pbb=pbb,
+                                          lambda=lambda, lQ=lQ, hQ=hQ, ... )
+               }, x=sim, y=obs )
+
   names(wKGE) <- colnames(obs)
+
   return(wKGE)
      
 } # 'wKGE.matrix' end
 
 
-wKGE.data.frame <- function (sim, obs, s=c(1,1,1), type="low", j=0.5, pbb=0.8, na.rm=TRUE, ...){ 
+wKGE.data.frame <- function (sim, obs, s=c(1,1,1), j=0.5, 
+                         w="wl", k=0.5, pbb=0.8, 
+                         lambda=0.5, 
+                         lQ=quantile(obs, na.rm=TRUE, probs=0.3), 
+                         hQ=quantile(obs, na.rm=TRUE, probs=0.8), na.rm=TRUE, ...){ 
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
    
-  wKGE.matrix(sim, obs, s=s, type=type, j=j, pbb=pbb, na.rm=na.rm, ...)
+  wKGE.matrix(sim, obs, s=s, j=j, w=w, k=k, pbb=pbb, lambda=lambda, lQ=lQ, hQ=hQ, ... )
      
 } # 'wKGE.data.frame' end
