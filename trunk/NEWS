@@ -30,6 +30,7 @@ NEWS/ChangeLog for hydroGOF
 	o 'plotbandsonly': -) it works with xts objects as well
 			   -) 'legend' argument was removed (it was not used)
 			   -) 'leg.cex' argument was removed (it was not used)
+	o 'NSeff': its name was changed to 'NSE'. The old name 'NSeff' is deprecated but is still working for backwards compatibility.
 
 0.2-2	14-Apr-2011
 	o new function: 'KGE', Kling-Gupta efficiency
