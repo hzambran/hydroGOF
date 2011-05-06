@@ -55,6 +55,12 @@ br2.default <- function (sim, obs, na.rm=TRUE, ...){
 
 br2.matrix <- function (sim, obs, na.rm=TRUE, ...){
 
+    # Checking that 'sim' and 'obs' have the same dimensions
+    if ( all.equal(dim(sim), dim(obs)) != TRUE )
+      stop( paste("Invalid argument: dim(sim) != dim(obs) ( [", 
+            paste(dim(sim), collapse=" "), "] != [", 
+            paste(dim(obs), collapse=" "), "] )", sep="") )
+
     br2 <- rep(NA, ncol(obs))       
           
     br2 <- sapply(1:ncol(obs), function(i,x,y) { 

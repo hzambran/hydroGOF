@@ -70,6 +70,12 @@ KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, ...) {
 
 KGE.matrix <- function (sim, obs, s=c(1,1,1), na.rm=TRUE, ...){ 
 
+  # Checking that 'sim' and 'obs' have the same dimensions
+  if ( all.equal(dim(sim), dim(obs)) != TRUE )
+     stop( paste("Invalid argument: dim(sim) != dim(obs) ( [", 
+           paste(dim(sim), collapse=" "), "] != [", 
+           paste(dim(obs), collapse=" "), "] )", sep="") )
+
   KGE <- rep(NA, ncol(obs))       
           
   KGE <- sapply(1:ncol(obs), function(i,x,y) { 

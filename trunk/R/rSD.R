@@ -26,7 +26,13 @@ rSD.default <- function (sim, obs, na.rm=TRUE, ...){
   } # 'rSD.default' end
   
   
-rSD.matrix <- function (sim, obs, na.rm=TRUE, ...){ 
+rSD.matrix <- function (sim, obs, na.rm=TRUE, ...){
+
+  # Checking that 'sim' and 'obs' have the same dimensions
+  if ( all.equal(dim(sim), dim(obs)) != TRUE )
+    stop( paste("Invalid argument: dim(sim) != dim(obs) ( [", 
+          paste(dim(sim), collapse=" "), "] != [", 
+          paste(dim(obs), collapse=" "), "] )", sep="") ) 
  
   rSD <- rep(NA, ncol(obs))       
           

@@ -21,7 +21,7 @@ rNSeff <-function(sim, obs, ...) UseMethod("rNSeff")
 
 rNSeff.default <- function (sim, obs, na.rm=TRUE, ...){ 
 
-	 if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo"))) |
+   if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo"))) |
           is.na(match(class(obs), c("integer", "numeric", "ts", "zoo")))
      ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo')")      
    
@@ -44,6 +44,12 @@ rNSeff.default <- function (sim, obs, na.rm=TRUE, ...){
 
 
 rNSeff.matrix <- function (sim, obs, na.rm=TRUE, ...){ 
+
+  # Checking that 'sim' and 'obs' have the same dimensions
+  if ( all.equal(dim(sim), dim(obs)) != TRUE )
+    stop( paste("Invalid argument: dim(sim) != dim(obs) ( [", 
+          paste(dim(sim), collapse=" "), "] != [", 
+          paste(dim(obs), collapse=" "), "] )", sep="") )
 
   rNSeff <- rep(NA, ncol(obs))       
           

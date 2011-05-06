@@ -102,6 +102,12 @@ wrmse.default <- function(sim, obs, type="high", j=2, pbb=0, na.rm=TRUE, ...){
 
 
 wrmse.matrix <- function(sim, obs, type="high", j=2, pbb=0, na.rm=TRUE, ...){ 
+
+  # Checking that 'sim' and 'obs' have the same dimensions
+  if ( all.equal(dim(sim), dim(obs)) != TRUE )
+    stop( paste("Invalid argument: dim(sim) != dim(obs) ( [", 
+          paste(dim(sim), collapse=" "), "] != [", 
+          paste(dim(obs), collapse=" "), "] )", sep="") )
  
   wrmse <- rep(NA, ncol(obs))       
           
