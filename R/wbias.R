@@ -71,6 +71,12 @@ wbias.matrix <- function(sim, obs, lambda=0.5,
                          lQ=quantile(obs, na.rm=TRUE, probs=0.05), 
                          hQ=quantile(obs, na.rm=TRUE, probs=0.95), 
                          ...){
+                         
+  # Checking that 'sim' and 'obs' have the same dimensions
+  if ( all.equal(dim(sim), dim(obs)) != TRUE )
+    stop( paste("Invalid argument: dim(sim) != dim(obs) ( [", 
+          paste(dim(sim), collapse=" "), "] != [", 
+          paste(dim(obs), collapse=" "), "] )", sep="") )
 
   wbias <- rep(NA, ncol(obs))
 

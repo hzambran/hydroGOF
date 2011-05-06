@@ -71,6 +71,12 @@ pbiasfdc.default <- function (sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE, plot
   
 pbiasfdc.matrix <- function (sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE, plot=TRUE, verbose=FALSE, ...){
 
+    # Checking that 'sim' and 'obs' have the same dimensions
+    if ( all.equal(dim(sim), dim(obs)) != TRUE )
+    stop( paste("Invalid argument: dim(sim) != dim(obs) ( [", 
+          paste(dim(sim), collapse=" "), "] != [", 
+          paste(dim(obs), collapse=" "), "] )", sep="") )
+
     pbiasfdc <- rep(NA, ncol(obs))       
           
     pbiasfdc <- sapply(1:ncol(obs), function(i,x,y) { 

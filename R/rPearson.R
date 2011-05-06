@@ -48,8 +48,8 @@
 .rPearson.data.frame <- function (sim, obs, na.rm=TRUE, ...){
 
     sim <- as.matrix(sim)
-	obs <- as.matrix(obs)
+    obs <- as.matrix(obs)
 	
-	.rPearson.matrix(sim, obs, na.rm=na.rm, ...)        
+    .rPearson.matrix(sim, obs, na.rm=na.rm, ...)        
      
   } # '.rPearson.data.frame' END

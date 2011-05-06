@@ -60,6 +60,12 @@ pfactor.default <- function(x, lband, uband, na.rm=TRUE, ...)  {
 
 pfactor.matrix <- function (x, lband, uband, na.rm=TRUE, ...){
 
+    # Checking that 'sim' and 'obs' have the same dimensions
+    if ( all.equal(dim(sim), dim(obs)) != TRUE )
+    stop( paste("Invalid argument: dim(sim) != dim(obs) ( [", 
+          paste(dim(sim), collapse=" "), "] != [", 
+          paste(dim(obs), collapse=" "), "] )", sep="") )
+
     pfactor <- rep(NA, ncol(x))       
           
     pfactor <- sapply(1:ncol(x), function(i,x,l,u) { 

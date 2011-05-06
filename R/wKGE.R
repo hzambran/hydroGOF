@@ -93,6 +93,12 @@ wKGE.matrix <- function (sim, obs, s=c(1,1,1), j=0.5,
                          lambda=0.5, 
                          lQ=quantile(obs, na.rm=TRUE, probs=0.3), 
                          hQ=quantile(obs, na.rm=TRUE, probs=0.8), na.rm=TRUE, ...){ 
+                         
+  # Checking that 'sim' and 'obs' have the same dimensions
+  if ( all.equal(dim(sim), dim(obs)) != TRUE )
+    stop( paste("Invalid argument: dim(sim) != dim(obs) ( [", 
+          paste(dim(sim), collapse=" "), "] != [", 
+          paste(dim(obs), collapse=" "), "] )", sep="") )
 
   wKGE <- rep(NA, ncol(obs))
 

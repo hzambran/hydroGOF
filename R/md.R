@@ -57,6 +57,12 @@ md.default <- function (sim, obs, j=1, na.rm=TRUE, ...){
 
 md.matrix <- function (sim, obs, j=1, na.rm=TRUE, ...){ 
 
+ # Checking that 'sim' and 'obs' have the same dimensions
+ if ( all.equal(dim(sim), dim(obs)) != TRUE )
+    stop( paste("Invalid argument: dim(sim) != dim(obs) ( [", 
+          paste(dim(sim), collapse=" "), "] != [", 
+          paste(dim(obs), collapse=" "), "] )", sep="") )
+
  d1 <- rep(NA, ncol(obs))       
           
  d1 <- sapply(1:ncol(obs), function(i,x,y) { 
