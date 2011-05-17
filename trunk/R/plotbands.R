@@ -1,9 +1,10 @@
 ########################################################################
 # plotbands: Plot a ts with simulated values and two confidence bands  #
 ########################################################################
-# Author : Mauricio Zambrano-Bigiarini
+# Author : Mauricio Zambrano-Bigiarini                                 #
 # Started: 13-Oct-2009                                                 #
-# Updates: 30-Jun-2010; 28-Oct-2010; 28-Nov-2010 ; 15-Apr-2011         #
+# Updates: 30-Jun-2010; 28-Oct-2010; 28-Nov-2010 ;                     # 
+#          15-Apr-2011 ; 17-May-2011                                   #
 ########################################################################      
 plotbands <- function(x, lband, uband, sim,
                       
@@ -186,12 +187,14 @@ plotbands <- function(x, lband, uband, sim,
       if ( !is.xts(x) ) x <- as.xts(x)   
       # Creating the plot, but without anything on it, for allowign the call to polygon
       plot.xts(x, type="n", axes=FALSE, main=main, xlab=xlab, ylab=ylab, ylim=ylim, 
-         cex.axis=cex.axis, cex.lab=cex.lab, ...)   
+         cex.axis=cex.axis, cex.lab=cex.lab, ...) 
+      axis(2, cex.axis=cex.axis, cex.lab=cex.lab)  
     } else plot(x, type="n", xaxt = "n", main=main, xlab=xlab, ylab=ylab, ylim=ylim, 
                 cex.axis=cex.axis, cex.lab=cex.lab, ...)
 
     if ( is.zoo(lband) & !is.xts(lband) )  lband <- as.xts(lband)
     if ( is.zoo(uband) & !is.xts(uband) )  uband <- as.xts(uband)
+    
     # Plotting the uncertainty bounds (polygon)
     plotbandsonly(lband=lband, uband=uband, dates=dates, date.fmt=date.fmt, 
                   bands.col=bands.col, border= border, ...)
