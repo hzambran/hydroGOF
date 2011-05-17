@@ -159,7 +159,7 @@ plotbands <- function(x, lband, uband, sim,
       if ( !is.zoo(uband) )  uband <- vector2zoo(x=uband, dates=dates, date.fmt=date.fmt) 
       if ( !missing(sim) ) {
         if ( !is.zoo(sim) )  {
-           sim   <- vector2zoo(x=sim, dates=dates, date.fmt=date.fmt) 
+           sim <- vector2zoo(x=sim, dates=dates, date.fmt=date.fmt) 
 	   message("[Note: 'sim'  was transformed into a zoo object, with 'time(sim)' equal to 'time(obs)']") 
 	} # IF end
       }  # IF end 
@@ -213,6 +213,7 @@ plotbands <- function(x, lband, uband, sim,
       
     # Plotting the SIMULATED time series, over the polygons
     if ( !missing(sim) ) {
+        if ( (is.zoo(x)) & (!is.xts(sim)) ) sim <- as.xts(sim)
         # Plotting the SIMULATED time series, over the polygons
         if (type[2] == "lines") {
           lines(sim, cex= cex[2], col=col[2], lty=lty[2], lwd=lwd[2], pch=pch[2], ... )
