@@ -38,7 +38,7 @@ further arguments passed to or from other methods.
 }
 }
 \details{
-\deqn{rd = 1 - \frac{ \sum_{i=1}^N { \frac{(O_i - S_i)}{O_i}^2} } { \sum_{i=1}^N { \frac{ \left| S_i -  \bar{O} \right| + \left| O_i -  \bar{O}  \right|}{\bar{O}} ^2 } } }{%
+\deqn{rd = 1 - \frac{ \sum_{i=1}^N { \frac{(O_i - S_i)}{O_i}^2} } { \sum_{i=1}^N { \frac{ \left| S_i -  \bar{O} \right| + \left| O_i -  \bar{O}  \right|}{\bar{O}} }^2 } }{%
 rd = 1 - [ sum( ( (obs - sim) / obs )^2  ] /  sum( ( (abs(sim - mean(obs) ) + abs(obs - mean(obs) ) ) / mean(obs)  )^2 ) } 
 
 %% This index was developed to  be sensitive to systematic over- or under-prediction, in particular during low flow conditions. \cr

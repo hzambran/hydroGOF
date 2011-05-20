@@ -32,11 +32,12 @@ NEWS/ChangeLog for hydroGOF
 			   -) 'leg.cex' argument was removed (it was not used)
 	o 'NSeff': its name was changed to 'NSE'. The old name 'NSeff' is deprecated but is still working for backwards compatibility.
 	o New dimension checking (number of columns and rows) for all the functions that are apllied over a matrix or data.frame
+	o fixed error in the documentation of 'rd' (thanks to Tom Purucker !)
 	
 
 0.2-2	14-Apr-2011
 	o new function: 'KGE', Kling-Gupta efficiency
-	o 'ggof': argument 'lab.fmt' is used now, and 'KGE' is showed in the GoF legend
+	o 'ggof': argument 'lab.fmt' is used now, and 'KGE' is shown in the GoF legend
 	o 'plot2': KGE is showed in the GoF legend
 	o SVN started to be used for package development in Rforge (thanks to Simon Urbanek for his great support)        
 	o Updated dependence on R >= 2.10.0
