@@ -1,7 +1,7 @@
 \name{NSE}
 \Rdversion{1.1}
-\alias{NSE}
 \alias{NSeff}
+\alias{NSE}
 \alias{NSE.default}
 \alias{NSE.matrix}
 \alias{NSE.data.frame}

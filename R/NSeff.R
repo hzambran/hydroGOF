@@ -18,9 +18,9 @@ NSE <-function(sim, obs, ...) UseMethod("NSE")
 
 NSE.default <- function (sim, obs, na.rm=TRUE, ...){ 
 
-   if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo"))) |
-          is.na(match(class(obs), c("integer", "numeric", "ts", "zoo")))
-     ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo')")      
+   if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
+          is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
+     ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo', 'xts')")      
 
    vi <- valindex(sim, obs)
      

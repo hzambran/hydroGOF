@@ -1,7 +1,8 @@
 ########################################
 # 'rd': Relative Index of Agreement    #
 ########################################
-# April 15th, 2010                     #
+# Started: April 15th, 2010            #
+# Updates: 01-Jun-2011                 #
 ########################################
 # Ref
 # 1) Krause, P., Boyle, D. P., and Bäse, F.: 
@@ -40,6 +41,12 @@ rd.default <- function (sim, obs, na.rm=TRUE, ...){
      obs <- obs[vi]
      sim <- sim[vi]
      
+     # Testing for zero values in obs, which leads to -Inf as result
+     zero.index <- which(obs==0)
+     if (length(zero.index > 0) ) {
+       warning("'rd' can not be computed: some elements in 'obs' are zero !", call.=FALSE)
+     } # IF end
+     
      # the next two lines are required for avoiding an strange behaviour 
      # of the difference function when sim and obs are time series.
      if ( !is.na(match(class(sim), c("ts", "zoo"))) ) sim <- as.numeric(sim)
@@ -47,7 +54,7 @@ rd.default <- function (sim, obs, na.rm=TRUE, ...){
      
      # Mean of the observed values
      Om <- mean(obs)
-      
+     
      denominator <- sum( ( ( abs(sim - Om) + abs(obs - Om) ) / Om )^2 )
      
      if (denominator != 0) {
