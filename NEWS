@@ -33,11 +33,11 @@ NEWS/ChangeLog for hydroGOF
 	o 'NSeff' : its name was changed to 'NSE'. The old name 'NSeff' is deprecated but is still working for backwards compatibility.
 	o 'rNSeff': its name was changed to 'rNSE'. The old name 'rNSeff' is deprecated but is still working for backwards compatibility.
 	o 'mNSeff': its name was changed to 'mNSE'. The old name 'mNSeff' is deprecated but is still working for backwards compatibility.
-	o 'rd'    : A warning message is created when -at tleast one of- the observed values is/are zero,
+	o 'rd'    : A warning message is created when -at least one of- the observed values is/are zero,
 	            which makes impossible to compute this index (thanks to Tom Purucker !)
-	o 'rNSE'  : A warning message is created when -at tleast one of- the observed values is/are zero,
+	o 'rNSE'  : A warning message is created when -at least one of- the observed values is/are zero,
 	            which makes impossible to compute this index
-	o New dimension checking (number of columns and rows) for all the functions that are apllied over a matrix or data.frame
+	o New dimension checking (number of columns and rows) for all the functions that are applied over a matrix or data.frame
 	o fixed error in the documentation of 'rd' (thanks to Tom Purucker !)
 	
 
