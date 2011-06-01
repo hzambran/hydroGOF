@@ -21,10 +21,12 @@
 #               that is predictable from the other variable
 # 'rSD'       : Ratio of Standard Deviations, rSD = SD(sim) / SD(obs)
 # 'RSR'       : Ratio of the RMSE to the standard deviation of the observations
-# 'NSeff'     : Nash-Sutcliffe Efficiency ( -Inf <= NSeff <= 1 )
-# 'mNSeff'    : Modified Nash-Sutcliffe Efficiency
+# 'NSE'       : Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 )
+# 'mNSE'      : Modified Nash-Sutcliffe Efficiency
+# 'rNSE'      : Relative Nash-Sutcliffe Efficiency
 # 'd'         : Index of Agreement( 0 <= d <= 1 )
 # 'md'        : Modified Index of Agreement( 0 <= md <= 1 )
+# 'rd'        : Relative Index of Agreement( 0 <= md <= 1 )
 # 'PI'        : Persistence Index ( 0 <= PI <= 1 ) 
 # 'PBIAS'     : Percent Bias ( -1 <= PBIAS <= 1 )
 # 'bR2'       : weighted coefficient of determination
@@ -42,9 +44,9 @@ gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE
      RSR    <- rsr(sim, obs, na.rm=na.rm, ...)
      rSD    <- rSD(sim, obs, na.rm=na.rm)     
      PBIAS  <- pbias(sim, obs, na.rm=na.rm, ...)
-     NSeff  <- NSeff(sim, obs, na.rm=na.rm, ...)
-     mNSeff <- mNSeff(sim, obs, na.rm=na.rm, ...)
-     rNSeff <- rNSeff(sim, obs, na.rm=na.rm, ...)
+     NSE    <- NSE(sim, obs, na.rm=na.rm, ...)
+     mNSE   <- mNSE(sim, obs, na.rm=na.rm, ...)
+     rNSE   <- rNSE(sim, obs, na.rm=na.rm, ...)
      d      <- d(sim, obs, na.rm=na.rm, ...)
      md     <- md(sim, obs, na.rm=na.rm, ...)
      rd     <- rd(sim, obs, na.rm=na.rm, ...)
@@ -77,7 +79,7 @@ gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE
      
      if (do.pbfdc) { pbfdc  <- pbiasfdc(sim, obs, na.rm=na.rm, plot=FALSE, ...) }
      
-     gof <- rbind(ME, MAE, MSE, RMSE, NRMSE, PBIAS, RSR, rSD, NSeff, mNSeff, rNSeff, d, md, rd, cp, r, R2, bR2, KGE)     
+     gof <- rbind(ME, MAE, MSE, RMSE, NRMSE, PBIAS, RSR, rSD, NSE, mNSE, rNSE, d, md, rd, cp, r, R2, bR2, KGE)     
      
      rownames(gof)[5] <- "NRMSE %"
      rownames(gof)[6] <- "PBIAS %"    

@@ -1,10 +1,12 @@
 ##################################################
-# 'rNSeff': Relative Nash-sutcliffe Efficiency   #
+# 'rNSE': Relative Nash-sutcliffe Efficiency   #
 ##################################################
-#    April 2010                                  #
+# Started: April 2010                            #
+# Updates: 01-Jun-2011                           #
 ##################################################
 # Ref:
-# Krause, P., Boyle, D. P., and Bäse, F.: Comparison of different efficiency criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005 
+# Krause, P., Boyle, D. P., and Bäse, F.: Comparison of different efficiency 
+#                           criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005 
 # Legates and McCabe, 1999. Evaluating the use of "goodness-of-fit" measures 
 #                           in hydrologic and hydroclimatic model validation. 
 #                           Water Resources Research. v35 i1. 233-241.
@@ -17,33 +19,39 @@
 
 # 'Result': Modified Nash-sutcliffe Efficiency between 'sim' and 'obs'
 
-rNSeff <-function(sim, obs, ...) UseMethod("rNSeff")
+rNSE <-function(sim, obs, ...) UseMethod("rNSE")
 
-rNSeff.default <- function (sim, obs, na.rm=TRUE, ...){ 
+rNSE.default <- function (sim, obs, na.rm=TRUE, ...){ 
 
-   if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo"))) |
-          is.na(match(class(obs), c("integer", "numeric", "ts", "zoo")))
-     ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo')")      
+   if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
+          is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
+     ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo', 'xts')")      
    
-     vi <- valindex(sim, obs)
+   vi <- valindex(sim, obs)
 	 
-	 obs <- obs[vi]
-	 sim <- sim[vi]
+   obs <- obs[vi]
+   sim <- sim[vi]
 	 
-	 denominator <- sum( ( ( obs - mean(obs) ) / mean(obs) )^2 )
+   # Testing for zero values in obs, which leads to -Inf as result
+   zero.index <- which(obs==0)
+   if (length(zero.index > 0) ) {
+       warning("'rNSE' can not be computed: some elements in 'obs' are zero !", call.=FALSE)
+   } # IF end
 	 
-	 if (denominator != 0) {
+   denominator <- sum( ( ( obs - mean(obs) ) / mean(obs) )^2 )
+	 
+   if (denominator != 0) {
 	  
-	 rNSeff <- 1 - ( sum( ( (obs - sim) / obs )^2 ) / denominator )
+   rNSE <- 1 - ( sum( ( (obs - sim) / obs )^2 ) / denominator )
 	 
-	 } else stop("'sum( ( ( obs - mean(obs) ) / mean(obs) )^2 ) = 0', it is not possible to compute 'rNSeff'")  
+   } else stop("'sum( ( ( obs - mean(obs) ) / mean(obs) )^2 ) = 0', it is not possible to compute 'rNSE'")  
 	 
-	 return(rNSeff)
+   return(rNSE)
      
-} # 'rNSeff.default' end
+} # 'rNSE.default' end
 
 
-rNSeff.matrix <- function (sim, obs, na.rm=TRUE, ...){ 
+rNSE.matrix <- function (sim, obs, na.rm=TRUE, ...){ 
 
   # Checking that 'sim' and 'obs' have the same dimensions
   if ( all.equal(dim(sim), dim(obs)) != TRUE )
@@ -51,23 +59,26 @@ rNSeff.matrix <- function (sim, obs, na.rm=TRUE, ...){
           paste(dim(sim), collapse=" "), "] != [", 
           paste(dim(obs), collapse=" "), "] )", sep="") )
 
-  rNSeff <- rep(NA, ncol(obs))       
+  rNSE <- rep(NA, ncol(obs))       
           
-  rNSeff <- sapply(1:ncol(obs), function(i,x,y) { 
-                 rNSeff[i] <- rNSeff.default( x[,i], y[,i], na.rm=na.rm, ... )
+  rNSE <- sapply(1:ncol(obs), function(i,x,y) { 
+                 rNSE[i] <- rNSE.default( x[,i], y[,i], na.rm=na.rm, ... )
                }, x=sim, y=obs )    
                      
-  names(rNSeff) <- colnames(obs)
-  return(rNSeff)
+  names(rNSE) <- colnames(obs)
+  return(rNSE)
      
-} # 'rNSeff.matrix' end
+} # 'rNSE.matrix' end
 
 
-rNSeff.data.frame <- function (sim, obs, na.rm=TRUE, ...){ 
+rNSE.data.frame <- function (sim, obs, na.rm=TRUE, ...){ 
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
    
-  rNSeff.matrix(sim, obs, na.rm=na.rm, ...)
+  rNSE.matrix(sim, obs, na.rm=na.rm, ...)
      
-} # 'rNSeff.data.frame' end
+} # 'rNSE.data.frame' end
+
+
+rNSeff <-function(sim, obs, ...) UseMethod("rNSE")

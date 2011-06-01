@@ -1,7 +1,8 @@
 ##################################################
-# 'mNSeff': Modified Nash-sutcliffe Efficiency   #
+# 'mNSE': Modified Nash-sutcliffe Efficiency   #
 ##################################################
-#    July 28th, 2009;  06-Sep-09                 #
+# Started: July 28th, 2009;  06-Sep-09           #
+# Updates: 01-Jun-2011                           #
 ##################################################
 # Ref:
 # Krause, P., Boyle, D. P., and Bäse, F.: Comparison of different efficiency criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005 
@@ -18,13 +19,13 @@
 
 # 'Result': Modified Nash-sutcliffe Efficiency between 'sim' and 'obs'
 
-mNSeff <-function(sim, obs, ...) UseMethod("mNSeff")
+mNSE <-function(sim, obs, ...) UseMethod("mNSE")
 
-mNSeff.default <- function (sim, obs, j=1, na.rm=TRUE, ...){ 
+mNSE.default <- function (sim, obs, j=1, na.rm=TRUE, ...){ 
 
-	 if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo"))) |
-          is.na(match(class(obs), c("integer", "numeric", "ts", "zoo")))
-     ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo')")   
+	 if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
+          is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
+     ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo', 'xts')")   
      
      # Checking that the provided exponent is positive
      if (j < 0 ) stop("Invalid argument: 'j' must be positive")           
@@ -40,14 +41,14 @@ mNSeff.default <- function (sim, obs, j=1, na.rm=TRUE, ...){
 	  
 	 NS1 <- 1 - ( sum( abs(obs - sim)^j ) / denominator )
 	 
-	 } else stop("'sum(abs(obs - mean(obs))^j)=0', it is not possible to compute 'mNSeff'")  
+	 } else stop("'sum(abs(obs - mean(obs))^j)=0', it is not possible to compute 'mNSE'")  
 	 
 	 return(NS1)
      
-} # 'mNSeff.default' end
+} # 'mNSE.default' end
 
 
-mNSeff.matrix <- function (sim, obs, j=1, na.rm=TRUE, ...){ 
+mNSE.matrix <- function (sim, obs, j=1, na.rm=TRUE, ...){ 
 
   # Checking that 'sim' and 'obs' have the same dimensions
   if ( all.equal(dim(sim), dim(obs)) != TRUE )
@@ -58,20 +59,23 @@ mNSeff.matrix <- function (sim, obs, j=1, na.rm=TRUE, ...){
   NS1 <- rep(NA, ncol(obs))       
           
   NS1 <- sapply(1:ncol(obs), function(i,x,y) { 
-                 NS1[i] <- mNSeff.default( x[,i], y[,i], j, na.rm=na.rm, ... )
+                 NS1[i] <- mNSE.default( x[,i], y[,i], j, na.rm=na.rm, ... )
                }, x=sim, y=obs )    
                      
   names(NS1) <- colnames(obs)
   return(NS1)
      
-} # 'mNSeff.matrix' end
+} # 'mNSE.matrix' end
 
 
-mNSeff.data.frame <- function (sim, obs, j=1, na.rm=TRUE, ...){ 
+mNSE.data.frame <- function (sim, obs, j=1, na.rm=TRUE, ...){ 
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
    
-  mNSeff.matrix(sim, obs, j, na.rm=na.rm, ...)
+  mNSE.matrix(sim, obs, j, na.rm=na.rm, ...)
      
-} # 'mNSeff.data.frame' end
+} # 'mNSE.data.frame' end
+
+
+mNSeff <-function(sim, obs, ...) UseMethod("mNSE")

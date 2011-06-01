@@ -1,9 +1,10 @@
-\name{mNSeff}
+\name{mNSE}
 \Rdversion{1.1}
 \alias{mNSeff}
-\alias{mNSeff.default}
-\alias{mNSeff.matrix}
-\alias{mNSeff.data.frame}
+\alias{mNSE}
+\alias{mNSE.default}
+\alias{mNSE.matrix}
+\alias{mNSE.data.frame}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Modified Nash-Sutcliffe efficiency
@@ -12,13 +13,13 @@ Modified Nash-Sutcliffe efficiency
 Modified Nash-Sutcliffe efficiency between \code{sim} and \code{obs}, with treatment of missing values. \cr
 }
 \usage{
-mNSeff(sim, obs, ...)
+mNSE(sim, obs, ...)
 
-\method{mNSeff}{default}(sim, obs, j=1, na.rm=TRUE, ...)
+\method{mNSE}{default}(sim, obs, j=1, na.rm=TRUE, ...)
 
-\method{mNSeff}{data.frame}(sim, obs, j=1, na.rm=TRUE, ...)
+\method{mNSE}{data.frame}(sim, obs, j=1, na.rm=TRUE, ...)
 
-\method{mNSeff}{matrix}(sim, obs, j=1, na.rm=TRUE, ...)
+\method{mNSE}{matrix}(sim, obs, j=1, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -41,8 +42,8 @@ further arguments passed to or from other methods.
 }
 \details{
 
-\deqn{ mNSeff = 1 -\frac { \sum_{i=1}^N { \left| S_i - O_i \right|^j } } { \sum_{i=1}^N { \left| O_i - \bar{O} \right|^j } }  }{%
-mNSeff = 1 - ( sum( abs(obs - sim)^j ) / sum( abs(obs - mean(obs))^j )}
+\deqn{ mNSE = 1 -\frac { \sum_{i=1}^N { \left| S_i - O_i \right|^j } } { \sum_{i=1}^N { \left| O_i - \bar{O} \right|^j } }  }{%
+mNSE = 1 - ( sum( abs(obs - sim)^j ) / sum( abs(obs - mean(obs))^j )}
 
 When \code{j=1}, the modified NSeff is not inflated by the squared values of the differences, because the squares are replaced by absolute values.
 }
@@ -68,16 +69,16 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{NSeff}}, \code{\link{rNSeff}}
+\code{\link{NSE}}, \code{\link{rNSE}}
 }
 \examples{
 sim <- 1:10
 obs <- 1:10
-mNSeff(sim, obs)
+mNSE(sim, obs)
 
 sim <- 2:11
 obs <- 1:10
-mNSeff(sim, obs)
+mNSE(sim, obs)
 
 ##################
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
@@ -88,15 +89,15 @@ obs <- EgaEnEstellaQts
 # Generating a simulated daily time series, initially equal to the observed series
 sim <- obs 
 
-# Computing the 'mNSeff' for the "best" (unattainable) case
-mNSeff(sim=sim, obs=obs)
+# Computing the 'mNSE' for the "best" (unattainable) case
+mNSE(sim=sim, obs=obs)
 
 # Randomly changing the first 2000 elements of 'sim', by using a normal distribution 
 # with mean 10 and standard deviation equal to 1 (default of 'rnorm').
 sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 
-# Computing the new 'mNSeff'
-mNSeff(sim=sim, obs=obs)
+# Computing the new 'mNSE'
+mNSE(sim=sim, obs=obs)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

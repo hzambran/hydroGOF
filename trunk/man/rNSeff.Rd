@@ -1,9 +1,10 @@
-\name{rNSeff}
+\name{rNSE}
 \Rdversion{1.1}
 \alias{rNSeff}
-\alias{rNSeff.default}
-\alias{rNSeff.matrix}
-\alias{rNSeff.data.frame}
+\alias{rNSE}
+\alias{rNSE.default}
+\alias{rNSE.matrix}
+\alias{rNSE.data.frame}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Relative Nash-Sutcliffe efficiency
@@ -12,13 +13,13 @@ Relative Nash-Sutcliffe efficiency
 Relative Nash-Sutcliffe efficiency between \code{sim} and \code{obs}, with treatment of missing values. \cr
 }
 \usage{
-rNSeff(sim, obs, ...)
+rNSE(sim, obs, ...)
 
-\method{rNSeff}{default}(sim, obs, na.rm=TRUE, ...)
+\method{rNSE}{default}(sim, obs, na.rm=TRUE, ...)
 
-\method{rNSeff}{data.frame}(sim, obs, na.rm=TRUE, ...)
+\method{rNSE}{data.frame}(sim, obs, na.rm=TRUE, ...)
 
-\method{rNSeff}{matrix}(sim, obs, na.rm=TRUE, ...)
+\method{rNSE}{matrix}(sim, obs, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -38,8 +39,8 @@ further arguments passed to or from other methods.
 }
 \details{
 
-\deqn{ rNSeff = 1 -\frac { \sum_{i=1}^N { ( \frac{ S_i - O_i }{\bar{O}} )^2 } } { \sum_{i=1}^N { ( \frac{ O_i - \bar{O} }{\bar{O}} )^2 } }  }{%
-rNSeff = 1 - ( sum( ( (obs - sim)/ mean(obs) )^2 ) / sum( abs( (obs - mean(obs)) / mean(obs) )^2 )}
+\deqn{ rNSE = 1 -\frac { \sum_{i=1}^N { ( \frac{ S_i - O_i }{\bar{O}} )^2 } } { \sum_{i=1}^N { ( \frac{ O_i - \bar{O} }{\bar{O}} )^2 } }  }{%
+rNSE = 1 - ( sum( ( (obs - sim)/ mean(obs) )^2 ) / sum( abs( (obs - mean(obs)) / mean(obs) )^2 )}
 }
 \value{
 Relative Nash-Sutcliffe efficiency between \code{sim} and \code{obs}. \cr
@@ -58,21 +59,23 @@ Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
 \code{obs} and \code{sim} has to have the same length/dimension \cr
 
 The missing values in \code{obs} and \code{sim} are removed before the computation proceeds, and only those positions with non-missing values in \code{obs} and \code{sim} are considered in the computation \cr
+
+If some of the observed values are equal to zero (at least one of them), this index can not be computed.
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{NSeff}}, \code{\link{mNSeff}}
+\code{\link{NSE}}, \code{\link{mNSE}}
 }
 \examples{
 sim <- 1:10
 obs <- 1:10
-rNSeff(sim, obs)
+rNSE(sim, obs)
 
 sim <- 2:11
 obs <- 1:10
-rNSeff(sim, obs)
+rNSE(sim, obs)
 
 ##################
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
@@ -83,15 +86,15 @@ obs <- EgaEnEstellaQts
 # Generating a simulated daily time series, initially equal to the observed series
 sim <- obs 
 
-# Computing the 'rNSeff' for the "best" (unattainable) case
-rNSeff(sim=sim, obs=obs)
+# Computing the 'rNSE' for the "best" (unattainable) case
+rNSE(sim=sim, obs=obs)
 
 # Randomly changing the first 2000 elements of 'sim', by using a normal distribution 
 # with mean 10 and standard deviation equal to 1 (default of 'rnorm').
 sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 
-# Computing the new 'rNSeff'
-rNSeff(sim=sim, obs=obs)
+# Computing the new 'rNSE'
+rNSE(sim=sim, obs=obs)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
