@@ -56,17 +56,21 @@ wKGE.default <- function(sim, obs, s=c(1,1,1), j=0.5,
      } else if (w=="whl") {
        w <- whl.default(x=obs, lambda=lambda, lQ=lQ, hQ=hQ, ... )
        } # ELSE end
+    
+   # Applying th weights to 'sim' and 'obs'    
+   sim <- w*sim
+   obs <- w*obs
 
    # Mean values
-   mean.sim <- mean(w*sim, na.rm=na.rm)
-   mean.obs <- mean(w*obs, na.rm=na.rm)
+   mean.sim <- mean(sim, na.rm=na.rm)
+   mean.obs <- mean(obs, na.rm=na.rm)
 
    # Standard deviations
-   sigma.sim <- sd(w*sim, na.rm=na.rm)
-   sigma.obs <- sd(w*obs, na.rm=na.rm)
+   sigma.sim <- sd(sim, na.rm=na.rm)
+   sigma.obs <- sd(obs, na.rm=na.rm)
  
    # Pearson product-moment correlation coefficient
-   r     <- .rPearson(w*sim, w*obs)
+   r     <- .rPearson(sim, obs)
 
    # Alpha is a measure of relative variability in the simulated and observed values
    Alpha <- sigma.sim / sigma.obs
