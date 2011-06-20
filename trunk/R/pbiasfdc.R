@@ -37,11 +37,11 @@ pbiasfdc.default <- function (sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE, plot
      obs <- as.numeric(obs[vi])
      sim <- as.numeric(sim[vi])
      
-     require(hydroTSM) # for using the 'fdc' function
+     #require(hydroTSM) # for using the 'fdc' function
 		      
      # Computing the FDC for simulations and observations
-     obs.fdc <- fdc(obs, plot=FALSE)
-     sim.fdc <- fdc(sim, plot=FALSE)
+     obs.fdc <- hydroTSM::fdc(obs, plot=FALSE)
+     sim.fdc <- hydroTSM::fdc(sim, plot=FALSE)
      
      # Finding the flow value corresponding to the 'lQ.thr' pbb of excedence
      obs.lQ <- obs[Qposition(obs.fdc, lQ.thr)]

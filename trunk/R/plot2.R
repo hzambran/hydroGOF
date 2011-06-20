@@ -46,7 +46,7 @@ plot2 <- function (x, y,
                    
   require(zoo)
 
-  # requesting 'hydroTSM' package:'vector2zoo', 'drawxaxis'
+  # requesting 'hydroTSM' package:'vector2zoo', 'drawTimeAxis'
   require(hydroTSM)
 
   # Checking that the user provided 'x'
@@ -92,9 +92,9 @@ plot2 <- function (x, y,
     # class(time(x))== "Date" for 'daily' and 'monthly' time series
     # class(time(x))== "character" for 'annual' time series
     if ( class(time(x)) == "Date" ) {
-        y <- vector2zoo(y, dates=time(x))
+        y <- hydroTSM::vector2zoo(y, dates=time(x))
     } else if ( class(time(x)) == "character" ) {
-        y <- vector2zoo(y, dates=time(x), date.fmt="%Y")
+        y <- hydroTSM::vector2zoo(y, dates=time(x), date.fmt="%Y")
         time(x) <- time(y) #'annual' time series
     } # ELSE END
     
@@ -177,7 +177,7 @@ plot2 <- function (x, y,
         } else z <- y
     
         # Draws ticks in the X axis, but labels only in years
-        drawxaxis(z, tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis, cex.lab=cex.lab) 
+        hydroTSM::drawTimeAxis(z, tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis, cex.lab=cex.lab) 
     
       } else { # When 'numeric' or 'integer' values (not 'zoo' or 'xts') are plotted
              Axis(side = 1, labels = TRUE, cex.axis=cex.axis, cex.lab=cex.lab)

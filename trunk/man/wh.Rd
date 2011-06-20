@@ -52,7 +52,6 @@ further arguments passed to or from other methods.
 \deqn{ wh = \sum_{i=1}^N { \left( \frac{x_i}{x_{max}} \right)^j } }{%
 wh = [x / max(x) ]^j }
 }
-}
 \value{
 Weights for each values in \code{x}. \cr
 
@@ -60,7 +59,6 @@ If \code{x} is a matrix or data.frame, the returned value is also a matrix or da
 }
 %%\references{
 %%}
-}
 \author{
 Mauricio Zambrano-Bigiarini <mauricio.zambrano@jrc.ec.europa.eu>
 }

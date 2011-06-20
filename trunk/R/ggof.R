@@ -51,7 +51,7 @@ ggof <- function (sim, obs,
                    ...) {
 
   # requesting 'hydroTSM' package: 'sfreq', 'vector2zoo', 'daily2monthly', 'monthly2annual', 'daily2annual'
-  require(hydroTSM)
+  #require(hydroTSM)
 
   # Checking that the user provied a valid argument for 'sim' &'obs'   
   valid.class <- c("xts", "zoo", "numeric", "integer")    
@@ -72,13 +72,13 @@ ggof <- function (sim, obs,
   # 'legend' value
   if (missing(legend)) legend <- c(sim.name, obs.name)
                    
-  require(hydroTSM) # for using the 'sfreq' function
+  #require(hydroTSM) # for using the 'sfreq' function
   # Checking that the user provied the same sampling frequency for 'sim' and 'obs',
   # when 'sim' and 'obs' are 'zoo' objects      
   if ( is.zoo(obs) ) {
-      if ( sfreq(sim) != sfreq(obs) ) {
+      if ( hydroTSM::sfreq(sim) != hydroTSM::sfreq(obs) ) {
          stop(paste("Invalid argument: 'obs' and 'sim' have different sampling frequency ! (", 
-                   sfreq(obs), "vs", sfreq(sim), ")"  ,sep=" ") ) }
+                   hydroTSM::sfreq(obs), "vs", hydroTSM::sfreq(sim), ")"  ,sep=" ") ) }
   } # IF end
          
   # Checking 'ftype'       
@@ -119,11 +119,11 @@ ggof <- function (sim, obs,
   } else if (!is.zoo(obs)) message("[Note: You didn't provide dates, so only a numeric index will be used in the time axis.]")      
  
   
-  require(hydroTSM) # for using the 'vector2zoo' function 
+  #require(hydroTSM) # for using the 'vector2zoo' function 
   
   # If 'class(obs)' is not 'zoo' and the user provides the dates, then we turn it into a zoo class
   if ( !is.zoo(obs) & !missing(dates) ) { 
-    obs <- vector2zoo(x=obs, dates=dates, date.fmt=date.fmt)        
+    obs <- hydroTSM::vector2zoo(x=obs, dates=dates, date.fmt=date.fmt)        
   } # If 'class(obs)' is 'zoo' and 'dates' are missing, dates are extracted from 'obs'
     else if ( is.zoo(obs) & missing(dates) ) {  
       # class(time(x))== "Date" for 'daily' and 'monthly' time series
@@ -135,7 +135,7 @@ ggof <- function (sim, obs,
   
   # If 'class(sim)' is not 'zoo' and the user provides the dates, then we turn it into a zoo class
   if ( !is.zoo(sim) & !missing(dates) ) { 
-    sim <- vector2zoo(x=sim, dates=dates, date.fmt=date.fmt) 
+    sim <- hydroTSM::vector2zoo(x=sim, dates=dates, date.fmt=date.fmt) 
   # If 'class(sim)' is 'zoo' and 'dates' are missing, dates are extracted from 'sim'
   } else if ( is.zoo(sim) & is.zoo(obs) & missing(dates) ) {
       # class(time(x))== "Date" for 'daily' and 'monthly' time series
@@ -162,12 +162,12 @@ ggof <- function (sim, obs,
          
   } else if (ftype=="dm") {
     
-      if (sfreq(sim) != "daily") {      
+      if (hydroTSM::sfreq(sim) != "daily") {      
         stop("Invalid argument: 'sim' has to have a 'daily' sampling frequency")       
       } else {
           # Generating a Monthly time series (Monthly mean of daily values):
-          obs.monthly <- daily2monthly(obs, FUN, na.rm)
-          sim.monthly <- daily2monthly(sim, FUN, na.rm)
+          obs.monthly <- hydroTSM::daily2monthly(obs, FUN, na.rm)
+          sim.monthly <- hydroTSM::daily2monthly(sim, FUN, na.rm)
           
           def.par <- par(no.readonly = TRUE) # save default, for resetting... 
           on.exit(par(def.par)) 
@@ -216,18 +216,18 @@ ggof <- function (sim, obs,
   
   else if (ftype=="ma") {
   
-    if  ( is.na( match( sfreq(sim), c("daily", "monthly") ) ) ) {      
+    if  ( is.na( match( hydroTSM::sfreq(sim), c("daily", "monthly") ) ) ) {      
       stop("Invalid argument: the sampling frequency of 'sim' has to be in c('daily', 'monthly'")       
     } else {
-        if ( sfreq(sim) == "daily" ) {
+        if ( hydroTSM::sfreq(sim) == "daily" ) {
            # Generating a Monthly time series (Monthly mean of daily values):
-           obs <- daily2monthly(obs, FUN, na.rm)
-           sim <- daily2monthly(sim, FUN, na.rm)
+           obs <- hydroTSM::daily2monthly(obs, FUN, na.rm)
+           sim <- hydroTSM::daily2monthly(sim, FUN, na.rm)
         } # IF end
         
         # Generating Annual time series (Annual mean of daily values)
-        obs.annual <- monthly2annual(obs, FUN, na.rm, out.fmt="%Y-%m-%d")
-        sim.annual <- monthly2annual(sim, FUN, na.rm, out.fmt="%Y-%m-%d")
+        obs.annual <- hydroTSM::monthly2annual(obs, FUN, na.rm, out.fmt="%Y-%m-%d")
+        sim.annual <- hydroTSM::monthly2annual(sim, FUN, na.rm, out.fmt="%Y-%m-%d")
         
         def.par <- par(no.readonly = TRUE) # save default, for resetting... 
         on.exit(par(def.par)) 
@@ -273,17 +273,17 @@ ggof <- function (sim, obs,
   
   else if (ftype=="dma") {
         
-    if (sfreq(sim) != "daily") {      
+    if (hydroTSM::sfreq(sim) != "daily") {      
       stop("Invalid argument: the 'sim' has to have a 'Daily' sampling frequency")  
            
     } else {       
           # Generating Monthly time series (Monthly mean of daily values):
-          obs.monthly <- daily2monthly(obs, FUN, na.rm)
-          sim.monthly <- daily2monthly(sim, FUN, na.rm)
+          obs.monthly <- hydroTSM::daily2monthly(obs, FUN, na.rm)
+          sim.monthly <- hydroTSM::daily2monthly(sim, FUN, na.rm)
           
           # Generating Annual time series (Annual mean of daily values)
-          obs.annual <- daily2annual(obs, FUN, na.rm, out.fmt = "%Y-%m-%d")
-          sim.annual <- daily2annual(sim, FUN, na.rm, out.fmt = "%Y-%m-%d")
+          obs.annual <- hydroTSM::daily2annual(obs, FUN, na.rm, out.fmt = "%Y-%m-%d")
+          sim.annual <- hydroTSM::daily2annual(sim, FUN, na.rm, out.fmt = "%Y-%m-%d")
           
           def.par <- par(no.readonly = TRUE) # save default, for resetting... 
           on.exit(par(def.par)) 

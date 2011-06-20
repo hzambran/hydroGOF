@@ -14,8 +14,8 @@ plotbandsonly <- function(lband, uband,
                       
                           ...) {
                     
-    # requesting 'hydroTSM' package: 'sfreq', 'vector2zoo', 'drawxaxis'
-    require(hydroTSM)
+    # requesting 'hydroTSM' package: 'vector2zoo'
+    #require(hydroTSM)
 
     # Checking  the class of 'x', 'lband', 'uband, and 'sim' (if provided)
     valid.class <- c("xts", "zoo", "numeric", "integer")
@@ -84,8 +84,8 @@ plotbandsonly <- function(lband, uband,
       # If the class of 'x' 'lband', 'uband' and 'sim' (when provided) 
       # are not 'zoo' and the user provides the dates, 
       # then we turn them into a zoo objects
-      if ( !is.zoo(lband) )  lband <- vector2zoo(x=lband, dates=dates, date.fmt=date.fmt) 
-      if ( !is.zoo(uband) )  uband <- vector2zoo(x=uband, dates=dates, date.fmt=date.fmt)       
+      if ( !is.zoo(lband) )  lband <- hydroTSM::vector2zoo(x=lband, dates=dates, date.fmt=date.fmt) 
+      if ( !is.zoo(uband) )  uband <- hydroTSM::vector2zoo(x=uband, dates=dates, date.fmt=date.fmt)       
     
     }  # IF end       
 
