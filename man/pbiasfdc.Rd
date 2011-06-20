@@ -77,7 +77,6 @@ It requires the \pkg{hydroTSM} package.
 }
 \examples{
 \dontrun{
-require(hydroTSM)
 sim <- 1:10
 obs <- 1:10
 pbiasfdc(sim, obs)

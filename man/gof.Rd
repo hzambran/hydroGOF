@@ -133,7 +133,6 @@ gof(sim=sim, obs=obs)
 
 # Getting the graphical representation of 'obs' and 'sim' along with the numeric goodness of fit 
 \dontrun{
-require(hydroTSM)
 ggof(sim=sim, obs=obs)
 }
 

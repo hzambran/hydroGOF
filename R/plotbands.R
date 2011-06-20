@@ -46,7 +46,7 @@ plotbands <- function(x, lband, uband, sim,
                       
                       ...) {
                     
-    # requesting 'hydroTSM' package: 'sfreq', 'vector2zoo', 'drawxaxis'
+    # requesting 'hydroTSM' package: 'vector2zoo', 'drawTimeAxis'
     require(hydroTSM)
 
     # Checking  the class of 'x', 'lband', 'uband, and 'sim' (if provided)
@@ -154,12 +154,12 @@ plotbands <- function(x, lband, uband, sim,
       # If the class of 'x' 'lband', 'uband' and 'sim' (when provided) 
       # are not 'zoo' and the user provides the dates, 
       # then we turn them into a zoo objects
-      if ( !is.zoo(x) )      x     <- vector2zoo(x=x, dates=dates, date.fmt=date.fmt) 
-      if ( !is.zoo(lband) )  lband <- vector2zoo(x=lband, dates=dates, date.fmt=date.fmt) 
-      if ( !is.zoo(uband) )  uband <- vector2zoo(x=uband, dates=dates, date.fmt=date.fmt) 
+      if ( !is.zoo(x) )      x     <- hydroTSM::vector2zoo(x=x, dates=dates, date.fmt=date.fmt) 
+      if ( !is.zoo(lband) )  lband <- hydroTSM::vector2zoo(x=lband, dates=dates, date.fmt=date.fmt) 
+      if ( !is.zoo(uband) )  uband <- hydroTSM::vector2zoo(x=uband, dates=dates, date.fmt=date.fmt) 
       if ( !missing(sim) ) {
         if ( !is.zoo(sim) )  {
-           sim <- vector2zoo(x=sim, dates=dates, date.fmt=date.fmt) 
+           sim <- hydroTSM::vector2zoo(x=sim, dates=dates, date.fmt=date.fmt) 
 	   message("[Note: 'sim'  was transformed into a zoo object, with 'time(sim)' equal to 'time(obs)']") 
 	} # IF end
       }  # IF end 
@@ -201,7 +201,7 @@ plotbands <- function(x, lband, uband, sim,
 
     # Draws custom ticks and labels on the X axis
     if ( is.zoo(x) | is.xts(x) ) {
-      drawxaxis(x, tick.tstep=tick.tstep, lab.tstep=lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis)
+      hydroTSM::drawTimeAxis(x, tick.tstep=tick.tstep, lab.tstep=lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis)
     } else axis(side = 1, labels = TRUE)
 
     # Plotting the OBSERVED time series, over the polygons

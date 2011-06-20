@@ -96,7 +96,6 @@ gof(sim=sim, obs=obs)
 
 # Graphical representation of 'obs' vs 'sim', along with the numeric goodness of fit 
 \dontrun{
-require(hydroTSM)
 ggof(sim=sim, obs=obs)
 }
 }

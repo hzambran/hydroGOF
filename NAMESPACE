@@ -1,0 +1,4 @@
+importFrom("hydroTSM", sfreq, vector2zoo, daily2monthly, daily2annual, monthly2annual, drawxaxis, fdc)
+exportPattern("^[^\\.]")
+
+
