@@ -5,12 +5,12 @@ Version: 0.2-2-19
 Date: 2011-06-20
 Author: Mauricio Zambrano Bigiarini
 Maintainer: Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
-Description: S3 functions implementing both statistical and graphical goodnes-of-fit measures between observed and simulated values, mainly oriented to be used during the calibration, validation, and application of hydrological models. Missing values in observed and/or simulated values can removed before the computations. Comments / questions / collaboration of any kind are very welcomed.
+Description: S3 functions implementing both statistical and graphical goodness-of-fit measures between observed and simulated values, mainly oriented to be used during the calibration, validation, and application of hydrological models. Missing values in observed and/or simulated values can removed before the computations. Comments / questions / collaboration of any kind are very welcomed.
 License: GPL (>=2)
 Depends: R (>= 2.10.0) 
 Imports: hydroTSM (>= 0.2-2)
 Suggests: zoo (>= 1.7-0), xts (>= 0.8-1)
 HowToCite: > citation("hydroGOF")
 URL: http://www.rforge.net/hydroGOF/, http://cran.r-project.org/web/packages/hydroGOF/
-BugsURL: https://www.rforge.net/bugzilla/describecomponents.cgi?product=hydroGOF
+BugReports: https://www.rforge.net/bugzilla/describecomponents.cgi?product=hydroGOF
 LazyLoad: yes
