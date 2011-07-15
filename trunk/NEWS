@@ -10,7 +10,7 @@ NEWS/ChangeLog for hydroGOF
 	o new function: 'wl', weights to be used when focusing on low values
 	o new function: 'wh', weights to be used when focusing on high values
 	o new function: 'whl', weights to be used when focusing on high or low values
-	o new function: 'wNSeff', weighted Nash-Sutcliffe efficiency
+	o new function: 'wNSE', weighted Nash-Sutcliffe efficiency
 	o new function: 'wKGE', weighted Kling-Gupta efficiency	
 	o new function: 'wrmse', weighted root mean squared error
 	o new function: 'wbias', weighted bias
