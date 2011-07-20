@@ -7,14 +7,11 @@ NEWS/ChangeLog for hydroGOF
 	o TODO: replace 'drawxaxis' by 'drawTimeAxis' in all the package
 	o NAMESPACE created, wich leads to reduced dependency of the package hydroTSM.
 	o now it depends on 'hydroTSM' >= 0.2-3, in order to use the re-written 'drawxaxis' function.
+	o new function: 'wNSE', weighted Nash-Sutcliffe efficiency
+	o new function: 'wsNSE', weighted seasonal Nash-Sutcliffe efficiency
 	o new function: 'wl', weights to be used when focusing on low values
 	o new function: 'wh', weights to be used when focusing on high values
-	o new function: 'whl', weights to be used when focusing on high or low values
-	o new function: 'wNSE', weighted Nash-Sutcliffe efficiency
-	o new function: 'wKGE', weighted Kling-Gupta efficiency	
-	o new function: 'wrmse', weighted root mean squared error
-	o new function: 'wbias', weighted bias
-	o new function: 'wabias', weighted absolute bias	
+	o new function: 'whl', weights to be used when focusing on high or low values	
 	o 'plot2': -) better display of time series objects, when 'plot.type' is 'single'.
 		      The (nicer) 'plot.xts' function is used instead of the previous 'plot.zoo'.
 		   -) 'tick.tstep' and 'lab.tstep' now accept the values: "auto", "weeks", "hours", "minutes", 
