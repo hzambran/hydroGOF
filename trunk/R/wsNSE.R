@@ -54,7 +54,7 @@ wsNSE.default <- function(sim, obs, j=0.5,
    seasonal.med <- hydroTSM::seasonalfunction(obs, FUN=median)
    
    # Creating a numeric vector with the seasonal average corresponding to each value of 'obs'
-   season <- time2season(time(obs))
+   season <- hydroTSM::time2season(time(obs))
    
    DJF.index <- which(season=="DJF")
    MAM.index <- which(season=="MAM")
