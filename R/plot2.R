@@ -47,7 +47,7 @@ plot2 <- function (x, y,
   require(zoo)
 
   # requesting 'hydroTSM' package:'vector2zoo', 'drawTimeAxis'
-  require(hydroTSM)
+  #require(hydroTSM)
 
   # Checking that the user provided 'x'
   if ( missing(x) ) stop("Missing argument: 'x'")
