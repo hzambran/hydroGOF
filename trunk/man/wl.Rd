@@ -69,7 +69,7 @@ Mauricio Zambrano-Bigiarini <mauricio.zambrano@jrc.ec.europa.eu>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{wl}}, \code{\link{wll}}
+\code{\link{wh}}, \code{\link{whl}}
 }
 \examples{
 x <- 1:1000
