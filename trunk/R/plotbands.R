@@ -47,7 +47,7 @@ plotbands <- function(x, lband, uband, sim,
                       ...) {
                     
     # requesting 'hydroTSM' package: 'vector2zoo', 'drawTimeAxis'
-    require(hydroTSM)
+    #require(hydroTSM)
 
     # Checking  the class of 'x', 'lband', 'uband, and 'sim' (if provided)
     valid.class <- c("xts", "zoo", "numeric", "integer")
