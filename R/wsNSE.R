@@ -15,9 +15,8 @@ wsNSE.default <- function(sim, obs, j=0.5,
                          lQ=quantile(obs, na.rm=TRUE, probs=0.3), 
                          hQ=quantile(obs, na.rm=TRUE, probs=0.8), na.rm=TRUE, ...){
    
-   if ( is.na(match(class(sim), c("zoo", "xts"))) |
-        is.na(match(class(obs), c("zoo", "xts")))
-     ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('zoo', 'xts')")
+   if ( is.na(match(class(obs), c("zoo", "xts"))) ) 
+     stop("Invalid argument type: 'obs' have to be of class: c('zoo', 'xts')")
      
    if (!require(hydroTSM))
      stop("Package hydroTSM is not present in your system => is not possible to compute wsNSE !")
@@ -31,13 +30,18 @@ wsNSE.default <- function(sim, obs, j=0.5,
    
    # Checking 'k'
    if (k < 0)
-      stop("Invalid argument: 'k' must be positive !")    
-   
+      stop("Invalid argument: 'k' must be positive !") 
 
    vi <- valindex(sim, obs)
 
    obs <- obs[vi]
    sim <- sim[vi]
+   
+   # IF 'sim' is not zoo or xts, it is converto into one
+   if ( is.na(match(class(sim), c("zoo", "xts"))) ) {
+     sim       <- as.zoo(sim)
+     time(sim) <- time(obs)
+   } # IF end
 
    n <- length(obs)
    
