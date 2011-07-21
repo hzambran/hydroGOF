@@ -25,23 +25,24 @@ wsNSE.default <- function(sim, obs, j=0.5,
       stop("Invalid argument: 'w' have to be in: c('wl', 'wh', 'whl')")
       
    # Checking 'j'
-   if (j < 0)
-      stop("Invalid argument: 'j' must be positive !")
+   if (j < 0) stop("Invalid argument: 'j' must be positive !")
    
    # Checking 'k'
-   if (k < 0)
-      stop("Invalid argument: 'k' must be positive !") 
+   if (k < 0) stop("Invalid argument: 'k' must be positive !") 
 
    vi <- valindex(sim, obs)
 
    obs <- obs[vi]
    sim <- sim[vi]
    
-   # IF 'sim' is not zoo or xts, it is converto into one
-   if ( is.na(match(class(sim), c("zoo", "xts"))) ) {
-     sim       <- as.zoo(sim)
-     time(sim) <- time(obs)
-   } # IF end
+   # Computing the seasonal medians. 4 values:  DJF , MAM, JJA,  SON 
+   seasonal.med <- hydroTSM::seasonalfunction(obs, FUN=median)
+   
+   # Creating a numeric vector with the seasonal average corresponding to each value of 'obs'
+   season <- hydroTSM::time2season(time(obs))
+   
+   obs <- as.numeric(obs)
+   sim <- as.numeric(sim)
 
    n <- length(obs)
    
@@ -54,18 +55,12 @@ wsNSE.default <- function(sim, obs, j=0.5,
        w <- whl.default(x=obs, lambda=lambda, lQ=lQ, hQ=hQ, ... )
        } # ELSE end
    
-   # Computing the seasonal medians. 4 values:  DJF , MAM, JJA,  SON 
-   seasonal.med <- hydroTSM::seasonalfunction(obs, FUN=median)
-   
-   # Creating a numeric vector with the seasonal average corresponding to each value of 'obs'
-   season <- hydroTSM::time2season(time(obs))
-   
    DJF.index <- which(season=="DJF")
    MAM.index <- which(season=="MAM")
    JJA.index <- which(season=="JJA")
    SON.index <- which(season=="SON")
    
-   sNSE.med <- rep(NA, length(obs))
+   sNSE.med <- rep(NA, n)
    
    sNSE.med[DJF.index] <- seasonal.med[1]
    sNSE.med[MAM.index] <- seasonal.med[2]
@@ -100,7 +95,7 @@ wsNSE.matrix <- function(sim, obs, j=0.5,
   wsNSE <- rep(NA, ncol(obs))
 
   wsNSE <- sapply(1:ncol(obs), function(i,x,y) {
-                 wsNSE[i] <- wsNSE.default( x[,i], y[,i], j=j, w=w, k=k, pbb=pbb,
+                 wsNSE[i] <- wsNSE.default( as.numeric(x[,i]), y[,i], j=j, w=w, k=k, pbb=pbb,
                                           lambda=lambda, lQ=lQ, hQ=hQ, na.rm=na.rm, ... )
                }, x=sim, y=obs )
 
@@ -123,3 +118,18 @@ wsNSE.data.frame <- function(sim, obs, j=0.5,
   wsNSE.matrix(sim, obs, j=j, w=w, k=k, pbb=pbb, lambda=lambda, lQ=lQ, hQ=hQ, na.rm=na.rm,...)
 
 } # 'wsNSE.data.frame' end
+
+
+wsNSE.zoo <- function (sim, obs, j=0.5, 
+                       w="wl", k=0.5, pbb=0.8, 
+                       lambda=0.5, 
+                       lQ=quantile(obs, na.rm=TRUE, probs=0.3), 
+                       hQ=quantile(obs, na.rm=TRUE, probs=0.8), na.rm=TRUE, ...){ 
+ 
+  if ( is.matrix(sim) | is.data.frame(sim) ) sim <- as.matrix(sim)
+  
+  if ( is.matrix(sim) ) {
+     wsNSE.matrix(sim, obs, j=j, w=w, k=k, pbb=pbb, lambda=lambda, lQ=lQ, hQ=hQ, na.rm=na.rm,...)
+  } else wsNSE.default(sim, obs, j=j, w=w, k=k, pbb=pbb, lambda=lambda, lQ=lQ, hQ=hQ, na.rm=na.rm,...)
+     
+} # 'wsNSE.zoo' end
