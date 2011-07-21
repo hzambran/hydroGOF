@@ -75,7 +75,7 @@ ggof <- function (sim, obs,
   #require(hydroTSM) # for using the 'sfreq' function
   # Checking that the user provied the same sampling frequency for 'sim' and 'obs',
   # when 'sim' and 'obs' are 'zoo' objects      
-  if ( is.zoo(obs) ) {
+  if ( is.zoo(obs) & is.zoo(sim)) {
       if ( hydroTSM::sfreq(sim) != hydroTSM::sfreq(obs) ) {
          stop(paste("Invalid argument: 'obs' and 'sim' have different sampling frequency ! (", 
                    hydroTSM::sfreq(obs), "vs", hydroTSM::sfreq(sim), ")"  ,sep=" ") ) }
