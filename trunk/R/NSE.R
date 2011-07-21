@@ -72,3 +72,4 @@ NSE.data.frame <- function (sim, obs, na.rm=TRUE, ...){
 
 
 NSeff <-function(sim, obs, ...) UseMethod("NSE")
+
