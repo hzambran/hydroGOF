@@ -1,11 +1,13 @@
-########################################
-# Author: Mauricio Zambrano-Bigiarini  #
-########################################
-# Started: 20-Jul-2011, JRC, Ispra     #
-# Updates:                             #
-########################################
-# Reference: Unpublished (yet)         #
-########################################
+##############################################
+# Weighted Monthly Nash-Sutcliffe Efficiency #
+##############################################
+# Author: Mauricio Zambrano-Bigiarini        #
+##############################################
+# Started: 21-Jul-2011, JRC, Ispra           #
+# Updates:                                   #
+##############################################
+# Reference: Unpublished (yet)               #
+##############################################
 
 wmNSE <-function(sim, obs, ...) UseMethod("wmNSE")
 
@@ -21,7 +23,13 @@ wmNSE.default <- function(sim, obs, FUN=median, j=0.5,
    if (!require(hydroTSM))
      stop("Package hydroTSM is not present in your system => is not possible to compute wmNSE !")
      
-   if ( is.na(match(w, c("wl", "wh", "whl"))) )
+   # Checking w
+   if ( is.numeric(w) | is.integer(w) ) {
+     if ( length(w) != 1 ) {
+       if ( length(w) != length(obs) )
+         stop( paste("Invalid argument: length(w) != length(obs)' (", length(w), "!=", length(obs), ")", sep="") )
+     } # IF end
+   } else if ( is.na(match(w, c("wl", "wh", "whl"))) )
       stop("Invalid argument: 'w' have to be in: c('wl', 'wh', 'whl')")
       
    # Checking 'j'
@@ -47,13 +55,17 @@ wmNSE.default <- function(sim, obs, FUN=median, j=0.5,
    n <- length(obs)
    
    # Computing the weights
-   if (w=="wl") {
-     w <- wl.default(x=obs, k=k, pbb=pbb, ...)
-   } else if (w=="wh") {
-       w <- wh.default(x=obs, k=k, pbb=pbb, ...)
-     } else if (w=="whl") {
-       w <- whl.default(x=obs, lambda=lambda, lQ=lQ, hQ=hQ, ... )
-       } # ELSE end
+   if ( is.numeric(w) | is.integer(w) ) {
+      if ( length(w) == 1 ) {
+         w <- rep(w, n)
+      } else w <- w[vi]
+   } else if (w=="wl") {
+       w <- wl.default(x=obs, k=k, pbb=pbb, ...)
+     } else if (w=="wh") {
+         w <- wh.default(x=obs, k=k, pbb=pbb, ...)
+       } else if (w=="whl") {
+           w <- whl.default(x=obs, lambda=lambda, lQ=lQ, hQ=hQ, ... )
+         } # IF end
        
    # Creating a numeric vector with the seasonal average corresponding to each value of 'obs'
    mNSE.med <- rep(NA, n)
