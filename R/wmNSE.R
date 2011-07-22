@@ -133,7 +133,7 @@ wmNSE.zoo <- function (sim, obs, FUN=median, j=0.5,
                        lQ=quantile(obs, na.rm=TRUE, probs=0.3), 
                        hQ=quantile(obs, na.rm=TRUE, probs=0.8), na.rm=TRUE, ...){ 
  
-  if ( is.matrix(sim) | is.data.frame(sim) ) sim <- as.matrix(sim)
+  if ( is.matrix(sim) | is.data.frame(sim) ) sim <- coredata(sim)
   
   if ( is.matrix(sim) ) {
      wmNSE.matrix(sim, obs, FUN=FUN, j=j, w=w, k=k, pbb=pbb, lambda=lambda, lQ=lQ, hQ=hQ, na.rm=na.rm,...)
