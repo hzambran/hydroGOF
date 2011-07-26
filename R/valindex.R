@@ -7,7 +7,10 @@
 # 'y'     : vector (numeric, xts, zoo)
 # 'Result': index containing the position in 'x' and 'y' where both vectors 
 #           have valid elements (NON- NA)
-valindex <- function(obs, sim) {  
+
+valindex <- function(sim, obs, ...) UseMethod("valindex")
+
+valindex.default <- function(sim, obs) {  
 
    if ( length(obs) != length(sim) ) 
 	  stop("Invalid argument: 'sim' & 'obs' doesn't have the same length !") 
@@ -18,3 +21,12 @@ valindex <- function(obs, sim) {
    return( .intersect(valid.index.obs, valid.index.sim) )
      
 } # 'valindex' END
+
+#####################
+#     25-Jul-2011   #
+#####################
+valindex.matrix <- function(sim, obs) { 
+
+ !is.na( sim) & !is.na(obs)
+ 
+} # 'valindex.matrix' END

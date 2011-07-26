@@ -99,9 +99,10 @@ wmNSE.matrix <- function(sim, obs, FUN=median, j=0.5,
           paste(dim(sim), collapse=" "), "] != [", 
           paste(dim(obs), collapse=" "), "] )", sep="") )
 
-  wmNSE <- rep(NA, ncol(obs))
+  n     <- ncol(obs)
+  wmNSE <- rep(NA, n)
 
-  wmNSE <- sapply(1:ncol(obs), function(i,x,y) {
+  wmNSE <- sapply(1:n, function(i,x,y) {
                  wmNSE[i] <- wmNSE.default( as.numeric(x[,i]), y[,i], FUN=FUN, j=j, w=w, k=k, pbb=pbb,
                                           lambda=lambda, lQ=lQ, hQ=hQ, na.rm=na.rm, ... )
                }, x=sim, y=obs )
@@ -122,7 +123,7 @@ wmNSE.data.frame <- function(sim, obs, FUN=median, j=0.5,
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
 
-  wmNSE.matrix(sim, obs, j=j, FUN=FUN, w=w, k=k, pbb=pbb, lambda=lambda, lQ=lQ, hQ=hQ, na.rm=na.rm,...)
+  wmNSE.matrix(sim, obs, FUN=FUN, j=j, w=w, k=k, pbb=pbb, lambda=lambda, lQ=lQ, hQ=hQ, na.rm=na.rm,...)
 
 } # 'wmNSE.data.frame' end
 
