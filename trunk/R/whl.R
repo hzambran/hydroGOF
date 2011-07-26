@@ -43,11 +43,7 @@ whl.matrix <- function(x, lambda=0.5,
                        lQ=quantile(x, probs=0.3, na.rm=TRUE), 
                        hQ=quantile(x, probs=0.8, na.rm=TRUE), ...) {
 
-  whl <- x*NA
-
-  whl <- sapply(1:ncol(x), function(i,y) {
-                 whl[,i] <- whl.default( y[,i], lambda=lambda, lQ=lQ, hQ=hQ, ...)
-               }, y=x)
+  whl <- apply(x, MARGIN=2, whl.default, lambda=lambda, lQ=lQ, hQ=hQ, ...)
 
   names(whl) <- colnames(x)
 

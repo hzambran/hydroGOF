@@ -5,7 +5,8 @@ NEWS/ChangeLog for hydroGOF
 	o TODO: plot2.R, line 196.
 		Uncomment '#cex.axis=cex.axis,' when zoo_1.7-0 solves the issue.
 	o TODO: replace 'drawxaxis' by 'drawTimeAxis' in all the package
-	o NAMESPACE created, wich leads to reduced dependency of the package hydroTSM.
+	o NAMESPACE created, which leads to reduced dependency of the package hydroTSM.
+	o hydroGOF now depends on xts >= 0.8-1 (=> zoo >= 1.7-0), in order to make use of improved plotting capabilities for ts objects.
 	o now it depends on 'hydroTSM' >= 0.2-3, in order to use the re-written 'drawxaxis' function.
 	o new function: 'wNSE', weighted Nash-Sutcliffe efficiency
 	o new function: 'wsNSE', weighted seasonal Nash-Sutcliffe efficiency
