@@ -6,7 +6,7 @@
 # Author: Mauricio Zambrano-Bigiarini                  #
 ########################################################
 # Started: 04-Feb-2011, JRC, Ispra                     #
-# Updates:                                             #
+# Updates: 28-Jul-2011                                 #
 ########################################################
 # Reference: Unpublished (yet)                         #
 ########################################################
@@ -34,19 +34,17 @@ whl.default <- function(x, lambda=0.5,
       w[index.low]  <- 1 - lambda
       w[index.med]  <- 1 - lambda + (x[index.med]-lQ)*(2*lambda-1)/(hQ-lQ)
 
-       return( w )
+      return( w )
 
 } # 'whl' END
 
 
 whl.matrix <- function(x, lambda=0.5, 
                        lQ=quantile(x, probs=0.3, na.rm=TRUE), 
-                       hQ=quantile(x, probs=0.8, na.rm=TRUE), ...) {
-
+                       hQ=quantile(x, probs=0.8, na.rm=TRUE),                      
+                       ...) {
   whl <- apply(x, MARGIN=2, whl.default, lambda=lambda, lQ=lQ, hQ=hQ, ...)
-
   names(whl) <- colnames(x)
-
   return(whl)
 
 } # 'whl.matrix' end
@@ -54,10 +52,23 @@ whl.matrix <- function(x, lambda=0.5,
 
 whl.data.frame <- function(x, lambda=0.5, 
                            lQ=quantile(x, probs=0.3, na.rm=TRUE), 
-                           hQ=quantile(x, probs=0.8, na.rm=TRUE), ...){
+                           hQ=quantile(x, probs=0.8, na.rm=TRUE), 
+                           ...){
 
   x <- as.matrix(x)
-
   whl.matrix(x, lambda=lambda, lQ=lQ, hQ=hQ, ...)
 
 } # 'whl.data.frame' end
+
+
+whl.zoo <- function(x, lambda=0.5, 
+                    lQ=quantile(x, probs=0.3, na.rm=TRUE), 
+                    hQ=quantile(x, probs=0.8, na.rm=TRUE), 
+                    ...){
+
+  x <- coredata(x)
+  if ( is.matrix(x) | is.data.frame(x) ) {
+    whl.matrix(x, lambda=lambda, lQ=lQ, hQ=hQ, ...)
+  } else whl.default(x, lambda=lambda, lQ=lQ, hQ=hQ, ...)
+
+} # 'whl.zoo' end

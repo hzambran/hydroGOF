@@ -23,14 +23,12 @@ wNSE.default <- function(sim, obs, j=0.5,
       stop("Invalid argument: 'w' have to be in: c('wl', 'wh', 'whl')")
       
    # Checking 'j'
-   if (j < 0)
-      stop("Invalid argument: 'j' must be positive !")
+   if (j < 0) stop("Invalid argument: 'j' must be positive !")
    
    # Checking 'k'
-   if (k < 0)
-      stop("Invalid argument: 'k' must be positive !")    
+   if (k < 0) stop("Invalid argument: 'k' must be positive !")   
    
-
+   # Computing valid indexes for 'sim' and 'obs'
    vi <- valindex(sim, obs)
 
    obs <- obs[vi]
@@ -52,7 +50,10 @@ wNSE.default <- function(sim, obs, j=0.5,
       
      wNSE <- 1 - ( sum( (abs( w * (obs - sim) ) )^j ) / denominator )
      
-   } else stop("'sum((abs(w*(obs - median(obs))))^j)=0' => it is not possible to compute 'wNSE'")  
+   } else {
+      wNSE <- NA
+      warning("'sum((abs(w*(obs - median(obs))))^j)=0' => it is not possible to compute 'wNSE'")  
+     } # ELSE end 
 
    return(wNSE)
 
