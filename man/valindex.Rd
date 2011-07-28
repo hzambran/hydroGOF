@@ -1,6 +1,8 @@
 \name{valindex}
 \Rdversion{1.1}
 \alias{valindex}
+\alias{valindex.default}
+\alias{valindex.matrix}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Valid Indexes
@@ -9,15 +11,23 @@ Valid Indexes
 Identify the indexes that are simultaneously valid (not missing) in \code{sim} and \code{obs}.
 }
 \usage{
-valindex(obs, sim)
+valindex(sim, obs, ...)
+
+\method{valindex}{default}(sim, obs, ...)
+
+\method{valindex}{matrix}(sim, obs, ...)
+
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
+  \item{sim}{
+zoo, xts, numeric, matrix or data.frame with simulated values
+}
   \item{obs}{
 zoo, xts, numeric, matrix or data.frame with observed values
 }
-  \item{sim}{
-zoo, xts, numeric, matrix or data.frame with simulated values
+  \item{\dots}{
+further arguments passed to or from other methods.
 }
 }
 %%\details{

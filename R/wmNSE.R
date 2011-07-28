@@ -44,7 +44,7 @@ wmNSE.default <- function(sim, obs, FUN=median, j=0.5,
    sim <- sim[vi]
    
    # Computing the monthly medians. 12 values: Jan,..., Dec 
-   monthly.med <- hydroTSM::monthlyfunction(obs, FUN=FUN)
+   monthly.med <- hydroTSM::monthlyfunction(obs, FUN=FUN, na.rm=na.rm)
    
    # Creating an index with the month number corresponding to each observed value
    month <- as.numeric(format(time(obs), "%m"))
@@ -80,7 +80,10 @@ wmNSE.default <- function(sim, obs, FUN=median, j=0.5,
       
      wmNSE <- 1 - ( sum( (abs( w * (obs - sim) ) )^j ) / denominator )
      
-   } else stop("'sum((abs(w*(obs - median(obs))))^j)=0' => it is not possible to compute 'wmNSE'")  
+   } else {
+      wmNSE <- NA
+      warning("'sum((abs(w*(obs - median(obs))))^j)=0' => it is not possible to compute 'wmNSE'")  
+     } # ELSE end 
 
    return(wmNSE)
 

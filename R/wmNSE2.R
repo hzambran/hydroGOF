@@ -15,8 +15,9 @@ wmNSE2.default <- function(sim, obs, FUN=median, j=0.5,
                          w="wl", k=0.5, pbb=0.8, 
                          lambda=0.5, 
                          lQ=quantile(obs, na.rm=TRUE, probs=0.3), 
-                         hQ=quantile(obs, na.rm=TRUE, probs=0.8), na.rm=TRUE, ...){
-   
+                         hQ=quantile(obs, na.rm=TRUE, probs=0.8), 
+                         na.rm=TRUE, ...){
+  
    if ( is.na(match(class(obs), c("zoo", "xts"))) ) 
      stop("Invalid argument type: 'obs' have to be of class: c('zoo', 'xts')")
      
@@ -44,7 +45,7 @@ wmNSE2.default <- function(sim, obs, FUN=median, j=0.5,
    sim <- sim[vi]
    
    # Computing the monthly medians. 12 values: Jan,..., Dec 
-   monthly.med <- hydroTSM::monthlyfunction(obs, FUN=FUN)
+   monthly.med <- hydroTSM::monthlyfunction(obs, FUN=FUN, na.rm=na.rm)
    
    # Creating an index with the month number corresponding to each observed value
    month <- as.numeric(format(time(obs), "%m"))
@@ -77,10 +78,13 @@ wmNSE2.default <- function(sim, obs, FUN=median, j=0.5,
    denominator <- sum( ( abs(w*(obs - mNSE.med)) )^j )
      
    if (denominator != 0) {
-      
+   
      wmNSE2 <- 1 - ( sum( (abs( w * (obs - sim) ) )^j ) / denominator )
      
-   } else stop("'sum((abs(w*(obs - median(obs))))^j)=0' => it is not possible to compute 'wmNSE2'")  
+   } else {
+      wmNSE2 <- NA
+      warning("'sum((abs(w*(obs - median(obs))))^j)=0' => it is not possible to compute 'wmNSE2'")  
+     } # ELSE end 
 
    return(wmNSE2)
 
@@ -91,18 +95,17 @@ wmNSE2.matrix <- function(sim, obs, FUN=median, j=0.5,
                         w="wl", k=0.5, pbb=0.8, 
                         lambda=0.5, 
                         lQ=quantile(obs, na.rm=TRUE, probs=0.3), 
-                        hQ=quantile(obs, na.rm=TRUE, probs=0.8), na.rm=TRUE, ...){
+                        hQ=quantile(obs, na.rm=TRUE, probs=0.8), 
+                        #lQ=apply(obs, 2, quantile, probs=0.3, na.rm=TRUE),
+                        #hQ=apply(obs, 2, quantile, probs=0.3, na.rm=TRUE),
+                        na.rm=TRUE, ...){
+  
                         
   # Checking that 'sim' and 'obs' have the same dimensions
   if ( all.equal(dim(sim), dim(obs)) != TRUE )
     stop( paste("Invalid argument: dim(sim) != dim(obs) ( [", 
           paste(dim(sim), collapse=" "), "] != [", 
           paste(dim(obs), collapse=" "), "] )", sep="") ) 
-          
-  # wrapper to 'monthlyfunction.default' with column index      
-  .monthlyfunctioncol <- function(col, x, FUN2, na.rm=TRUE, ...) {					    
-     hydroTSM::monthlyfunction.default(x[,col], FUN=FUN2, na.rm=na.rm, ...)   
-  } # '.monthlyfunctioncol' END  
   
   # Checking w
   if ( is.numeric(w) | is.integer(w) ) {
@@ -124,25 +127,23 @@ wmNSE2.matrix <- function(sim, obs, FUN=median, j=0.5,
   
   # number of rows in 'obs'
   nobs <- nrow(obs)    
+                                      
+  # wrapper to 'monthlyfunction.default' with column index      
+  .monthlyfunctioncol <- function(col, x, FUN2, na.rm=TRUE, ...) {					    
+     hydroTSM::monthlyfunction.default(x[,col], FUN=FUN2, na.rm=na.rm, ...)   
+  } # '.monthlyfunctioncol' END  
   
-  # Computing the weights
-  if ( is.numeric(w) | is.integer(w) ) {
-      if ( length(w) == 1 ) {
-         w <- matrix(rep(w, nsim*nobs), ncol=nsim)
-      } else w <- matrix(rep(w[vi], nsim), ncol=nsim)
-  } else if (w=="wl") {
-       w <- wl.matrix(x=obs, k=k, pbb=pbb, ...)
-     } else if (w=="wh") {
-         w <- wh.matrix(x=obs, k=k, pbb=pbb, ...)
-       } else if (w=="whl") {
-           w <- whl.matrix(x=obs, lambda=lambda, lQ=lQ, hQ=hQ, ... )
-         } # IF end       
-              
-  # Matrix withe the Monthly values for each column of 'x' q()
+  # matrix with the index of the pairs of 'sim' and 'obs' with valid values
+  valid.index <- !is.na(sim) & !is.na(obs)  
+  invalid.index <- which(valid.index == FALSE)
+  
+  # Putting NA's in each row of 'sim' and 'obs' where a value in 'sim' OR 'obs' is missing
+  sim[invalid.index] <- NA
+  obs[invalid.index] <- NA
   
   #monthly.med <- apply(X=obs, MARGIN=2, FUN=.monthlyfunctioncol, FUN2=FUN, na.rm=na.rm,...)
-  monthly.med <- sapply(1:n, FUN=.monthlyfunctioncol, x=obs, FUN2=FUN, na.rm=na.rm,...)
-   
+  monthly.med <- sapply(1:nsim, FUN=.monthlyfunctioncol, x=obs, FUN2=FUN, na.rm=na.rm,...)
+  
   # Creating an index with the month number corresponding to each observed value
   month <- as.numeric(format(time(obs), "%m"))
   
@@ -150,26 +151,33 @@ wmNSE2.matrix <- function(sim, obs, FUN=median, j=0.5,
   obs.monthly.med.index <- pmatch(month, as.numeric(time(monthly.med)), duplicates.ok=TRUE)
   
   # Matrix with the monthly values corresponding to each value of 'obs'
-  obs.med <- matrix( rep( monthly.med[obs.monthly.med.index ], n), ncol=n)
+  obs.med <- matrix( rep( monthly.med[obs.monthly.med.index ], nsim), ncol=nsim)
   
   # Removing time attributes for faster computations
   obs <- coredata(obs)
-  if (is.zoo(sim)) sim <- coredata(obs)
-  
-  # matrix with the index of the pairs of 'sim' and 'obs' with valid values
-  valid.index <- !is.na(sim) & !is.na(obs)
-  
-  invalid.index <- which(valid.index == FALSE)
+  if (is.zoo(sim)) sim <- coredata(sim)
   
   # Putting NA's in each row of 'obs.med' where a value in 'sim' OR 'obs' is missing
-  # In 'obs' and 'sim' is not necessary, because if one of them is NA, its residual will be also 
   obs.med[invalid.index] <- NA
   
+  # Computing the weights
+  if ( is.numeric(w) | is.integer(w) ) {
+      if ( length(w) == 1 ) {
+         w <- matrix(rep(w, nsim*nobs), ncol=nsim)
+      } else w <- matrix(rep(w, nsim), ncol=nsim)
+  } else if (w=="wl") {
+       w <- wl.matrix(x=obs, k=k, pbb=pbb, ...)
+     } else if (w=="wh") {
+         w <- wh.matrix(x=obs, k=k, pbb=pbb, ...)
+       } else if (w=="whl") {
+           w <- whl.matrix(x=obs, lambda=lambda, lQ=lQ, hQ=hQ, ... )
+         } # IF end   
+  
   #residulas in the numerator
-  R <- sim - obs
+  R <- abs(sim - obs)  
   
   # residuals in the denominator
-  Rmed <- obs - obs.med
+  Rmed <- abs(obs - obs.med)
   
   # wmNSE numerator
   num <- colSums((w*R)^j, na.rm=TRUE)
@@ -190,11 +198,14 @@ wmNSE2.matrix <- function(sim, obs, FUN=median, j=0.5,
 wmNSE2.data.frame <- function(sim, obs, FUN=median, j=0.5, 
                             w="wl", k=0.5, pbb=0.8, 
                             lambda=0.5, 
-                            lQ=quantile(obs, na.rm=TRUE, probs=0.3), 
-                            hQ=quantile(obs, na.rm=TRUE, probs=0.8), na.rm=TRUE, ...){
+                            #lQ=quantile(obs, na.rm=TRUE, probs=0.3), 
+                            #hQ=quantile(obs, na.rm=TRUE, probs=0.8), 
+                            lQ=apply(obs, 2, quantile, probs=0.3, na.rm=TRUE),
+                            hQ=apply(obs, 2, quantile, probs=0.3, na.rm=TRUE),
+                            na.rm=TRUE, ...){
 
-  sim <- as.matrix(sim)
-  obs <- as.matrix(obs)
+  sim <- coredata(sim)
+  #obs <- coredata(obs)
 
   wmNSE2.matrix(sim, obs, FUN=FUN, j=j, w=w, k=k, pbb=pbb, lambda=lambda, lQ=lQ, hQ=hQ, na.rm=na.rm,...)
 
@@ -214,66 +225,3 @@ wmNSE2.zoo <- function (sim, obs, FUN=median, j=0.5,
   } else wmNSE2.default(sim, obs, j=j, w=w, k=k, pbb=pbb, lambda=lambda, lQ=lQ, hQ=hQ, na.rm=na.rm,...)
      
 } # 'wmNSE2.zoo' end
-
-# Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
-library(hydroGOF)
-require(zoo)
-
-data(EgaEnEstellaQts)
-obs <- EgaEnEstellaQts
-n   <- length(obs)
-s   <- 1:n
-
-Rprof("NSENumZoo.out")
-NSE(s,s)
-Rprof(NULL)
-summaryRprof("NSENumZoo.out")
-
-Rprof("NumZoo.out")
-wmNSE2(s,obs)
-Rprof(NULL)
-summaryRprof("NumZoo.out")
-
-Rprof("ZooZoo.out")
-wmNSE2(obs,obs)
-Rprof(NULL)
-summaryRprof("ZooZoo.out")
-
-#############3
-
-O       <- matrix(rep(obs,1000), ncol=1000)
-O       <- as.zoo(O)
-time(O) <- time(obs)
-
-S       <- matrix(rep(sim,1000), ncol=1000)
-S       <- as.zoo(S)
-time(S) <- time(S)
-
-S1 <- as.matrix(S)
-
-system.time(wmNSE(S1,O))
-system.time(wmNSE2(S1,O))
-
-Rprof("NumZoo.out")
-wmNSE2(S,O)
-Rprof(NULL)
-summaryRprof("NumZoo.out")
-
-Rprof("ZooZoo.out")
-wmNSE2(O,O)
-Rprof(NULL)
-summaryRprof("ZooZoo.out")
-
-
-#######
-o <- obs[1:365]
-o[c(3,7)] <- NA
-
-s      <- coredata(o)
-s[10]  <- NA
-
-S       <- matrix(rep(s,5), ncol=5)
-S[5,5] <- NA
-O       <- as.zoo(matrix(rep(o,5), ncol=5))
-time(O) <- time(o)
-

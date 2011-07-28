@@ -10,10 +10,10 @@
 
 valindex <- function(sim, obs, ...) UseMethod("valindex")
 
-valindex.default <- function(sim, obs) {  
+valindex.default <- function(sim, obs, ...) {  
 
    if ( length(obs) != length(sim) ) 
-	  stop("Invalid argument: 'sim' & 'obs' doesn't have the same length !") 
+	  stop( paste("Invalid argument: 'sim' & 'obs' doesn't have the same length (", length(obs), "!=", length(sim), ") !",  sep="" ) )
 	  
    valid.index.obs <- which( !is.na(obs) ) 
    valid.index.sim <- which( !is.na(sim) ) 
@@ -25,7 +25,7 @@ valindex.default <- function(sim, obs) {
 #####################
 #     25-Jul-2011   #
 #####################
-valindex.matrix <- function(sim, obs) { 
+valindex.matrix <- function(sim, obs, ...) { 
 
  !is.na( sim) & !is.na(obs)
  

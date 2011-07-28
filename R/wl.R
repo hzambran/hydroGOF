@@ -4,7 +4,7 @@
 # Author: Mauricio Zambrano-Bigiarini  #
 ########################################
 # Started: 26-Jan-2011, JRC, Ispra     #
-# Updates:                             #
+# Updates: 28-Jul-2011                 #
 ########################################
 # Reference: Unpublished (yet)         #
 ########################################
@@ -36,14 +36,8 @@ wl.default <- function(x, k=0.5, pbb=0.8, ...) {
 
 wl.matrix <- function(x, k=0.5, pbb=0.8, ...){
 
-  wl <- x*NA
-
-  wl <- sapply(1:ncol(x), function(i,y) {
-                 wl[,i] <- wl.default( y[,i], k=k, pbb=pbb, ...)
-               }, y=x)
-
+  wl        <- apply(x, MARGIN=2, wl.default, , k=k, pbb=pbb, ...)
   names(wl) <- colnames(x)
-
   return(wl)
 
 } # 'wl.matrix' end
@@ -52,7 +46,16 @@ wl.matrix <- function(x, k=0.5, pbb=0.8, ...){
 wl.data.frame <- function(x, k=0.5, pbb=0.8, ...){
 
   x <- as.matrix(x)
-
   wl.matrix(x, k=k, pbb=pbb, ...)
 
 } # 'wl.data.frame' end
+
+
+wl.zoo <- function(x, k=0.5, pbb=0.8, ...){
+
+  x <- coredata(x)
+  if ( is.matrix(x) | is.data.frame(x) ) {
+    wl.matrix(x, k=k, pbb=pbb, ...)
+  } else wl.default(x, k=k, pbb=pbb, ...)
+
+} # 'wl.zoo' end
