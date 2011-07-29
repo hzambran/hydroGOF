@@ -1,43 +1,48 @@
-\name{wl}
+\name{whl}
 \Rdversion{1.1}
-\alias{wl}
-\alias{wl.default}
-\alias{wl.zoo}
-\alias{wl.matrix}
-\alias{wl.data.frame}
+\alias{whl}
+\alias{whl.default}
+\alias{whl.zoo}
+\alias{whl.matrix}
+\alias{whl.data.frame}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-larger Weights for Low values
+larger Weights for High values
 }
 \description{
-\code{wl} computes weights for all the values given as input, with larger weights for the low flows and smaller weights for the high ones, depending on the values given to \code{k} and \code{pbb}.
+\code{whl} computes weights for all the values given as input, with larger weights for the high flows and smaller weights for the low ones, depending on the values given to \code{k} and \code{pbb}.
 }
 \usage{
-wl(x, ...)
+whl(x, ...)
 
-\method{wl}{default}(x, k=0.5, pbb=0.8, ...)
+\method{whl}{default}(x, lambda=0.5, lQ=quantile(x, probs=0.3, na.rm=TRUE), 
+                      hQ=quantile(x, probs=0.8, na.rm=TRUE), ... )
+                      
+\method{whl}{zoo}(x, lambda=0.5, lQ=quantile(x, probs=0.3, na.rm=TRUE), 
+                  hQ=quantile(x, probs=0.8, na.rm=TRUE), ... )
 
-\method{wl}{zoo}(x, k=0.5, pbb=0.8, ...)
+\method{whl}{data.frame}(x, lambda=0.5, lQ=quantile(x, probs=0.3, na.rm=TRUE), 
+                         hQ=quantile(x, probs=0.8, na.rm=TRUE), ... )
 
-\method{wl}{data.frame}(x, k=0.5, pbb=0.8, ...)
-
-\method{wl}{matrix}(x, k=0.5, pbb=0.8, ...)
+\method{whl}{matrix}(x, lambda=0.5, lQ=quantile(x, probs=0.3, na.rm=TRUE), 
+                     hQ=quantile(x, probs=0.8, na.rm=TRUE), ... )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
 numeric, zoo, matrix or data.frame with the time series used for computing the weights.
 }
-  \item{k}{
-numeric, with the exponent to be used in the computation of the weights. The default value is \code{k=0.5}.
+  \item{lambda}{
+numeric between 0 and 1 representing the weight to be given to the high-flow part of the signal, with \code{lambda} values close to one when focusing on high-flow events, and close to zero when focusing in low-flow conditions
 }
-  \item{pbb}{
-numeric, with the probability (with a value in [0,1]) used to computed the quantile of \code{x} that defines \code{x_max}, which is used as a threshold for which all the \code{x} values larger than \code{x_max} receives a weight equal to 1. \cr
-The smallest value in \code{x} corresponds to a probability of 0 and the largest one to a probability of 1. \cr
-The default value is \code{pbb=0.8}.
+  \item{lQ}{
+numeric, with a user-defined threshold used for separating low values from the rest of the signal
+}
+  \item{hQ}{
+numeric, with a user-defined threshold used for separating high values from the rest of the signal
 }
 %%  \item{na.rm}{
-%%a logical value indicating wlether 'NA' should be stripped before the computation proceeds. \cr
+%%a logical value indicating whether 'NA' should be stripped before the computation proceeds. \cr
 %%When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{sim}, the i-th value of \code{obs} \bold{AND} \code{sim} are removed before the computation.
 %%}
   \item{\dots}{
@@ -52,12 +57,13 @@ further arguments passed to or from other methods.
 %%\deqn{ w_{Low}  = \sum_{i=1}^N { \left( \frac{Q_{max} - O_i}{O_{max}} \right)^j } }{%
 %%wrmse_high = sqrt( (1/n) * w_high * sum( sim - obs)^j ) ; wrmse_low = sqrt( (1/n) * w_low * sum( sim - obs)^j ) ; w_high = (obs / max(obs))^j ; w_low = ((max(obs)-obs)/max(obs))^j  }
 %%}
-\deqn{ w_{L} =  \left\{
-      \begin{array}{c c}
-        0                                               & , O_i \geq hQ\\ 
-        \left[ \frac{ hQ-(O_i-O_{min}) }{hQ} \right]^k  & , O_i < hQ \\
+\deqn{ whl =  w_{HL} =  \left\{
+      \begin{array}{c l}
+        \lambda                                            & , O_i \geq hQ \\
+        (1 - \lambda) + \frac{(2\lambda-1)(O_i-lQ)}{hQ-lQ} & , lQ < O_i < hQ \\
+        1 - \lambda                                        & , O_i  \leq lQ\\ 
       \end{array} \right. }{%
-wL = 0, Oi >= hQ ; wL=[ (hQ - (Oi-Omin) ) / hQ ]^k, Oi < hQ}
+whl = [x / max(x) ]^j }
 }
 \value{
 Weights for each values in \code{x}. \cr
@@ -76,11 +82,11 @@ Mauricio Zambrano-Bigiarini <mauricio.zambrano@jrc.ec.europa.eu>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{wh}}, \code{\link{whl}}
+\code{\link{wh}}, \code{\link{wl}}
 }
 \examples{
 x <- 1:1000
-wl(x)
+whl(x)
 
 
 ##################
@@ -89,14 +95,14 @@ require(zoo)
 data(EgaEnEstellaQts)
 obs <- EgaEnEstellaQts
         
-# Computing 'wl'
-w <- wl(obs)
+# Computing 'whl'
+w <- whl(obs)
 plot(obs, w, type="p")
 
-w <- wl(obs, pbb=1)
+w <- whl(obs, pbb=1)
 plot(obs, w, type="p")
 
-w <- wl(obs, k=2)
+w <- whl(obs, k=2)
 plot(obs, w, type="p")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

@@ -2,6 +2,7 @@
 \Rdversion{1.1}
 \alias{wh}
 \alias{wh.default}
+\alias{wh.zoo}
 \alias{wh.matrix}
 \alias{wh.data.frame}
 %- Also NEED an '\alias' for EACH other topic documented here.
@@ -15,6 +16,8 @@ larger Weights for High values
 wh(x, ...)
 
 \method{wh}{default}(x, k=0.5, pbb=0.8, ...)
+
+\method{wh}{zoo}(x, k=0.5, pbb=0.8, ...)
 
 \method{wh}{data.frame}(x, k=0.5, pbb=0.8, ...)
 
@@ -49,8 +52,12 @@ further arguments passed to or from other methods.
 %%\deqn{ w_{Low}  = \sum_{i=1}^N { \left( \frac{Q_{max} - O_i}{O_{max}} \right)^j } }{%
 %%wrmse_high = sqrt( (1/n) * w_high * sum( sim - obs)^j ) ; wrmse_low = sqrt( (1/n) * w_low * sum( sim - obs)^j ) ; w_high = (obs / max(obs))^j ; w_low = ((max(obs)-obs)/max(obs))^j  }
 %%}
-\deqn{ wh = \sum_{i=1}^N { \left( \frac{x_i}{x_{max}} \right)^j } }{%
-wh = [x / max(x) ]^j }
+\deqn{ w_{H} =  \left\{
+      \begin{array}{c c}
+        1                                          & , O_i \geq hQ\\ 
+        \left[ \frac{ O_i-O_{min} }{hQ} \right]^k  & , O_i < hQ \\
+      \end{array} \right. }{%
+wH = 1, Oi >= hQ ; wH=[ (Oi-Omin) / hQ ]^k, Oi < hQ}
 }
 \value{
 Weights for each values in \code{x}. \cr
