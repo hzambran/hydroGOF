@@ -212,6 +212,24 @@ gof(sim=sim, obs=obs)
 ggof(sim=sim, obs=obs, ftype="dm", FUN=mean)
 }
 
+# Computing the daily residuals 
+# dummy example, but enough for ilustrating the capability
+r <- sim-obs
+
+# Summarizing and plotting the residuals
+\dontrun{
+library(hydroTSM)
+
+# summary
+smry(r) 
+
+# daily, monthly and annual plots, boxplots and histograms
+hydroplot(r, FUN=mean)
+
+# seasonal plots and boxplots
+hydroplot(r, FUN=mean, pfreq="seasonal")
+}
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
