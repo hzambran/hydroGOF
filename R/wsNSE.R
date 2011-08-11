@@ -17,10 +17,7 @@ wsNSE.default <- function(sim, obs, j=0.5,
    
    if ( is.na(match(class(obs), c("zoo", "xts"))) ) 
      stop("Invalid argument type: 'obs' have to be of class: c('zoo', 'xts')")
-     
-   if (!require(hydroTSM))
-     stop("Package hydroTSM is not present in your system => is not possible to compute wsNSE !")
-     
+       
    if ( is.na(match(w, c("wl", "wh", "whl"))) )
       stop("Invalid argument: 'w' have to be in: c('wl', 'wh', 'whl')")
       

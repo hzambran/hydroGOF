@@ -14,9 +14,6 @@ plotbandsonly <- function(lband, uband,
                       
                           ...) {
                     
-    # requesting 'hydroTSM' package: 'vector2zoo'
-    #require(hydroTSM)
-
     # Checking  the class of 'x', 'lband', 'uband, and 'sim' (if provided)
     valid.class <- c("xts", "zoo", "numeric", "integer")
     if ( length(which((class(lband) %in% valid.class) == TRUE)) == 0) 
@@ -28,9 +25,6 @@ plotbandsonly <- function(lband, uband,
     if ( length(lband) != length(uband) )
       stop("Invalid argument: 'length(lband)' is different from 'length(uband)'")    
     
-    # Requiring the Zoo Library: 'is.zoo', 'as.zoo', and 'plot.zoo' functions
-    require(zoo)
-
     # For easier reading
     x <- lband
     
@@ -38,20 +32,20 @@ plotbandsonly <- function(lband, uband,
     # dates are taken from 'x'
     if ( missing(dates) ) {
     
-      if ( is.zoo(x) | is.xts(x) ) {
+      if ( zoo::is.zoo(x) | xts::is.xts(x) ) {
         # class(time(x))== "Date" for 'daily' and 'monthly' time series
         # class(time(x))== "character" for 'annual' time series
-        if ( class(time(x)) == "Date" ) { dates <- time(x) 
-        } else if ( class(time(x)) == "character" ) {  
-             dates <- as.Date(time(x), format="%Y") 
+        if ( class(zoo::time(x)) == "Date" ) { dates <- zoo::time(x) 
+        } else if ( class(zoo::time(x)) == "character" ) {  
+             dates <- as.Date(zoo::time(x), format="%Y") 
           }  
       } else # If there is no way to obtain the dates
           message("[Note: You didn't provide dates, so only a numeric index will be used in the time axis.]")  
           
       # Checking that the dates of 'x', 'lband', 'uband' and 'sim' are equal ,
       # when they are zoo objects    
-      if ( is.zoo(lband) & is.zoo(uband) ) 
-        if  ( !all.equal( time(lband), time(uband) ) )
+      if ( zoo::is.zoo(lband) & zoo::is.zoo(uband) ) 
+        if  ( !all.equal( zoo::time(lband), zoo::time(uband) ) )
          stop("Invalid argument: time(lband) is different from time(uband)")       
           
     } # IF end
@@ -78,14 +72,14 @@ plotbandsonly <- function(lband, uband,
       # If 'lband', 'uband'  (when provided) are 'zoo' 
       # and the user provides 'dates' (probably new dates), 
       # the dates of the objects are changed to the new date
-      if ( is.zoo(lband) ) { time(lband) <- dates } 
-      if ( is.zoo(uband) ) { time(uband) <- dates }  
+      if ( zoo::is.zoo(lband) ) { zoo::time(lband) <- dates } 
+      if ( zoo::is.zoo(uband) ) { zoo::time(uband) <- dates }  
         
       # If the class of 'x' 'lband', 'uband' and 'sim' (when provided) 
       # are not 'zoo' and the user provides the dates, 
       # then we turn them into a zoo objects
-      if ( !is.zoo(lband) )  lband <- hydroTSM::vector2zoo(x=lband, dates=dates, date.fmt=date.fmt) 
-      if ( !is.zoo(uband) )  uband <- hydroTSM::vector2zoo(x=uband, dates=dates, date.fmt=date.fmt)       
+      if ( !zoo::is.zoo(lband) )  lband <- hydroTSM::vector2zoo(x=lband, dates=dates, date.fmt=date.fmt) 
+      if ( !zoo::is.zoo(uband) )  uband <- hydroTSM::vector2zoo(x=uband, dates=dates, date.fmt=date.fmt)       
     
     }  # IF end       
 
@@ -102,8 +96,8 @@ plotbandsonly <- function(lband, uband,
     #lband[na.index] <- .5*( lband[na.index+1] + lband[na.index-1] )
 
     if ( length(which((class(lband) %in% c("xts")) == TRUE)) > 0) {
-      lband.coords <- xy.coords(.index(lband), lband[, 1])
-      uband.coords <- xy.coords(.index(uband), uband[, 1])
+      lband.coords <- xy.coords(xts::.index(lband), lband[, 1])
+      uband.coords <- xy.coords(xts::.index(uband), uband[, 1])
 
       t     <- c( lband.coords$x, rev(lband.coords$x) )
       bands <- c( uband.coords$y, rev(lband.coords$y) )              
@@ -112,8 +106,8 @@ plotbandsonly <- function(lband, uband,
        L <- length(lband) 
     
        # Creating the 'x' values of the polygons of the bands
-       if ( is.zoo(x) ) {
-         t <- c( time(lband), rev(time(uband)) )
+       if ( zoo::is.zoo(x) ) {
+         t <- c( zoo::time(lband), rev(zoo::time(uband)) )
        } else t <- c( 1:L, L:1)
          # Creating the 'y' values of the polygons of the bands
          bands <- c(as.numeric(lband), rev(as.numeric(uband)) )             

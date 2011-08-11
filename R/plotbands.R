@@ -46,9 +46,6 @@ plotbands <- function(x, lband, uband, sim,
                       
                       ...) {
                     
-    # requesting 'hydroTSM' package: 'vector2zoo', 'drawTimeAxis'
-    #require(hydroTSM)
-
     # Checking  the class of 'x', 'lband', 'uband, and 'sim' (if provided)
     valid.class <- c("xts", "zoo", "numeric", "integer")
     if ( is.na( match(class(x), valid.class ) ) )
@@ -89,35 +86,32 @@ plotbands <- function(x, lband, uband, sim,
     
     # If the user provided a value for 'val.ini', it is transformed into a Date class
     if ( !missing(val.ini) ) val.ini <- as.Date(val.ini, format=date.fmt)      
-    
-    # Requiring the Zoo Library (Zoo's ordered observations): 'is.zoo', 'as.zoo', and 'plot.zoo' functions
-    require(zoo)
-    
+     
     # If the user didn't provided the dates, but 'x' is a zoo object
     # dates are taken from 'x'
     if ( missing(dates) ) {
     
-      if ( is.zoo(x) ) {
-        # class(time(x))== "Date" for 'daily' and 'monthly' time series
-        # class(time(x))== "character" for 'annual' time series
-        if ( class(time(x)) == "Date" ) { dates <- time(x) 
-        } else if ( class(time(x)) == "character" ) {  
-             dates <- as.Date(time(x), format="%Y") 
+      if ( zoo::is.zoo(x) ) {
+        # class(zoo::time(x))== "Date" for 'daily' and 'monthly' time series
+        # class(zoo::time(x))== "character" for 'annual' time series
+        if ( class(zoo::time(x)) == "Date" ) { dates <- zoo::time(x) 
+        } else if ( class(zoo::time(x)) == "character" ) {  
+             dates <- as.Date(zoo::time(x), format="%Y") 
           }  
       } else # If there is no way to obtain the dates
           message("[Note: You didn't provide dates, so only a numeric index will be used in the time axis.]")  
           
       # Checking that the dates of 'x', 'lband', 'uband' and 'sim' are equal ,
       # when they are zoo objects    
-      if ( is.zoo(lband) & is.zoo(uband) ) 
-        if  ( !all.equal( time(lband), time(uband) ) )
+      if ( zoo::is.zoo(lband) & zoo::is.zoo(uband) ) 
+        if  ( !all.equal( zoo::time(lband), zoo::time(uband) ) )
          stop("Invalid argument: time(lband) is different from time(uband)")       
-      if ( is.zoo(x) & is.zoo(uband) ) 
-        if  ( !all.equal( time(x), time(uband) ) )
+      if ( zoo::is.zoo(x) & zoo::is.zoo(uband) ) 
+        if  ( !all.equal( zoo::time(x), zoo::time(uband) ) )
           stop("Invalid argument: time(x) is different from the time of the bands")      
       if ( !missing(sim) ) {
-        if ( is.zoo(x) & is.zoo(sim) ) 
-          if  ( !all.equal( time(x), time(sim) ) )
+        if ( zoo::is.zoo(x) & zoo::is.zoo(sim) ) 
+          if  ( !all.equal( zoo::time(x), zoo::time(sim) ) )
             stop("Invalid argument: time(x) is different from the time of 'sim'")    
       } # IF end
           
@@ -145,20 +139,20 @@ plotbands <- function(x, lband, uband, sim,
       # If 'x', 'lband', 'uband' and 'sim' (when provided) are 'zoo' 
       # and the user provides 'dates' (probably new dates), 
       # the dates of the objects are changed to the new date
-      if ( is.zoo(x) )     { time(x)     <- dates }  
-      if ( is.zoo(lband) ) { time(lband) <- dates } 
-      if ( is.zoo(uband) ) { time(uband) <- dates }  
+      if ( zoo::is.zoo(x) )     { zoo::time(x)     <- dates }  
+      if ( zoo::is.zoo(lband) ) { zoo::time(lband) <- dates } 
+      if ( zoo::is.zoo(uband) ) { zoo::time(uband) <- dates }  
       if ( !missing(sim) ) 
-        if ( is.zoo(sim) ) { time(sim)   <- dates }  
+        if ( is.zoo(sim) ) { zoo::time(sim)   <- dates }  
         
       # If the class of 'x' 'lband', 'uband' and 'sim' (when provided) 
       # are not 'zoo' and the user provides the dates, 
       # then we turn them into a zoo objects
-      if ( !is.zoo(x) )      x     <- hydroTSM::vector2zoo(x=x, dates=dates, date.fmt=date.fmt) 
-      if ( !is.zoo(lband) )  lband <- hydroTSM::vector2zoo(x=lband, dates=dates, date.fmt=date.fmt) 
-      if ( !is.zoo(uband) )  uband <- hydroTSM::vector2zoo(x=uband, dates=dates, date.fmt=date.fmt) 
+      if ( !zoo::is.zoo(x) )      x     <- hydroTSM::vector2zoo(x=x, dates=dates, date.fmt=date.fmt) 
+      if ( !zoo::is.zoo(lband) )  lband <- hydroTSM::vector2zoo(x=lband, dates=dates, date.fmt=date.fmt) 
+      if ( !zoo::is.zoo(uband) )  uband <- hydroTSM::vector2zoo(x=uband, dates=dates, date.fmt=date.fmt) 
       if ( !missing(sim) ) {
-        if ( !is.zoo(sim) )  {
+        if ( !zoo::is.zoo(sim) )  {
            sim <- hydroTSM::vector2zoo(x=sim, dates=dates, date.fmt=date.fmt) 
 	   message("[Note: 'sim'  was transformed into a zoo object, with 'time(sim)' equal to 'time(obs)']") 
 	} # IF end
@@ -183,8 +177,8 @@ plotbands <- function(x, lband, uband, sim,
     } # IF end
     
     # Creating the plot, but without anything on it, for allowign the call to polygon
-    if ( is.zoo(x) ) {
-      if ( !is.xts(x) ) x <- as.xts(x)   
+    if ( zoo::is.zoo(x) ) {
+      if ( !xts::is.xts(x) ) x <- xts::as.xts(x)   
       # Creating the plot, but without anything on it, for allowign the call to polygon
       plot.xts(x, type="n", axes=FALSE, main=main, xlab=xlab, ylab=ylab, ylim=ylim, 
          cex.axis=cex.axis, cex.lab=cex.lab, ...) 
@@ -192,15 +186,15 @@ plotbands <- function(x, lband, uband, sim,
     } else plot(x, type="n", xaxt = "n", main=main, xlab=xlab, ylab=ylab, ylim=ylim, 
                 cex.axis=cex.axis, cex.lab=cex.lab, ...)
 
-    if ( is.zoo(lband) & !is.xts(lband) )  lband <- as.xts(lband)
-    if ( is.zoo(uband) & !is.xts(uband) )  uband <- as.xts(uband)
+    if ( zoo::is.zoo(lband) & !xts::is.xts(lband) )  lband <- xts::as.xts(lband)
+    if ( zoo::is.zoo(uband) & !xts::is.xts(uband) )  uband <- xts::as.xts(uband)
     
     # Plotting the uncertainty bounds (polygon)
     plotbandsonly(lband=lband, uband=uband, dates=dates, date.fmt=date.fmt, 
                   bands.col=bands.col, border= border, ...)
 
     # Draws custom ticks and labels on the X axis
-    if ( is.zoo(x) | is.xts(x) ) {
+    if ( zoo::is.zoo(x) | xts::is.xts(x) ) {
       hydroTSM::drawTimeAxis(x, tick.tstep=tick.tstep, lab.tstep=lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis)
     } else axis(side = 1, labels = TRUE)
 
@@ -213,7 +207,7 @@ plotbands <- function(x, lband, uband, sim,
       
     # Plotting the SIMULATED time series, over the polygons
     if ( !missing(sim) ) {
-        if ( (is.zoo(x)) & (!is.xts(sim)) ) sim <- as.xts(sim)
+        if ( (zoo::is.zoo(x)) & (!xts::is.xts(sim)) ) sim <- xts::as.xts(sim)
         # Plotting the SIMULATED time series, over the polygons
         if (type[2] == "lines") {
           lines(sim, cex= cex[2], col=col[2], lty=lty[2], lwd=lwd[2], pch=pch[2], ... )

@@ -20,10 +20,7 @@ wmNSE2.default <- function(sim, obs, FUN=median, j=0.5,
   
    if ( is.na(match(class(obs), c("zoo", "xts"))) ) 
      stop("Invalid argument type: 'obs' have to be of class: c('zoo', 'xts')")
-     
-   if (!require(hydroTSM))
-     stop("Package hydroTSM is not present in your system => is not possible to compute wmNSE2 !")
-     
+         
    # Checking w
    if ( is.numeric(w) | is.integer(w) ) {
      if ( length(w) != 1 ) {
@@ -155,7 +152,7 @@ wmNSE2.matrix <- function(sim, obs, FUN=median, j=0.5,
   
   # Removing time attributes for faster computations
   obs <- coredata(obs)
-  if (is.zoo(sim)) sim <- coredata(sim)
+  if (zoo::is.zoo(sim)) sim <- zoo::coredata(sim)
   
   # Putting NA's in each row of 'obs.med' where a value in 'sim' OR 'obs' is missing
   obs.med[invalid.index] <- NA

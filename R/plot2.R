@@ -44,11 +44,6 @@ plot2 <- function (x, y,
                    
                     ...) {
                    
-  require(zoo)
-
-  # requesting 'hydroTSM' package:'vector2zoo', 'drawTimeAxis'
-  #require(hydroTSM)
-
   # Checking that the user provided 'x'
   if ( missing(x) ) stop("Missing argument: 'x'")
          
@@ -91,11 +86,11 @@ plot2 <- function (x, y,
   
     # class(time(x))== "Date" for 'daily' and 'monthly' time series
     # class(time(x))== "character" for 'annual' time series
-    if ( class(time(x)) == "Date" ) {
-        y <- hydroTSM::vector2zoo(y, dates=time(x))
+    if ( class(zoo::time(x)) == "Date" ) {
+        y <- hydroTSM::vector2zoo(y, dates=zoo::time(x))
     } else if ( class(time(x)) == "character" ) {
-        y <- hydroTSM::vector2zoo(y, dates=time(x), date.fmt="%Y")
-        time(x) <- time(y) #'annual' time series
+        y <- hydroTSM::vector2zoo(y, dates=zoo::time(x), date.fmt="%Y")
+        zoo::time(x) <- zoo::time(y) #'annual' time series
     } # ELSE END
     
   } # IF END
@@ -138,9 +133,8 @@ plot2 <- function (x, y,
     # If both time series have to be ploted in the same plot area
     if (plot.type == "single") {
 
-      require(xts)
-      if (length(which(!is.na(match(class(x), c("ts", "zoo", "xts") )))) > 0) x <- as.xts(x) 
-      if (length(which(!is.na(match(class(y), c("ts", "zoo", "xts") )))) > 0) y <- as.xts(y) 
+      if (length(which(!is.na(match(class(x), c("ts", "zoo", "xts") )))) > 0) x <- xts::as.xts(x) 
+      if (length(which(!is.na(match(class(y), c("ts", "zoo", "xts") )))) > 0) y <- xts::as.xts(y) 
 
       # Y axis limits
       ylim <- range(range(x, na.rm=TRUE), range(y, na.rm=TRUE), na.rm=TRUE)
@@ -187,12 +181,12 @@ plot2 <- function (x, y,
     } else  #plot.type == "multiple"  
           {       
             # all the work (mainly Time axis) is made automatically be the 'plot.zoo' function 
-            plot.zoo(cbind(x, y), plot.type=plot.type, type=c("o","o"), 
-                     lwd=lwd, lty= lty, col= col, pch= pch, 
-                     cex = cex, 
-                     #cex.axis=cex.axis, 
-                     cex.lab=cex.lab,
-                     main=main, xlab=xlab, ylab= ylab,...)
+            zoo::plot.zoo(cbind(x, y), plot.type=plot.type, type=c("o","o"), 
+                         lwd=lwd, lty= lty, col= col, pch= pch, 
+                         cex = cex, 
+                         #cex.axis=cex.axis, 
+                         cex.lab=cex.lab,
+                         main=main, xlab=xlab, ylab= ylab,...)
                          
       } # ELSE end 
       
@@ -203,7 +197,7 @@ plot2 <- function (x, y,
         
         # Giving the as name to each bar the YEAR, because the 
         # bar plot is thought for being used ONLY for annual time series
-        colnames(b) <- format( time(x), "%Y")
+        colnames(b) <- format( zoo::time(x), "%Y")
         
         # Barplot  
         barplot(b, beside=TRUE, axis.lty=1, col=col, density=25, angle=c(45,-45), 
