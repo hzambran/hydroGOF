@@ -105,9 +105,9 @@ ggof <- function (sim, obs,
         dates <- as.Date(dates, format= date.fmt)    
     
     # If 'obs' is 'zoo' and the user provides the dates (probably new dates)
-    if ( zoo::is.zoo(obs) ) { zoo::time(obs) <- dates }  
+    if ( zoo::is.zoo(obs) ) { time(obs) <- dates }  
     # If 'sim' is 'zoo' and the user provides the dates  (probably new dates)
-    if ( zoo::is.zoo(sim) ) { zoo::time(sim) <- dates }  
+    if ( zoo::is.zoo(sim) ) { time(sim) <- dates }  
     
   } else if (!zoo::is.zoo(obs)) message("[Note: You didn't provide dates, so only a numeric index will be used in the time axis.]")      
  
@@ -119,10 +119,10 @@ ggof <- function (sim, obs,
     obs <- hydroTSM::vector2zoo(x=obs, dates=dates, date.fmt=date.fmt)        
   } # If 'class(obs)' is 'zoo' and 'dates' are missing, dates are extracted from 'obs'
     else if ( zoo::is.zoo(obs) & missing(dates) ) {  
-      # class(zoo::time(x))== "Date" for 'daily' and 'monthly' time series
-      # class(zoo::time(x))== "character" for 'annual' time series
-      if ( class(zoo::time(obs)) == "Date" ) { dates <- zoo::time(obs) 
-      } else if ( class(zoo::time(obs)) == "character" ) {  
+      # class(time(x))== "Date" for 'daily' and 'monthly' time series
+      # class(time(x))== "character" for 'annual' time series
+      if ( class(time(obs)) == "Date" ) { dates <- time(obs) 
+      } else if ( class(time(obs)) == "character" ) {  
              dates <- as.Date(time(obs), format="%Y") }      
     } #ELSE END
   
@@ -131,11 +131,11 @@ ggof <- function (sim, obs,
     sim <- hydroTSM::vector2zoo(x=sim, dates=dates, date.fmt=date.fmt) 
   # If 'class(sim)' is 'zoo' and 'dates' are missing, dates are extracted from 'sim'
   } else if ( zoo::is.zoo(sim) & zoo::is.zoo(obs) & missing(dates) ) {
-      # class(zoo::time(x))== "Date" for 'daily' and 'monthly' time series
-      # class(zoo::time(x))== "character" for 'annual' time series
-      if ( class(zoo::time(sim)) == "Date" ) { dates <- zoo::time(obs) 
-      } else if ( class(zoo::time(sim)) == "character" ) {  
-             dates <- as.Date(zoo::time(sim), format="%Y") }
+      # class(time(x))== "Date" for 'daily' and 'monthly' time series
+      # class(time(x))== "character" for 'annual' time series
+      if ( class(time(sim)) == "Date" ) { dates <- time(obs) 
+      } else if ( class(time(sim)) == "character" ) {  
+             dates <- as.Date(time(sim), format="%Y") }
     } #ELSE END    
   
   #Plotting acoording to the 'ftype' value:  
