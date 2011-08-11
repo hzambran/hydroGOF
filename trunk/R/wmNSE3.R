@@ -22,11 +22,8 @@ wmNSE3.zoo <- function(sim, obs, FUN=median, j=0.5,
    valid.class <- c("xts", "zoo")    
    if (length(which(!is.na(match(class(obs), valid.class )))) <= 0)  
       stop("Invalid argument: 'class(obs)' must be in c('xts', 'zoo')")
-         
-   # Requiring the Zoo Library (Z’s ordered observations)
-   require(zoo)
    
-   sim <- coredata(sim)
+   sim <- zoo::coredata(sim)
 
    wmNSE3.default(sim=sim, obs=obs, FUN=FUN, j=j, w=w, k=k, pbb=pbb, lambda=lambda, lQ=lQ, hQ=hQ, na.rm=na.rm,...)
 
@@ -43,9 +40,6 @@ wmNSE3.default <- function(sim, obs, FUN=median, j=0.5,
    #############################################################################
    ###########################      Checkings     ##############################
    #############################################################################
-   
-   if (!require(hydroTSM))
-     stop("Package hydroTSM is not present in your system => is not possible to compute wmNSE3 !")
      
    # Checking w
    if ( is.numeric(w) | is.integer(w) ) {
@@ -195,7 +189,7 @@ wmNSE3.matrix <- function(sim, obs, FUN=median, j=0.5,
   #####################
   # 2) Removing time attributes for faster computations
   obs <- coredata(obs)
-  if (is.zoo(sim)) sim <- coredata(sim)
+  if (zoo::is.zoo(sim)) sim <- coredata(sim)
   
   ##########################
   # 3) Computing the weights

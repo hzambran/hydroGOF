@@ -50,9 +50,6 @@ ggof <- function (sim, obs,
                    
                    ...) {
 
-  # requesting 'hydroTSM' package: 'sfreq', 'vector2zoo', 'daily2monthly', 'monthly2annual', 'daily2annual'
-  #require(hydroTSM)
-
   # Checking that the user provied a valid argument for 'sim' &'obs'   
   valid.class <- c("xts", "zoo", "numeric", "integer")    
   if (length(which(!is.na(match(class(sim), valid.class )))) <= 0)  
@@ -72,10 +69,9 @@ ggof <- function (sim, obs,
   # 'legend' value
   if (missing(legend)) legend <- c(sim.name, obs.name)
                    
-  #require(hydroTSM) # for using the 'sfreq' function
   # Checking that the user provied the same sampling frequency for 'sim' and 'obs',
   # when 'sim' and 'obs' are 'zoo' objects      
-  if ( is.zoo(obs) & is.zoo(sim)) {
+  if ( zoo::is.zoo(obs) & zoo::is.zoo(sim)) {
       if ( hydroTSM::sfreq(sim) != hydroTSM::sfreq(obs) ) {
          stop(paste("Invalid argument: 'obs' and 'sim' have different sampling frequency ! (", 
                    hydroTSM::sfreq(obs), "vs", hydroTSM::sfreq(sim), ")"  ,sep=" ") ) }
@@ -91,10 +87,7 @@ ggof <- function (sim, obs,
          
   # If the user didn't provide a title for the plot, the default is used 
   if ( missing(main) ) main <- "Observations vs Simulations"         
-         
-  # Requiring the Zoo Library: 'is.zoo', 'as.zoo', and 'plot.zoo' functions
-  require(zoo)
-  
+          
   # If the user provided values 'for 'dates'
   if (!missing(dates)) {
   
@@ -112,37 +105,37 @@ ggof <- function (sim, obs,
         dates <- as.Date(dates, format= date.fmt)    
     
     # If 'obs' is 'zoo' and the user provides the dates (probably new dates)
-    if ( is.zoo(obs) ) { time(obs) <- dates }  
+    if ( zoo::is.zoo(obs) ) { zoo::time(obs) <- dates }  
     # If 'sim' is 'zoo' and the user provides the dates  (probably new dates)
-    if ( is.zoo(sim) ) { time(sim) <- dates }  
+    if ( zoo::is.zoo(sim) ) { zoo::time(sim) <- dates }  
     
-  } else if (!is.zoo(obs)) message("[Note: You didn't provide dates, so only a numeric index will be used in the time axis.]")      
+  } else if (!zoo::is.zoo(obs)) message("[Note: You didn't provide dates, so only a numeric index will be used in the time axis.]")      
  
   
   #require(hydroTSM) # for using the 'vector2zoo' function 
   
   # If 'class(obs)' is not 'zoo' and the user provides the dates, then we turn it into a zoo class
-  if ( !is.zoo(obs) & !missing(dates) ) { 
+  if ( !zoo::is.zoo(obs) & !missing(dates) ) { 
     obs <- hydroTSM::vector2zoo(x=obs, dates=dates, date.fmt=date.fmt)        
   } # If 'class(obs)' is 'zoo' and 'dates' are missing, dates are extracted from 'obs'
-    else if ( is.zoo(obs) & missing(dates) ) {  
-      # class(time(x))== "Date" for 'daily' and 'monthly' time series
-      # class(time(x))== "character" for 'annual' time series
-      if ( class(time(obs)) == "Date" ) { dates <- time(obs) 
-      } else if ( class(time(obs)) == "character" ) {  
+    else if ( zoo::is.zoo(obs) & missing(dates) ) {  
+      # class(zoo::time(x))== "Date" for 'daily' and 'monthly' time series
+      # class(zoo::time(x))== "character" for 'annual' time series
+      if ( class(zoo::time(obs)) == "Date" ) { dates <- zoo::time(obs) 
+      } else if ( class(zoo::time(obs)) == "character" ) {  
              dates <- as.Date(time(obs), format="%Y") }      
     } #ELSE END
   
   # If 'class(sim)' is not 'zoo' and the user provides the dates, then we turn it into a zoo class
-  if ( !is.zoo(sim) & !missing(dates) ) { 
+  if ( !zoo::is.zoo(sim) & !missing(dates) ) { 
     sim <- hydroTSM::vector2zoo(x=sim, dates=dates, date.fmt=date.fmt) 
   # If 'class(sim)' is 'zoo' and 'dates' are missing, dates are extracted from 'sim'
-  } else if ( is.zoo(sim) & is.zoo(obs) & missing(dates) ) {
-      # class(time(x))== "Date" for 'daily' and 'monthly' time series
-      # class(time(x))== "character" for 'annual' time series
-      if ( class(time(sim)) == "Date" ) { dates <- time(obs) 
-      } else if ( class(time(sim)) == "character" ) {  
-             dates <- as.Date(time(sim), format="%Y") }
+  } else if ( zoo::is.zoo(sim) & zoo::is.zoo(obs) & missing(dates) ) {
+      # class(zoo::time(x))== "Date" for 'daily' and 'monthly' time series
+      # class(zoo::time(x))== "character" for 'annual' time series
+      if ( class(zoo::time(sim)) == "Date" ) { dates <- zoo::time(obs) 
+      } else if ( class(zoo::time(sim)) == "character" ) {  
+             dates <- as.Date(zoo::time(sim), format="%Y") }
     } #ELSE END    
   
   #Plotting acoording to the 'ftype' value:  
