@@ -92,11 +92,11 @@ plotbands <- function(x, lband, uband, sim,
     if ( missing(dates) ) {
     
       if ( zoo::is.zoo(x) ) {
-        # class(zoo::time(x))== "Date" for 'daily' and 'monthly' time series
-        # class(zoo::time(x))== "character" for 'annual' time series
-        if ( class(zoo::time(x)) == "Date" ) { dates <- zoo::time(x) 
-        } else if ( class(zoo::time(x)) == "character" ) {  
-             dates <- as.Date(zoo::time(x), format="%Y") 
+        # class(time(x))== "Date" for 'daily' and 'monthly' time series
+        # class(time(x))== "character" for 'annual' time series
+        if ( class(time(x)) == "Date" ) { dates <- time(x) 
+        } else if ( class(time(x)) == "character" ) {  
+             dates <- as.Date(time(x), format="%Y") 
           }  
       } else # If there is no way to obtain the dates
           message("[Note: You didn't provide dates, so only a numeric index will be used in the time axis.]")  
@@ -104,14 +104,14 @@ plotbands <- function(x, lband, uband, sim,
       # Checking that the dates of 'x', 'lband', 'uband' and 'sim' are equal ,
       # when they are zoo objects    
       if ( zoo::is.zoo(lband) & zoo::is.zoo(uband) ) 
-        if  ( !all.equal( zoo::time(lband), zoo::time(uband) ) )
+        if  ( !all.equal( time(lband), time(uband) ) )
          stop("Invalid argument: time(lband) is different from time(uband)")       
       if ( zoo::is.zoo(x) & zoo::is.zoo(uband) ) 
-        if  ( !all.equal( zoo::time(x), zoo::time(uband) ) )
+        if  ( !all.equal( time(x), time(uband) ) )
           stop("Invalid argument: time(x) is different from the time of the bands")      
       if ( !missing(sim) ) {
         if ( zoo::is.zoo(x) & zoo::is.zoo(sim) ) 
-          if  ( !all.equal( zoo::time(x), zoo::time(sim) ) )
+          if  ( !all.equal( time(x), time(sim) ) )
             stop("Invalid argument: time(x) is different from the time of 'sim'")    
       } # IF end
           
@@ -139,11 +139,11 @@ plotbands <- function(x, lband, uband, sim,
       # If 'x', 'lband', 'uband' and 'sim' (when provided) are 'zoo' 
       # and the user provides 'dates' (probably new dates), 
       # the dates of the objects are changed to the new date
-      if ( zoo::is.zoo(x) )     { zoo::time(x)     <- dates }  
-      if ( zoo::is.zoo(lband) ) { zoo::time(lband) <- dates } 
-      if ( zoo::is.zoo(uband) ) { zoo::time(uband) <- dates }  
+      if ( zoo::is.zoo(x) )     { time(x)     <- dates }  
+      if ( zoo::is.zoo(lband) ) { time(lband) <- dates } 
+      if ( zoo::is.zoo(uband) ) { time(uband) <- dates }  
       if ( !missing(sim) ) 
-        if ( is.zoo(sim) ) { zoo::time(sim)   <- dates }  
+        if ( is.zoo(sim) ) { time(sim)   <- dates }  
         
       # If the class of 'x' 'lband', 'uband' and 'sim' (when provided) 
       # are not 'zoo' and the user provides the dates, 

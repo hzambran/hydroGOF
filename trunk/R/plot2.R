@@ -86,11 +86,11 @@ plot2 <- function (x, y,
   
     # class(time(x))== "Date" for 'daily' and 'monthly' time series
     # class(time(x))== "character" for 'annual' time series
-    if ( class(zoo::time(x)) == "Date" ) {
-        y <- hydroTSM::vector2zoo(y, dates=zoo::time(x))
+    if ( class(time(x)) == "Date" ) {
+        y <- hydroTSM::vector2zoo(y, dates=time(x))
     } else if ( class(time(x)) == "character" ) {
-        y <- hydroTSM::vector2zoo(y, dates=zoo::time(x), date.fmt="%Y")
-        zoo::time(x) <- zoo::time(y) #'annual' time series
+        y <- hydroTSM::vector2zoo(y, dates=time(x), date.fmt="%Y")
+        time(x) <- time(y) #'annual' time series
     } # ELSE END
     
   } # IF END
@@ -197,7 +197,7 @@ plot2 <- function (x, y,
         
         # Giving the as name to each bar the YEAR, because the 
         # bar plot is thought for being used ONLY for annual time series
-        colnames(b) <- format( zoo::time(x), "%Y")
+        colnames(b) <- format( time(x), "%Y")
         
         # Barplot  
         barplot(b, beside=TRUE, axis.lty=1, col=col, density=25, angle=c(45,-45), 
