@@ -36,7 +36,10 @@ pbias.default <- function (sim, obs, na.rm=TRUE, ...){
       
        pbias <- 100 * ( sum( sim - obs ) / denominator )
      
-     } else stop("'sum((obs)=0', it is not possible to compute 'pbias'")  
+     } else {
+        pbias <- NA
+        warning("'sum((obs)=0', it is not possible to compute 'pbias'")  
+       } # ELSE end
      
      return( round(pbias, 1) )
      
