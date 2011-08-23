@@ -73,7 +73,7 @@ character, indicating the time step that have to be used for putting the ticks o
 character, indicating the time step that have to be used for putting the labels on the time axis. Valid values are: \kbd{auto}, \kbd{years}, \kbd{months},\kbd{weeks}, \kbd{days}, \kbd{hours}, \kbd{minutes}, \kbd{seconds}.
 }
   \item{lab.fmt}{
-Character indicating the format to be used for the label of the axis. See \code{lab.fmt} in \code{\link[hydroTSM]{drawxaxis}}.
+Character indicating the format to be used for the label of the axis. See \code{lab.fmt} in \code{\link[hydroTSM]{drawTimeAxis}}.
 }
  \item{cal.ini}{
 OPTIONAL. Character with the date in which the calibration period started. \cr

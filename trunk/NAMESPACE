@@ -1,4 +1,4 @@
-importFrom("hydroTSM", sfreq, vector2zoo, daily2monthly, daily2annual, monthly2annual, drawxaxis, fdc, time2season, seasonalfunction)
+importFrom("hydroTSM", sfreq, vector2zoo, daily2monthly, daily2annual, monthly2annual, drawTimeAxis, fdc, time2season, seasonalfunction)
 importFrom("zoo", is.zoo, coredata, plot.zoo, "time<-")
 importFrom("xts", is.xts, as.xts, plot.xts, .index)
 
