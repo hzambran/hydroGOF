@@ -49,9 +49,15 @@ pfactor.default <- function(x, lband, uband, na.rm=TRUE, ...)  {
         
     # Getting the row index in 'q95' of all the observations that are within L95PPU and U95PPU
     within.index <- which((lband <= x) & (x <= uband) )
-     
-    # Getting the best simulated streamflows (skipping days withoud measurements)
-    pfactor <- length( within.index ) / length( x ) 
+    
+    L <- length( x ) 
+    
+    if ( L > 0) {     
+      pfactor <- length( within.index ) / L
+    } else {
+         pfactor <- NA 
+         warning("'length(x)=0', it is not possible to compute 'pfactor'") 
+      } # ELSE end
     
     return(pfactor)
 

@@ -54,7 +54,10 @@ pbiasfdc.default <- function (sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE, plot
      
        pbiasfdc <- 100 * ( ( ( log(sim.hQ) -  log(sim.lQ) ) / denominator ) - 1 )
      
-     } else stop("'log(obs.hQ) -  log(obs.lQ) = 0', it is not possible to compute 'pbiasfdc'") 
+     } else {
+         pbiasfdc <- NA 
+         warning("'log(obs.hQ) -  log(obs.lQ) = 0', it is not possible to compute 'pbiasfdc'") 
+       } # ELSE end
      
       if (plot) {
         tmp <- as.matrix(cbind(obs, sim))
