@@ -31,19 +31,21 @@ NEWS/ChangeLog for hydroGOF
 	o 'plotbandsonly': -) it works with xts objects as well
 			   -) 'legend' argument was removed (it was not used)
 			   -) 'leg.cex' argument was removed (it was not used)
-	o 'NSeff' : -) its name was changed to 'NSE'. The old name 'NSeff' is deprecated but is still working for backwards compatibility.
-	            -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'rNSeff': -) its name was changed to 'rNSE'. The old name 'rNSeff' is deprecated but is still working for backwards compatibility.
-	            -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'mNSeff': -) its name was changed to 'mNSE'. The old name 'mNSeff' is deprecated but is still working for backwards compatibility.
-	            -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'rd'    : -) a warning message is created when -at least one of- the observed values is/are zero,
-	               which makes impossible to compute this index (thanks to Tom Purucker !)
-	            -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'md'    : -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'rNSE'  : -) a warning message is created when -at least one of- the observed values is/are zero,
-	               which makes impossible to compute this index
-	            -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'NSeff'   : -) its name was changed to 'NSE'. The old name 'NSeff' is deprecated but is still working for backwards compatibility.
+	              -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'rNSeff'  : -) its name was changed to 'rNSE'. The old name 'rNSeff' is deprecated but is still working for backwards compatibility.
+	              -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'mNSeff'  : -) its name was changed to 'mNSE'. The old name 'mNSeff' is deprecated but is still working for backwards compatibility.
+	              -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'rd'      : -) a warning message is created when -at least one of- the observed values is/are zero,
+	                 which makes impossible to compute this index (thanks to Tom Purucker !)
+	              -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'rNSE'    : -) a warning message is created when -at least one of- the observed values is/are zero,
+	                 which makes impossible to compute this index
+	              -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'md'      : -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'pbias'   : -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'pbiasfdc': -) now it returns NA instead of an error when the denominator of its formula is equal to zero.	
 	o New dimension checking (number of columns and rows) for all the functions that are applied over a matrix or data.frame
 	o fixed error in the documentation of 'rd' (thanks to Tom Purucker !)
 	
