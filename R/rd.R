@@ -61,7 +61,10 @@ rd.default <- function (sim, obs, na.rm=TRUE, ...){
       
        rd <- 1 - ( sum( ( (obs - sim) / obs)^2 ) / denominator )
      
-     } else stop("'sum( ( ( abs(sim-Om) + abs(obs-Om) ) / Om )^2 ) = 0', it is not possible to compute 'rd'")  
+     } else {
+         rd <- NA
+         warning("'sum( ( ( abs(sim-Om) + abs(obs-Om) ) / Om )^2 ) = 0', it is not possible to compute 'rd'")  
+       } # ELSE end
      
      return(rd) 
      
