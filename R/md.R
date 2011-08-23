@@ -48,7 +48,10 @@ md.default <- function (sim, obs, j=1, na.rm=TRUE, ...){
       
        d1 <- 1 - ( sum( ( abs(obs - sim) )^j ) / denominator )
      
-     } else stop("'sum((abs(sim-Om)+abs(obs-Om))^j)=0', it is not possible to compute 'md'")  
+     } else {
+         d1 <- NA
+         warning("'sum((abs(sim-Om)+abs(obs-Om))^j)=0', it is not possible to compute 'md'")  
+       } # ELSE end
      
      return(d1) 
      
