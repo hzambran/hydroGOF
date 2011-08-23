@@ -33,7 +33,10 @@ NSE.default <- function (sim, obs, na.rm=TRUE, ...){
       
      NS <- 1 - ( sum( (obs - sim)^2 ) / denominator )
      
-   } else stop("'sum((obs - mean(obs))^2)=0' => it is not possible to compute 'NSE'")  
+   } else {
+       NS <- NA
+       warning("'sum((obs - mean(obs))^2)=0' => it is not possible to compute 'NSE'")  
+     } # ELSE end
      
    return(NS)
      
