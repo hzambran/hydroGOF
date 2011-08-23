@@ -19,7 +19,10 @@ rSD.default <- function (sim, obs, na.rm=TRUE, ...){
      
      rSD <- sd(sim, na.rm= na.rm) / sd(obs, na.rm= na.rm) 
      
-     } else stop("'sd(obs)=0', it is not possible to compute 'rSD'")  
+     } else {
+        rSD <- NA
+        warning("'sd(obs)=0', it is not possible to compute 'rSD'")  
+       } # ELSE end
      
      return(rSD)
      
