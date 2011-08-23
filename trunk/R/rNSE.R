@@ -44,7 +44,10 @@ rNSE.default <- function (sim, obs, na.rm=TRUE, ...){
 	  
    rNSE <- 1 - ( sum( ( (obs - sim) / obs )^2 ) / denominator )
 	 
-   } else stop("'sum( ( ( obs - mean(obs) ) / mean(obs) )^2 ) = 0', it is not possible to compute 'rNSE'")  
+   } else {
+      rNSE <- NA
+      warning("'sum( ( ( obs - mean(obs) ) / mean(obs) )^2 ) = 0', it is not possible to compute 'rNSE'")  
+     } # ELSE end
 	 
    return(rNSE)
      
