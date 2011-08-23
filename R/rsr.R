@@ -42,7 +42,10 @@ rsr.default <- function (sim, obs, na.rm=TRUE, ...){
      
        rsr <- rmse / sd.obs
      
-     } else stop("'sd(obs)=0', it is not possible to compute 'RSR'")  
+     } else {
+         rsr <- NA
+         warning("'sd(obs)=0', it is not possible to compute 'RSR'")  
+       } # ELSE end
      
      return( rsr )
      
