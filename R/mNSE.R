@@ -41,7 +41,10 @@ mNSE.default <- function (sim, obs, j=1, na.rm=TRUE, ...){
 	  
 	 NS1 <- 1 - ( sum( abs(obs - sim)^j ) / denominator )
 	 
-	 } else stop("'sum(abs(obs - mean(obs))^j)=0', it is not possible to compute 'mNSE'")  
+	 } else {
+	     NS1 <- NA
+	     warning("'sum(abs(obs - mean(obs))^j)=0', it is not possible to compute 'mNSE'")  
+	   } # ELSE end
 	 
 	 return(NS1)
      
