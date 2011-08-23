@@ -48,7 +48,8 @@ NEWS/ChangeLog for hydroGOF
 	o 'pbiasfdc': -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
 	o 'pfactor' : -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
 	o 'rfactor' : -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'rSD'     : -) now it returns NA instead of an error when the denominator of its formula is equal to zero.	
+	o 'rSD'     : -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'RSR'     : -) now it returns NA instead of an error when the denominator of its formula is equal to zero.	
 	o New dimension checking (number of columns and rows) for all the functions that are applied over a matrix or data.frame
 	o fixed error in the documentation of 'rd' (thanks to Tom Purucker !)
 	
