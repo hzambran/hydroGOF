@@ -33,7 +33,10 @@ nrmse.default <- function (sim, obs, na.rm=TRUE, norm="sd", ...) {
      
        nrmse <- rmse / cte
      
-     } else stop("'obs' is constant, it is not possible to compute 'nrmse'")  
+     } else {
+         nrmse <- NA
+         warning("'obs' is constant, it is not possible to compute 'nrmse'")  
+       } # ELSE end
      
      return( round( 100*nrmse, 1) )
      
