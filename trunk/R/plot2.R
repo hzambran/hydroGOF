@@ -184,7 +184,7 @@ plot2 <- function (x, y,
             zoo::plot.zoo(cbind(x, y), plot.type=plot.type, type=c("o","o"), 
                          lwd=lwd, lty= lty, col= col, pch= pch, 
                          cex = cex, 
-                         #cex.axis=cex.axis, 
+                         cex.axis=cex.axis, 
                          cex.lab=cex.lab,
                          main=main, xlab=xlab, ylab= ylab,...)
                          
