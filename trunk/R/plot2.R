@@ -5,7 +5,7 @@
 # Started: March 04, 2009                                  #
 # Updates: May 2009                                        #
 #          2010                                            #
-#          21-Jan-2011, 15-Apr-2011                        #
+#          21-Jan-2011, 15-Apr-2011 ; 25-Aug-2011          #
 ############################################################
                 
 plot2 <- function (x, y, 
@@ -71,7 +71,7 @@ plot2 <- function (x, y,
   if (is.na(match(plot.type, c("single", "multiple") ) ) ) 
          stop("Invalid argument: 'plot.type' must be in c('single', 'multiple')")
          
-  # If the user wants to draw a legned, it checks that the type of plot is 'single'
+  # If the user wants to draw a legend, it checks that the type of plot is 'single'
   if (gof.leg & (plot.type == "multiple") )
     stop("Invalid argument: For drawing a legend, 'plot.type' must be 'single'")
          
