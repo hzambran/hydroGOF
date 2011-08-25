@@ -1,8 +1,8 @@
 Package: hydroGOF
 Type: Package
 Title: Goodness-of-fit functions for comparison of simulated and observed hydrological time series
-Version: 0.2-2-24
-Date: 2011-08-12
+Version: 0.2-2-25
+Date: 2011-08-25
 Author: Mauricio Zambrano Bigiarini
 Maintainer: Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
 Description: S3 functions implementing both statistical and graphical goodness-of-fit measures between observed and simulated values, mainly oriented to be used during the calibration, validation, and application of hydrological models. Missing values in observed and/or simulated values can removed before the computations. Comments / questions / collaboration of any kind are very welcomed.

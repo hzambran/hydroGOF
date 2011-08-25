@@ -16,13 +16,20 @@ NEWS/ChangeLog for hydroGOF
 		              The (nicer) 'plot.xts' function is used instead of the previous 'plot.zoo'.
 		           -) 'tick.tstep' and 'lab.tstep' now accept the values: "auto", "weeks", "hours", "minutes", 
 		              "seconds", which should work with sub-daily time series
+		           -) when 'cal.ini' is provided, all the values in 'obs' and 'sim' with dates previous to 'cal.ini' are SKIPPED 
+		              from the computation of the goodness-of-fit measures (when 'gof.leg=TRUE'), but their values are still plotted, 
+		              in order to examine if the warming up period was too short, aceptable or too long for the chosen calibration period.
 		           -) fixed problem with the 'cex.axis' argument when 'plot.type="multiple"' (this was a zoo problem, and it was 
-		              fixed in zoo_1.7-1).	
+		              fixed in zoo_1.7-1).		           
 	o 'ggof'         : -) better display of time series objects (by using the new 'plot2' and 'drawxaxis/drawTimeAxis')
 		           -) it works with xts objects as well.
 		           -) 'tick.tstep' and 'lab.tstep' now accept the values: "auto", "quarters", "weeks", "hours", 
 	 	              "minutes", and "seconds", and its default value was changed to "auto". 
 	 	           -) the name of 'sim' and 'obs' are now used as default for the legend.
+	 	           -) when 'cal.ini' is provided, all the values in 'obs' and 'sim' with dates previous to 'cal.ini' are SKIPPED 
+		              from the computation of the goodness-of-fit measures (when 'gof.leg=TRUE'), but their values are still plotted, 
+		              in order to examine if the warming up period was too short, aceptable or too long for the chosen calibration period.
+		           -) added error checking for 'ftype' when 'sim' and 'obs' are not time series.
 	o 'plotbands'    : -) better display of time series objects. The (nicer) 'plot.xts' function is used 
 			      instead of the previous 'plot.zoo', and it uses the new 'drawTimeAxis' function.
 		           -) 'tick.tstep' and 'lab.tstep' now accept the values: "auto", "quarters", "weeks", "hours", 
