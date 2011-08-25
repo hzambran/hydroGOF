@@ -2,6 +2,7 @@
 # 'KGE': Kling-Gupta Efficiency                  #
 ##################################################
 # Started: 18-Jan-2011                           #
+# Updates: 25-Aug-2011                           #
 ##################################################
 # The optimal value of KGE is 1
 
@@ -58,9 +59,9 @@ KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, ...) {
      if ( (mean.obs != 0) | (sigma.obs != 0) ) {
          KGE <- 1 - sqrt( (s[1]*(r-1))^2 + (s[2]*(Alpha-1))^2 + (s[3]*(Beta-1))^2 )
      } else {
-         if ( mean.obs != 0)  message("Warning: 'mean(obs)==0'. Beta = -Inf")
-         if ( sigma.obs != 0) message("Warning: 'sd(obs)==0'. Beta = -Inf")
-         KGE <- -Inf
+         if ( mean.obs != 0)  warning("Warning: 'mean(obs)==0'. Beta = -Inf")
+         if ( sigma.obs != 0) warning("Warning: 'sd(obs)==0'. Alpha = -Inf")
+         KGE <- NA
        } # ELSE end     
  
      return(KGE)
