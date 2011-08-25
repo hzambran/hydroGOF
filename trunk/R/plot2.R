@@ -104,12 +104,10 @@ plot2 <- function (x, y,
   if ( missing(main) ) main <- "Observed vs Simulated"   
   
   # If the user provided a value for 'cal.ini', it is transformed into a Date class
-  if ( !missing(cal.ini) ) 
-    cal.ini <- as.Date(cal.ini, format=date.fmt)
+  if ( !missing(cal.ini) ) cal.ini <- as.Date(cal.ini, format=date.fmt)
     
   # If the user provided a value for 'val.ini', it is transformed into a Date class
-  if ( !missing(val.ini) ) 
-    val.ini <- as.Date(val.ini, format=date.fmt)
+  if ( !missing(val.ini) ) val.ini <- as.Date(val.ini, format=date.fmt)
   
   # If the legend has to be plotted AND no other plots will be added
   # IF 'add' is TRUE, the layout of the screen is set up by the calling procedure (usually 'ggof')
@@ -227,6 +225,16 @@ plot2 <- function (x, y,
   
   # If the Goodness of Fit indexes have to be computed and plotted:
   if (gof.leg & plot.type == "single" ) {
+  
+   # If the user provided 'cal.ini' and 'x' & 'y' are zoo objects, 
+   # the warming up period is removed from the computation of the goodness-of-fit
+   # measures => all the values before 'cal.ini' are ignored but plotted
+   if ( is.zoo(x) & is.zoo(y) ) {
+     if ( !is.na(cal.ini) ) {
+       x <- window(x, start=cal.ini)
+       y <- window(y, start=cal.ini)
+     } # IF end 
+   } # IF end
   
    gof.xy <- gof(sim=as.numeric(x), obs=as.numeric(y), do.spearman=FALSE, do.pbfdc=FALSE, digits=gof.digits, ...)
    

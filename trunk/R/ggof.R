@@ -77,14 +77,6 @@ ggof <- function (sim, obs,
                    hydroTSM::sfreq(obs), "vs", hydroTSM::sfreq(sim), ")"  ,sep=" ") ) }
   } # IF end
          
-  # Checking 'ftype'       
-  if (is.na(match(ftype, c("o", "dm", "ma", "dma") ) ) ) 
-         stop("Invalid argument: 'ftype' must be in c('o', 'dm', 'ma, 'dma')")
-         
-  # Checking FUN, when 'ftype' involves monthly or annual values     
-  if (!is.na(match(ftype, c("dm", "ma", "dma") ) ) & missing(FUN) ) 
-         stop("Missing argument: 'FUN' must be provided when 'ftype' is in c('dm', 'ma, 'dma')")
-         
   # If the user didn't provide a title for the plot, the default is used 
   if ( missing(main) ) main <- "Observations vs Simulations"         
           
@@ -105,14 +97,12 @@ ggof <- function (sim, obs,
         dates <- as.Date(dates, format= date.fmt)    
     
     # If 'obs' is 'zoo' and the user provides the dates (probably new dates)
-    if ( zoo::is.zoo(obs) ) { time(obs) <- dates }  
+    if ( zoo::is.zoo(obs) ) time(obs) <- dates
     # If 'sim' is 'zoo' and the user provides the dates  (probably new dates)
-    if ( zoo::is.zoo(sim) ) { time(sim) <- dates }  
+    if ( zoo::is.zoo(sim) ) time(sim) <- dates   
     
   } else if (!zoo::is.zoo(obs)) message("[Note: You didn't provide dates, so only a numeric index will be used in the time axis.]")      
  
-  
-  #require(hydroTSM) # for using the 'vector2zoo' function 
   
   # If 'class(obs)' is not 'zoo' and the user provides the dates, then we turn it into a zoo class
   if ( !zoo::is.zoo(obs) & !missing(dates) ) { 
@@ -137,6 +127,21 @@ ggof <- function (sim, obs,
       } else if ( class(time(sim)) == "character" ) {  
              dates <- as.Date(time(sim), format="%Y") }
     } #ELSE END    
+    
+  # Checking 'ftype'       
+  if (is.na(match(ftype, c("o", "dm", "ma", "dma") ) ) ) 
+      stop("Invalid argument: 'ftype' must be in c('o', 'dm', 'ma, 'dma')")
+  
+  # If 'obs' and 'sim' are not zoo objetcs, the only possible value for 'ftype' is 'o'     
+  if ( !zoo::is.zoo(sim) & ! zoo::is.zoo(sim) ) {
+     if (!is.na(match(ftype, c("dm", "ma", "dma") ) ) ) 
+      message("[Note: 'sim' & 'obs' are not zoo objects => 'ftype' was changed to 'o']")
+      ftype <- "o"
+  } # IF end
+         
+  # Checking FUN, when 'ftype' involves monthly or annual values     
+  if (!is.na(match(ftype, c("dm", "ma", "dma") ) ) & missing(FUN) ) 
+         stop("Missing argument: 'FUN' must be provided when 'ftype' is in c('dm', 'ma, 'dma')")
   
   #Plotting acoording to the 'ftype' value:  
   if (ftype == "o") {

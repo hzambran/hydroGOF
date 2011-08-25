@@ -79,7 +79,8 @@ Character indicating the format to be used for the label of the axis. See \code{
 }
   \item{cal.ini}{
 OPTIONAL. Character, indicating the date in which the calibration period started. \cr
-ONLY used for drawing a vertical red line at this date. 
+When \code{cal.ini} is provided, all the values in \code{obs} and \code{sim} with dates previous to \code{cal.ini} are SKIPPED from the computation of the goodness-of-fit measures (when \code{gof.leg=TRUE}), but their values are still plotted, in order to examine if the warming up period was too short, acceptable or too long for the chosen calibration period.
+In addition, a vertical red line in drawn at this date. 
 }
   \item{val.ini}{
 OPTIONAL. Character, the date in which the validation period started. \cr
