@@ -1,5 +1,5 @@
 ################################################################################
-# 've': Volumetric Efficiency                                                  #
+# 'VE': Volumetric Efficiency                                                  #
 ################################################################################
 # Author : Mauricio Zambrano-Bigiarini                                         #
 # Started: 26-Aug-2011                                                         #
@@ -13,9 +13,9 @@
 # 'sim'   : numeric 'data.frame', 'matrix' or 'vector' with simulated values
 # 'Result': Mean Absolute Error between 'sim' and 'obs', in the same units of 'sim' and 'obs' 
 
-ve <-function(sim, obs, ...) UseMethod("ve")
+VE <-function(sim, obs, ...) UseMethod("VE")
 
-ve.default <- function (sim, obs, na.rm=TRUE, ...){
+VE.default <- function (sim, obs, na.rm=TRUE, ...){
 
   if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
           is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
@@ -40,10 +40,10 @@ ve.default <- function (sim, obs, na.rm=TRUE, ...){
      
    return(ve)      
      
-} # 've.default' end
+} # 'VE.default' end
   
   
-ve.matrix <- function (sim, obs, na.rm=TRUE, ...){
+VE.matrix <- function (sim, obs, na.rm=TRUE, ...){
 
   # Checking that 'sim' and 'obs' have the same dimensions
   if ( all.equal(dim(sim), dim(obs)) != TRUE )
@@ -53,7 +53,7 @@ ve.matrix <- function (sim, obs, na.rm=TRUE, ...){
 
   ve <- rep(NA, ncol(obs))       
           
-  NveS <- sapply(1:ncol(obs), function(i,x,y) { 
+  ve <- sapply(1:ncol(obs), function(i,x,y) { 
                  ve[i] <- ve.default( x[,i], y[,i], na.rm=na.rm, ... )
                }, x=sim, y=obs )    
                      
@@ -64,11 +64,11 @@ ve.matrix <- function (sim, obs, na.rm=TRUE, ...){
   } # 've.matrix' end
   
   
-ve.data.frame <- function (sim, obs, na.rm=TRUE,...){
+VE.data.frame <- function (sim, obs, na.rm=TRUE,...){
 
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
    
   ve.matrix(sim, obs, na.rm=na.rm, ...)  
      
-} # 've.data.frame' end
+} # 'VE.data.frame' end

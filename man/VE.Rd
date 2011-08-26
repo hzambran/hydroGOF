@@ -1,9 +1,9 @@
 \name{ve}
 \Rdversion{1.1}
-\alias{ve}
-\alias{ve.default}
-\alias{ve.matrix}
-\alias{ve.data.frame}
+\alias{VE}
+\alias{VE.default}
+\alias{VE.matrix}
+\alias{VE.data.frame}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Volumetric Efficiency
@@ -12,13 +12,13 @@ Volumetric Efficiency
 Volumetric efficiency between \code{sim} and \code{obs}, with treatment of missing values.
 }
 \usage{
-ve(sim, obs, ...)
+VE(sim, obs, ...)
 
-\method{ve}{default}(sim, obs, na.rm=TRUE, ...)
+\method{VE}{default}(sim, obs, na.rm=TRUE, ...)
 
-\method{ve}{data.frame}(sim, obs, na.rm=TRUE, ...)
+\method{VE}{data.frame}(sim, obs, na.rm=TRUE, ...)
 
-\method{ve}{matrix}(sim, obs, na.rm=TRUE, ...)
+\method{VE}{matrix}(sim, obs, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -69,11 +69,11 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 \examples{
 obs <- 1:10
 sim <- 1:10
-ve(sim, obs)
+VE(sim, obs)
 
 obs <- 1:10
 sim <- 2:11
-ve(sim, obs)
+VE(sim, obs)
 
 ##################
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
@@ -84,15 +84,15 @@ obs <- EgaEnEstellaQts
 # Generating a simulated daily time series, initially equal to the observed series
 sim <- obs 
 
-# Computing the mean absolute error for the "best" case
-ve(sim=sim, obs=obs)
+# Computing the volumetric efficiency for the "best" case
+VE(sim=sim, obs=obs)
 
 # Randomly changing the first 2000 elements of 'sim', by using a normal distribution 
 # with mean 10 and standard deviation equal to 1 (default of 'rnorm').
 sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 
-# Computing the new mean absolute error
-ve(sim=sim, obs=obs)
+# Computing the new volumetric efficiency
+VE(sim=sim, obs=obs)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
