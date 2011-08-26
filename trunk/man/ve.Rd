@@ -1,24 +1,24 @@
-\name{mae}
+\name{ve}
 \Rdversion{1.1}
-\alias{mae}
-\alias{mae.default}
-\alias{mae.matrix}
-\alias{mae.data.frame}
+\alias{ve}
+\alias{ve.default}
+\alias{ve.matrix}
+\alias{ve.data.frame}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Mean Absolute Error
+Volumetric Efficiency
 }
 \description{
-Mean absolute error between \code{sim} and \code{obs}, in the same units of them, with treatment of missing values.
+Volumetric efficiency between \code{sim} and \code{obs}, with treatment of missing values.
 }
 \usage{
-mae(sim, obs, ...)
+ve(sim, obs, ...)
 
-\method{mae}{default}(sim, obs, na.rm=TRUE, ...)
+\method{ve}{default}(sim, obs, na.rm=TRUE, ...)
 
-\method{mae}{data.frame}(sim, obs, na.rm=TRUE, ...)
+\method{ve}{data.frame}(sim, obs, na.rm=TRUE, ...)
 
-\method{mae}{matrix}(sim, obs, na.rm=TRUE, ...)
+\method{ve}{matrix}(sim, obs, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -37,16 +37,20 @@ further arguments passed to or from other methods.
 }
 }
 \details{
-\deqn{ mae = \frac{1}{N} \sum_{i=1}^N { \left|S_i - O_i) \right| } }{%
-mae = mean( abs(sim - obs), na.rm = TRUE) } 
+\deqn{ VE = 1 -\frac { \sum_{i=1}^N { \left| S_i - O_i \right| } } { \sum_{i=1}^N { \left( O_i \right) } }  }{%
+VE = 1 - ( sum( abs(obs - sim) ) / sum( obs ) ) }
+
+Volumetric efficiency was proposed in order to circumvent some problems associated to the Nash-Sutcliffe efficiency. It ranges from 0 to 1 and represents the fraction of water delivered at the proper time; its compliment represents the fractional volumetric mistmach (Criss and Winston, 2008).
+
 }
 \value{
-Mean absolute error between \code{sim} and \code{obs}. \cr
+Volumetric efficiency between \code{sim} and \code{obs}. \cr
 
-If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the mean absolute error between each column of \code{sim} and \code{obs}.
+If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the Volumetric efficiency between each column of \code{sim} and \code{obs}.
 }
 \references{
-\url{http://en.wikipedia.org/wiki/Mean_absolute_error}
+\cite{Criss, R. E. and Winston, W. E. (2008), Do Nash values have value? Discussion and alternate proposals. Hydrological Processes, 22: 2723-2725. doi: 10.1002/hyp.7072}
+
 }
 \author{
 Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
@@ -60,16 +64,16 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{me}}
+\code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 obs <- 1:10
 sim <- 1:10
-mae(sim, obs)
+ve(sim, obs)
 
 obs <- 1:10
 sim <- 2:11
-mae(sim, obs)
+ve(sim, obs)
 
 ##################
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
@@ -81,14 +85,14 @@ obs <- EgaEnEstellaQts
 sim <- obs 
 
 # Computing the mean absolute error for the "best" case
-mae(sim=sim, obs=obs)
+ve(sim=sim, obs=obs)
 
 # Randomly changing the first 2000 elements of 'sim', by using a normal distribution 
 # with mean 10 and standard deviation equal to 1 (default of 'rnorm').
 sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 
 # Computing the new mean absolute error
-mae(sim=sim, obs=obs)
+ve(sim=sim, obs=obs)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
