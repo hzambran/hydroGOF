@@ -65,7 +65,7 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{rmse}}, \code{\link{ssq}}
+\code{\link{rmse}}, \code{\link{ssq}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 
 \examples{

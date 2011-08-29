@@ -37,7 +37,7 @@ further arguments passed to or from other methods.
 }
 }
 \details{
-\deqn{ mae = \frac{1}{N} \sum_{i=1}^N { \left(S_i - O_i) \right) } }{%
+\deqn{ me = \frac{1}{N} \sum_{i=1}^N { \left(S_i - O_i) \right) } }{%
 me = mean( sim - obs), na.rm = TRUE) } 
 }
 \value{
@@ -60,7 +60,7 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{mae}}
+\code{\link{mae}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 obs <- 1:10

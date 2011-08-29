@@ -44,14 +44,14 @@ Coefficient of persistence (Kitadinis and Bras, 1980; Corradini et al., 1986) is
 
 The coefficient of persistence compare the predictions of the model with the predictions obtained by assuming that the process is a Wiener process (variance increasing linearly with time), in which case, the best estimate for the future is given by the latest measurement (Kitadinis and Bras, 1980). \cr
 
-Persistence model efficiency (PI) is a normalized model evaluation statistic that quantifies the relative magnitude of the residual variance (noise) to the variance of the errors obtained by the use of a simple persistence model (Moriasi et al., 2007). 
+Persistence model efficiency is a normalized model evaluation statistic that quantifies the relative magnitude of the residual variance (noise) to the variance of the errors obtained by the use of a simple persistence model (Moriasi et al., 2007). 
 
-PI ranges from 0 to 1, with PME = 1 being the optimal value and it should be larger than 0.0 to indicate a minimally acceptable model performance.
+CP ranges from 0 to 1, with CP = 1 being the optimal value and it should be larger than 0.0 to indicate a minimally acceptable model performance.
 }
 \value{
 Coefficient of persistence between \code{sim} and \code{obs}. \cr
 
-If sim' and 'obs' are matrixes, the returned value is a vector, with the coefficient of persistence between each column of \code{sim} and \code{obs}.
+If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the coefficient of persistence between each column of \code{sim} and \code{obs}.
 }
 \references{
 \cite{Kitanidis, P.K., and Bras, R.L. 1980. Real-time forecasting with a conceptual hydrologic model. 2. Applications and results. Water Resources Research, Vol. 16, No. 6, pp. 1034:1044} \cr
@@ -69,9 +69,9 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-%%\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-%%}
+\seealso{
+\code{\link{gof}}
+}
 \examples{
 obs <- 1:10
 sim <- 1:10

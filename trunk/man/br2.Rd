@@ -66,7 +66,7 @@ The slope \code{b} is computed as the coefficient of the linear regression betwe
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{gof}}, \code{\link{cor}}, \code{\link{lm}}
+\code{\link{cor}}, \code{\link{lm}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 obs <- 1:10

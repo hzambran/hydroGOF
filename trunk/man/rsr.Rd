@@ -59,7 +59,7 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{sd}}
+\code{\link{sd}}, \code{\link{rSD}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 sim <- 1:10

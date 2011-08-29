@@ -66,7 +66,7 @@ If some of the observed values are equal to zero (at least one of them), this in
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{NSE}}, \code{\link{mNSE}}
+\code{\link{NSE}}, \code{\link{mNSE}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 sim <- 1:10
