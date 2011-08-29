@@ -60,7 +60,7 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{mae}}, \code{\link{me}}
+\code{\link{mae}}, \code{\link{me}}, \code{\link{gof}}
 }
 \examples{
 obs <- 1:10

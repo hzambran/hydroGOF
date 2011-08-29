@@ -78,7 +78,7 @@ If some of the observed values are equal to zero (at least one of them), this in
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{d}}, \code{\link{md}}
+\code{\link{d}}, \code{\link{md}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 obs <- 1:10

@@ -73,9 +73,9 @@ The missing values in \code{obs'} and \code{sim'} are removed before the computa
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-%%\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-%%}
+\seealso{
+\code{\link{md}}, \code{\link{rd}}, \code{\link{gof}}, \code{\link{ggof}}
+}
 \examples{
 obs <- 1:10
 sim <- 1:10
