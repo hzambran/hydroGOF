@@ -1,7 +1,9 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
 
-0.2-3	(under development)
+
+0.3-0	01-Sep-2011
+
 	o NAMESPACE created, which leads to reduced dependency on the package hydroTSM.
 	o hydroGOF now depends on xts >= 0.8-2 (=> zoo >= 1.7-2), in order to make use of improved plotting capabilities for ts objects.
           The first release of 'xts' after the 0.8-0 (which was set as the default building block for plotting time series in hydroTSM) 
@@ -65,6 +67,7 @@ NEWS/ChangeLog for hydroGOF
 	
 
 0.2-2	14-Apr-2011
+
 	o new function: 'KGE', Kling-Gupta efficiency
 	o 'ggof': argument 'lab.fmt' is used now, and 'KGE' is shown in the GoF legend
 	o 'plot2': KGE is showed in the GoF legend
