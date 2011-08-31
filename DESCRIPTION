@@ -13,5 +13,5 @@ Imports: hydroTSM (>= 0.2-2), zoo (>= 1.7-2), xts (>= 0.8-2)
 HowToCite: > citation("hydroGOF")
 URL: http://www.rforge.net/hydroGOF/, http://cran.r-project.org/web/packages/hydroGOF/
 BugReports: https://www.rforge.net/bugzilla/describecomponents.cgi?product=hydroGOF
-Keywords: hydrology, hydrological modelling, hydrologic modeling, goodness-of-fit, objective function, simulated vs observed, observed vs simulated
+Keywords: hydrology, hydrological modelling, hydrologic modeling, calibration, verification, goodness-of-fit, objective function, simulated vs observed, observed vs simulated
 LazyLoad: yes
