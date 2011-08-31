@@ -204,17 +204,17 @@ gof(sim=sim, obs=obs)
 # with mean 10 and standard deviation equal to 1 (default of 'rnorm').
 sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 
-# Getting the new numeric goodness of fit 
+# Getting the new numeric goodness-of-fit measures
 gof(sim=sim, obs=obs)
 
 # Getting the graphical representation of 'obs' and 'sim' along with the numeric 
-# goodness of fit for the daily and monthly time series 
+# goodness-of-fit measures for the daily and monthly time series 
 \dontrun{
 ggof(sim=sim, obs=obs, ftype="dm", FUN=mean)
 }
 
 # Computing the daily residuals 
-# dummy example, but enough for ilustrating the capability
+# even if this is a dummy example, it is enough for illustrating the capability
 r <- sim-obs
 
 # Summarizing and plotting the residuals
