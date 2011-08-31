@@ -1,11 +1,15 @@
 ############################################################
 # 'plot2':     Plots 2 time series on the same graph       #
-#              It is a wrapper for the 'plot.zoo' function #
+#              It is a wrapper for the 'plot.zoo' &        #
+#              plot.xts functions                          #
+############################################################
+# Author : Mauricio Zambrano-Bigiarini                     #
 ############################################################
 # Started: March 04, 2009                                  #
 # Updates: May 2009                                        #
 #          2010                                            #
-#          21-Jan-2011, 15-Apr-2011 ; 25-Aug-2011          #
+#          21-Jan-2011 ; 15-Apr-2011 ;                     #
+#          25-Aug-2011 ; 31-Aug-2011                       #
 ############################################################
                 
 plot2 <- function (x, y, 
@@ -146,10 +150,10 @@ plot2 <- function (x, y,
       lines(y, type="o", lwd=lwd[2], lty= lty[2], col= col[2], pch= pch[2], cex = cex[2])      
                
       # If the user provided a value for 'cal.ini', a vertical line is drawn
-      if ( !missing(cal.ini) ) abline(v=cal.ini, col="red", lty=1, lwd=2)
+      if ( !missing(cal.ini) ) abline(v=as.POSIXct(cal.ini), col="red", lty=1, lwd=2)
       
-      # If the user provided a value for 'cal.ini', a vertical line is drawn
-      if ( !missing(val.ini) ) abline(v=val.ini, col="red", lty=1, lwd=2)
+      # If the user provided a value for 'val.ini', a vertical line is drawn
+      if ( !missing(val.ini) ) abline(v=as.POSIXct(val.ini), col="red", lty=1, lwd=2)
                
       # Drawing a legend with 'Obs' vs 'Sim' 
       # y.intersp=0.5, is for the vertical spacin in the legend
@@ -186,6 +190,12 @@ plot2 <- function (x, y,
                          cex.lab=cex.lab,
                          main=main, xlab=xlab, ylab= ylab,...)
                          
+            # If the user provided a value for 'cal.ini', a vertical line is drawn
+            if ( !missing(cal.ini) ) abline(v=as.POSIXct(cal.ini), col="red", lty=1, lwd=2)
+      
+            # If the user provided a value for 'val.ini', a vertical line is drawn
+            if ( !missing(val.ini) ) abline(v=as.POSIXct(val.ini), col="red", lty=1, lwd=2)
+                         
       } # ELSE end 
       
   } else if (pt.style=="bar") {
@@ -202,22 +212,26 @@ plot2 <- function (x, y,
                 main=main, xlab=xlab, ylab= ylab, legend.text=legend, 
                 cex.axis=cex.axis, cex.lab=cex.lab, ...)
        
-        # Index of the bar corresponding to 'cal.ini'.
-        # It is necessary to multiply it by 3 because for each year there are 3 vertical lines
-        # It is necessary to substract 2, for shifting the line form the 3 line to the first one
-        cal.index <- 3*which(colnames(b) == format( cal.ini, "%Y")) - 2
-        # If the user provided a value for 'cal.ini', a vertical line is drawn
         if ( !missing(cal.ini) ) {
-         abline(v=cal.index, col="red", lty=1, lwd=2)
+          # Index of the bar corresponding to 'cal.ini'.
+          # It is necessary to multiply it by 3 because for each year there are 3 vertical lines
+          # It is necessary to substract 2, for shifting the line form the 3 line to the first one
+          cal.index <- 3*which(colnames(b) == format( cal.ini, "%Y")) - 2
+          # If the user provided a value for 'cal.ini', a vertical line is drawn
+          if ( !missing(cal.ini) ) {
+           abline(v=cal.index, col="red", lty=1, lwd=2)
+          } # IF end
         } # IF end
        
-        # Index of the bar corresponding to 'cal.ini'.
-        # It is necessary to multiply it by 3 because for each year there are 3 vertical lines
-        # It is necessary to substract 2, for shifting the line form the 3 line to the first one
-        val.index <- 3*which(colnames(b) == format( val.ini, "%Y")) - 2
-        # If the user provided a value for 'cal.ini', a vertical line is drawn
         if ( !missing(val.ini) ) {
-          abline(v=val.index, col="red", lty=1, lwd=2)
+          # Index of the bar corresponding to 'val.ini'.
+          # It is necessary to multiply it by 3 because for each year there are 3 vertical lines
+          # It is necessary to substract 2, for shifting the line form the 3 line to the first one
+          val.index <- 3*which(colnames(b) == format( val.ini, "%Y")) - 2
+          # If the user provided a value for 'val.ini', a vertical line is drawn
+          if ( !missing(val.ini) ) {
+            abline(v=val.index, col="red", lty=1, lwd=2)
+          } # IF end
         } # IF end
       
     }  # ELSE end        
