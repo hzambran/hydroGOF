@@ -1,0 +1,17 @@
+Package: hydroGOF
+Type: Package
+Title: Goodness-of-fit functions for comparison of simulated and observed hydrological time series
+Version: 0.3-0
+Date: 2011-09-01
+Author: Mauricio Zambrano-Bigiarini [aut, cre]
+Author@R: c(person("Mauricio", "Zambrano-Bigiarini", email = "mauricio.zambrano@ing.unitn.it", role=c("aut", "cre") ) )
+Maintainer: Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
+Description: S3 functions implementing both statistical and graphical goodness-of-fit measures between observed and simulated values, mainly oriented to be used during the calibration, validation, and application of hydrological models. Missing values in observed and/or simulated values can removed before the computations. Comments / questions / collaboration of any kind are very welcomed.
+License: GPL (>=2)
+Depends: R (>= 2.10.0) 
+Imports: hydroTSM (>= 0.3-0), zoo (>= 1.7-2), xts (>= 0.8-2)
+HowToCite: > citation("hydroGOF")
+URL: http://www.rforge.net/hydroGOF/, http://cran.r-project.org/web/packages/hydroGOF/
+BugReports: https://www.rforge.net/bugzilla/describecomponents.cgi?product=hydroGOF
+Keywords: hydrology, hydrological modelling, hydrologic modeling, calibration, verification, goodness-of-fit, objective function, simulated vs observed, observed vs simulated
+LazyLoad: yes
