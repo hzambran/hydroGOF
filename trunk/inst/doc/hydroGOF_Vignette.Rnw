@@ -42,7 +42,7 @@ data(EgaEnEstellaQts)
 obs <- EgaEnEstellaQts
 @
 
-\item Generating a simulated daily time series, initially equal to the observed values
+\item Generating a simulated daily time series, initially equal to the observed values (simulated values are usually read from the output files of the hydrological model)
 
 <<>>=
 sim <- obs 
