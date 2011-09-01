@@ -4,8 +4,3 @@ importFrom("xts", is.xts, as.xts, plot.xts, .index)
 
 exportPattern("^[^\\.]")
 
-S3method(whl, zoo)
-S3method(wh, zoo)
-S3method(wl, zoo)
-S3method(wmNSE, zoo)
-
