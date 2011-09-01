@@ -54,7 +54,7 @@ VE.matrix <- function (sim, obs, na.rm=TRUE, ...){
   ve <- rep(NA, ncol(obs))       
           
   ve <- sapply(1:ncol(obs), function(i,x,y) { 
-                 ve[i] <- ve.default( x[,i], y[,i], na.rm=na.rm, ... )
+                 ve[i] <- VE.default( x[,i], y[,i], na.rm=na.rm, ... )
                }, x=sim, y=obs )    
                      
   names(ve) <- colnames(obs)
@@ -69,6 +69,6 @@ VE.data.frame <- function (sim, obs, na.rm=TRUE,...){
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
    
-  ve.matrix(sim, obs, na.rm=na.rm, ...)  
+  VE.matrix(sim, obs, na.rm=na.rm, ...)  
      
 } # 'VE.data.frame' end
