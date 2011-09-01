@@ -1,0 +1,144 @@
+\documentclass[a4paper]{article}
+
+\author{Mauricio Zambrano-Bigiarini}
+%\pdfbookmark[0]{Titlepage}{title} % Sets a PDF bookmark for the title page
+\title{Goodness-of-fit Measures to Compare Observed and Simulated Values with hydroGOF}
+\date{Aug 2011}
+
+%\VignetteIndexEntry{Tutorial for computing goodness-of-fit measures with hydroGOF}
+%\VignetteKeyword{hydrology}
+%\VignetteKeyword{hydrological modelling}
+
+
+\begin{document}
+
+\maketitle
+
+\section{Installation}
+\label{sec:Installation}
+
+Installing hydroGOF:
+
+<<eval=FALSE>>=
+install.packages("hydroGOF")
+@
+
+
+\section{Setting Up the Environment}
+\label{sec:SettingUptheEnvironment}
+
+\begin{enumerate}
+
+\item Loading the \textit{hydroGOF} library, which contains data and functions used in this analysis.
+<<>>=
+library(hydroGOF)
+@
+
+\item Loading observed streamflows of the Ega River (Spain), with daily data from 1961-Jan-01 up to 1970-Dec-31
+
+<<>>=
+require(zoo)
+data(EgaEnEstellaQts)
+obs <- EgaEnEstellaQts
+@
+
+\item Generating a simulated daily time series, initially equal to the observed values (simulated values are usually read from the output files of the hydrological model)
+
+<<>>=
+sim <- obs 
+@
+
+\item Computing the numeric goodness-of-fit measures for the "best" (unattainable) case
+
+<<>>=
+gof(sim=sim, obs=obs)
+@
+
+\item Randomly changing the first 2000 elements of 'sim', by using a normal distribution with mean 10 and standard deviation equal to 1 (default of 'rnorm').
+
+<<>>=
+sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
+@
+
+\item Plotting the graphical comparison of 'obs' against 'sim', along with the numeric goodness-of-fit measures for the daily and monthly time series 
+
+<<fig=TRUE, pdf=TRUE, eps=FALSE, width=12, height=10>>=
+ggof(sim=sim, obs=obs, ftype="dm", FUN=mean)
+@
+
+\end{enumerate}
+
+
+\section{Removing Warm-up Period}
+\label{sec:GoodnessOfFitMeasuresReducedTimePeriod}
+
+\begin{enumerate}
+
+\item Using the first two years (1961-1962) as warm-up period, and removing the corresponding observed and simulated values from the computation of the goodness-of-fit measures:
+<<fig=TRUE, pdf=TRUE, eps=FALSE, width=12, height=10>>=
+ggof(sim=sim, obs=obs, ftype="dm", FUN=mean, cal.ini="1963-01-01")
+@
+
+
+\item Verification of the goodness-of-fit measures for the daily values after removing the warm-up period:
+<<>>=
+sim <- window(sim, start=as.Date("1963-01-01"))
+obs <- window(obs, start=as.Date("1963-01-01"))
+
+gof(sim, obs)
+@
+
+
+\end{enumerate}
+
+
+
+\section{Analysis of the Residuals}
+\label{sec:AnnualAnalysis}
+
+\begin{enumerate}
+
+\item Computing the daily residuals (even if this is a dummy example, it is enough for illustrating the capability)
+
+\begin{center}
+<<>>=
+r <- sim-obs
+@
+\end{center}
+
+\item Summarizing and plotting the residuals (it requires the hydroTSM package):
+
+<<>>=
+library(hydroTSM)
+smry(r) 
+@
+
+<<fig=TRUE, pdf=TRUE, eps=FALSE, width=12, height=10>>=
+# daily, monthly and annual plots, boxplots and histograms
+hydroplot(r, FUN=mean)
+@
+
+
+\item Seasonal plots and boxplots
+<<fig=TRUE, pdf=TRUE, eps=FALSE, width=12, height=10>>=
+# daily, monthly and annual plots, boxplots and histograms
+hydroplot(r, FUN=mean, pfreq="seasonal")
+@
+
+
+
+\end{enumerate}
+
+
+%##################################
+This tutorial was built under: 
+
+<<echo=FALSE>>=
+sessionInfo()$platform
+sessionInfo()$R.version$version.string 
+paste("hydroGOF", sessionInfo()$otherPkgs$hydroGOF$Version)
+@
+
+
+
+\end{document}
