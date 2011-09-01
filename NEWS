@@ -9,6 +9,7 @@ NEWS/ChangeLog for hydroGOF
           The first release of 'xts' after the 0.8-0 (which was set as the default building block for plotting time series in hydroTSM) 
           was the 0.8-2, and appeared on CRAN on August 9th, 2011       
 	o now it depends on 'hydroTSM' >= 0.3-0, in order to use the re-written 'drawxaxis/drawTimeAxis' function.	
+	o A vignette is now included with the package, in order to illustrate some basic functionality of the package
 	o 'plot2'        : -) better display of time series objects, when 'plot.type' is 'single'.
 		              The (nicer) 'plot.xts' function is used instead of the previous 'plot.zoo'.
 		           -) 'tick.tstep' and 'lab.tstep' now accept the values: "auto", "weeks", "hours", "minutes", 
