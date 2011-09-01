@@ -8,12 +8,7 @@ NEWS/ChangeLog for hydroGOF
 	o hydroGOF now depends on xts >= 0.8-2 (=> zoo >= 1.7-2), in order to make use of improved plotting capabilities for ts objects.
           The first release of 'xts' after the 0.8-0 (which was set as the default building block for plotting time series in hydroTSM) 
           was the 0.8-2, and appeared on CRAN on August 9th, 2011       
-	o now it depends on 'hydroTSM' >= 0.3-0, in order to use the re-written 'drawxaxis/drawTimeAxis' function.
-	o new function   : 'wNSE', weighted Nash-Sutcliffe efficiency
-	o new function   : 'wsNSE', weighted seasonal Nash-Sutcliffe efficiency
-	o new function   : 'wl', weights to be used when focusing on low values
-	o new function   : 'wh', weights to be used when focusing on high values
-	o new function   : 'whl', weights to be used when focusing on high or low values	
+	o now it depends on 'hydroTSM' >= 0.3-0, in order to use the re-written 'drawxaxis/drawTimeAxis' function.	
 	o 'plot2'        : -) better display of time series objects, when 'plot.type' is 'single'.
 		              The (nicer) 'plot.xts' function is used instead of the previous 'plot.zoo'.
 		           -) 'tick.tstep' and 'lab.tstep' now accept the values: "auto", "weeks", "hours", "minutes", 
