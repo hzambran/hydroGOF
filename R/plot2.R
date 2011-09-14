@@ -9,7 +9,7 @@
 # Updates: May 2009                                        #
 #          2010                                            #
 #          21-Jan-2011 ; 15-Apr-2011 ;                     #
-#          25-Aug-2011 ; 31-Aug-2011                       #
+#          25-Aug-2011 ; 31-Aug-2011 ; 14-Sep-2011         #
 ############################################################
                 
 plot2 <- function (x, y, 
@@ -139,13 +139,17 @@ plot2 <- function (x, y,
       if (length(which(!is.na(match(class(y), c("ts", "zoo", "xts") )))) > 0) y <- xts::as.xts(y) 
 
       # Y axis limits
-      ylim <- range(range(x, na.rm=TRUE), range(y, na.rm=TRUE), na.rm=TRUE)
+      if (!hasArg(ylim)) ylim <- range( range(x[is.finite(x)]), range(y[is.finite(x)]) )
 
       # Plotting the Observed Time Series. 
       # It calls to 'plot', 'plot.zoo' or 'plot.xts', depending on 'x' class
-      plot(x, axes=FALSE, type="o", lwd=lwd[1], lty= lty[1], col= col[1], 
-           pch= pch[1], cex = cex[1], cex.axis=cex.axis, cex.lab=cex.lab,
-           main=main, xlab=xlab, ylab= ylab, ylim=ylim, ... )
+      if (!hasArg(ylim)) {
+         plot(x, axes=FALSE, type="o", lwd=lwd[1], lty= lty[1], col= col[1], 
+              pch= pch[1], cex = cex[1], cex.axis=cex.axis, cex.lab=cex.lab,
+              main=main, xlab=xlab, ylab= ylab, ylim=ylim, ... )
+      } else plot(x, axes=FALSE, type="o", lwd=lwd[1], lty= lty[1], col= col[1], 
+              pch= pch[1], cex = cex[1], cex.axis=cex.axis, cex.lab=cex.lab,
+              main=main, xlab=xlab, ylab= ylab, ... )
       axis(2, cex.axis=cex.axis, cex.lab=cex.lab)
       lines(y, type="o", lwd=lwd[2], lty= lty[2], col= col[2], pch= pch[2], cex = cex[2])      
                
