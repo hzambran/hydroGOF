@@ -37,16 +37,16 @@ further arguments passed to or from other methods.
 }
 }
 \details{
-\deqn{br2 = \mid b \mid R2, \mid b \mid \leq 1; br2= \mid b \mid R2, \mid b \mid > 1 }{%
-br2 = abs(b)*R2, b <= 1; br2= abs(b)/R2, abs(b) > 1 } 
+\deqn{ br2 = |b| R2 , |b| <= 1  ; br2 = R2/|b|, b > 1  }{%
+br2 = abs(b)*R2, abs(b) <= 1; br2= R2/abs(b), abs(b) > 1 } 
 
 A model that systematically over or under-predicts all the time will still result in "good" \code{r2} (close to 1), even if all predictions were wrong (Krause et al., 2005).
-The \code{br2} coefficient allows accounting for the discrepancy in the magnitude of two signals (depicted by 'b') as well as their dynamics (depicted by 'r2')
+The \code{br2} coefficient allows accounting for the discrepancy in the magnitude of two signals (depicted by 'b') as well as their dynamics (depicted by \code{r2})
 }
 \value{
 br2 between \code{sim} and \code{obs}. \cr
 
-If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the br2 between each column of \code{sim} and \code{obs}.
+If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the \code{br2} between each column of \code{sim} and \code{obs}.
 }
 \references{
 \cite{Krause, P., Boyle, D. P., and Base, F.: Comparison of different efficiency criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005}
@@ -66,16 +66,22 @@ The slope \code{b} is computed as the coefficient of the linear regression betwe
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{cor}}, \code{\link{lm}}, \code{\link{gof}}, \code{\link{ggof}}
+\code{\link[stats]{cor}}, \code{\link[stats]{lm}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
+# Looking at the difference between r2 and br2 for a case with systematic 
+# over-prediction of observed values
 obs <- 1:10
-sim <- 1:10
+sim <- 2*obs + 5
+
+# The coefficient of determination is equal to 1 even if there is no one single 
+# simulated value equal to its corresponding observed counterpart
+r2 <- (cor(sim, obs, method="pearson"))^2
+
+# 'br2' effectively penalises the systematic over-estimation
 br2(sim, obs)
 
-obs <- 1:10
-sim <- 2:11
-br2(sim, obs)
+ggof(sim,obs)
 
 ##################
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970

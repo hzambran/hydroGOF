@@ -2,6 +2,10 @@ NEWS/ChangeLog for hydroGOF
 --------------------------
 
 
+0.3-2	07-Oct-2011
+	o 'br2'   : fixed documentation error in its formula (thanks to Jan Corluy !), and a new example was added.
+	            Its value was already computed in the correct way.
+	
 0.3-1	14-Sep-2011
 	o 'ggof'  : fixed problem when 'ylim' is specified by the user (the issue was in the 'plot2' function)
 	o 'plot2' : fixed problem when 'ylim' is specified by the user
@@ -62,8 +66,8 @@ NEWS/ChangeLog for hydroGOF
 	o 'RSR'     : -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
 	o 'NRMSE'   : -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
 	o 'KGE'     : -) now it returns NA instead of '-Inf' when the denominator of Alpha or Beta were equal to zero.	
+	o 'rd'      : -) fixed documentation error in its formula (thanks to Tom Purucker !). Its value was already computed in the correct way.
 	o New dimension checking (number of columns and rows) for all the functions that are applied over a matrix or data.frame
-	o fixed error in the documentation of 'rd' (thanks to Tom Purucker !)
 	
 
 0.2-2	14-Apr-2011
