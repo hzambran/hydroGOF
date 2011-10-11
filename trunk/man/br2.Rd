@@ -72,16 +72,22 @@ The slope \code{b} is computed as the coefficient of the linear regression betwe
 # Looking at the difference between r2 and br2 for a case with systematic 
 # over-prediction of observed values
 obs <- 1:10
-sim <- 2*obs + 5
+sim1 <- 2*obs + 5
+sim2 <- 2*obs + 25
 
 # The coefficient of determination is equal to 1 even if there is no one single 
 # simulated value equal to its corresponding observed counterpart
-r2 <- (cor(sim, obs, method="pearson"))^2
+r2 <- (cor(sim1, obs, method="pearson"))^2 # r2=1
 
 # 'br2' effectively penalises the systematic over-estimation
-br2(sim, obs)
+br2(sim1, obs) # br2 = 0.3684211
+br2(sim2, obs) # br2 = 0.1794872
 
-ggof(sim,obs)
+ggof(sim1, obs)
+ggof(sim2, obs)
+
+# Computing 'br2' without forcing the intercept be equal to zero
+br2.2 <- r2/2 # br2 = 0.5
 
 ##################
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
