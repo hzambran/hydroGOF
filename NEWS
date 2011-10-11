@@ -2,6 +2,10 @@ NEWS/ChangeLog for hydroGOF
 --------------------------
 
 
+0.3-3	Under develppment
+        o 'gof'   : added new example and description of the output class (thanks to Kris Jaeger !)
+	o 'br2'   : the new example included in version 0.3-2 was improved
+	            
 0.3-2	07-Oct-2011
 	o 'br2'   : fixed documentation error in its formula (thanks to Jan Corluy !), and a new example was added.
 	            Its value was already computed in the correct way.

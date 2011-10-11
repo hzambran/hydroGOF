@@ -44,6 +44,7 @@ further arguments passed to or from other methods.
 %%\details{
 %%}
 \value{
+The output of the \code{gof} gunction is a matrix with one column only, and the following rows:
 \item{me}{Mean Error}
 \item{mae}{Mean Absolute Error}
 \item{mse}{Mean Squared Error}
@@ -131,8 +132,18 @@ sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 # Getting the new numeric goodness of fit
 gof(sim=sim, obs=obs)
 
-# Getting the graphical representation of 'obs' and 'sim' along with the numeric goodness of fit 
+# Storing a matrix object with all the GoFs:
+g <-  gof(sim, obs)
+
+# Getting only the RMSE
+g[4,1]
+g["RMSE",]
+
 \dontrun{
+# Writting all the GoFs into a TXT file
+write.table(g, "GoFs.txt", col.names=FALSE, quote=FALSE)
+
+# Getting the graphical representation of 'obs' and 'sim' along with the numeric goodness of fit 
 ggof(sim=sim, obs=obs)
 }
 
