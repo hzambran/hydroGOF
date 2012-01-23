@@ -10,6 +10,7 @@
 #          2010                                            #
 #          21-Jan-2011 ; 15-Apr-2011 ;                     #
 #          25-Aug-2011 ; 31-Aug-2011 ; 14-Sep-2011         #
+#          23-Jan-2012                                     #
 ############################################################
                 
 plot2 <- function (x, y, 
@@ -139,7 +140,7 @@ plot2 <- function (x, y,
       if (length(which(!is.na(match(class(y), c("ts", "zoo", "xts") )))) > 0) y <- xts::as.xts(y) 
 
       # Y axis limits
-      if (!hasArg(ylim)) ylim <- range( range(x[is.finite(x)]), range(y[is.finite(x)]) )
+      if (!hasArg(ylim)) ylim <- range( range(x[is.finite(x)]), range(y[is.finite(y)]) )
 
       # Plotting the Observed Time Series. 
       # It calls to 'plot', 'plot.zoo' or 'plot.xts', depending on 'x' class
