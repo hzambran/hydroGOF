@@ -2,7 +2,7 @@ NEWS/ChangeLog for hydroGOF
 --------------------------
 
 
-0.3-3	Under development
+0.3-3	02-May-2012
         o 'gof'   : added new example and description of the output class (thanks to Kris Jaeger !)
 	o 'br2'   : the new example included in version 0.3-2 was improved
         o 'ggof'  : fixed problem with 'ylim' when some elements in 'sim' or 'obs' were NA (the issue was in the 'plot2' function)
