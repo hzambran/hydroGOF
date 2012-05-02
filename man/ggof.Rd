@@ -136,16 +136,16 @@ If \code{gof.leg=TRUE}, it computes the numerical values of: \cr
 \item{pbiasfdc}{PBIAS in the slope of the midsegment of the Flow Duration Curve}
 \item{RSR}{Ratio of RMSE to the Standard Deviation of the Observations, RSR = rms / sd(obs). ( 0 <= RSR <= +Inf )}
 \item{rSD}{Ratio of Standard Deviations, rSD = sd(sim) / sd(obs)}
-\item{NSeff}{Nash-Sutcliffe Efficiency ( -Inf <= NSeff <= 1 )}
-\item{mNSeff}{Modified Nash-Sutcliffe Efficiency}
-\item{rNSeff}{Relative Nash-Sutcliffe Efficiency}
+\item{NSE}{Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 )}
+\item{mNSE}{Modified Nash-Sutcliffe Efficiency}
+\item{rNSE}{Relative Nash-Sutcliffe Efficiency}
 \item{d}{Index of Agreement ( 0 <= d <= 1 )}
 \item{md}{Modified Index of Agreement}
 \item{rd}{Relative Index of Agreement}
 \item{cp}{Persistence Index ( 0 <= PI <= 1 ) }
-\item{r}{Pearson Correlation coefficient ( -1 <= r <= 1 )}
+\item{r}{Pearson product-moment correlation coefficient ( -1 <= r <= 1 )}
 \item{r.Spearman}{Spearman Correlation coefficient ( -1 <= r.Spearman <= 1 ) }
-\item{R2}{ Coefficient of Determination ( 0 <= R2 <= 1 ). \cr
+\item{R2}{Coefficient of Determination ( 0 <= R2 <= 1 ). \cr
           Gives the proportion of the variance of one variable that is predictable from the other variable}
 \item{bR2}{R2 multiplied by the coefficient of the regression line between \code{sim} and \code{obs} \cr ( 0 <= bR2 <= 1 )}
 \item{KGE}{Kling-Gupta efficiency between \code{sim} and \code{obs} \cr ( 0 <= KGE <= 1 )}
@@ -167,6 +167,8 @@ If \code{gof.leg=TRUE}, it computes the numerical values of: \cr
 \cite{Yapo P. O., Gupta H. V., Sorooshian S., 1996. Automatic calibration of conceptual rainfall-runoff models: sensitivity to calibration data. Journal of Hydrology. v181 i1-4. 23--48} \cr
 
 \cite{Yilmaz, K. K., H. V. Gupta, and T. Wagener  (2008), A process-based diagnostic approach to model evaluation: Application to the NWS distributed hydrologic model, Water Resour. Res., 44, W09417, doi:10.1029/2007WR006716}
+
+\cite{Hoshin V. Gupta, Harald Kling, Koray K. Yilmaz, Guillermo F. Martinez. Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological modelling. Journal of Hydrology, Volume 377, Issues 1-2, 20 October 2009, Pages 80-91. DOI: 10.1016/j.jhydrol.2009.08.003. ISSN 0022-1694}
 }
 \author{
 Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>

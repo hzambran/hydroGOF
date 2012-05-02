@@ -54,9 +54,9 @@ The output of the \code{gof} gunction is a matrix with one column only, and the 
 \item{pbiasfdc}{PBIAS in the slope of the midsegment of the Flow Duration Curve}
 \item{RSR}{Ratio of RMSE to the Standard Deviation of the Observations, RSR = rms / sd(obs). ( 0 <= RSR <= +Inf )}
 \item{rSD}{Ratio of Standard Deviations, rSD = sd(sim) / sd(obs)}
-\item{NSeff}{Nash-Sutcliffe Efficiency ( -Inf <= NSeff <= 1 )}
-\item{mNSeff}{Modified Nash-Sutcliffe Efficiency}
-\item{rNSeff}{Relative Nash-Sutcliffe Efficiency }
+\item{NSE}{Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 )}
+\item{mNSE}{Modified Nash-Sutcliffe Efficiency}
+\item{rNSE}{Relative Nash-Sutcliffe Efficiency }
 \item{d}{Index of Agreement ( 0 <= d <= 1 )}
 \item{d1}{Modified Index of Agreement}
 \item{rd}{Relative Index of Agreement}
@@ -85,6 +85,8 @@ The output of the \code{gof} gunction is a matrix with one column only, and the 
 \cite{Yapo P. O., Gupta H. V., Sorooshian S., 1996. Automatic calibration of conceptual rainfall-runoff models: sensitivity to calibration data. Journal of Hydrology. v181 i1-4. 23--48} \cr
 
 \cite{Yilmaz, K. K., H. V. Gupta, and T. Wagener  (2008), A process-based diagnostic approach to model evaluation: Application to the NWS distributed hydrologic model, Water Resour. Res., 44, W09417, doi:10.1029/2007WR006716}
+
+\cite{Hoshin V. Gupta, Harald Kling, Koray K. Yilmaz, Guillermo F. Martinez. Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological modelling. Journal of Hydrology, Volume 377, Issues 1-2, 20 October 2009, Pages 80-91. DOI: 10.1016/j.jhydrol.2009.08.003. ISSN 0022-1694}
 }
 \author{
 Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
