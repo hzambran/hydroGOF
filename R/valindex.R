@@ -1,8 +1,17 @@
-#######################################################################
-# 'valindex': index of the elements that belongs to both vectors      #
-#######################################################################
-#     19-Jan-2009   #
-#####################
+# File valindex.R
+# Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
+#                                 http://cran.r-project.org/web/packages/hydroGOF/
+# Copyright 2011-2012 Mauricio Zambrano-Bigiarini
+# Distributed under GPL 2 or later
+
+################################################################################
+# 'valindex': index of the elements that belongs to both vectors               #
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 19-Jan-2009                                                         #
+# Updates: 08-May-2012                                                         #
+################################################################################
 # 'x'     : vector (numeric, xts, zoo)
 # 'y'     : vector (numeric, xts, zoo)
 # 'Result': index containing the position in 'x' and 'y' where both vectors 
@@ -12,21 +21,25 @@ valindex <- function(sim, obs, ...) UseMethod("valindex")
 
 valindex.default <- function(sim, obs, ...) {  
 
-   if ( length(obs) != length(sim) ) 
-	  stop( paste("Invalid argument: 'sim' & 'obs' doesn't have the same length (", length(obs), "!=", length(sim), ") !",  sep="" ) )
-	  
-   valid.index.obs <- which( !is.na(obs) ) 
-   valid.index.sim <- which( !is.na(sim) ) 
- 
-   return( .intersect(valid.index.obs, valid.index.sim) )
+   if ( length(obs) != length(sim) ) {
+	  stop( "Invalid argument: 'length(sim) != length(obs)' !! (", length(sim), "!=", length(obs), ") !!" )
+   } else  
+       return( which(!is.na(sim) & !is.na(obs)) )
      
 } # 'valindex' END
 
-#####################
-#     25-Jul-2011   #
-#####################
+
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 25-Jul-2011                                                         #
+# Updates: 08-May-2012                                                         #
+################################################################################
 valindex.matrix <- function(sim, obs, ...) { 
 
- !is.na( sim) & !is.na(obs)
+ if ( dim(obs) != dim(sim) ) {
+	  stop( "Invalid argument: 'dim(sim) != dim(obs)' !! (", dim(sim), "!=", dim(obs), ") !!" )
+   } else  
+       return ( !is.na( sim) & !is.na(obs) )
  
 } # 'valindex.matrix' END
