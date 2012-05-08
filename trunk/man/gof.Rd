@@ -67,6 +67,7 @@ The output of the \code{gof} gunction is a matrix with one column only, and the 
           Gives the proportion of the variance of one variable that is predictable from the other variable}
 \item{bR2}{R2 multiplied by the coefficient of the regression line between \code{sim} and \code{obs} \cr ( 0 <= bR2 <= 1 )}
 \item{KGE}{Kling-Gupta efficiency between \code{sim} and \code{obs} \cr ( 0 <= KGE <= 1 )}
+\item{VE}{Volumetric efficiency between \code{sim} and \code{obs} \cr ( 0 <= VE )}
 %% ...
 }
 \references{
@@ -87,6 +88,8 @@ The output of the \code{gof} gunction is a matrix with one column only, and the 
 \cite{Yilmaz, K. K., H. V. Gupta, and T. Wagener  (2008), A process-based diagnostic approach to model evaluation: Application to the NWS distributed hydrologic model, Water Resour. Res., 44, W09417, doi:10.1029/2007WR006716}
 
 \cite{Hoshin V. Gupta, Harald Kling, Koray K. Yilmaz, Guillermo F. Martinez. Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological modelling. Journal of Hydrology, Volume 377, Issues 1-2, 20 October 2009, Pages 80-91. DOI: 10.1016/j.jhydrol.2009.08.003. ISSN 0022-1694}
+
+\cite{Criss, R. E. and Winston, W. E. (2008), Do Nash values have value? Discussion and alternate proposals. Hydrological Processes, 22: 2723-2725. doi: 10.1002/hyp.7072}
 }
 \author{
 Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
@@ -104,8 +107,8 @@ Although \code{r} and \code{r2} have been widely used for model evaluation, thes
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 \code{\link{me}}, \code{\link{mae}}, \code{\link{rmse}}, \code{\link{nrmse}}, \code{\link{pbias}},
-\code{\link{pbiasfdc}}, \code{\link{rSD}}, \code{\link{NSeff}}, \code{\link{mNSeff}}, \code{\link{rNSeff}}, 
-\code{\link{d}}, \code{\link{md}}, \code{\link{rd}}, \code{\link{cp}}, \code{\link{br2}}
+\code{\link{pbiasfdc}}, \code{\link{rSD}}, \code{\link{NSE}}, \code{\link{mNSE}}, \code{\link{rNSE}}, 
+\code{\link{d}}, \code{\link{md}}, \code{\link{rd}}, \code{\link{cp}}, \code{\link{br2}}, \code{\link{KGE}}, \code{\link{VE}}
 }
 \examples{
 sim <- 1:10
@@ -128,7 +131,8 @@ sim <- obs
 # Getting the numeric goodness of fit for the "best" (unattainable) case
 gof(sim=sim, obs=obs)
 
-# Randomly changing the first 2000 elements of 'sim', by using a normal distribution with mean 10 and standard deviation equal to 1 (default of 'rnorm').
+# Randomly changing the first 2000 elements of 'sim', by using a normal distribution 
+# with mean 10 and standard deviation equal to 1 (default of 'rnorm').
 sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 
 # Getting the new numeric goodness of fit
@@ -145,7 +149,8 @@ g["RMSE",]
 # Writting all the GoFs into a TXT file
 write.table(g, "GoFs.txt", col.names=FALSE, quote=FALSE)
 
-# Getting the graphical representation of 'obs' and 'sim' along with the numeric goodness of fit 
+# Getting the graphical representation of 'obs' and 'sim' along with the 
+# numeric goodness of fit 
 ggof(sim=sim, obs=obs)
 }
 
