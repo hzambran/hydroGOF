@@ -7,6 +7,8 @@ NEWS/ChangeLog for hydroGOF
         o 'gof'   : VE is now included in the computed goodness-of-fit measures
         o 'ggof'  : VE is now included in the computed goodness-of-fit measures
         o 'plot2' : VE is now included in the computed goodness-of-fit measures (when 'leg.gof=TRUE')
+        o function '.intersect' was removed and function 'valindex' was improved in order to replace it
+        o the 'zoo' package was moved from 'Imports' to 'Depends'
         
 0.3-3	02-May-2012
         o 'gof'   : added new example and description of the output class (thanks to Kris Jaeger !)

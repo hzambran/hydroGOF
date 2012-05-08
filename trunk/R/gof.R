@@ -4,17 +4,19 @@
 # Copyright 2011-2012 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
-#########################################################################
-# 'gof': Numerical Goodness of Fit between 'sim and 'obs'               #
-#        Several performance indexes for comparing two vectors, matrix  #
-#        or data.frames                                                 #
-#########################################################################
+################################################################################
+# 'gof': Numerical Goodness of Fit between 'sim and 'obs'                      #
+#        Several performance indexes for comparing two vectors, matrix         #
+#        or data.frames                                                        #
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
 # Started: 15-Dic-2008 -> 03 Feb 2009; 
 # Updates: 06-Sep-09
 #          2010
 #          21-Jan-2011
 #          08-May-2012
-#################################################
+################################################################################
 
 # It computes:
 # 'me'        : Mean Error
