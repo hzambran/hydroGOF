@@ -73,7 +73,7 @@ The output of the \code{gof} gunction is a matrix with one column only, and the 
           Gives the proportion of the variance of one variable that is predictable from the other variable}
 \item{bR2}{R2 multiplied by the coefficient of the regression line between \code{sim} and \code{obs} \cr ( 0 <= bR2 <= 1 )}
 \item{KGE}{Kling-Gupta efficiency between \code{sim} and \code{obs} \cr ( 0 <= KGE <= 1 )}
-\item{VE}{Volumetric efficiency between \code{sim} and \code{obs} \cr ( 0 <= VE )}
+\item{VE}{Volumetric efficiency between \code{sim} and \code{obs} \cr ( -Inf <= VE <= 1)}
 %% ...
 }
 \references{

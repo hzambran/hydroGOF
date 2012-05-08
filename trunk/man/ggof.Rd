@@ -1,3 +1,9 @@
+%% File ggof.Rd
+%% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
+%%                                 http://cran.r-project.org/web/packages/hydroGOF/
+%% Copyright 2011-2012 Mauricio Zambrano-Bigiarini
+%% Distributed under GPL 2 or lat
+
 \name{ggof}
 \Rdversion{1.1}
 \alias{ggof}
@@ -124,7 +130,7 @@ further arguments passed to or from other methods.
 Plots observed and simulated values in the same graph.
 
 If \code{gof.leg=TRUE}, it computes the numerical values of: \cr
-'me', 'mae', 'rmse', 'nrmse', 'PBIAS',  'RSR, 'rSD', 'NSeff', 'mNSeff', 'rNSeff', 'd', 'md, 'rd', 'cp', 'r', 'r.Spearman', 'R2', 'bR2', 'KGE'
+'me', 'mae', 'rmse', 'nrmse', 'PBIAS',  'RSR, 'rSD', 'NSE', 'mNSE', 'rNSE', 'd', 'md, 'rd', 'cp', 'r', 'r.Spearman', 'R2', 'bR2', 'KGE', 'VE'
 }
 \value{
 \item{me}{Mean Error}
@@ -149,6 +155,7 @@ If \code{gof.leg=TRUE}, it computes the numerical values of: \cr
           Gives the proportion of the variance of one variable that is predictable from the other variable}
 \item{bR2}{R2 multiplied by the coefficient of the regression line between \code{sim} and \code{obs} \cr ( 0 <= bR2 <= 1 )}
 \item{KGE}{Kling-Gupta efficiency between \code{sim} and \code{obs} \cr ( 0 <= KGE <= 1 )}
+\item{VE}{Volumetric efficiency between \code{sim} and \code{obs} \cr ( -Inf <= VE <= 1)}
 %% ...
 }
 \references{
@@ -169,6 +176,8 @@ If \code{gof.leg=TRUE}, it computes the numerical values of: \cr
 \cite{Yilmaz, K. K., H. V. Gupta, and T. Wagener  (2008), A process-based diagnostic approach to model evaluation: Application to the NWS distributed hydrologic model, Water Resour. Res., 44, W09417, doi:10.1029/2007WR006716}
 
 \cite{Hoshin V. Gupta, Harald Kling, Koray K. Yilmaz, Guillermo F. Martinez. Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological modelling. Journal of Hydrology, Volume 377, Issues 1-2, 20 October 2009, Pages 80-91. DOI: 10.1016/j.jhydrol.2009.08.003. ISSN 0022-1694}
+
+\cite{Criss, R. E. and Winston, W. E. (2008), Do Nash values have value? Discussion and alternate proposals. Hydrological Processes, 22: 2723-2725. doi: 10.1002/hyp.7072}
 }
 \author{
 Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
@@ -180,7 +189,10 @@ Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{gof}}, \code{\link{plot2}}
+\code{\link{gof}}, \code{\link{plot2}}, 
+\code{\link{me}}, \code{\link{mae}}, \code{\link{rmse}}, \code{\link{nrmse}}, \code{\link{pbias}},
+\code{\link{pbiasfdc}}, \code{\link{rSD}}, \code{\link{NSE}}, \code{\link{mNSE}}, \code{\link{rNSE}}, 
+\code{\link{d}}, \code{\link{md}}, \code{\link{rd}}, \code{\link{cp}}, \code{\link{br2}}, \code{\link{KGE}}, \code{\link{VE}}
 }
 \examples{
 obs <- 1:10
@@ -236,5 +248,5 @@ hydroplot(r, FUN=mean, pfreq="seasonal")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-%%\keyword{ ~kwd1 }
-%%\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{dplot}
+\keyword{math}% __ONLY ONE__ keyword per line

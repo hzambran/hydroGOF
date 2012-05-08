@@ -1,3 +1,9 @@
+# File plot2.R
+# Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
+#                                 http://cran.r-project.org/web/packages/hydroGOF/
+# Copyright 2011-2012 Mauricio Zambrano-Bigiarini
+# Distributed under GPL 2 or later
+
 ############################################################
 # 'plot2':     Plots 2 time series on the same graph       #
 #              It is a wrapper for the 'plot.zoo' &        #
@@ -285,7 +291,8 @@ plot2 <- function (x, y,
              paste( "r =", gof.xy["r", 1], sep=" "),
              paste( "R2 =", gof.xy["R2", 1], sep=" "), 
              paste( "bR2 =", gof.xy["bR2", 1], sep=" "),
-             paste( "KGE =", gof.xy["KGE", 1], sep=" ")               
+             paste( "KGE =", gof.xy["KGE", 1], sep=" "), 
+             paste( "VE =", gof.xy["VE", 1], sep=" ")               
             ), title="GoF's:", title.col="darkblue",
              bg="azure"
            )

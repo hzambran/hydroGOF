@@ -1,3 +1,9 @@
+# File ggof.Rd
+# Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
+#                                 http://cran.r-project.org/web/packages/hydroGOF/
+# Copyright 2011-2012 Mauricio Zambrano-Bigiarini
+# Distributed under GPL 2 or lat
+
 ###########################################################################
 # 'ggof': Graphical comparision bewtween two vectors (numeric, ts or zoo),#
 #         with several numerical goodness of fit printed as a legend      #
