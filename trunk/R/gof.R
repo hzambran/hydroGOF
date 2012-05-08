@@ -1,3 +1,9 @@
+# File gof.R
+# Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
+#                                 http://cran.r-project.org/web/packages/hydroGOF/
+# Copyright 2011-2012 Mauricio Zambrano-Bigiarini
+# Distributed under GPL 2 or later
+
 #########################################################################
 # 'gof': Numerical Goodness of Fit between 'sim and 'obs'               #
 #        Several performance indexes for comparing two vectors, matrix  #
@@ -7,6 +13,7 @@
 # Updates: 06-Sep-09
 #          2010
 #          21-Jan-2011
+#          08-May-2012
 #################################################
 
 # It computes:
@@ -31,6 +38,7 @@
 # 'PBIAS'     : Percent Bias ( -1 <= PBIAS <= 1 )
 # 'bR2'       : weighted coefficient of determination
 # 'KGE'       : Kling-Gupta efficiency
+# 'VE'        : Volumetric efficiency
 
 gof <-function(sim, obs, ...) UseMethod("gof")
 
@@ -53,7 +61,8 @@ gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE
      cp     <- cp(sim, obs, na.rm=na.rm, ...)
      r      <- .rPearson(sim, obs)
      bR2    <- br2(sim, obs, na.rm=na.rm, ...)     
-     KGE    <- KGE(sim, obs, na.rm=na.rm, ...)     
+     KGE    <- KGE(sim, obs, na.rm=na.rm, ...) 
+     VE     <- VE(sim, obs, na.rm=na.rm, ...)     
      
      # 'r2' is the Coefficient of Determination
      # The coefficient of determination, r2, is useful because it gives the proportion of
@@ -79,7 +88,7 @@ gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE
      
      if (do.pbfdc) { pbfdc  <- pbiasfdc(sim, obs, na.rm=na.rm, plot=FALSE, ...) }
      
-     gof <- rbind(ME, MAE, MSE, RMSE, NRMSE, PBIAS, RSR, rSD, NSE, mNSE, rNSE, d, md, rd, cp, r, R2, bR2, KGE)     
+     gof <- rbind(ME, MAE, MSE, RMSE, NRMSE, PBIAS, RSR, rSD, NSE, mNSE, rNSE, d, md, rd, cp, r, R2, bR2, KGE, VE)     
      
      rownames(gof)[5] <- "NRMSE %"
      rownames(gof)[6] <- "PBIAS %"    
@@ -113,7 +122,7 @@ gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
     # Creating the matrix that will store the final results
     gof <- matrix(NA, ncol(obs), nrow=ngof)   
        
-    # Computing the goodness-of-fit for each column of 'sim' and 'obs'      
+    # Computing the goodness-of-fit measures for each column of 'sim' and 'obs'      
     gof <- sapply(1:ncol(obs), function(i,x,y) { 
                  gof[, i] <- gof.default( x[,i], y[,i], na.rm=na.rm, do.spearman=do.spearman, do.pbfdc=FALSE, digits=digits, ... )
             }, x=sim, y=obs )            

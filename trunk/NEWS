@@ -1,7 +1,11 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
 
-
+0.3-4	XX-May-2012 (under development)
+        o new function 'VE', which computes the volumetric efficiency proposed by Criss and Winston 2008
+         (thanks to Eric Morway for pushing to include it !)
+        o 'gof'   : VE is now included in the computed goodness-of-fit measures
+        
 0.3-3	02-May-2012
         o 'gof'   : added new example and description of the output class (thanks to Kris Jaeger !)
 	o 'br2'   : the new example included in version 0.3-2 was improved
