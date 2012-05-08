@@ -37,8 +37,11 @@ valindex.default <- function(sim, obs, ...) {
 ################################################################################
 valindex.matrix <- function(sim, obs, ...) { 
 
- if ( dim(obs) != dim(sim) ) {
-	  stop( "Invalid argument: 'dim(sim) != dim(obs)' !! (", dim(sim), "!=", dim(obs), ") !!" )
+  # Checking that 'sim' and 'obs' have the same dimensions
+  if ( all.equal(dim(sim), dim(obs)) != TRUE ) {
+    stop( paste("Invalid argument: dim(sim) != dim(obs) ( [", 
+          paste(dim(sim), collapse=" "), "] != [", 
+          paste(dim(obs), collapse=" "), "] )", sep="") )
    } else  
        return ( !is.na( sim) & !is.na(obs) )
  
