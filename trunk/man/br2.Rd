@@ -37,7 +37,7 @@ further arguments passed to or from other methods.
 }
 }
 \details{
-\deqn{ br2 = |b| R2 , |b| <= 1  ; br2 = R2/|b|, b > 1  }{%
+\deqn{ br2 = |b| R2 , |b| <= 1  ; br2 = \frac{R2}{|b|}, b > 1  }{%
 br2 = abs(b)*R2, abs(b) <= 1; br2= R2/abs(b), abs(b) > 1 } 
 
 A model that systematically over or under-predicts all the time will still result in "good" \code{r2} (close to 1), even if all predictions were wrong (Krause et al., 2005).

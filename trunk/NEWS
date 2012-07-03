@@ -1,14 +1,15 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
 
-0.3-4	XX-May-2012 (under development)
+0.3-4	03-Jul-2012
         o new function 'VE', which computes the volumetric efficiency proposed by Criss and Winston 2008
          (thanks to Eric Morway for giving the final push to include it !)
         o 'gof'   : VE is now included in the computed goodness-of-fit measures
         o 'ggof'  : VE is now included in the computed goodness-of-fit measures
         o 'plot2' : VE is now included in the computed goodness-of-fit measures (when 'leg.gof=TRUE')
         o function '.intersect' was removed and function 'valindex' was improved in order to replace it
-        o the 'zoo' package was moved from 'Imports' to 'Depends'
+        o 'zoo' package was moved from 'Imports' to 'Depends'
+        o 'methods' package is now imported, in order to avoid problems with Rscript, which currently does not load 'methods'
         
 0.3-3	02-May-2012
         o 'gof'   : added new example and description of the output class (thanks to Kris Jaeger !)
