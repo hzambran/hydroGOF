@@ -1,6 +1,10 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
 
+0.3-5	(under-development)
+        o 'KGE'   : -) now it returns NA instead of an error when there are no pairs of 'sim' and 'obs' without missing values 
+                       (thanks to Giovanni Forzieri !)
+        
 0.3-4	03-Jul-2012
         o new function 'VE', which computes the volumetric efficiency proposed by Criss and Winston 2008
          (thanks to Eric Morway for giving the final push to include it !)
