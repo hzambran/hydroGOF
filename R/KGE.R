@@ -3,6 +3,7 @@
 ##################################################
 # Started: 18-Jan-2011                           #
 # Updates: 25-Aug-2011                           #
+#          10-Oct-2012                           #
 ##################################################
 # The optimal value of KGE is 1
 
@@ -34,35 +35,42 @@ KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, ...) {
      ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo')")      
    
      vi <- valindex(sim, obs)
+     
+     if (length(vi) > 0) {
 	 
-     obs <- obs[vi]
-     sim <- sim[vi]
+       obs <- obs[vi]
+       sim <- sim[vi]
 
-     # Mean values
-     mean.sim <- mean(sim, na.rm=na.rm)
-     mean.obs <- mean(obs, na.rm=na.rm)
+       # Mean values
+       mean.sim <- mean(sim, na.rm=na.rm)
+       mean.obs <- mean(obs, na.rm=na.rm)
 
-     # Standard deviations
-     sigma.sim <- sd(sim, na.rm=na.rm)
-     sigma.obs <- sd(obs, na.rm=na.rm)
- 
-     # Pearson product-moment correlation coefficient
-     r     <- .rPearson(sim, obs)
+       # Standard deviations
+       sigma.sim <- sd(sim, na.rm=na.rm)
+       sigma.obs <- sd(obs, na.rm=na.rm)
+         
+       # Pearson product-moment correlation coefficient
+       r     <- .rPearson(sim, obs)
 
-     # Alpha is a measure of relative variability in the simulated and observed values
-     Alpha <- sigma.sim / sigma.obs
+       # Alpha is a measure of relative variability in the simulated and observed values
+       Alpha <- sigma.sim / sigma.obs
 
-     # Beta is the ratio between the mean of the simulated values and the mean ob the observed ones
-     Beta <- mean.sim / mean.obs
+       # Beta is the ratio between the mean of the simulated values and the mean ob the observed ones
+       Beta <- mean.sim / mean.obs
 
-     # Computation of KGE
-     if ( (mean.obs != 0) | (sigma.obs != 0) ) {
-         KGE <- 1 - sqrt( (s[1]*(r-1))^2 + (s[2]*(Alpha-1))^2 + (s[3]*(Beta-1))^2 )
+       # Computation of KGE
+       if ( (mean.obs != 0) | (sigma.obs != 0) ) {
+           KGE <- 1 - sqrt( (s[1]*(r-1))^2 + (s[2]*(Alpha-1))^2 + (s[3]*(Beta-1))^2 )
+       } else {
+           if ( mean.obs != 0)  warning("Warning: 'mean(obs)==0'. Beta = -Inf")
+           if ( sigma.obs != 0) warning("Warning: 'sd(obs)==0'. Alpha = -Inf")
+           KGE <- NA
+         } # ELSE end  
+            
      } else {
-         if ( mean.obs != 0)  warning("Warning: 'mean(obs)==0'. Beta = -Inf")
-         if ( sigma.obs != 0) warning("Warning: 'sd(obs)==0'. Alpha = -Inf")
          KGE <- NA
-       } # ELSE end     
+         warning("There are no pairs of 'sim' and 'obs' without missing values !")
+       } # ELSE end
  
      return(KGE)
      
