@@ -80,7 +80,7 @@ ggof <- function (sim, obs,
 #      if ( sim.freq != obs.freq )
 #         stop("Invalid argument: 'obs' and 'sim' have different sampling frequency ! (", 
 #              obs.freq, " vs ", sim.freq, ")" )
-      if (all.equal(time(sim), time(sim)) != TRUE)
+      if (all.equal(time(obs), time(sim)) != TRUE)
         stop("Invalid argument: 'obs' and 'sim' have different time stamps !")
   } # IF end    
           
@@ -97,7 +97,7 @@ ggof <- function (sim, obs,
         
     # If 'dates' is a factor or character, it have to be converted into 'Date' class, 
     # using the date format  specified by 'date.fmt'
-     if ( !is.na( match(class(dates), c("factor", "character") ) ) ) {
+     if ( class(dates)[1] %in% c("factor", "character") ) {
         ifelse ( grepl("%H", date.fmt, fixed=TRUE) | grepl("%M", date.fmt, fixed=TRUE) |
              grepl("%S", date.fmt, fixed=TRUE) | grepl("%I", date.fmt, fixed=TRUE) |
              grepl("%p", date.fmt, fixed=TRUE) | grepl("%X", date.fmt, fixed=TRUE),
@@ -112,18 +112,19 @@ ggof <- function (sim, obs,
     if ( zoo::is.zoo(sim) ) time(sim) <- dates   
     
   } else if (!zoo::is.zoo(obs)) 
-            message("[ Note: You did not provide dates, so only a numeric index will be used in the time axis ]")      
- 
+            message("[ Note: You did not provide dates, so only a numeric index will be used in the time axis ]")    
   
   # If 'class(obs)' is not 'zoo' and the user provides the dates, then we turn it into a zoo class
   if ( !zoo::is.zoo(obs) & !missing(dates) ) { 
     obs <- hydroTSM::vector2zoo(x=obs, dates=dates, date.fmt=date.fmt)        
   } # If 'class(obs)' is 'zoo' and 'dates' are missing, dates are extracted from 'obs'
     else if ( zoo::is.zoo(obs) & missing(dates) ) {  
+      # class(time(x))== "POSIXct" for sub-daily time series
       # class(time(x))== "Date" for 'daily' and 'monthly' time series
       # class(time(x))== "character" for 'annual' time series
-      if ( class(time(obs)) == "Date" ) { dates <- time(obs) 
-      } else if ( class(time(obs)) == "character" )  
+      if ( class(time(obs))[1] %in% c("Date", "POSIXct") ) { 
+         dates <- time(obs) 
+      } else if ( class(time(obs))[1] == "character" )  
                  dates <- as.Date(time(obs), format="%Y")      
     } #ELSE END
   
@@ -132,10 +133,12 @@ ggof <- function (sim, obs,
     sim <- hydroTSM::vector2zoo(x=sim, dates=dates, date.fmt=date.fmt) 
   # If 'class(sim)' is 'zoo' and 'dates' are missing, dates are extracted from 'sim'
   } else if ( zoo::is.zoo(sim) & zoo::is.zoo(obs) & missing(dates) ) {
+      # class(time(x))== "POSIXct" for sub-daily time series
       # class(time(x))== "Date" for 'daily' and 'monthly' time series
       # class(time(x))== "character" for 'annual' time series
-      if ( class(time(sim)) == "Date" ) { dates <- time(obs) 
-      } else if ( class(time(sim)) == "character" ) {  
+      if ( class(time(sim))[1]  %in% c("Date", "POSIXct") ) { 
+         dates <- time(obs) 
+      } else if ( class(time(sim))[1] == "character" ) {  
              dates <- as.Date(time(sim), format="%Y") }
     } #ELSE END    
     

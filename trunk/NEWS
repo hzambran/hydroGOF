@@ -2,6 +2,7 @@ NEWS/ChangeLog for hydroGOF
 --------------------------
 
 0.3-5	(under-development)
+        o 'ggof'  : -) now it handles sub-daily values in 'sim' and 'obs'
         o 'KGE'   : -) now it returns NA instead of an error when there are no pairs of 'sim' and 'obs' without missing values 
                        (thanks to Giovanni Forzieri !)
         
