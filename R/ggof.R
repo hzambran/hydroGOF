@@ -61,10 +61,10 @@ ggof <- function (sim, obs,
   if (length(which(!is.na(match(class(obs), valid.class )))) <= 0)
          stop("Invalid argument: 'class(obs)' must be in c('xts', 'zoo', 'numeric', 'integer')")
          
-  # Checking that the user provied the same length for 'sim' and 'obs'      
+  # Checking length match
   if ( length(sim) != length(obs) )  
-     stop(paste("Invalid argument: 'obs' and 'sim' must have the same length ! (", 
-                length(obs), "vs", length(sim), ")"  ,sep=" ") )
+     stop("Invalid argument: 'obs' and 'sim' must have the same length ! (", 
+                length(obs), "vs", length(sim), ")")
                 
   # 'xname' and 'yname' values
   sim.name <- deparse(substitute(sim))
@@ -73,7 +73,7 @@ ggof <- function (sim, obs,
   # 'legend' value
   if (missing(legend)) legend <- c(sim.name, obs.name)
                    
-  # Checking that 'sim' and 'obs' have the same sampling frequency    
+  # Checking same sampling frequency
   if ( zoo::is.zoo(obs) & zoo::is.zoo(sim)) {
       if ( hydroTSM::sfreq(sim) != hydroTSM::sfreq(obs) )
          stop("Invalid argument: 'obs' and 'sim' have different sampling frequency ! (", 
@@ -139,7 +139,7 @@ ggof <- function (sim, obs,
   # If 'obs' and 'sim' are not zoo objects, the only possible value for 'ftype' is 'o'     
   if ( !zoo::is.zoo(sim) & ! zoo::is.zoo(sim) ) {
      if (!is.na(match(ftype, c("dm", "ma", "dma") ) ) ) 
-      message("[Note: 'sim' & 'obs' are not zoo objects => 'ftype' was changed to 'o']")
+      message("[ Note: 'sim' & 'obs' are not zoo objects => 'ftype' was changed to 'o' ]")
       ftype <- "o"
   } # IF end
          
