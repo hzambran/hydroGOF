@@ -2,20 +2,18 @@
 # Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 #                                 http://cran.r-project.org/web/packages/hydroGOF/
 # Copyright 2011-2012 Mauricio Zambrano-Bigiarini
-# Distributed under GPL 2 or lat
+# Distributed under GPL 2 or later
 
-###########################################################################
-# 'ggof': Graphical comparision bewtween two vectors (numeric, ts or zoo),#
-#         with several numerical goodness of fit printed as a legend      #
-###########################################################################
-# External package required: 'zoo'                              #
-# External library required: 'lib_TSM_in_Hydrological_modelling #
-################################################################# 
-#  Started:  03 Mar 2009                #
-#  Updates:  Apr, May 2009              #
-#            2010                       #
-#            17-Apr-2011                # 
-#########################################     
+################################################################################
+# 'ggof': Graphical comparison between two vectors (numeric, ts or zoo),       #
+#         with several numerical goodness of fit printed as a legend           #
+################################################################################
+#  Started:  03 Mar 2009                                                       #
+#  Updates:  Apr, May 2009                                                     #
+#            2010                                                              #
+#            17-Apr-2011                                                       # 
+#            15-Oct-2012                                                       #
+################################################################################     
                                           
       
 ggof <- function (sim, obs, 
@@ -56,7 +54,7 @@ ggof <- function (sim, obs,
                    
                    ...) {
 
-  # Checking that the user provied a valid argument for 'sim' &'obs'   
+  # Checking class 'sim' &'obs'   
   valid.class <- c("xts", "zoo", "numeric", "integer")    
   if (length(which(!is.na(match(class(sim), valid.class )))) <= 0)  
          stop("Invalid argument: 'class(sim)' must be in c('xts', 'zoo', 'numeric', 'integer')")
@@ -75,15 +73,14 @@ ggof <- function (sim, obs,
   # 'legend' value
   if (missing(legend)) legend <- c(sim.name, obs.name)
                    
-  # Checking that the user provied the same sampling frequency for 'sim' and 'obs',
-  # when 'sim' and 'obs' are 'zoo' objects      
+  # Checking that 'sim' and 'obs' have the same sampling frequency    
   if ( zoo::is.zoo(obs) & zoo::is.zoo(sim)) {
-      if ( hydroTSM::sfreq(sim) != hydroTSM::sfreq(obs) ) {
-         stop(paste("Invalid argument: 'obs' and 'sim' have different sampling frequency ! (", 
-                   hydroTSM::sfreq(obs), "vs", hydroTSM::sfreq(sim), ")"  ,sep=" ") ) }
+      if ( hydroTSM::sfreq(sim) != hydroTSM::sfreq(obs) )
+         stop("Invalid argument: 'obs' and 'sim' have different sampling frequency ! (", 
+                   hydroTSM::sfreq(obs), "vs", hydroTSM::sfreq(sim), ")" )
   } # IF end
          
-  # If the user didn't provide a title for the plot, the default is used 
+  # If the user did not provide a title for the plot, the default is used 
   if ( missing(main) ) main <- "Observations vs Simulations"         
           
   # If the user provided values 'for 'dates'
@@ -107,7 +104,8 @@ ggof <- function (sim, obs,
     # If 'sim' is 'zoo' and the user provides the dates  (probably new dates)
     if ( zoo::is.zoo(sim) ) time(sim) <- dates   
     
-  } else if (!zoo::is.zoo(obs)) message("[Note: You didn't provide dates, so only a numeric index will be used in the time axis.]")      
+  } else if (!zoo::is.zoo(obs)) 
+            message("[ Note: You did not provide dates, so only a numeric index will be used in the time axis ]")      
  
   
   # If 'class(obs)' is not 'zoo' and the user provides the dates, then we turn it into a zoo class
@@ -118,8 +116,8 @@ ggof <- function (sim, obs,
       # class(time(x))== "Date" for 'daily' and 'monthly' time series
       # class(time(x))== "character" for 'annual' time series
       if ( class(time(obs)) == "Date" ) { dates <- time(obs) 
-      } else if ( class(time(obs)) == "character" ) {  
-             dates <- as.Date(time(obs), format="%Y") }      
+      } else if ( class(time(obs)) == "character" )  
+                 dates <- as.Date(time(obs), format="%Y")      
     } #ELSE END
   
   # If 'class(sim)' is not 'zoo' and the user provides the dates, then we turn it into a zoo class
@@ -138,7 +136,7 @@ ggof <- function (sim, obs,
   if (is.na(match(ftype, c("o", "dm", "ma", "dma") ) ) ) 
       stop("Invalid argument: 'ftype' must be in c('o', 'dm', 'ma, 'dma')")
   
-  # If 'obs' and 'sim' are not zoo objetcs, the only possible value for 'ftype' is 'o'     
+  # If 'obs' and 'sim' are not zoo objects, the only possible value for 'ftype' is 'o'     
   if ( !zoo::is.zoo(sim) & ! zoo::is.zoo(sim) ) {
      if (!is.na(match(ftype, c("dm", "ma", "dma") ) ) ) 
       message("[Note: 'sim' & 'obs' are not zoo objects => 'ftype' was changed to 'o']")
@@ -169,14 +167,14 @@ ggof <- function (sim, obs,
       if (hydroTSM::sfreq(sim) != "daily") {      
         stop("Invalid argument: 'sim' has to have a 'daily' sampling frequency")       
       } else {
-          # Generating a Monthly time series (Monthly mean of daily values):
+          # Generating a Monthly time series
           obs.monthly <- hydroTSM::daily2monthly(obs, FUN, na.rm)
           sim.monthly <- hydroTSM::daily2monthly(sim, FUN, na.rm)
           
           def.par <- par(no.readonly = TRUE) # save default, for resetting... 
           on.exit(par(def.par)) 
           
-          # If the user wants a legend, the screen is splitted into 2 rows and 2 colums, 
+          # If the user wants a legend, the screen is split into 2 rows and 2 columns, 
           # where the proportion of width of the 1st column to the 2nd one is 9:2
           if (gof.leg) {           
             layout( matrix( c(1,1,1,1,1,1,1,1,1,2,2,3,3,3,3,3,3,3,3,3,4,4), ncol=11, byrow=TRUE) ) 
@@ -199,7 +197,7 @@ ggof <- function (sim, obs,
                 legend=legend, leg.cex=leg.cex,
                 cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
           
-          # It is necessay to set up the margins again, after the previous call to plot2
+          # It is necessary to set up the margins again, after the previous call to plot2
           par(mar=c(5, 4, 4, 0) + 0.1) # mar=c(bottom, left, top, right). Default values are: mar=c(5,4,4,2) + 0.1)           
           # Drawing the Monthly time series against time
           plot2(x=sim.monthly, y=obs.monthly, plot.type="single",
@@ -224,19 +222,19 @@ ggof <- function (sim, obs,
       stop("Invalid argument: the sampling frequency of 'sim' has to be in c('daily', 'monthly'")       
     } else {
         if ( hydroTSM::sfreq(sim) == "daily" ) {
-           # Generating a Monthly time series (Monthly mean of daily values):
+           # Generating a Monthly time series 
            obs <- hydroTSM::daily2monthly(obs, FUN, na.rm)
            sim <- hydroTSM::daily2monthly(sim, FUN, na.rm)
         } # IF end
         
-        # Generating Annual time series (Annual mean of daily values)
+        # Generating Annual time series
         obs.annual <- hydroTSM::monthly2annual(obs, FUN, na.rm, out.fmt="%Y-%m-%d")
         sim.annual <- hydroTSM::monthly2annual(sim, FUN, na.rm, out.fmt="%Y-%m-%d")
         
         def.par <- par(no.readonly = TRUE) # save default, for resetting... 
         on.exit(par(def.par)) 
         
-        # If the user wants a legend, the screen is splitted into 2 rows and 2 colums, 
+        # If the user wants a legend, the screen is split into 2 rows and 2 columns, 
         # where the proportion of width of the 1st column to the 2nd one is 9:2
         if (gof.leg) {     
           layout( matrix( c(1,1,1,1,1,1,1,1,1,2,2,3,3,3,3,3,3,3,3,3,4,4), ncol=11, byrow=TRUE) )
@@ -258,7 +256,7 @@ ggof <- function (sim, obs,
               legend=legend, leg.cex=leg.cex,
               cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
         
-        # It is necessay to set up the margins again, after the previous call to plot2
+        # It is necessary to set up the margins again, after the previous call to plot2
         par(mar=c(5, 4, 4, 0) + 0.1)                
         # Drawing the Annual time series against time
         plot2(x=sim.annual, y=obs.annual, plot.type="single",
@@ -281,18 +279,18 @@ ggof <- function (sim, obs,
       stop("Invalid argument: the 'sim' has to have a 'Daily' sampling frequency")  
            
     } else {       
-          # Generating Monthly time series (Monthly mean of daily values):
+          # Generating Monthly time series 
           obs.monthly <- hydroTSM::daily2monthly(obs, FUN, na.rm)
           sim.monthly <- hydroTSM::daily2monthly(sim, FUN, na.rm)
           
-          # Generating Annual time series (Annual mean of daily values)
+          # Generating Annual time series 
           obs.annual <- hydroTSM::daily2annual(obs, FUN, na.rm, out.fmt = "%Y-%m-%d")
           sim.annual <- hydroTSM::daily2annual(sim, FUN, na.rm, out.fmt = "%Y-%m-%d")
           
           def.par <- par(no.readonly = TRUE) # save default, for resetting... 
           on.exit(par(def.par)) 
           
-          # If the user wants a legend, the screen is splitted into 2 rows and 2 colums, 
+          # If the user wants a legend, the screen is split into 2 rows and 2 columns, 
           # where the proportion of width of the 1st column to the 2nd one is 9:2
           if (gof.leg) {   
             # Setting up a screen with 3 rows and 2 columns 
@@ -315,7 +313,7 @@ ggof <- function (sim, obs,
                 legend=legend, leg.cex=leg.cex,
                 cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
           
-          # It is necessay to set up the margins again, after the previous call to plot2
+          # It is necessary to set up the margins again, after the previous call to plot2
           par(mar=c(5, 4, 4, 0) + 0.1) # mar=c(bottom, left, top, right). Default values are: mar=c(5,4,4,2) + 0.1)        
           # Drawing the Monthly time series against time
           plot2(x=sim.monthly, y=obs.monthly, plot.type="single",  
@@ -329,7 +327,7 @@ ggof <- function (sim, obs,
                 legend=legend, leg.cex=leg.cex,
                 cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
            
-          # It is necessay to set up the margins again, after the previous call to plot2
+          # It is necessary to set up the margins again, after the previous call to plot2
           par(mar=c(5, 4, 4, 0) + 0.1) # mar=c(bottom, left, top, right). Default values are: mar=c(5,4,4,2) + 0.1)        
           # Drawing the Annual time series against time
           plot2(x=sim.annual, y=obs.annual, plot.type="single",
