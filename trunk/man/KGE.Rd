@@ -23,11 +23,11 @@ In order to fully understand this index, please read the reference.
 \usage{
 KGE(sim, obs, ...)
 
-\method{KGE}{default}(sim, obs, s=c(1,1,1), na.rm=TRUE, ...)
+\method{KGE}{default}(sim, obs, s=c(1,1,1), method=c("2009", "2012"), na.rm=TRUE, ...)
 
-\method{KGE}{data.frame}(sim, obs, s=c(1,1,1), na.rm=TRUE, ...)
+\method{KGE}{data.frame}(sim, obs, s=c(1,1,1),  method=c("2009", "2012"), na.rm=TRUE, ...)
 
-\method{KGE}{matrix}(sim, obs, s=c(1,1,1), na.rm=TRUE, ...)
+\method{KGE}{matrix}(sim, obs, s=c(1,1,1),  method=c("2009", "2012"), na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
