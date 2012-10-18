@@ -2,7 +2,8 @@ NEWS/ChangeLog for hydroGOF
 --------------------------
 
 0.3-5	(under-development)
-        o 'ggof'  : -) now it handles sub-daily values in 'sim' and 'obs'
+	o now it depends on 'hydroTSM' >= 0.3-6, in order to allow handling sub-daily values in 'ggof'
+        o 'ggof'  : -) now it handles sub-daily values in 'sim' and 'obs' (aggregation to daily/monthly/annual values not yet available)
                     -) 'dates' argument accepts 'POSIXct' objects
         o 'KGE'   : -) now it returns NA instead of an error when there are no pairs of 'sim' and 'obs' without missing values 
                        (thanks to Giovanni Forzieri !)
