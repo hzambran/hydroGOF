@@ -1,18 +1,33 @@
-##################################################
-# 'KGE': Kling-Gupta Efficiency                  #
-##################################################
-# Started: 18-Jan-2011                           #
-# Updates: 25-Aug-2011                           #
-#          10-Oct-2012                           #
-##################################################
+# File KGE.R
+# Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
+#                                 http://cran.r-project.org/web/packages/hydroGOF/
+# Copyright 2011-2012 Mauricio Zambrano-Bigiarini
+# Distributed under GPL 2 or later
+
+################################################################################
+# 'KGE': Kling-Gupta Efficiency                                                #
+################################################################################
+# Author : Mauricio Zambrano-Bigiarini                                         #
+################################################################################
+# Started: 18-Jan-2011                                                         #
+# Updates: 25-Aug-2011                                                         #
+#          10-Oct-2012                                                         #
+#          18-Oct-2012                                                         #
+################################################################################
 # The optimal value of KGE is 1
 
-# Ref:
+# Ref1:
 # Hoshin V. Gupta, Harald Kling, Koray K. Yilmaz, Guillermo F. Martinez, 
 # Decomposition of the mean squared error and NSE performance criteria: 
 # Implications for improving hydrological modelling, 
 # Journal of Hydrology, Volume 377, Issues 1-2, 20 October 2009, Pages 80-91, 
 # DOI: 10.1016/j.jhydrol.2009.08.003. ISSN 0022-1694, 
+
+# Ref2:
+# Kling, H., M. Fuchs, and M. Paulin (2012), Runoff conditions in the upper
+# Danube basin under an ensemble of climate change scenarios, 
+# Journal of Hydrology, 424-425, 264–277, DOI:10.1016/j.jhydrol.2012.01.011.
+
 
 # 'obs' : numeric 'data.frame', 'matrix' or 'vector' with observed values
 # 'sim' : numeric 'data.frame', 'matrix' or 'vector' with simulated values
@@ -22,7 +37,7 @@
 
 KGE <- function(sim, obs, ...) UseMethod("KGE")
 
-KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, ...) { 
+KGE.default <- function(sim, obs, s=c(1,1,1), method=c("2009", "2012")na.rm=TRUE, ...) { 
 
      # If the user provided a value for 's'
      if (!all.equal(s, c(1,1,1)) )  {
@@ -55,7 +70,7 @@ KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, ...) {
        # Alpha is a measure of relative variability in the simulated and observed values
        Alpha <- sigma.sim / sigma.obs
 
-       # Beta is the ratio between the mean of the simulated values and the mean ob the observed ones
+       # Beta is the ratio between the mean of the simulated values and the mean observed ones
        Beta <- mean.sim / mean.obs
 
        # Computation of KGE

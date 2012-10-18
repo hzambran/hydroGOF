@@ -65,6 +65,8 @@ If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with 
 }
 \references{
 \cite{Hoshin V. Gupta, Harald Kling, Koray K. Yilmaz, Guillermo F. Martinez. Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological modelling. Journal of Hydrology, Volume 377, Issues 1-2, 20 October 2009, Pages 80-91. DOI: 10.1016/j.jhydrol.2009.08.003. ISSN 0022-1694}
+
+\cite{Kling, H., M. Fuchs, and M. Paulin (2012), Runoff conditions in the upper Danube basin under an ensemble of climate change scenarios. Journal of Hydrology, 424-425, 264-277, DOI:10.1016/j.jhydrol.2012.01.011}
 }
 \author{
 Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
