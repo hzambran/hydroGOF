@@ -23,11 +23,14 @@ In order to fully understand this index, please read the reference.
 \usage{
 KGE(sim, obs, ...)
 
-\method{KGE}{default}(sim, obs, s=c(1,1,1), method=c("2009", "2012"), na.rm=TRUE, ...)
+\method{KGE}{default}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
+             out.type=c("single", "full"), ...)
 
-\method{KGE}{data.frame}(sim, obs, s=c(1,1,1),  method=c("2009", "2012"), na.rm=TRUE, ...)
+\method{KGE}{data.frame}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
+             out.type=c("single", "full"), ...)
 
-\method{KGE}{matrix}(sim, obs, s=c(1,1,1),  method=c("2009", "2012"), na.rm=TRUE, ...)
+\method{KGE}{matrix}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
+             out.type=c("single", "full"), ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -45,6 +48,16 @@ The first elements is used for rescaling the Pearson product-moment correlation 
 a logical value indicating whether 'NA' should be stripped before the computation proceeds. \cr
 When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{sim}, the i-th value of \code{obs} \bold{AND} \code{sim} are removed before the computation.
 }
+  \item{method}{
+character, indicating the formula used to compute the variability ratio in the Kling-Gupta efficiency. Valid values are:\cr
+-) \kbd{2009}: the variability is defined as \sQuote{Alpha}, the ratio of the standard deviation of \code{sim} values to the standard deviation of \code{obs}. See Gupta et al. 2009\cr
+-) \kbd{2012}: the variability is defined as \sQuote{Gamma}, the ratio of the coefficient of variation of \code{sim} values to the coefficient of variation of \code{obs}. See Kling et al. 2012. 
+}
+  \item{out.type}{
+character, indicating the if the output of the function has to include or not each one of the three terms used in the computation of the Kling-Gupta efficiency. Valid values are:\cr
+-) \kbd{single}: the output is a numeric with the Kling-Gupta efficiency only\cr
+-) \kbd{full}: the output is a list of two elements: the first one with the Kling-Gupta efficiency, and the second is a numeric with 3 elements: the Pearson product-moment correlation coefficient (\sQuote{r}), the ratio between the mean of the simulated values to the mean of observations (\sQuote{Beta}), and the variability measure (\sQuote{Gamma} or \sQuote{Alpha}, depending on the value of \code{method})
+}
   \item{\dots}{
 further arguments passed to or from other methods.
 }
@@ -59,12 +72,17 @@ KGE = 1 - sqrt[ (s[1]*(r-1))^2 + (s[2]*(Alpha-1))^2 + (s[3]*(Beta-1))^2] }
 Kling-Gupta efficiencies range from -Inf to 1. Essentially, the closer to 1, the more accurate the model is. \cr
 }
 \value{
-Kling-Gupta efficiency between \code{sim} and \code{obs}. \cr
-
-If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the Kling-Gupta efficiency between each column of \code{sim} and \code{obs}.
+If \code{out.type=single}: numeric with the Kling-Gupta efficiency between \code{sim} and \code{obs}. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the Kling-Gupta efficiency between each column of \code{sim} and \code{obs}\cr
+If \code{out.type=full}: a list of two elements:
+\item{KGE.value}{
+numeric with the Kling-Gupta efficiency. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the Kling-Gupta efficiency between each column of \code{sim} and \code{obs}
+}
+\item{KGE.elements}{
+numeric with 3 elements: the Pearson product-moment correlation coefficient (\sQuote{r}), the ratio between the mean of the simulated values to the mean of observations (\sQuote{Beta}), and the variability measure (\sQuote{Gamma} or \sQuote{Alpha}, depending on the value of \code{method}). If \code{sim} and \code{obs} are matrices, the output value is a matrix, with the previous three elements computed for each column of \code{sim} and \code{obs}\cr  
+}
 }
 \references{
-\cite{Hoshin V. Gupta, Harald Kling, Koray K. Yilmaz, Guillermo F. Martinez. Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological modelling. Journal of Hydrology, Volume 377, Issues 1-2, 20 October 2009, Pages 80-91. DOI: 10.1016/j.jhydrol.2009.08.003. ISSN 0022-1694}
+\cite{Gupta, Hoshin V., Harald Kling, Koray K. Yilmaz, Guillermo F. Martinez. Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological modelling. Journal of Hydrology, Volume 377, Issues 1-2, 20 October 2009, Pages 80-91. DOI: 10.1016/j.jhydrol.2009.08.003. ISSN 0022-1694}
 
 \cite{Kling, H., M. Fuchs, and M. Paulin (2012), Runoff conditions in the upper Danube basin under an ensemble of climate change scenarios. Journal of Hydrology, 424-425, 264-277, DOI:10.1016/j.jhydrol.2012.01.011}
 }
