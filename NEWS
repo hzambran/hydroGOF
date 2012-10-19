@@ -1,12 +1,17 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
 
-0.3-5	(under-development)
+0.3-5	19-Oct-2012
 	o now it depends on 'hydroTSM' >= 0.3-6, in order to allow handling sub-daily values in 'ggof'
-        o 'ggof'  : -) now it handles sub-daily values in 'sim' and 'obs' (aggregation to daily/monthly/annual values not yet available)
-                    -) 'dates' argument accepts 'POSIXct' objects
-        o 'KGE'   : -) now it returns NA instead of an error when there are no pairs of 'sim' and 'obs' without missing values 
-                       (thanks to Giovanni Forzieri !)
+        o 'ggof'      : -) now it handles sub-daily values in 'sim' and 'obs' (aggregation to daily/monthly/annual values not yet available)
+                        -) 'dates' argument accepts 'POSIXct' objects
+        o 'KGE'       : -) two new arguments: 'method', to allow KGE-2009 and KGE-2012 formulas, and 'out.type', in order to allow look at the
+                           individual elements of the KGE (correlation, bias, and variability)
+                        -) Added reference to Kling et al. 2012 and improved documentation
+                        -) Added example to show difference between KGE-2009 and KGE-2012
+                        -) now it returns NA instead of an error when there are no pairs of 'sim' and 'obs' without missing values 
+                           (thanks to Giovanni Forzieri !)
+        o DESCRIPTION : 'Author@R' field was replaced by 'Authors@R'                        
         
 0.3-4	03-Jul-2012
         o new function 'VE', which computes the volumetric efficiency proposed by Criss and Winston 2008
