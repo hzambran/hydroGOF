@@ -1,3 +1,9 @@
+%% File KGE.Rd
+%% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
+%%                                 http://cran.r-project.org/web/packages/hydroGOF/
+%% Copyright 2011-2012 Mauricio Zambrano-Bigiarini
+%% Distributed under GPL 2 or late
+
 \name{KGE}
 \Rdversion{1.1}
 \alias{KGE}
@@ -11,14 +17,18 @@ Kling-Gupta Efficiency
 \description{
 Kling-Gupta efficiency between \code{sim} and \code{obs}, with treatment of missing values.
 
-This goodness-of-fit measure was developed by Gupta et al. (2009) to provide a diagnostically interesting decomposition of the Nash-Sutcliffe efficiency (and hence MSE), which facilitates the analysis of the relative importance of its different components in the context of hydrological modelling".
+This goodness-of-fit measure was developed by Gupta et al. (2009) to provide a diagnostically interesting decomposition of the Nash-Sutcliffe efficiency (and hence MSE), which facilitates the analysis of the relative importance of its different components (correlation, bias and variability) in the context of hydrological modelling\cr
+Kling et al. (2012), proposed a revised version of this index, to ensure that the bias and variability ratios are not cross-correlated \cr
 
-In the computation of this index, there are three main components involved: \cr
--) \code{r}    : the Pearson product-moment correlation coefficient. Ideal value is r=1. \cr
--) \code{Alpha}: the ratio between the standard deviation of the simulated values and the standard deviation of the observed ones. Ideal value is Alpha=1. \cr
--) \code{Beta} : the ratio between the mean of the simulated values and the mean of the observed ones. Ideal value is Beta=1. \cr
+In the computation of this index, there are three main components involved:\cr
+1) \kbd{r}    : the Pearson product-moment correlation coefficient. Ideal value is r=1 \cr
+2) \kbd{Beta} : the ratio between the mean of the simulated values and the mean of the observed ones. Ideal value is Beta=1 \cr
+3) \kbd{vr}   : variability ratio, which could be computed using the standard deviation (\kbd{Alpha}) or the coefficient of variation (\kbd{Gamma}) of \code{sim} and \code{obs}, depending on the value of \code{method} \cr
 
-In order to fully understand this index, please read the reference.
+3.1) \kbd{Alpha}: the ratio between the standard deviation of the simulated values and the standard deviation of the observed ones. Ideal value is Alpha=1. \cr
+3.2) \kbd{Gamma}: the ratio between the coefficient of variation (\kbd{CV}) of the simulated values to the coefficient of variation of the observed ones. Ideal value is Gamma=1. \cr
+
+For a full discussion pf the Kling-Gupta index, and its advantages over the Nash-Sutcliffe efficiency (\code{\link{NSE}}) see Gupta et al. (2009).
 }
 \usage{
 KGE(sim, obs, ...)
@@ -64,10 +74,18 @@ further arguments passed to or from other methods.
 }
 \details{
 \deqn{KGE = 1 - ED}
-\deqn{ ED =  \sqrt{ (s[1]*(r-1))^2 +(s[2]*(\alpha-1))^2 + (s[3]*(\beta-1))^2 } }
+\deqn{ ED =  \sqrt{ (s[1]*(r-1))^2 +(s[2]*(vr-1))^2 + (s[3]*(\beta-1))^2 } }
+\deqn{r=\textrm{Pearson product-moment correlation coefficient}}
+\deqn{\beta=\mu_s/\mu_o}
+\deqn{vr=  \left\{
+  \begin{array}{cc}
+    \alpha & , \: \textrm{method="2009"} \\
+    \gamma & , \: \textrm{method="2012"}
+  \end{array}
+  \right.}  
 \deqn{\alpha=\sigma_s/\sigma_o}
-\deqn{\beta=\mu_s/\mu_o}{%
-KGE = 1 - sqrt[ (s[1]*(r-1))^2 + (s[2]*(Alpha-1))^2 + (s[3]*(Beta-1))^2] }
+\deqn{\gamma=\frac{CV_s}{CV_o}= \frac{\sigma_s/\mu_s}{\sigma_o/\mu_o}}{%
+KGE = 1 - sqrt[ (s[1]*(r-1))^2 + (s[2]*(vr-1))^2 + (s[3]*(Beta-1))^2] ; r=Pearson product-moment correlation coefficient ; alpha=sigma_s/sigma_o ; beta=mu_s/mu_o ; gamma=CV_s/CV_o}
 
 Kling-Gupta efficiencies range from -Inf to 1. Essentially, the closer to 1, the more accurate the model is. \cr
 }
@@ -84,10 +102,10 @@ numeric with 3 elements: the Pearson product-moment correlation coefficient (\sQ
 \references{
 \cite{Gupta, Hoshin V., Harald Kling, Koray K. Yilmaz, Guillermo F. Martinez. Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological modelling. Journal of Hydrology, Volume 377, Issues 1-2, 20 October 2009, Pages 80-91. DOI: 10.1016/j.jhydrol.2009.08.003. ISSN 0022-1694}
 
-\cite{Kling, H., M. Fuchs, and M. Paulin (2012), Runoff conditions in the upper Danube basin under an ensemble of climate change scenarios. Journal of Hydrology, 424-425, 264-277, DOI:10.1016/j.jhydrol.2012.01.011}
+\cite{Kling, H., M. Fuchs, and M. Paulin (2012), Runoff conditions in the upper Danube basin under an ensemble of climate change scenarios. Journal of Hydrology, Volumes 424-425, 6 March 2012, Pages 264-277, DOI:10.1016/j.jhydrol.2012.01.011}
 }
 \author{
-Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
+Mauricio Zambrano-Bigiarini <mauricio.zambrano@ing.unitn.it>
 }
 \note{
 \code{obs} and \code{sim} has to have the same length/dimension \cr
@@ -101,6 +119,7 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 \code{\link{NSE}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
+# Example1: basic ideal case
 obs <- 1:10
 sim <- 1:10
 KGE(sim, obs)
@@ -110,15 +129,29 @@ sim <- 2:11
 KGE(sim, obs)
 
 ##################
+# Example2: Looking at the difference between 'method=2009' and 'method=2012'
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
-require(zoo)
 data(EgaEnEstellaQts)
 obs <- EgaEnEstellaQts
 
-# Generating a simulated daily time series, initially equal to the observed series
-sim <- obs 
+# Simulated daily time series, initially equal to twice the observed values
+sim <- 2*obs 
 
-# Computing the 'KGE' for the "best" (unattainable) case
+# KGE 2009
+KGE(sim=sim, obs=obs, method="2009", out.type="full")
+
+# KGE 2012
+KGE(sim=sim, obs=obs, method="2012", out.type="full")
+
+##################
+# Example3: KGE for simulated values equal to observations plus random noise 
+#           on the first half of the observed values
+# Randomly changing the first 1826 elements of 'sim', by using a normal distribution 
+# with mean 10 and standard deviation equal to 1 (default of 'rnorm').
+sim <- obs 
+sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
+
+# Computing the new 'KGE'
 KGE(sim=sim, obs=obs)
 
 # Randomly changing the first 2000 elements of 'sim', by using a normal distribution 

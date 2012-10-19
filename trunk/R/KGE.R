@@ -12,7 +12,7 @@
 # Started: 18-Jan-2011                                                         #
 # Updates: 25-Aug-2011                                                         #
 #          10-Oct-2012                                                         #
-#          18-Oct-2012                                                         #
+#          18-Oct-2012 ; 19-Oct-2012                                           #
 ################################################################################
 # The optimal value of KGE is 1
 
@@ -26,7 +26,8 @@
 # Ref2:
 # Kling, H., M. Fuchs, and M. Paulin (2012), Runoff conditions in the upper
 # Danube basin under an ensemble of climate change scenarios, 
-# Journal of Hydrology, 424-425, 264-277, DOI:10.1016/j.jhydrol.2012.01.011.
+# Journal of Hydrology, Volumes 424-425, 6 March 2012, Pages 264-277, 
+# DOI:10.1016/j.jhydrol.2012.01.011.
 
 
 # 'obs' : numeric 'data.frame', 'matrix' or 'vector' with observed values
@@ -57,8 +58,8 @@ KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
      
   if (length(vi) > 0) {
 	 
-    obs <- obs[vi]
-    sim <- sim[vi]
+    obs <- as.numeric(obs[vi])
+    sim <- as.numeric(sim[vi])
 
     # Mean values
     mean.sim <- mean(sim, na.rm=na.rm)
@@ -120,6 +121,14 @@ KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
 } # 'KGE.default' end
 
 
+################################################################################
+# Author : Mauricio Zambrano-Bigiarini                                         #
+################################################################################
+# Started: 18-Jan-2011                                                         #
+# Updates: 25-Aug-2011                                                         #
+#          10-Oct-2012                                                         #
+#          18-Oct-2012 ; 19-Oct-2012                                           #
+################################################################################
 KGE.matrix <- function (sim, obs, s=c(1,1,1), na.rm=TRUE, 
                         method=c("2009", "2012"), out.type=c("single", "full"), ...){ 
 
@@ -128,6 +137,12 @@ KGE.matrix <- function (sim, obs, s=c(1,1,1), na.rm=TRUE,
      stop( paste("Invalid argument: dim(sim) != dim(obs) ( [", 
            paste(dim(sim), collapse=" "), "] != [", 
            paste(dim(obs), collapse=" "), "] )", sep="") )
+           
+  # If the user provided a value for 's'
+  if (!all.equal(s, c(1,1,1)) )  {
+     if ( length(s) != 3 ) stop("Invalid argument: lenght(s) must be equal to 3 !")
+     if ( sum(s) != 1 )    stop("Invalid argument: sum(s) must be equal to 1.0 !")
+  } # IF end
            
   method   <- match.arg(method)
   out.type <- match.arg(out.type) 
@@ -159,6 +174,14 @@ KGE.matrix <- function (sim, obs, s=c(1,1,1), na.rm=TRUE,
 } # 'KGE.matrix' end
 
 
+################################################################################
+# Author : Mauricio Zambrano-Bigiarini                                         #
+################################################################################
+# Started: 18-Jan-2011                                                         #
+# Updates: 25-Aug-2011                                                         #
+#          10-Oct-2012                                                         #
+#          18-Oct-2012 ; 19-Oct-2012                                           #
+################################################################################
 KGE.data.frame <- function (sim, obs, s=c(1,1,1), na.rm=TRUE, 
                             method=c("2009", "2012"), out.type=c("single", "full"), ...){ 
  
