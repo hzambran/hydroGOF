@@ -5,17 +5,13 @@
 # Distributed under GPL 2 or later
 
 ################################################################################
-# 'gof': Numerical Goodness of Fit between 'sim and 'obs'                      #
-#        Several performance indexes for comparing two vectors, matrix         #
-#        or data.frames                                                        #
-################################################################################
 # Author: Mauricio Zambrano-Bigiarini                                          #
 ################################################################################
-# Started: 15-Dic-2008 -> 03 Feb 2009; 
-# Updates: 06-Sep-09
-#          2010
-#          21-Jan-2011
-#          08-May-2012
+# Started: 15-Dic-2008 -> 03 Feb 2009;                                         #
+# Updates: 06-Sep-09                                                           #
+#          2010                                                                #
+#          21-Jan-2011                                                         #
+#          08-May-2012                                                         #
 ################################################################################
 
 # It computes:
@@ -23,8 +19,8 @@
 # 'mae'       : Mean Absolute Error
 # 'rms'       : Root Mean Square Error
 # 'nrms'      : Normalized Root Mean Square Error
-# 'r'         : Pearson Correltation coefficient ( -1 <= r <= 1 )
-# 'r.Spearman': Spearman Correltation coefficient ( -1 <= r <= 1 ) 
+# 'r'         : Pearson Correlation coefficient ( -1 <= r <= 1 )
+# 'r.Spearman': Spearman Correlation coefficient ( -1 <= r <= 1 ) 
 # 'R2'        : Coefficient of Determination ( 0 <= r2 <= 1 )
 #               Gives the proportion of the variance of one variable that
 #               that is predictable from the other variable
@@ -66,14 +62,14 @@ gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE
      KGE    <- KGE(sim, obs, na.rm=na.rm, ...) 
      VE     <- VE(sim, obs, na.rm=na.rm, ...)     
      
-     # 'r2' is the Coefficient of Determination
-     # The coefficient of determination, r2, is useful because it gives the proportion of
+     # 'R2' is the Coefficient of Determination
+     # The coefficient of determination, R2, is useful because it gives the proportion of
      # the variance (fluctuation) of one variable that is predictable from the other variable.
      # It is a measure that allows us to determine how certain one can be in making
      # predictions from a certain model/graph.
      # The coefficient of determination is the ratio of the explained variation to the total
      # variation.
-     # The coefficient of determination is such that 0 <  r2 < 1,  and denotes the strength
+     # The coefficient of determination is such that 0 <  R2 < 1,  and denotes the strength
      # of the linear association between x and y. 
      R2 <- r^2
       
@@ -110,8 +106,21 @@ gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE
 } # 'gof.default' end
 
 
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 15-Dic-2008 -> 03 Feb 2009;                                         #
+# Updates: 06-Sep-09                                                           #
+#          2010                                                                #
+#          21-Jan-2011                                                         #
+#          08-May-2012 ; 05-Nov-2012                                           #
+################################################################################
 gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, digits=2, ...){
 
+    # Removing time attributes, if present
+    #if (zoo::is.zoo(sim)) sim <- zoo::coredata(sim)
+    #if (zoo::is.zoo(obs)) obs <- zoo::coredata(obs)
+    
     # Temporal variable for some computations
     tmp <- gof(1:10,1:10)
     
@@ -137,6 +146,15 @@ gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
   } # 'gof.matrix' end
   
 
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 15-Dic-2008 -> 03 Feb 2009;                                         #
+# Updates: 06-Sep-09                                                           #
+#          2010                                                                #
+#          21-Jan-2011                                                         #
+#          08-May-2012 ;                                                       #
+################################################################################
 gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, digits=2,...){ 
  
   sim <- as.matrix(sim)
