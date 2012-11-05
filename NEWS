@@ -1,6 +1,10 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
 
+0.3-6	(under-development)
+        o 'ggof' : now it works with zoo matrices/data.frames Thanks to L. Pagliero !
+	o 'd'    : fixed typo in the formula presented in the pdf manual (a square was missing). Thanks to T. Ladson !.
+	
 0.3-5	19-Oct-2012
 	o now it depends on 'hydroTSM' >= 0.3-6, in order to allow handling sub-daily values in 'ggof'
         o 'ggof'      : -) now it handles sub-daily values in 'sim' and 'obs' (aggregation to daily/monthly/annual values not yet available)
