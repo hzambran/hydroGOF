@@ -10,17 +10,29 @@
 \alias{gof.default}
 \alias{gof.matrix}
 \alias{gof.data.frame}
+\alias{gof.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Numerical Goodness of Fit
+Numerical Goodness-of-fit measures
 }
 \description{
-Numerical goodness of fit between \code{sim} and \code{obs}, with treatment of missing values. Several performance indexes for comparing two vectors, matrixes or data.frames
+Numerical goodness-of-fit measures between \code{sim} and \code{obs}, with treatment of missing values. Several performance indices for comparing two vectors, matrices or data.frames
 }
 \usage{
 gof(sim, obs, ...)
 
-\method{gof}{default}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, digits=2,...)
+\method{gof}{default}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
+             j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), lQ.thr=0.7, 
+             hQ.thr=0.2, digits=2,...)
+\method{gof}{matrix}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
+             j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), lQ.thr=0.7, 
+             hQ.thr=0.2, digits=2,...)
+\method{gof}{data.frame}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
+             j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), lQ.thr=0.7, 
+             hQ.thr=0.2, digits=2,...)
+\method{gof}{zoo}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
+             j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), lQ.thr=0.7, 
+             hQ.thr=0.2, digits=2,...)                                       
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -38,7 +50,25 @@ When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{s
 logical. Indicates if the Spearman correlation has to be computed. The default is FALSE.
 }
   \item{do.pbfdc}{
-logical. Indicates if the Percent Bias in the Slope of the Midsegment of the Flow Duration Curve (\code{\link{pbiasfdc}}) has to be computed. The default is FALSE.
+logical. Indicates if the Percent Bias in the Slope of the midsegment of the Flow Duration Curve (\code{\link{pbiasfdc}}) has to be computed. The default is FALSE.
+}
+  \item{j}{
+argument passed to the \code{\link{mNSE}} function
+}
+  \item{norm}{
+argument passed to the \code{\link{nrmse}} function
+}
+  \item{s}{
+argument passed to the \code{\link{KGE}} function
+}
+  \item{method}{
+argument passed to the \code{\link{KGE}} function
+}
+  \item{lQ.thr}{
+argument passed to the (optional) \code{\link{pbiasfdc}} function
+}
+  \item{hQ.thr}{
+argument passed to the (optional) \code{\link{pbiasfdc}} function
 }
   \item{digits}{
 decimal places used for rounding the goodness-of-fit indexes.
@@ -50,7 +80,7 @@ further arguments passed to or from other methods.
 %%\details{
 %%}
 \value{
-The output of the \code{gof} gunction is a matrix with one column only, and the following rows:
+The output of the \code{gof} function is a matrix with one column only, and the following rows:
 \item{me}{Mean Error}
 \item{mae}{Mean Absolute Error}
 \item{mse}{Mean Squared Error}
@@ -152,7 +182,7 @@ g[4,1]
 g["RMSE",]
 
 \dontrun{
-# Writting all the GoFs into a TXT file
+# Writing all the GoFs into a TXT file
 write.table(g, "GoFs.txt", col.names=FALSE, quote=FALSE)
 
 # Getting the graphical representation of 'obs' and 'sim' along with the 
