@@ -2,8 +2,13 @@ NEWS/ChangeLog for hydroGOF
 --------------------------
 
 0.3-6	(under-development)
-        o 'ggof' : now it works with zoo matrices/data.frames Thanks to L. Pagliero !
-	o 'd'    : fixed typo in the formula presented in the pdf manual (a square was missing). Thanks to T. Ladson !.
+        o 'ggof'        : -) now it works with matrices/data.frames of zoo/xts class. Thanks to L. Pagliero !
+                          -) new arguments 's' and 'method' which are passed to the 'KGE' function ('out.type' is fixed to "single")
+                          -) new argument 'j', which is passed to the 'mNSE' function
+                          -) new argument 'norm', which is passed to the 'nrmse' function                          
+                          -) new arguments 'lQ.thr' and 'hQ.thr', which are passed to the (optional) 'pbiasfdc' function                          
+	o 'd'           : fixed typo in the formula presented in the pdf manual (a square was missing). Thanks to T. Ladson !.
+	o 'nrmse.matrix': fixed error in checking the 'norm' argument.
 	
 0.3-5	19-Oct-2012
 	o now it depends on 'hydroTSM' >= 0.3-6, in order to allow handling sub-daily values in 'ggof'

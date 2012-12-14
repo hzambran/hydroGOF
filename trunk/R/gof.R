@@ -40,18 +40,22 @@
 
 gof <-function(sim, obs, ...) UseMethod("gof")
 
-gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, digits=2,...){
+gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
+                         j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), 
+                         lQ.thr=0.7, hQ.thr=0.2, digits=2, ...){
 
+     method   <- match.arg(method)
+     
      ME     <- me(sim, obs, na.rm=na.rm)
      MAE    <- mae(sim, obs, na.rm=na.rm)
      MSE    <- mse(sim, obs, na.rm=na.rm)
      RMSE   <- rmse(sim, obs, na.rm=na.rm) 
-     NRMSE  <- nrmse(sim, obs, na.rm=na.rm)
+     NRMSE  <- nrmse(sim, obs, na.rm=na.rm, norm=norm)
      RSR    <- rsr(sim, obs, na.rm=na.rm, ...)
      rSD    <- rSD(sim, obs, na.rm=na.rm)     
      PBIAS  <- pbias(sim, obs, na.rm=na.rm, ...)
      NSE    <- NSE(sim, obs, na.rm=na.rm, ...)
-     mNSE   <- mNSE(sim, obs, na.rm=na.rm, ...)
+     mNSE   <- mNSE(sim, obs, na.rm=na.rm, j=j, ...)
      rNSE   <- rNSE(sim, obs, na.rm=na.rm, ...)
      d      <- d(sim, obs, na.rm=na.rm, ...)
      md     <- md(sim, obs, na.rm=na.rm, ...)
@@ -59,7 +63,7 @@ gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE
      cp     <- cp(sim, obs, na.rm=na.rm, ...)
      r      <- .rPearson(sim, obs)
      bR2    <- br2(sim, obs, na.rm=na.rm, ...)     
-     KGE    <- KGE(sim, obs, na.rm=na.rm, ...) 
+     KGE    <- KGE(sim, obs, na.rm=na.rm, s=s, method=method, out.type="single", ...) 
      VE     <- VE(sim, obs, na.rm=na.rm, ...)     
      
      # 'R2' is the Coefficient of Determination
@@ -84,7 +88,7 @@ gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE
         
      } # IF end
      
-     if (do.pbfdc) { pbfdc  <- pbiasfdc(sim, obs, na.rm=na.rm, plot=FALSE, ...) }
+     if (do.pbfdc) { pbfdc  <- pbiasfdc(sim, obs, na.rm=na.rm, lQ.thr=lQ.thr, hQ.thr=hQ.thr, plot=FALSE, ...) }
      
      gof <- rbind(ME, MAE, MSE, RMSE, NRMSE, PBIAS, RSR, rSD, NSE, mNSE, rNSE, d, md, rd, cp, r, R2, bR2, KGE, VE)     
      
@@ -113,13 +117,11 @@ gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE
 # Updates: 06-Sep-09                                                           #
 #          2010                                                                #
 #          21-Jan-2011                                                         #
-#          08-May-2012 ; 05-Nov-2012                                           #
+#          08-May-2012                                                         #
 ################################################################################
-gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, digits=2, ...){
-
-    # Removing time attributes, if present
-    #if (zoo::is.zoo(sim)) sim <- zoo::coredata(sim)
-    #if (zoo::is.zoo(obs)) obs <- zoo::coredata(obs)
+gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
+                       j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), 
+                       lQ.thr=0.7, hQ.thr=0.2, digits=2, ...){
     
     # Temporal variable for some computations
     tmp <- gof(1:10,1:10)
@@ -135,7 +137,11 @@ gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
        
     # Computing the goodness-of-fit measures for each column of 'sim' and 'obs'      
     gof <- sapply(1:ncol(obs), function(i,x,y) { 
-                 gof[, i] <- gof.default( x[,i], y[,i], na.rm=na.rm, do.spearman=do.spearman, do.pbfdc=FALSE, digits=digits, ... )
+                 gof[, i] <- gof.default( x[,i], y[,i], na.rm=na.rm, 
+                                        do.spearman=do.spearman, do.pbfdc=FALSE, 
+                                        j=j, norm=norm, s=s, method=method, 
+                                        lQ.thr=lQ.thr, hQ.thr=hQ.thr, 
+                                        digits=digits, ... )
             }, x=sim, y=obs )            
      
     rownames(gof) <- gofnames
@@ -155,12 +161,36 @@ gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
 #          21-Jan-2011                                                         #
 #          08-May-2012 ;                                                       #
 ################################################################################
-gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, digits=2,...){ 
+gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
+                           j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), 
+                           lQ.thr=0.7, hQ.thr=0.2, digits=2, ...){ 
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
    
-  gof.matrix(sim, obs, na.rm=na.rm, do.spearman=do.spearman, do.pbfdc=FALSE, digits=digits, ...)
+  gof.matrix(sim, obs, na.rm=na.rm, do.spearman=do.spearman, do.pbfdc=FALSE, 
+             j=j, norm=norm, s=s, method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr,
+             digits=digits, ...)
      
 } # 'gof.data.frame' end 
+
+
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 05-Nov-2012                                                         #
+# Updates:                                                                     #
+################################################################################
+gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
+                    j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), 
+                    lQ.thr=0.7, hQ.thr=0.2, digits=2, ...){
+    
+    sim <- zoo::coredata(sim)
+    if (is.zoo(obs)) obs <- zoo::coredata(obs)
+    
+    NextMethod(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
+               j=j, norm=norm, s=s, method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr,
+               digits=digits, ...)
+     
+  } # 'gof.zoo' end
   

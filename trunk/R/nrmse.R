@@ -1,8 +1,17 @@
-##############################################
-# 'nrmse': Normalized Root Mean Square Error #
-############################################## 
-#   15-Dic-2008; 06-Sep-09    #
-############################### 
+# File nrmse.R
+# Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
+#                                 http://cran.r-project.org/web/packages/hydroGOF/
+# Copyright 2008-2012 Mauricio Zambrano-Bigiarini
+# Distributed under GPL 2 or later
+
+################################################################################
+# 'nrmse': Normalized Root Mean Square Error                                   #
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 15-Dic-2008                                                         #
+# Updates: 06-Sep-2009                                                         #
+################################################################################
 # 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values
 # 'sim'   : numeric 'data.frame', 'matrix' or 'vector' with simulated values
 
@@ -42,7 +51,15 @@ nrmse.default <- function (sim, obs, na.rm=TRUE, norm="sd", ...) {
      
   } # 'nrmse.default' end
   
-  
+ 
+################################################################################
+# 'nrmse': Normalized Root Mean Square Error                                   #
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 15-Dic-2008                                                         #
+# Updates: 06-Sep-2009 ; 05-Nov-2012                                           #
+################################################################################
 nrmse.matrix <- function (sim, obs, na.rm=TRUE, norm="sd", ...) {
 
   # Checking that 'sim' and 'obs' have the same dimensions
@@ -52,7 +69,7 @@ nrmse.matrix <- function (sim, obs, na.rm=TRUE, norm="sd", ...) {
           paste(dim(obs), collapse=" "), "] )", sep="") )
           
   # Checking that the user provied a valid argument for 'norm'       
-  if (is.na(match(norm, c("sdobs", "maxmin") ) ) ) 
+  if (is.na(match(norm, c("sd", "maxmin") ) ) ) 
      stop("Invalid argument: 'norm' must be in c('sd', 'maxmin')")
 
   nrmse <- rep(NA, ncol(obs))       
@@ -68,6 +85,14 @@ nrmse.matrix <- function (sim, obs, na.rm=TRUE, norm="sd", ...) {
 } # 'nrms.matrix' end
 
 
+################################################################################
+# 'nrmse': Normalized Root Mean Square Error                                   #
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 15-Dic-2008                                                         #
+# Updates: 06-Sep-2009                                                         #
+################################################################################
 nrmse.data.frame <- function (sim, obs, na.rm=TRUE, norm="sd", ...) {
 
   sim <- as.matrix(sim)

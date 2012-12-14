@@ -5,3 +5,8 @@ import(methods)
 
 exportPattern("^[^\\.]")
 
+#S3method(gof, default)
+#S3method(gof, matrix)
+#S3method(gof, data.frame)
+#S3method(gof, zoo)
+
