@@ -1,3 +1,9 @@
+% File rSD.Rd
+%% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
+%%                                 http://cran.r-project.org/web/packages/hydroGOF/
+%% Copyright 2011-2013 Mauricio Zambrano-Bigiarini
+%% Distributed under GPL 2 or later
+
 \name{rSD}
 \Rdversion{1.1}
 \alias{rSD}
