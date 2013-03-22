@@ -58,7 +58,7 @@ further arguments passed to the code{\link[graphics]{polygon}} function for plot
 %% ~put references to the literature/web site here ~
 %%}
 \author{
-Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
+Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 }
 \note{
 It requires the \pkg{hydroTSM} package

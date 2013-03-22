@@ -65,7 +65,7 @@ If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with 
 \cite{Abbaspour, C., Karim (2007), User manual for SWAT-CUP, SWAT calibration and uncertainty analysis programs, 93pp, Eawag: Swiss Fed. Inst. of Aquat. Sci. and Technol. Dubendorf, Switzerland, Available at \url{http://www.eawag.ch/organisation/abteilungen/siam/software/swat/index_EN}}
 }
 \author{
-Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
+Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 }
 \note{
 So far, the argument \code{na.rm} is not being taken into account.

@@ -109,7 +109,7 @@ numeric with 3 elements: the Pearson product-moment correlation coefficient (\sQ
 \cite{Kling, H., M. Fuchs, and M. Paulin (2012), Runoff conditions in the upper Danube basin under an ensemble of climate change scenarios. Journal of Hydrology, Volumes 424-425, 6 March 2012, Pages 264-277, DOI:10.1016/j.jhydrol.2012.01.011}
 }
 \author{
-Mauricio Zambrano-Bigiarini <mauricio.zambrano@ing.unitn.it>
+Mauricio Zambrano-Bigiarini <mzb.devel@gmail.com>
 }
 \note{
 \code{obs} and \code{sim} has to have the same length/dimension \cr

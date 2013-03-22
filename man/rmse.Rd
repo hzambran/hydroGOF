@@ -60,7 +60,7 @@ If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with 
 \url{http://en.wikipedia.org/wiki/Root_mean_square_deviation}
 }
 \author{
-Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
+Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 }
 \note{
 \code{obs} and \code{sim} has to have the same length/dimension \cr
