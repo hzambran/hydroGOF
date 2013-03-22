@@ -1,7 +1,7 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
 
-0.3-6	(under-development)
+0.3-6	22-Mar-2013
         o 'gof'         : -) now it works with matrices/data.frames of zoo/xts class. Thanks to L. Pagliero !
                           -) new arguments 's' and 'method' which are passed to the 'KGE' function ('out.type' is fixed to "single")
                           -) new argument 'j', which is passed to the 'mNSE' function
