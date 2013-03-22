@@ -133,7 +133,7 @@ further arguments passed to \code{\link[zoo]{plot.zoo}} function for plotting \c
 %% ~put references to the literature/web site here ~
 %%}
 \author{
-Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
+Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 }
 \note{
 It requires the package \pkg{hydroTSM}.
