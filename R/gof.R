@@ -179,7 +179,7 @@ gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FAL
 # Author: Mauricio Zambrano-Bigiarini                                          #
 ################################################################################
 # Started: 05-Nov-2012                                                         #
-# Updates:                                                                     #
+# Updates: 22-Mar-2013                                                         #
 ################################################################################
 gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
                     j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), 
@@ -188,9 +188,14 @@ gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
     sim <- zoo::coredata(sim)
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
     
-    NextMethod(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
-               j=j, norm=norm, s=s, method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr,
-               digits=digits, ...)
+    if (is.matrix(sim) | is.data.frame(sim)) {
+       gof.matrix(sim, obs, na.rm=na.rm, do.spearman=FALSE, do.pbfdc=FALSE, 
+             j=j, norm=norm, s=s, method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr,
+             digits=digits, ...)
+    } else
+        NextMethod(sim, obs, na.rm=na.rm, do.spearman=FALSE, do.pbfdc=FALSE, 
+                   j=j, norm=norm, s=s, method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr,
+                   digits=digits, ...)
      
   } # 'gof.zoo' end
   
