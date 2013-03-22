@@ -10,6 +10,7 @@
 \alias{VE.default}
 \alias{VE.matrix}
 \alias{VE.data.frame}
+\alias{VE.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Volumetric Efficiency
@@ -25,6 +26,8 @@ VE(sim, obs, ...)
 \method{VE}{data.frame}(sim, obs, na.rm=TRUE, ...)
 
 \method{VE}{matrix}(sim, obs, na.rm=TRUE, ...)
+
+\method{VE}{zoo}(sim, obs, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

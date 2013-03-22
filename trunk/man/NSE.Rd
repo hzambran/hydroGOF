@@ -5,6 +5,7 @@
 \alias{NSE.default}
 \alias{NSE.matrix}
 \alias{NSE.data.frame}
+\alias{NSE.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Nash-Sutcliffe Efficiency
@@ -20,6 +21,8 @@ NSE(sim, obs, ...)
 \method{NSE}{data.frame}(sim, obs, na.rm=TRUE, ...)
 
 \method{NSE}{matrix}(sim, obs, na.rm=TRUE, ...)
+
+\method{NSE}{zoo}(sim, obs, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

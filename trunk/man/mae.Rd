@@ -4,6 +4,7 @@
 \alias{mae.default}
 \alias{mae.matrix}
 \alias{mae.data.frame}
+\alias{mae.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Mean Absolute Error
@@ -19,6 +20,8 @@ mae(sim, obs, ...)
 \method{mae}{data.frame}(sim, obs, na.rm=TRUE, ...)
 
 \method{mae}{matrix}(sim, obs, na.rm=TRUE, ...)
+
+\method{mae}{zoo}(sim, obs, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

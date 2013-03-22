@@ -4,6 +4,7 @@
 \alias{pbiasfdc.default}
 \alias{pbiasfdc.matrix}
 \alias{pbiasfdc.data.frame}
+\alias{pbiasfdc.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Percent Bias in the Slope of the Midsegment of the Flow Duration Curve
@@ -21,6 +22,9 @@ pbiasfdc(sim, obs, ...)
        plot=TRUE, verbose=FALSE, ...)
 
 \method{pbiasfdc}{matrix}(sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE, 
+       plot=TRUE, verbose=FALSE, ...)
+       
+\method{pbiasfdc}{zoo}(sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE, 
        plot=TRUE, verbose=FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.

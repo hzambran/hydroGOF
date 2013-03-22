@@ -5,6 +5,7 @@
 \alias{rNSE.default}
 \alias{rNSE.matrix}
 \alias{rNSE.data.frame}
+\alias{rNSE.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Relative Nash-Sutcliffe efficiency
@@ -20,6 +21,8 @@ rNSE(sim, obs, ...)
 \method{rNSE}{data.frame}(sim, obs, na.rm=TRUE, ...)
 
 \method{rNSE}{matrix}(sim, obs, na.rm=TRUE, ...)
+
+\method{rNSE}{zoo}(sim, obs, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

@@ -4,6 +4,7 @@
 \alias{me.default}
 \alias{me.matrix}
 \alias{me.data.frame}
+\alias{me.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Mean Error
@@ -19,6 +20,8 @@ me(sim, obs, ...)
 \method{me}{data.frame}(sim, obs, na.rm=TRUE, ...)
 
 \method{me}{matrix}(sim, obs, na.rm=TRUE, ...)
+
+\method{me}{zoo}(sim, obs, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

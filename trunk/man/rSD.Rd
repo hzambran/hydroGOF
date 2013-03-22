@@ -4,6 +4,7 @@
 \alias{rSD.default}
 \alias{rSD.matrix}
 \alias{rSD.data.frame}
+\alias{rSD.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Ratio of Standard Deviations
@@ -19,6 +20,8 @@ rSD(sim, obs, ...)
 \method{rSD}{data.frame}(sim, obs, na.rm=TRUE, ...)
 
 \method{rSD}{matrix}(sim, obs, na.rm=TRUE, ...)
+
+\method{rSD}{zoo}(sim, obs, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

@@ -4,6 +4,7 @@
 \alias{d.default}
 \alias{d.matrix}
 \alias{d.data.frame}
+\alias{d.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Index of Agreement
@@ -21,6 +22,8 @@ d(sim, obs, ...)
 \method{d}{data.frame}(sim, obs, na.rm=TRUE, ...)
 
 \method{d}{matrix}(sim, obs, na.rm=TRUE, ...)
+
+\method{d}{zoo}(sim, obs, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

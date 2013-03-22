@@ -5,6 +5,7 @@
 \alias{mNSE.default}
 \alias{mNSE.matrix}
 \alias{mNSE.data.frame}
+\alias{mNSE.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Modified Nash-Sutcliffe efficiency
@@ -20,6 +21,8 @@ mNSE(sim, obs, ...)
 \method{mNSE}{data.frame}(sim, obs, j=1, na.rm=TRUE, ...)
 
 \method{mNSE}{matrix}(sim, obs, j=1, na.rm=TRUE, ...)
+
+\method{mNSE}{zoo}(sim, obs, j=1, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

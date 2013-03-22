@@ -4,6 +4,7 @@
 \alias{pbias.default}
 \alias{pbias.matrix}
 \alias{pbias.data.frame}
+\alias{pbias.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Percent Bias
@@ -19,6 +20,8 @@ pbias(sim, obs, ...)
 \method{pbias}{data.frame}(sim, obs, na.rm=TRUE, ...)
 
 \method{pbias}{matrix}(sim, obs, na.rm=TRUE, ...)
+
+\method{pbias}{zoo}(sim, obs, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

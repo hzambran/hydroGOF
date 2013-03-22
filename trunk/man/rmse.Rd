@@ -4,6 +4,7 @@
 \alias{rmse.default}
 \alias{rmse.matrix}
 \alias{rmse.data.frame}
+\alias{rmse.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Root Mean Square Error
@@ -20,6 +21,8 @@ rmse(sim, obs, ...)
 \method{rmse}{data.frame}(sim, obs, na.rm=TRUE, ...)
 
 \method{rmse}{matrix}(sim, obs, na.rm=TRUE, ...)
+
+\method{rmse}{zoo}(sim, obs, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
