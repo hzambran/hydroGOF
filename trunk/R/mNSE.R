@@ -82,3 +82,21 @@ mNSE.data.frame <- function (sim, obs, j=1, na.rm=TRUE, ...){
 
 
 mNSeff <-function(sim, obs, ...) UseMethod("mNSE")
+
+
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 22-Mar-2013                                                         #
+# Updates:                                                                     #
+################################################################################
+mNSE.zoo <- function(sim, obs, j=1, na.rm=TRUE, ...){
+    
+    sim <- zoo::coredata(sim)
+    if (is.zoo(obs)) obs <- zoo::coredata(obs)
+    
+    if (is.matrix(sim) | is.data.frame(sim)) {
+       mNSE.matrix(sim, obs, j=j, na.rm=na.rm, ...)
+    } else NextMethod(sim, obs, j=j, na.rm=na.rm, ...)
+     
+  } # 'mNSE.zoo' end

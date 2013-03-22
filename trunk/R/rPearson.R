@@ -53,3 +53,21 @@
     .rPearson.matrix(sim, obs, na.rm=na.rm, ...)        
      
   } # '.rPearson.data.frame' END
+  
+ 
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 22-Mar-2013                                                         #
+# Updates:                                                                     #
+################################################################################
+.rPearson.zoo <- function(sim, obs, na.rm=TRUE, ...){
+    
+    sim <- zoo::coredata(sim)
+    if (is.zoo(obs)) obs <- zoo::coredata(obs)
+    
+    if (is.matrix(sim) | is.data.frame(sim)) {
+       .rPearson.matrix(sim, obs, na.rm=na.rm, ...)
+    } else NextMethod(sim, obs, na.rm=na.rm, ...)
+     
+  } # '.rPearson.zoo' end

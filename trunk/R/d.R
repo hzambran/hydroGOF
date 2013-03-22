@@ -80,3 +80,21 @@ d.data.frame <- function (sim, obs, na.rm=TRUE, ...){
   d.matrix(sim, obs, na.rm=na.rm, ...)
      
 } # 'd.data.frame' end
+
+
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 22-Mar-2013                                                         #
+# Updates:                                                                     #
+################################################################################
+d.zoo <- function(sim, obs, na.rm=TRUE, ...){
+    
+    sim <- zoo::coredata(sim)
+    if (is.zoo(obs)) obs <- zoo::coredata(obs)
+    
+    if (is.matrix(sim) | is.data.frame(sim)) {
+       d.matrix(sim, obs, na.rm=na.rm, ...)
+    } else NextMethod(sim, obs, na.rm=na.rm, ...)
+     
+  } # 'd.zoo' end

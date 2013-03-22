@@ -102,3 +102,20 @@ nrmse.data.frame <- function (sim, obs, na.rm=TRUE, norm="sd", ...) {
      
 } # 'nrmse.data.frame' end
   
+  
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 22-Mar-2013                                                         #
+# Updates:                                                                     #
+################################################################################
+nrmse.zoo <- function(sim, obs, na.rm=TRUE, ...){
+    
+    sim <- zoo::coredata(sim)
+    if (is.zoo(obs)) obs <- zoo::coredata(obs)
+    
+    if (is.matrix(sim) | is.data.frame(sim)) {
+       nrmse.matrix(sim, obs, na.rm=na.rm, ...)
+    } else NextMethod(sim, obs, na.rm=na.rm, ...)
+     
+  } # 'nrmse.zoo' end

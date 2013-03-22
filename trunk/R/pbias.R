@@ -73,3 +73,21 @@ pbias.data.frame <- function (sim, obs, na.rm=TRUE, ...){
   pbias.matrix(sim, obs, na.rm=na.rm, ...)
      
 } # 'pbias.data.frame' end  
+
+
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 22-Mar-2013                                                         #
+# Updates:                                                                     #
+################################################################################
+pbias.zoo <- function(sim, obs, na.rm=TRUE, ...){
+    
+    sim <- zoo::coredata(sim)
+    if (is.zoo(obs)) obs <- zoo::coredata(obs)
+    
+    if (is.matrix(sim) | is.data.frame(sim)) {
+       pbias.matrix(sim, obs, na.rm=na.rm, ...)
+    } else NextMethod(sim, obs, na.rm=na.rm, ...)
+     
+  } # 'pbias.zoo' end

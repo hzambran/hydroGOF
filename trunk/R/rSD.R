@@ -58,3 +58,21 @@ rSD.data.frame <- function (sim, obs, na.rm=TRUE, ...){
   rSD.matrix(sim, obs, na.rm=na.rm, ...)
      
 } # 'rSD.data.frame' end
+
+
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 22-Mar-2013                                                         #
+# Updates:                                                                     #
+################################################################################
+rSD.zoo <- function(sim, obs, na.rm=TRUE, ...){
+    
+    sim <- zoo::coredata(sim)
+    if (is.zoo(obs)) obs <- zoo::coredata(obs)
+    
+    if (is.matrix(sim) | is.data.frame(sim)) {
+       rSD.matrix(sim, obs, na.rm=na.rm, ...)
+    } else NextMethod(sim, obs, na.rm=na.rm, ...)
+     
+  } # 'rSD.zoo' end

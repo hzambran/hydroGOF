@@ -194,3 +194,22 @@ KGE.data.frame <- function (sim, obs, s=c(1,1,1), na.rm=TRUE,
   KGE.matrix(sim, obs, s=s, na.rm=na.rm, method=method, out.type=out.type, ...)
      
 } # 'KGE.data.frame' end
+
+
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 22-Mar-2013                                                         #
+# Updates:                                                                     #
+################################################################################
+KGE.zoo <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, 
+                    method=c("2009", "2012"), out.type=c("single", "full"), ...){
+    
+    sim <- zoo::coredata(sim)
+    if (is.zoo(obs)) obs <- zoo::coredata(obs)
+    
+    if (is.matrix(sim) | is.data.frame(sim)) {
+       KGE.matrix(sim, obs, s=s, na.rm=na.rm, method=method, out.type="single", ...)
+    } else NextMethod(sim, obs, s=s, na.rm=na.rm, method=method, out.type=out.type, ...)
+     
+  } # 'KGE.zoo' end
