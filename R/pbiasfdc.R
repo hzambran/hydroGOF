@@ -97,3 +97,22 @@ pbiasfdc.data.frame <- function (sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE, p
   pbiasfdc.matrix(sim, obs, lQ.thr=lQ.thr, hQ.thr=hQ.thr, na.rm=na.rm, plot=plot, verbose=verbose, ...)
      
 } # 'pbiasfdc.data.frame' end 
+
+
+
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 22-Mar-2013                                                         #
+# Updates:                                                                     #
+################################################################################
+pbiasfdc.zoo <- function(sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE, plot=TRUE, verbose=FALSE, ...){
+    
+    sim <- zoo::coredata(sim)
+    if (is.zoo(obs)) obs <- zoo::coredata(obs)
+    
+    if (is.matrix(sim) | is.data.frame(sim)) {
+       pbiasfdc.matrix(sim, obs, lQ.thr=lQ.thr, hQ.thr=hQ.thr, na.rm=na.rm, plot=FALSE, verbose=verbose, ...)
+    } else NextMethod(sim, obs, lQ.thr=lQ.thr, hQ.thr=hQ.thr, na.rm=na.rm, plot=plot, verbose=verbose, ...)
+     
+  } # 'pbiasfdc.zoo' end

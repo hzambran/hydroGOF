@@ -109,13 +109,13 @@ nrmse.data.frame <- function (sim, obs, na.rm=TRUE, norm="sd", ...) {
 # Started: 22-Mar-2013                                                         #
 # Updates:                                                                     #
 ################################################################################
-nrmse.zoo <- function(sim, obs, na.rm=TRUE, ...){
+nrmse.zoo <- function(sim, obs, na.rm=TRUE, norm="sd", ...){
     
     sim <- zoo::coredata(sim)
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
     
     if (is.matrix(sim) | is.data.frame(sim)) {
-       nrmse.matrix(sim, obs, na.rm=na.rm, ...)
-    } else NextMethod(sim, obs, na.rm=na.rm, ...)
+       nrmse.matrix(sim, obs, na.rm=na.rm, norm=norm, ...)
+    } else NextMethod(sim, obs, na.rm=na.rm, norm=norm, ...)
      
   } # 'nrmse.zoo' end

@@ -10,6 +10,7 @@
 \alias{KGE.default}
 \alias{KGE.matrix}
 \alias{KGE.data.frame}
+\alias{KGE.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Kling-Gupta Efficiency
@@ -40,6 +41,9 @@ KGE(sim, obs, ...)
              out.type=c("single", "full"), ...)
 
 \method{KGE}{matrix}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
+             out.type=c("single", "full"), ...)
+             
+\method{KGE}{zoo}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
              out.type=c("single", "full"), ...)
 }
 %- maybe also 'usage' for other objects documented here.

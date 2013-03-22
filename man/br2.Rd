@@ -4,6 +4,7 @@
 \alias{br2.default}
 \alias{br2.matrix}
 \alias{br2.data.frame}
+\alias{br2.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 br2
@@ -19,6 +20,8 @@ br2(sim, obs, ...)
 \method{br2}{data.frame}(sim, obs, na.rm=TRUE, ...)
 
 \method{br2}{matrix}(sim, obs, na.rm=TRUE, ...)
+
+\method{br2}{zoo}(sim, obs, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

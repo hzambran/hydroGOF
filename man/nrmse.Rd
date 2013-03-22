@@ -4,6 +4,7 @@
 \alias{nrmse.default}
 \alias{nrmse.matrix}
 \alias{nrmse.data.frame}
+\alias{nrmse.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Normalized Root Mean Square Error
@@ -19,6 +20,8 @@ nrmse(sim, obs, ...)
 \method{nrmse}{data.frame}(sim, obs, na.rm=TRUE, norm="sd", ...)
 
 \method{nrmse}{matrix}(sim, obs, na.rm=TRUE, norm="sd", ...)
+
+\method{nrmse}{zoo}(sim, obs, na.rm=TRUE, norm="sd", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

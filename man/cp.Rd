@@ -4,6 +4,7 @@
 \alias{cp.default}
 \alias{cp.matrix}
 \alias{cp.data.frame}
+\alias{cp.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Coefficient of persistence
@@ -19,6 +20,8 @@ cp(sim, obs, ...)
 \method{cp}{data.frame}(sim, obs, na.rm=TRUE, ...)
 
 \method{cp}{matrix}(sim, obs, na.rm=TRUE, ...)
+
+\method{cp}{zoo}(sim, obs, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

@@ -4,6 +4,7 @@
 \alias{rsr.default}
 \alias{rsr.matrix}
 \alias{rsr.data.frame}
+\alias{rsr.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Ratio of RMSE to the standard deviation of the observations
@@ -19,6 +20,8 @@ rsr(sim, obs, ...)
 \method{rsr}{data.frame}(sim, obs, na.rm=TRUE, ...)
 
 \method{rsr}{matrix}(sim, obs, na.rm=TRUE, ...)
+
+\method{rsr}{zoo}(sim, obs, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

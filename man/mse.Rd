@@ -4,6 +4,7 @@
 \alias{mse.default}
 \alias{mse.matrix}
 \alias{mse.data.frame}
+\alias{mse.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Mean Squared Error
@@ -19,6 +20,8 @@ mse(sim, obs, ...)
 \method{mse}{data.frame}(sim, obs, na.rm=TRUE, ...)
 
 \method{mse}{matrix}(sim, obs, na.rm=TRUE, ...)
+
+\method{mse}{zoo}(sim, obs, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

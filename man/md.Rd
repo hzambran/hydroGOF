@@ -4,6 +4,7 @@
 \alias{md.default}
 \alias{md.matrix}
 \alias{md.data.frame}
+\alias{md.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Modified index of agreement
@@ -20,6 +21,8 @@ md(sim, obs, ...)
 \method{md}{data.frame}(sim, obs, j=1, na.rm=TRUE, ...)
 
 \method{md}{matrix}(sim, obs, j=1, na.rm=TRUE, ...)
+
+\method{md}{zoo}(sim, obs, j=1, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
