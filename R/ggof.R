@@ -75,11 +75,6 @@ ggof <- function (sim, obs,
                    
   # Checking same sampling frequency
   if ( zoo::is.zoo(obs) & zoo::is.zoo(sim)) {
-#      sim.freq <- xts::periodicity(sim)$scale
-#      obs.freq <- xts::periodicity(obs)$scale
-#      if ( sim.freq != obs.freq )
-#         stop("Invalid argument: 'obs' and 'sim' have different sampling frequency ! (", 
-#              obs.freq, " vs ", sim.freq, ")" )
       if (all.equal(time(obs), time(sim)) != TRUE)
         stop("Invalid argument: 'obs' and 'sim' have different time stamps !")
   } # IF end    
@@ -119,9 +114,6 @@ ggof <- function (sim, obs,
     obs <- hydroTSM::vector2zoo(x=obs, dates=dates, date.fmt=date.fmt)        
   } # If 'class(obs)' is 'zoo' and 'dates' are missing, dates are extracted from 'obs'
     else if ( zoo::is.zoo(obs) & missing(dates) ) {  
-      # class(time(x))== "POSIXct" for sub-daily time series
-      # class(time(x))== "Date" for 'daily' and 'monthly' time series
-      # class(time(x))== "character" for 'annual' time series
       if ( class(time(obs))[1] %in% c("Date", "POSIXct") ) { 
          dates <- time(obs) 
       } else if ( class(time(obs))[1] == "character" )  
@@ -133,9 +125,6 @@ ggof <- function (sim, obs,
     sim <- hydroTSM::vector2zoo(x=sim, dates=dates, date.fmt=date.fmt) 
   # If 'class(sim)' is 'zoo' and 'dates' are missing, dates are extracted from 'sim'
   } else if ( zoo::is.zoo(sim) & zoo::is.zoo(obs) & missing(dates) ) {
-      # class(time(x))== "POSIXct" for sub-daily time series
-      # class(time(x))== "Date" for 'daily' and 'monthly' time series
-      # class(time(x))== "character" for 'annual' time series
       if ( class(time(sim))[1]  %in% c("Date", "POSIXct") ) { 
          dates <- time(obs) 
       } else if ( class(time(sim))[1] == "character" ) {  
@@ -356,6 +345,75 @@ ggof <- function (sim, obs,
                   cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
       } # ELSE end
             
-  } # ELSE if (ftype=="dma") END
+  } else if (ftype=="seasonal") {
+        
+    if (sim.freq %in% c("quarterly", "yearly")) {      
+      stop("Invalid argument: 'sim' has to have a 'sub-daily', 'daily' or monthly ts. However, 'sim' is a '", sim.freq, "' ts !")  
+           
+    } else {       
+          # Generating Monthly time series 
+          obs.monthly <- hydroTSM::daily2monthly(obs, FUN, na.rm)
+          sim.monthly <- hydroTSM::daily2monthly(sim, FUN, na.rm)
+          
+          # Generating Annual time series 
+          obs.annual <- hydroTSM::daily2annual(obs, FUN, na.rm, out.fmt = "%Y-%m-%d")
+          sim.annual <- hydroTSM::daily2annual(sim, FUN, na.rm, out.fmt = "%Y-%m-%d")
+          
+          def.par <- par(no.readonly = TRUE) # save default, for resetting... 
+          on.exit(par(def.par)) 
+          
+          # If the user wants a legend, the screen is split into 2 rows and 2 columns, 
+          # where the proportion of width of the 1st column to the 2nd one is 9:2
+          if (gof.leg) {   
+            # Setting up a screen with 3 rows and 2 columns 
+            layout( matrix( c(1,1,1,1,1,1,1,1,1,2,2,3,3,3,3,3,3,3,3,3,4,4,5,5,5,5,5,5,5,5,5,6,6), ncol=11, byrow=TRUE) ) 
+          } else {
+             # Setting up the screen with 3 rows and 1 column
+             par(mfrow=c(3,1))
+            } #ELSE end  
+          
+          par(mar=c(5, 4, 4, 0) + 0.1) # mar=c(bottom, left, top, right). Default values are: mar=c(5,4,4,2) + 0.1) 
+          # Drawing the original daily time series against time
+          plot2(x=sim, y=obs, plot.type="single",
+                main=paste("Daily", main, sep=" "), 
+                tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt,
+                cex = cex, cex.axis=cex.axis, cex.lab=cex.lab, 
+                col = col, lwd= lwd, lty=lty, pch=pch,
+                xlab= xlab, ylab= ylab, pt.style= "ts", 
+                add= TRUE, 
+                gof.leg = gof.leg, gof.digits=digits,
+                legend=legend, leg.cex=leg.cex,
+                cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
+          
+          # It is necessary to set up the margins again, after the previous call to plot2
+          par(mar=c(5, 4, 4, 0) + 0.1) # mar=c(bottom, left, top, right). Default values are: mar=c(5,4,4,2) + 0.1)        
+          # Drawing the Monthly time series against time
+          plot2(x=sim.monthly, y=obs.monthly, plot.type="single",  
+                main=paste("Monthly", main, sep=" "), 
+                tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt,
+                cex = cex, cex.axis=cex.axis, cex.lab=cex.lab, 
+                col = col, lwd= lwd, lty=lty, pch=pch, 
+                xlab= xlab, ylab= ylab, pt.style= "ts", 
+                add= TRUE, 
+                gof.leg = gof.leg, gof.digits=digits,
+                legend=legend, leg.cex=leg.cex,
+                cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
+           
+          # It is necessary to set up the margins again, after the previous call to plot2
+          par(mar=c(5, 4, 4, 0) + 0.1) # mar=c(bottom, left, top, right). Default values are: mar=c(5,4,4,2) + 0.1)        
+          # Drawing the Annual time series against time
+          plot2(x=sim.annual, y=obs.annual, plot.type="single",
+                  main=paste("Annual", main, sep=" "), 
+                  tick.tstep="years", lab.tstep= "years", lab.fmt=lab.fmt,
+                  cex = cex, cex.axis=cex.axis, cex.lab=cex.lab, 
+                  col = col, lwd= lwd, lty=lty, pch=pch,
+                  xlab= xlab, ylab= ylab, pt.style= pt.style, 
+                  add= TRUE, 
+                  gof.leg = gof.leg, gof.digits=digits,
+                  legend=legend, leg.cex=leg.cex,
+                  cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
+      } # ELSE end
+            
+  } # ELSE if (ftype=="seasonal")
   
 } # 'ggof' end
