@@ -1,10 +1,11 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
 0.3-7	15-Apr-2013
-        o 'valindex'    : false warning fixed. 
-                          This warning raised the message "'sim' and 'obs' are empty or they do not have any common pair of elements with data !!",
-                          even when 'sim' and 'obs' were fully compatible.
-        o 'pbiasfdc'    : internal: 'hydroTSM::fdc' was replaced by 'fdc' 
+        o 'valindex'     : false warning fixed. 
+                           This warning raised the message "'sim' and 'obs' are empty or they do not have any common pair of elements with data !!",
+                           even when 'sim' and 'obs' were fully compatible.
+        o 'pbiasfdc'     : internal: 'hydroTSM::fdc' was replaced by 'fdc' 
+        o 'plotbandsonly': internal: 'hydroTSM::vector2zoo' was replaced by 'zoo' 
 
 0.3-6	22-Mar-2013
         o 'gof'         : -) now it works with matrices/data.frames of zoo/xts class. Thanks to L. Pagliero !

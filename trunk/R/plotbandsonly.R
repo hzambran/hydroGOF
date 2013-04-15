@@ -1,8 +1,18 @@
-########################################################################
-# plotbandsonly: Plots a polygon representing uncertainty bounds       #
-########################################################################
-#	   Date: 24-Nov-2010                                           #
-########################################################################
+# File plotbandsonly.R
+# Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
+#                                 http://cran.r-project.org/web/packages/hydroGOF/
+# Copyright 2010-2013 Mauricio Zambrano-Bigiarini
+# Distributed under GPL 2 or later
+
+################################################################################
+# plotbandsonly: Plots a polygon representing uncertainty bounds               #
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: Date: 24-Nov-2010                                                   #
+################################################################################
+# Updates: 15-Apr-2013                                                         #
+################################################################################
       
 plotbandsonly <- function(lband, uband,
                       
@@ -78,8 +88,8 @@ plotbandsonly <- function(lband, uband,
       # If the class of 'x' 'lband', 'uband' and 'sim' (when provided) 
       # are not 'zoo' and the user provides the dates, 
       # then we turn them into a zoo objects
-      if ( !zoo::is.zoo(lband) )  lband <- hydroTSM::vector2zoo(x=lband, dates=dates, date.fmt=date.fmt) 
-      if ( !zoo::is.zoo(uband) )  uband <- hydroTSM::vector2zoo(x=uband, dates=dates, date.fmt=date.fmt)       
+      if ( !zoo::is.zoo(lband) )  lband <- zoo(x=lband, dates=dates, date.fmt=date.fmt) # zoo::zoo
+      if ( !zoo::is.zoo(uband) )  uband <- zoo(x=uband, dates=dates, date.fmt=date.fmt) # zoo::zoo       
     
     }  # IF end       
 

@@ -1,8 +1,18 @@
-##############################################################################
-# 'pbiasfdc': PBIAS in the slope of the midsegment of the Flow Duration Curve #
-##############################################################################
-#   03-Feb-2010                  #
-##################################
+# File pbiasfdc.R
+# Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
+#                                 http://cran.r-project.org/web/packages/hydroGOF/
+# Copyright 2010-2013 Mauricio Zambrano-Bigiarini
+# Distributed under GPL 2 or later
+
+################################################################################
+# 'pbiasfdc': PBIAS in the slope of the midsegment of the Flow Duration Curve  #
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 03-Feb-2010                                                         #
+################################################################################
+# Updates: 15-Apr-2013                                                         #
+################################################################################
 # 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values
 # 'sim'   : numeric 'data.frame', 'matrix' or 'vector' with simulated values
 # 'lQ.thr': numeric, used to classify low flows. All the streamflows with a probaility of exceedence larger or equal to 'lQ.thr' are classified as low flows
