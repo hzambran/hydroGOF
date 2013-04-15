@@ -6,6 +6,8 @@ NEWS/ChangeLog for hydroGOF
                            even when 'sim' and 'obs' were fully compatible.
         o 'pbiasfdc'     : internal: 'hydroTSM::fdc' was replaced by 'fdc' 
         o 'plotbandsonly': internal: 'hydroTSM::vector2zoo' was replaced by 'zoo' 
+        o 'plot2'        : -) internal: 'hydroTSM::vector2zoo' was replaced by 'zoo' 
+                           -) internal: 'hydroTSM::drawTimeAxis' was replaced by 'drawTimeAxis' 
 
 0.3-6	22-Mar-2013
         o 'gof'         : -) now it works with matrices/data.frames of zoo/xts class. Thanks to L. Pagliero !
