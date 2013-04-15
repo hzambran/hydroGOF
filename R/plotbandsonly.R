@@ -88,8 +88,8 @@ plotbandsonly <- function(lband, uband,
       # If the class of 'x' 'lband', 'uband' and 'sim' (when provided) 
       # are not 'zoo' and the user provides the dates, 
       # then we turn them into a zoo objects
-      if ( !zoo::is.zoo(lband) )  lband <- zoo(x=lband, dates=dates, date.fmt=date.fmt) # zoo::zoo
-      if ( !zoo::is.zoo(uband) )  uband <- zoo(x=uband, dates=dates, date.fmt=date.fmt) # zoo::zoo       
+      if ( !zoo::is.zoo(lband) )  lband <- vector2zoo(x=lband, dates=dates, date.fmt=date.fmt) # hydroTSM::vector2zoo
+      if ( !zoo::is.zoo(uband) )  uband <- vector2zoo(x=uband, dates=dates, date.fmt=date.fmt) # hydroTSM::vector2zoo 
     
     }  # IF end       
 
