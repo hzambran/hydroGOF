@@ -99,9 +99,9 @@ plot2 <- function (x, y,
     # class(time(x))== "Date" for 'daily' and 'monthly' time series
     # class(time(x))== "character" for 'annual' time series
     if ( class(time(x)) == "Date" ) {
-        y <- zoo(y, dates=time(x)) # zoo::zoo
+        y <- vector2zoo(y, dates=time(x)) # hydroTSM::vector2zoo
     } else if ( class(time(x)) == "character" ) {
-        y <- zoo(y, dates=time(x), date.fmt="%Y") # zoo::zoo
+        y <- vector2zoo(y, dates=time(x), date.fmt="%Y") # hydroTSM::vector2zoo
         time(x) <- time(y) #'annual' time series
     } # ELSE END
     
