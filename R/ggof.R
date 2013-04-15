@@ -412,7 +412,7 @@ ggof <- function (sim, obs,
                 xlab= xlab, ylab= ylab, pt.style= "ts", 
                 add= TRUE, 
                 gof.leg = gof.leg, gof.digits=digits,
-                legend=legend, leg.cex=leg.cex,
+                legend=legend, leg.cex=0.75, # leg.cex=leg.cex,
                 cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
           
           # It is necessary to set up the margins again, after the previous call to plot2
@@ -426,7 +426,7 @@ ggof <- function (sim, obs,
                 xlab= xlab, ylab= ylab, pt.style= "ts", 
                 add= TRUE, 
                 gof.leg = gof.leg, gof.digits=digits,
-                legend=legend, leg.cex=leg.cex,
+                legend=legend, leg.cex=0.75, # leg.cex=leg.cex,
                 cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
            
           # It is necessary to set up the margins again, after the previous call to plot2
@@ -440,7 +440,7 @@ ggof <- function (sim, obs,
                   xlab= xlab, ylab= ylab, pt.style= pt.style, 
                   add= TRUE, 
                   gof.leg = gof.leg, gof.digits=digits,
-                  legend=legend, leg.cex=leg.cex,
+                  legend=legend, leg.cex=0.75, # leg.cex=leg.cex,
                   cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
 
           # It is necessary to set up the margins again, after the previous call to plot2
@@ -454,7 +454,7 @@ ggof <- function (sim, obs,
                   xlab= xlab, ylab= ylab, pt.style= pt.style, 
                   add= TRUE, 
                   gof.leg = gof.leg, gof.digits=digits,
-                  legend=legend, leg.cex=leg.cex,
+                  legend=legend, leg.cex=0.75, # leg.cex=leg.cex,
                   cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
       } # ELSE end
             
