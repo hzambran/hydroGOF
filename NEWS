@@ -4,8 +4,11 @@ NEWS/ChangeLog for hydroGOF
         o 'valindex'     : false warning fixed. 
                            This warning raised the message "'sim' and 'obs' are empty or they do not have any common pair of elements with data !!",
                            even when 'sim' and 'obs' were fully compatible.
-        o 'pbiasfdc'     : internal: 'hydroTSM::fdc' was replaced by 'fdc' 
-        o 'plotbandsonly': internal: 'hydroTSM::vector2zoo' was replaced by 'vector2zoo' 
+        o 'gof2'         : -) internal: 'hydroTSM::daily2monthly' was replaced by 'daily2monthly' 
+                           -) internal: 'hydroTSM::daily2annual' was replaced by 'daily2annual' 
+                           -) internal: 'hydroTSM::vector2zoo' was replaced by 'vector2zoo' 
+        o 'pbiasfdc'     : -) internal: 'hydroTSM::fdc' was replaced by 'fdc' 
+        o 'plotbandsonly': -) internal: 'hydroTSM::vector2zoo' was replaced by 'vector2zoo' 
         o 'plot2'        : -) internal: 'hydroTSM::vector2zoo' was replaced by 'vector2zoo' 
                            -) internal: 'hydroTSM::drawTimeAxis' was replaced by 'drawTimeAxis' 
         o 'plotbands'    : -) internal: 'hydroTSM::vector2zoo' was replaced by 'vector2zoo' 
