@@ -1,23 +1,24 @@
 # File plot2.R
 # Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 #                                 http://cran.r-project.org/web/packages/hydroGOF/
-# Copyright 2011-2012 Mauricio Zambrano-Bigiarini
+# Copyright 2011-2013 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
-############################################################
-# 'plot2':     Plots 2 time series on the same graph       #
-#              It is a wrapper for the 'plot.zoo' &        #
-#              plot.xts functions                          #
-############################################################
-# Author : Mauricio Zambrano-Bigiarini                     #
-############################################################
-# Started: March 04, 2009                                  #
-# Updates: May 2009                                        #
-#          2010                                            #
-#          21-Jan-2011 ; 15-Apr-2011 ;                     #
-#          25-Aug-2011 ; 31-Aug-2011 ; 14-Sep-2011         #
-#          23-Jan-2012                                     #
-############################################################
+################################################################################
+# 'plot2':     Plots 2 time series on the same graph                           #
+#              It is a wrapper for the 'plot.zoo' &                            #
+#              plot.xts functions                                              #
+################################################################################
+# Author : Mauricio Zambrano-Bigiarini                                         #
+################################################################################
+# Started: March 04, 2009                                                      #
+# Updates: May 2009                                                            #
+#          2010                                                                #
+#          21-Jan-2011 ; 15-Apr-2011 ;                                         #
+#          25-Aug-2011 ; 31-Aug-2011 ; 14-Sep-2011                             #
+#          23-Jan-2012                                                         #
+#          15-Apr-2013                                                         #
+################################################################################
                 
 plot2 <- function (x, y, 
                    plot.type="multiple", 
@@ -98,9 +99,9 @@ plot2 <- function (x, y,
     # class(time(x))== "Date" for 'daily' and 'monthly' time series
     # class(time(x))== "character" for 'annual' time series
     if ( class(time(x)) == "Date" ) {
-        y <- hydroTSM::vector2zoo(y, dates=time(x))
+        y <- zoo(y, dates=time(x)) # zoo::zoo
     } else if ( class(time(x)) == "character" ) {
-        y <- hydroTSM::vector2zoo(y, dates=time(x), date.fmt="%Y")
+        y <- zoo(y, dates=time(x), date.fmt="%Y") # zoo::zoo
         time(x) <- time(y) #'annual' time series
     } # ELSE END
     
@@ -184,7 +185,7 @@ plot2 <- function (x, y,
         } else z <- y
     
         # Draws ticks in the X axis, but labels only in years
-        hydroTSM::drawTimeAxis(z, tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis, cex.lab=cex.lab) 
+        drawTimeAxis(z, tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis, cex.lab=cex.lab) # hydroTSM::drawTimeAxis
     
       } else { # When 'numeric' or 'integer' values (not 'zoo' or 'xts') are plotted
              Axis(side = 1, labels = TRUE, cex.axis=cex.axis, cex.lab=cex.lab)
