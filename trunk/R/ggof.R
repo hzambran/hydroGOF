@@ -13,6 +13,7 @@
 #            2010                                                              #
 #            17-Apr-2011                                                       # 
 #            15-Oct-2012                                                       #
+#            15-Apr-2013                                                       #
 ################################################################################     
                                           
       
@@ -111,7 +112,7 @@ ggof <- function (sim, obs,
   
   # If 'class(obs)' is not 'zoo' and the user provides the dates, then we turn it into a zoo class
   if ( !zoo::is.zoo(obs) & !missing(dates) ) { 
-    obs <- hydroTSM::vector2zoo(x=obs, dates=dates, date.fmt=date.fmt)        
+    obs <- vector2zoo(x=obs, dates=dates, date.fmt=date.fmt) # hydroTSM::vector2zoo       
   } # If 'class(obs)' is 'zoo' and 'dates' are missing, dates are extracted from 'obs'
     else if ( zoo::is.zoo(obs) & missing(dates) ) {  
       if ( class(time(obs))[1] %in% c("Date", "POSIXct") ) { 
@@ -122,7 +123,7 @@ ggof <- function (sim, obs,
   
   # If 'class(sim)' is not 'zoo' and the user provides the dates, then we turn it into a zoo class
   if ( !zoo::is.zoo(sim) & !missing(dates) ) { 
-    sim <- hydroTSM::vector2zoo(x=sim, dates=dates, date.fmt=date.fmt) 
+    sim <- vector2zoo(x=sim, dates=dates, date.fmt=date.fmt) # hydroTSM::vector2zoo
   # If 'class(sim)' is 'zoo' and 'dates' are missing, dates are extracted from 'sim'
   } else if ( zoo::is.zoo(sim) & zoo::is.zoo(obs) & missing(dates) ) {
       if ( class(time(sim))[1]  %in% c("Date", "POSIXct") ) { 
@@ -171,8 +172,8 @@ ggof <- function (sim, obs,
         stop("Invalid argument: 'sim' has to have a 'daily' sampling frequency")       
       } else {
           # Generating a Monthly time series
-          obs.monthly <- hydroTSM::daily2monthly(obs, FUN, na.rm)
-          sim.monthly <- hydroTSM::daily2monthly(sim, FUN, na.rm)
+          obs.monthly <- daily2monthly(obs, FUN, na.rm) # hydroTSM::daily2monthly
+          sim.monthly <- daily2monthly(sim, FUN, na.rm) # hydroTSM::daily2monthly
           
           def.par <- par(no.readonly = TRUE) # save default, for resetting... 
           on.exit(par(def.par)) 
@@ -226,13 +227,13 @@ ggof <- function (sim, obs,
     } else {
         if ( sim.freq == "daily" ) {
            # Generating a Monthly time series 
-           obs <- hydroTSM::daily2monthly(obs, FUN, na.rm)
-           sim <- hydroTSM::daily2monthly(sim, FUN, na.rm)
+           obs <- daily2monthly(obs, FUN, na.rm) # hydroTSM::daily2monthly
+           sim <- daily2monthly(sim, FUN, na.rm) # hydroTSM::daily2monthly
         } # IF end
         
         # Generating Annual time series
-        obs.annual <- hydroTSM::monthly2annual(obs, FUN, na.rm, out.fmt="%Y-%m-%d")
-        sim.annual <- hydroTSM::monthly2annual(sim, FUN, na.rm, out.fmt="%Y-%m-%d")
+        obs.annual <- monthly2annual(obs, FUN, na.rm, out.fmt="%Y-%m-%d") # hydroTSM::monthly2annual
+        sim.annual <- monthly2annual(sim, FUN, na.rm, out.fmt="%Y-%m-%d") # hydroTSM::monthly2annual
         
         def.par <- par(no.readonly = TRUE) # save default, for resetting... 
         on.exit(par(def.par)) 
@@ -283,12 +284,12 @@ ggof <- function (sim, obs,
            
     } else {       
           # Generating Monthly time series 
-          obs.monthly <- hydroTSM::daily2monthly(obs, FUN, na.rm)
-          sim.monthly <- hydroTSM::daily2monthly(sim, FUN, na.rm)
+          obs.monthly <- daily2monthly(obs, FUN, na.rm) # hydroTSM::daily2monthly
+          sim.monthly <- daily2monthly(sim, FUN, na.rm) # hydroTSM::daily2monthly
           
           # Generating Annual time series 
-          obs.annual <- hydroTSM::daily2annual(obs, FUN, na.rm, out.fmt = "%Y-%m-%d")
-          sim.annual <- hydroTSM::daily2annual(sim, FUN, na.rm, out.fmt = "%Y-%m-%d")
+          obs.annual <- daily2annual(obs, FUN, na.rm, out.fmt = "%Y-%m-%d") # hydroTSM::daily2annual
+          sim.annual <- daily2annual(sim, FUN, na.rm, out.fmt = "%Y-%m-%d") # hydroTSM::daily2annual
           
           def.par <- par(no.readonly = TRUE) # save default, for resetting... 
           on.exit(par(def.par)) 
@@ -352,12 +353,12 @@ ggof <- function (sim, obs,
            
     } else {       
           # Generating Monthly time series 
-          obs.monthly <- hydroTSM::daily2monthly(obs, FUN, na.rm)
-          sim.monthly <- hydroTSM::daily2monthly(sim, FUN, na.rm)
+          obs.monthly <- daily2monthly(obs, FUN, na.rm) # hydroTSM::daily2monthly
+          sim.monthly <- daily2monthly(sim, FUN, na.rm) # hydroTSM::daily2monthly
           
           # Generating Annual time series 
-          obs.annual <- hydroTSM::daily2annual(obs, FUN, na.rm, out.fmt = "%Y-%m-%d")
-          sim.annual <- hydroTSM::daily2annual(sim, FUN, na.rm, out.fmt = "%Y-%m-%d")
+          obs.annual <- daily2annual(obs, FUN, na.rm, out.fmt = "%Y-%m-%d") # hydroTSM::daily2annual
+          sim.annual <- daily2annual(sim, FUN, na.rm, out.fmt = "%Y-%m-%d") # hydroTSM::daily2annual
           
           def.par <- par(no.readonly = TRUE) # save default, for resetting... 
           on.exit(par(def.par)) 
