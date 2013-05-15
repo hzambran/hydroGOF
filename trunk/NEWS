@@ -18,6 +18,7 @@ NEWS/ChangeLog for hydroGOF
                            -) internal: 'hydroTSM::drawTimeAxis' was replaced by 'drawTimeAxis' 
         o 'plotbands'    : -) internal: 'hydroTSM::vector2zoo' was replaced by 'vector2zoo' 
                            -) internal: 'hydroTSM::drawTimeAxis' was replaced by 'drawTimeAxis' 
+        ToDo: Import 'zoo' package and remove all the 'zoo::' calls in the .R files
 
 0.3-6	22-Mar-2013
         o 'gof'         : -) now it works with matrices/data.frames of zoo/xts class. Thanks to L. Pagliero !

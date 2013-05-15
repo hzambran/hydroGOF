@@ -354,9 +354,11 @@ ggof <- function (sim, obs,
             
   } else if (ftype=="seasonal") {
 
-     # Checking 'gofs'
-     gofs.all=c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", 
-                "d", "R2", "bR2", "KGE", "VE")  
+     gofs.all     <- c("ME", "RMSE", "PBIAS", "RSR", "NSE", "d", "R2", "KGE", "VE") 
+     gofs.default <- c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", "rNSE", "d", "md", "rd", "r", "R2", "bR2", "KGE", "VE")
+     if (all.equal(gofs, gofs.default)) gofs <- gofs.all)
+
+     # Checking 'gofs'       
      if (length(noNms <- gofs[!gofs %in% gofs.all])) 
        warning("[ftype=='seasonal': Unknown names in 'gofs': ", paste(noNms, collapse = ", "), " (not used) !]")
 
