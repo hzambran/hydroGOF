@@ -13,7 +13,7 @@
 #            2010                                                              #
 #            17-Apr-2011                                                       # 
 #            15-Oct-2012                                                       #
-#            15-Apr-2013                                                       #
+#            15-Apr-2013 ; 15-May-2013                                         #
 ################################################################################     
                                           
       
@@ -31,6 +31,9 @@ ggof <- function (sim, obs,
                   
                   gof.leg = TRUE, 
                   digits=2, 
+                  gofs=c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", 
+                          "NSE", "mNSE", "rNSE", "d", "md", "rd", "r", "R2", 
+                          "bR2", "KGE", "VE"),
                   
                   legend,
                   leg.cex=1,
@@ -63,7 +66,7 @@ ggof <- function (sim, obs,
   if (length(which(!is.na(match(class(sim), valid.class )))) <= 0)  
          stop("Invalid argument: 'class(sim)' must be in c('xts', 'zoo', 'numeric', 'integer')")
   if (length(which(!is.na(match(class(obs), valid.class )))) <= 0)
-         stop("Invalid argument: 'class(obs)' must be in c('xts', 'zoo', 'numeric', 'integer')")
+         stop("Invalid argument: 'class(obs)' must be in c('xts', 'zoo', 'numeric', 'integer')")	
          
   # Checking length
   if ( length(sim) != length(obs) )  
@@ -165,7 +168,7 @@ ggof <- function (sim, obs,
          add= FALSE,
          tick.tstep, lab.tstep, lab.fmt=lab.fmt,
          cex = cex, cex.axis=cex.axis, cex.lab=cex.lab, 
-         gof.leg = gof.leg, gof.digits=digits,
+         gof.leg = gof.leg, gof.digits=digits, gofs=gofs,
          legend=legend, leg.cex=leg.cex,
          cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ...)
          
@@ -200,7 +203,7 @@ ggof <- function (sim, obs,
                 xlab= xlab, ylab= ylab, 
                 pt.style= "ts", 
                 add= TRUE,  
-                gof.leg = gof.leg, gof.digits=digits,
+                gof.leg = gof.leg, gof.digits=digits, gofs=gofs,
                 legend=legend, leg.cex=leg.cex,
                 cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
           
@@ -215,7 +218,7 @@ ggof <- function (sim, obs,
                 xlab= xlab, ylab= ylab, 
                 pt.style= "ts", 
                 add= TRUE, 
-                gof.leg = gof.leg, gof.digits=digits,
+                gof.leg = gof.leg, gof.digits=digits, gofs=gofs,
                 legend=legend, leg.cex=leg.cex,
                 cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
                    
@@ -259,7 +262,7 @@ ggof <- function (sim, obs,
               col = col, lwd= lwd, lty=lty, pch=pch,
               xlab= xlab, ylab= ylab, pt.style= "ts", 
               add= TRUE, 
-              gof.leg = gof.leg, gof.digits=digits,
+              gof.leg = gof.leg, gof.digits=digits, gofs=gofs,
               legend=legend, leg.cex=leg.cex,
               cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
         
@@ -273,7 +276,7 @@ ggof <- function (sim, obs,
               col = col, lwd= lwd, lty=lty, pch=pch, 
               xlab= xlab, ylab= ylab, pt.style= pt.style, 
               add= TRUE, 
-              gof.leg = gof.leg, gof.digits=digits,
+              gof.leg = gof.leg, gof.digits=digits, gofs=gofs,
               legend=legend, leg.cex=leg.cex,
               cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
       } # ELSE end      
@@ -316,7 +319,7 @@ ggof <- function (sim, obs,
                 col = col, lwd= lwd, lty=lty, pch=pch,
                 xlab= xlab, ylab= ylab, pt.style= "ts", 
                 add= TRUE, 
-                gof.leg = gof.leg, gof.digits=digits,
+                gof.leg = gof.leg, gof.digits=digits, gofs=gofs,
                 legend=legend, leg.cex=leg.cex,
                 cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
           
@@ -330,7 +333,7 @@ ggof <- function (sim, obs,
                 col = col, lwd= lwd, lty=lty, pch=pch, 
                 xlab= xlab, ylab= ylab, pt.style= "ts", 
                 add= TRUE, 
-                gof.leg = gof.leg, gof.digits=digits,
+                gof.leg = gof.leg, gof.digits=digits, gofs=gofs,
                 legend=legend, leg.cex=leg.cex,
                 cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
            
@@ -344,12 +347,22 @@ ggof <- function (sim, obs,
                   col = col, lwd= lwd, lty=lty, pch=pch,
                   xlab= xlab, ylab= ylab, pt.style= pt.style, 
                   add= TRUE, 
-                  gof.leg = gof.leg, gof.digits=digits,
+                  gof.leg = gof.leg, gof.digits=digits, gofs=gofs,
                   legend=legend, leg.cex=leg.cex,
                   cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
       } # ELSE end
             
   } else if (ftype=="seasonal") {
+
+     # Checking 'gofs'
+     gofs.all=c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", 
+                "d", "R2", "bR2", "KGE", "VE")  
+     if (length(noNms <- gofs[!gofs %in% gofs.all])) 
+       warning("[ftype=='seasonal': Unknown names in 'gofs': ", paste(noNms, collapse = ", "), " (not used) !]")
+
+     gof.index <- pmatch(gofs, gofs.all)
+     gof.index <- gof.index[!is.na(gof.index)]  
+     gofs      <- gofs.all[gof.index] 
         
     if (sim.freq %in% c("quarterly", "yearly")) {      
       stop("Invalid argument: 'sim' has to have a 'sub-daily', 'daily' or 'monthly' ts. However, 'sim' is a '", sim.freq, "' ts !")  
@@ -411,7 +424,7 @@ ggof <- function (sim, obs,
                 col = col, lwd= lwd, lty=lty, pch=pch,
                 xlab= xlab, ylab= ylab, pt.style= "ts", 
                 add= TRUE, 
-                gof.leg = gof.leg, gof.digits=digits,
+                gof.leg = gof.leg, gof.digits=digits, gofs=gofs,
                 legend=legend, leg.cex=0.75, # leg.cex=leg.cex,
                 cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
           
@@ -425,7 +438,7 @@ ggof <- function (sim, obs,
                 col = col, lwd= lwd, lty=lty, pch=pch, 
                 xlab= xlab, ylab= ylab, pt.style= "ts", 
                 add= TRUE, 
-                gof.leg = gof.leg, gof.digits=digits,
+                gof.leg = gof.leg, gof.digits=digits, gofs=gofs,
                 legend=legend, leg.cex=0.75, # leg.cex=leg.cex,
                 cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
            
@@ -439,7 +452,7 @@ ggof <- function (sim, obs,
                   col = col, lwd= lwd, lty=lty, pch=pch,
                   xlab= xlab, ylab= ylab, pt.style= pt.style, 
                   add= TRUE, 
-                  gof.leg = gof.leg, gof.digits=digits,
+                  gof.leg = gof.leg, gof.digits=digits, gofs=gofs,
                   legend=legend, leg.cex=0.75, # leg.cex=leg.cex,
                   cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
 
@@ -453,7 +466,7 @@ ggof <- function (sim, obs,
                   col = col, lwd= lwd, lty=lty, pch=pch,
                   xlab= xlab, ylab= ylab, pt.style= pt.style, 
                   add= TRUE, 
-                  gof.leg = gof.leg, gof.digits=digits,
+                  gof.leg = gof.leg, gof.digits=digits, gofs=gofs,
                   legend=legend, leg.cex=0.75, # leg.cex=leg.cex,
                   cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ... )
       } # ELSE end

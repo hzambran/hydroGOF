@@ -59,14 +59,14 @@ Character indicating how many plots are desired by the user. Valid values are: \
 -) \kbd{dm}      : it assumes that \code{sim} and \code{obs} are daily time series and Daily and Monthly values are plotted  \cr
 -) \kbd{ma}      : it assumes that \code{sim} and \code{obs} are daily or monthly time series and Monthly and Annual values are plotted \cr
 -) \kbd{dma}     : it assumes that \code{sim} and \code{obs} are daily time series and Daily, Monthly and Annual values are plotted \cr
--) \kbd{seasonal}: seasonal values are plotted
+-) \kbd{seasonal}: seasonal values are plotted. See \code{stype} and \code{season.names}
 }
   \item{FUN}{
 OPTIONAL, ONLY required when \code{ftype} is in \code{c('dm', 'ma', 'dma', 'seasonal')}. Function that have to be applied for transforming teh original ts into monthly, annual or seasonal time step (e.g., for precipitation FUN MUST be \code{sum}, for temperature and flow time series, FUN MUST be \code{mean})
 }
   \item{stype}{
  OPTIONAL, only used when \code{ftype=seasonal}. \cr
-character, indicating which weather seasons will be used for computing the output. Possible values are: \cr
+character, indicating whath weather seasons will be used for computing the output. Possible values are: \cr
 -) \kbd{default}          =>  "winter"= DJF  = Dec, Jan, Feb;      "spring"= MAM = Mar, Apr, May;  "summer"= JJA  = Jun, Jul, Aug;       "autumn"= SON = Sep, Oct, Nov  \cr
 -) \kbd{FrenchPolynesia}  =>  "winter"= DJFM = Dec, Jan, Feb, Mar; "spring"= AM  = Apr, May;       "summer"= JJAS = Jun, Jul, Aug, Sep;  "autumn"= ON  = Oct, Nov 
 }
