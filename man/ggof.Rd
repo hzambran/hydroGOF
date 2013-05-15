@@ -20,6 +20,8 @@ ggof(sim, obs, na.rm = TRUE, dates, date.fmt = "\%Y-\%m-\%d",
      pt.style = "ts", ftype = "o",  FUN, 
      stype="default", season.names=c("Winter", "Spring", "Summer", "Autumn"),
      gof.leg = TRUE,  digits=2, 
+     gofs=c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", 
+             "rNSE", "d", "md", "rd", "r", "R2", "bR2", "KGE", "VE"),
      legend, leg.cex=1,
      tick.tstep = "auto", lab.tstep = "auto", lab.fmt=NULL,
      cal.ini=NA, val.ini=NA,
@@ -79,6 +81,11 @@ logical, indicating if several numerical goodness of fit have to be computed bet
 }
   \item{digits}{
 OPTIONAL, only used when \code{leg.gof=TRUE}. Numeric, representing the decimal places used for rounding the goodness-of-fit indexes.
+}
+  \item{gofs}{
+character, with one or more strings indicating the goodness-of-fit measures to be shown in the legend of the plot when  \code{gof.leg=TRUE}. \cr
+Possible values when \code{ftype!='seasonal'} are in \code{c("ME", "MAE", "MSE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", "rNSE", "d", "md", "rd", "cp", "r", "R2", "bR2", "KGE", "VE")} \cr
+Possible values when \code{ftype='seasonal'} are in c("ME", "RMSE", "PBIAS", "RSR", "NSE", "d", "R2", "KGE", "VE")
 }
   \item{legend}{
 character of length 2 to appear in the legend.  
