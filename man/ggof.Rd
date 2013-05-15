@@ -246,6 +246,12 @@ gof(sim=sim, obs=obs)
 ggof(sim=sim, obs=obs, ftype="dm", FUN=mean)
 }
 
+# Getting the graphical representation of 'obs' and 'sim' along with some numeric 
+# goodness-of-fit measures for the seasonal time series 
+\dontrun{
+ggof(sim=sim, obs=obs, ftype="seasonal", FUN=mean)
+}
+
 # Computing the daily residuals 
 # even if this is a dummy example, it is enough for illustrating the capability
 r <- sim-obs
