@@ -1,23 +1,24 @@
 # File plot2.R
 # Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 #                                 http://cran.r-project.org/web/packages/hydroGOF/
-# Copyright 2011-2012 Mauricio Zambrano-Bigiarini
+# Copyright 2011-2013 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
-############################################################
-# 'plot2':     Plots 2 time series on the same graph       #
-#              It is a wrapper for the 'plot.zoo' &        #
-#              plot.xts functions                          #
-############################################################
-# Author : Mauricio Zambrano-Bigiarini                     #
-############################################################
-# Started: March 04, 2009                                  #
-# Updates: May 2009                                        #
-#          2010                                            #
-#          21-Jan-2011 ; 15-Apr-2011 ;                     #
-#          25-Aug-2011 ; 31-Aug-2011 ; 14-Sep-2011         #
-#          23-Jan-2012                                     #
-############################################################
+################################################################################
+# 'plot2':     Plots 2 time series on the same graph                           #
+#              It is a wrapper for the 'plot.zoo' &                            #
+#              plot.xts functions                                              #
+################################################################################
+# Author : Mauricio Zambrano-Bigiarini                                         #
+################################################################################
+# Started: March 04, 2009                                                      #
+# Updates: May 2009                                                            #
+#          2010                                                                #
+#          21-Jan-2011 ; 15-Apr-2011 ;                                         #
+#          25-Aug-2011 ; 31-Aug-2011 ; 14-Sep-2011                             #
+#          23-Jan-2012                                                         #
+#          15-Apr-2013 ; 15-May-2013                                           #
+################################################################################
                 
 plot2 <- function (x, y, 
                    plot.type="multiple", 
@@ -36,6 +37,9 @@ plot2 <- function (x, y,
                    
                    gof.leg= FALSE, 
                    gof.digits=2, 
+                   gofs=c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", 
+                          "NSE", "mNSE", "rNSE", "d", "md", "rd", "r", "R2", 
+                          "bR2", "KGE", "VE"),
                    
                    legend,
                    leg.cex=1,                       
@@ -60,6 +64,12 @@ plot2 <- function (x, y,
          
   # Checking that the user provided 'y'
   if ( missing(y) ) stop("Missing argument: 'y'")
+
+  # Checking 'gofs'
+  gofs.all=c("ME", "MAE", "MSE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", 
+             "mNSE", "rNSE", "d", "md", "rd", "cp", "r", "R2", "bR2", "KGE", "VE")  
+  if (length(noNms <- gofs[!gofs %in% gofs.all])) 
+    warning("[Unknown names in 'gofs': ", paste(noNms, collapse = ", "), " (not used) !]")		   
 
   # 'xname' and 'yname' values
   xname <- deparse(substitute(x))
@@ -98,9 +108,9 @@ plot2 <- function (x, y,
     # class(time(x))== "Date" for 'daily' and 'monthly' time series
     # class(time(x))== "character" for 'annual' time series
     if ( class(time(x)) == "Date" ) {
-        y <- hydroTSM::vector2zoo(y, dates=time(x))
+        y <- vector2zoo(y, dates=time(x)) # hydroTSM::vector2zoo
     } else if ( class(time(x)) == "character" ) {
-        y <- hydroTSM::vector2zoo(y, dates=time(x), date.fmt="%Y")
+        y <- vector2zoo(y, dates=time(x), date.fmt="%Y") # hydroTSM::vector2zoo
         time(x) <- time(y) #'annual' time series
     } # ELSE END
     
@@ -184,7 +194,7 @@ plot2 <- function (x, y,
         } else z <- y
     
         # Draws ticks in the X axis, but labels only in years
-        hydroTSM::drawTimeAxis(z, tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis, cex.lab=cex.lab) 
+        drawTimeAxis(z, tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis, cex.lab=cex.lab) # hydroTSM::drawTimeAxis
     
       } else { # When 'numeric' or 'integer' values (not 'zoo' or 'xts') are plotted
              Axis(side = 1, labels = TRUE, cex.axis=cex.axis, cex.lab=cex.lab)
@@ -248,7 +258,7 @@ plot2 <- function (x, y,
     }  # ELSE end        
   
   
-  # If the Goodness of Fit indexes have to be computed and plotted:
+  # If the Goodness-of-fit indexes have to be computed and plotted:
   if (gof.leg & plot.type == "single" ) {
   
    # If the user provided 'cal.ini' and 'x' & 'y' are zoo objects, 
@@ -260,8 +270,16 @@ plot2 <- function (x, y,
        y <- window(y, start=cal.ini)
      } # IF end 
    } # IF end
-  
+
+   gof.index <- pmatch(gofs, gofs.all)
+   gof.index <- gof.index[!is.na(gof.index)]  
+    
    gof.xy <- gof(sim=as.numeric(x), obs=as.numeric(y), do.spearman=FALSE, do.pbfdc=FALSE, digits=gof.digits, ...)
+
+   gofs.stg  <- gofs.all[gof.index] 
+   gofs.num  <- gof.xy[gof.index, 1] 
+
+   leg.text <- paste(gofs.stg, " = ", gofs.num, sep="")
    
    legend.position <- "center"
    par( mar=c(0.5, 0.5, 0.5, 0.5) ) # mar=c(bottom, left, top, right). Default values are: mar=c(5,4,4,2) + 0.1)
@@ -271,30 +289,32 @@ plot2 <- function (x, y,
    #           If a single value is given, it is used for both margins; 
    #           if two values are given, the first is used for 'x'-distance, the second for 'y'-distance.
 	 
-   legend(legend.position,  y.intersp=1.2, cex =leg.cex, # bty="n", #inset=0.01,   
-          c( paste( "ME =", gof.xy["ME", 1], sep=" "),
-             paste( "MAE =", gof.xy["MAE", 1], sep=" "),
-             #paste( "MSE =", gof.xy["MSE", 1], sep=" "),
-             paste( "RMSE =", gof.xy["RMSE", 1], sep=" "),
-             paste( "NRMSE% =", gof.xy["NRMSE %", 1], sep=" "),
-             paste( "PBIAS% =", gof.xy["PBIAS %", 1], sep=" "),
-             #paste( "pbiasFDC% =", gof.xy["pbiasFDC %", 1], sep=" "),
-             paste( "RSR =", gof.xy["RSR", 1], sep=" "),
-             paste( "rSD =", gof.xy["rSD", 1], sep=" "),             
-             paste( "NSE =", gof.xy["NSE", 1], sep=" "),
-             paste( "mNSE =", gof.xy["mNSE", 1], sep=" "),
-             paste( "rNSE =", gof.xy["rNSE", 1], sep=" "),
-             paste( "d =", gof.xy["d", 1], sep=" "),
-             paste( "md =", gof.xy["md", 1], sep=" "),
-             paste( "rd =", gof.xy["rd", 1], sep=" "),
-             #paste( "cp =", gof.xy["cp", 1], sep=" "),
-             paste( "r =", gof.xy["r", 1], sep=" "),
-             paste( "R2 =", gof.xy["R2", 1], sep=" "), 
-             paste( "bR2 =", gof.xy["bR2", 1], sep=" "),
-             paste( "KGE =", gof.xy["KGE", 1], sep=" "), 
-             paste( "VE =", gof.xy["VE", 1], sep=" ")               
-            ), title="GoF's:", title.col="darkblue",
-             bg="azure"
+   legend(legend.position,  y.intersp=1.2, cex =leg.cex, # bty="n", #inset=0.01,  
+          leg.text, 
+#          c( paste( "ME =", gof.xy["ME", 1], sep=" "),
+#             paste( "MAE =", gof.xy["MAE", 1], sep=" "),
+#             #paste( "MSE =", gof.xy["MSE", 1], sep=" "),
+#             paste( "RMSE =", gof.xy["RMSE", 1], sep=" "),
+#             paste( "NRMSE% =", gof.xy["NRMSE %", 1], sep=" "),
+#             paste( "PBIAS% =", gof.xy["PBIAS %", 1], sep=" "),
+#             #paste( "pbiasFDC% =", gof.xy["pbiasFDC %", 1], sep=" "),
+#             paste( "RSR =", gof.xy["RSR", 1], sep=" "),
+#             paste( "rSD =", gof.xy["rSD", 1], sep=" "),             
+#             paste( "NSE =", gof.xy["NSE", 1], sep=" "),
+#             paste( "mNSE =", gof.xy["mNSE", 1], sep=" "),
+#             paste( "rNSE =", gof.xy["rNSE", 1], sep=" "),
+#             paste( "d =", gof.xy["d", 1], sep=" "),
+#             paste( "md =", gof.xy["md", 1], sep=" "),
+#             paste( "rd =", gof.xy["rd", 1], sep=" "),
+#             #paste( "cp =", gof.xy["cp", 1], sep=" "),
+#             paste( "r =", gof.xy["r", 1], sep=" "),
+#             paste( "R2 =", gof.xy["R2", 1], sep=" "), 
+#             paste( "bR2 =", gof.xy["bR2", 1], sep=" "),
+#             paste( "KGE =", gof.xy["KGE", 1], sep=" "), 
+#             paste( "VE =", gof.xy["VE", 1], sep=" ")               
+#            ), 
+            title="GoF's:", title.col="darkblue",
+            bg="azure"
            )
          
   } #IF END
