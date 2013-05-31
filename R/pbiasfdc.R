@@ -1,18 +1,8 @@
-# File pbiasfdc.R
-# Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
-#                                 http://cran.r-project.org/web/packages/hydroGOF/
-# Copyright 2010-2013 Mauricio Zambrano-Bigiarini
-# Distributed under GPL 2 or later
-
-################################################################################
-# 'pbiasfdc': PBIAS in the slope of the midsegment of the Flow Duration Curve  #
-################################################################################
-# Author: Mauricio Zambrano-Bigiarini                                          #
-################################################################################
-# Started: 03-Feb-2010                                                         #
-################################################################################
-# Updates: 15-Apr-2013                                                         #
-################################################################################
+##############################################################################
+# 'pbiasfdc': PBIAS in the slope of the midsegment of the Flow Duration Curve #
+##############################################################################
+#   03-Feb-2010                  #
+##################################
 # 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values
 # 'sim'   : numeric 'data.frame', 'matrix' or 'vector' with simulated values
 # 'lQ.thr': numeric, used to classify low flows. All the streamflows with a probaility of exceedence larger or equal to 'lQ.thr' are classified as low flows
@@ -48,8 +38,8 @@ pbiasfdc.default <- function (sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE, plot
      sim <- as.numeric(sim[vi])
      		      
      # Computing the FDC for simulations and observations
-     obs.fdc <- fdc(obs, plot=FALSE) # hydroTSM::fdc
-     sim.fdc <- fdc(sim, plot=FALSE) # hydroTSM::fdc
+     obs.fdc <- hydroTSM::fdc(obs, plot=FALSE)
+     sim.fdc <- hydroTSM::fdc(sim, plot=FALSE)
      
      # Finding the flow value corresponding to the 'lQ.thr' pbb of excedence
      obs.lQ <- obs[Qposition(obs.fdc, lQ.thr)]

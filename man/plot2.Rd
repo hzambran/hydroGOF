@@ -1,7 +1,7 @@
 %% File plot2.Rd
 %% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 %%                                 http://cran.r-project.org/web/packages/hydroGOF/
-%% Copyright 2011-2013 Mauricio Zambrano-Bigiarini
+%% Copyright 2011-2012 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or lat
 
 \name{plot2}
@@ -21,8 +21,6 @@ plot2(x, y, plot.type = "multiple",
       main, xlab = "Time", ylab,
       cal.ini=NA, val.ini=NA, date.fmt="\%Y-\%m-\%d",
       gof.leg = FALSE, gof.digits=2, 
-      gofs=c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", 
-             "rNSE", "d", "md", "rd", "r", "R2", "bR2", "KGE", "VE"),
       legend, leg.cex = 1,
       col = c("black", "blue"),
       cex = c(0.5, 0.5), cex.axis=1.2, cex.lab=1.2, 
@@ -78,10 +76,6 @@ logical, indicating if several numerical goodness of fit have to be computed bet
 }
   \item{gof.digits}{
 OPTIONAL, only used when \code{gof.leg=TRUE}. Decimal places used for rounding the goodness-of-fit indexes.
-}
-  \item{gofs}{
-character, with one or more strings indicating the goodness-of-fit measures to be shown in the legend of the plot when  \code{gof.leg=TRUE}. \cr
-Possible values are in \code{c("ME", "MAE", "MSE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", "rNSE", "d", "md", "rd", "cp", "r", "R2", "bR2", "KGE", "VE")}.
 }
   \item{legend}{
 vector of length 2 to appear in the legend.  

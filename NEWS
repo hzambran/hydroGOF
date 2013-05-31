@@ -1,24 +1,5 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
-0.3-7	(under-development)
-        o 'valindex'     : false warning fixed. 
-                           This warning raised the message "'sim' and 'obs' are empty or they do not have any common pair of elements with data !!",
-                           even when 'sim' and 'obs' were fully compatible.
-        o 'ggof'         : -) new argument 'gofs', which allows to select which GoFs are shown when 'gof.leg=TRUE'
-                           -) new argument 'stype'
-                           -) new argument 'season.names'
-                           -) 'ftype' argument now allows 'seasonal' value as input
-                           -) internal: 'hydroTSM::daily2monthly' was replaced by 'daily2monthly' 
-                           -) internal: 'hydroTSM::daily2annual' was replaced by 'daily2annual' 
-                           -) internal: 'hydroTSM::vector2zoo' was replaced by 'vector2zoo' 
-        o 'pbiasfdc'     : -) internal: 'hydroTSM::fdc' was replaced by 'fdc' 
-        o 'plotbandsonly': -) internal: 'hydroTSM::vector2zoo' was replaced by 'vector2zoo' 
-        o 'plot2'        : -) new argument 'gofs', which allows to select which GoFs are shown when 'gof.leg=TRUE'
-                           -) internal: 'hydroTSM::vector2zoo' was replaced by 'vector2zoo' 
-                           -) internal: 'hydroTSM::drawTimeAxis' was replaced by 'drawTimeAxis' 
-        o 'plotbands'    : -) internal: 'hydroTSM::vector2zoo' was replaced by 'vector2zoo' 
-                           -) internal: 'hydroTSM::drawTimeAxis' was replaced by 'drawTimeAxis' 
-        ToDo: Import 'zoo' package and remove all the 'zoo::' calls in the .R files
 
 0.3-6	22-Mar-2013
         o 'gof'         : -) now it works with matrices/data.frames of zoo/xts class. Thanks to L. Pagliero !
@@ -49,7 +30,7 @@ NEWS/ChangeLog for hydroGOF
         o 'nrmse'       : -) now it works with matrices/data.frames of zoo class.                          
 	o 'nrmse.matrix': fixed error in checking the 'norm' argument.
 	o 'valindex'    : a warning was added when 'sim' and 'obs' do not have any pair of elements with data in both variables.
-        o e-mail address of maintainer was changed from the @ing.unit.it to @gmail.com
+        o e-mail address of maintainer was changed from the @ing.unit.it to @gmail.com. Same change applied for all the .Rd files
 	
 0.3-5	19-Oct-2012
 	o now it depends on 'hydroTSM' >= 0.3-6, in order to allow handling sub-daily values in 'ggof'
