@@ -1,0 +1,126 @@
+0.2-2	14-Apr-2011
+
+	o new function: 'KGE', Kling-Gupta efficiency
+	o 'ggof': argument 'lab.fmt' is used now, and 'KGE' is shown in the GoF legend
+	o 'plot2': KGE is showed in the GoF legend
+	o SVN started to be used for package development in Rforge (thanks to Simon Urbanek for his great support)        
+	o Updated dependence on R >= 2.10.0
+
+
+0.2-1	30-Nov-2010
+
+	o Minor changes in documentation
+	o R functions were split up into individual files
+	o new function: 'plotbandsonly', adds uncertainty bounds only to an existing plot
+	o 'ggof': argument '...' is used now, and a new argument 'lab.fmt', for specifying the format of the axis' labels
+	o 'plotbands':  arguments 'ylab', 'cex.axis', 'cex.lab' are used now. 
+			argument 'legend' can now be logical (FALSE), in order to allow not having it.
+			new arguments 'ylim', 'lab.fmt' (for specifying the format of the axis' labels)
+			'sim' is now correctly plotted when 'type="points"' is used.
+	o 'plot2': new argument: 'lab.fmt', for specifying the format of the axis' labels
+	
+	
+v 0.2-0:
+*) Release Date: 07-Oct-2010
+
+Added functions:
+*) 'plotbands' : -) It was moved from the 'hydroTSM' package.
+                 -) In addition to zoo objects, now it can handle numeric/integer vectors as well.
+                 -) the 'x' argument is plotted as points instead of lines, and a 'x.cex' argument was addedd, for defining the size of the points.
+                 -) arguments 'cal.ini' 'val.ini', and 'date.fmt' were added for allowing drawing a vertical line when the calibration or validation period starts
+                 -) the argument 'bs' was changed by 'sim', because the usual analysis is designed to plot the obsereved values s points, and the unceertainty bands, 
+                    and the simulations can be added as a blue line
+                 -) renamed argument: 'leg.gof' to 'gof.leg'
+                 -) renamed argument: 'digits' to 'gof.digits'
+                 -) renamed argument: 'leg.txt' to 'legend'
+                 -) renamed argument: 'x.ty' to 'type'
+                 -) new argument: 'x.ty', for allowing to specify if the observed values have to be ploted as 'points' or 'lines'
+                 -) new argument: 'cex.axis', to control the size of the annotatons on the axis.
+                 -) new argument: 'cex.lab', to control the size of the 'x' and 'y' labels on the axis.
+                 -) new argument: 'pch', to control the type of symbol for 'x' and 'sim'
+                 -) new argument: 'lwd', to control the type of line for 'x' and 'sim'
+                 -) new argument: 'dates' to assign the dates to 'x', 'lband', 'ubnad' and 'sim' (when provided), when originally they are numeric objects
+*) 'pfactor'   : Computes the % of observation that are within the uncertainty bounds
+*) 'rfactor'   : Average width of the uncertainty bands divided by the standard deviation of the observations  
+*) 'rsr'       : Ratio of RMSE to the Standard Deviation of the Observations ( Ref: Moriasi et al., 2007. Model evaluation guidelines for systematic quantification of accuracy in watershed
+                 simulations. Transactions of the ASABE. 50(3):885-900)
+*) 'mse'       : Mean Squared Error
+*) 'md'        : Modified index of agreement. 
+                 Ref: Krause, P., Boyle, D. P., and Bäse, F.: Comparison of different efficiency criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005 
+*) 'rd'        : Relative index of agreement. 
+                 Ref: Krause, P., Boyle, D. P., and Bäse, F.: Comparison of different efficiency criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005 
+*) 'rNSeff'    : Relative Nash-Sutcliffe efficiency. 
+                 Ref: Krause, P., Boyle, D. P., and Bäse, F.: Comparison of different efficiency criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005 
+*) 'pbiasfdc'  : PBIAS in the slope of the midsegment of the Flow Duration Curve.
+                 Ref: Yilmaz, K. K., H. V. Gupta, and T. Wagener  (2008), A process-based diagnostic approach to model evaluation:
+                 Application to the NWS distributed hydrologic model, Water Resour. Res., 44, W09417, doi:10.1029/2007WR006716.
+
+Added datasets:
+*) EgaEnEstellaQts: 10 years of daily streamflows. It was added in order to provide a real streamflows time series, for testing the goodness-of-fit functions.
+
+Modifications:
+*) 'ggof'   : -) a bug when 'ftype="ma"' and 'sim' and 'obs' were monthly was fixed.
+              -) the argument 'var.names' was removed 
+              -) the argument 'var.units' was removed 
+              -) the argument 'legend' was added, in order to be more intuitive for R users 
+              -) new argument: 'do.pbfdc' which indicates if the 'pbiasfdc' index has to be computed or not
+
+*) 'NSeff1' : -) new argument: 'j', with the exponent to be used in the computation of the modified Nash-Sutcliffe effciency. The default value is j=1
+              -) it was renamed to 'mNSeff', in order to be more intuitive for the user.
+
+*) 'PI'     : -) it was renamed to 'cp', due to the fact that the original reference (Kitadinis and Bras, 1980) call this index 'coefficent of persistence'
+
+*) 'IoA'    : -) it was renamed to 'd', in order to be more intuitive for the user.
+
+*) 'nrms'   : -) new argument: 'norm', indicating if the value to be used for the normalisation has to be the standard deviation of the observations (default) or 
+                 the difference between the maximum and minimum observed value
+
+*) 'plot2'  : -) the argument 'ts.col' was renamed to 'col' for being more intuitive to R users
+              -) the argument 'ts.lwd' was renamed to 'lwd' for being more intuitive to R users
+              -) the argument 'ts.lty' was renamed to 'lty' for being more intuitive to R users
+              -) the argument 'ts.pch' was renamed to 'pch' for being more intuitive to R users
+              -) the argument 'ts.cex' was renamed to 'cex' for being more intuitive to R users
+              -) the argument 'leg.gof' was renamed to 'gof.leg' for being more intuitive
+              -) the argument 'digits' was renamed to 'gof.digits' for being clearer
+              -) the argument 'var.names' was removed 
+              -) the argument 'var.units' was removed 
+              -) the argument 'legend' was added, in order to be more intuitive for R users
+              -) new argument: '...' was added, in order to be passed to the 'plot.zoo' function
+
+
+
+v 0.1.3:
+*) Release Date: 01-Dec-2009
+*) 'ggof':  -) the sampling frequency required for 'sim' and 'obs' when 'ftype' is in c('dm', 'ma, 'dma') was changed to 'daily', monthly or 'annual' (instead of 'Daily', Monthly or 'Annual')
+               in order to be in agreement with the correspondng change made to the 'sfreq' function in the version 0.1.6 of the 'hydroTSM' package.
+            
+v 0.1.2:
+*) Release Date: 29-Oct-2009
+*) 'br2' function was added
+*) 'PBIAS': -) The resulting value is given in percentage (%, relative value multiplied by 100) and not in relative value as before 
+*) 'NRMS' : -) The resulting value is given in percentage (%, relative value multiplied by 100) and not in relative value as before 
+*) 'gof':   -) 'digits' argument was added (for rounding the goodness-of-fit values)
+*) 'ggof':  -) 'digits' argument was added (for rounding the goodness-of-fit values)
+*) 'plot2': -) A checking procedure was added for the parameters 'tick.tstep' and 'lab.tstep'
+            -) 'digits' argument was added (for rounding the goodness-of-fit values)
+
+
+v 0.1.1:
+*) Release Date: 05-Oct-2009
+*) 'plot2': -) the problem with size and position of the legend plotted when 'leg.gof' is TRUE was solved
+            -) default values for ts.lwd and ts.lty were swapped, because they were inverted
+            -) the argument 'leg.cex' was activated (in the previous version it didn't have any effect), and its default value was set to 1 3 new arguments were added, 
+               for allowing to draw vertical lines at the begining of the calibration and validation period of an hydrological simulation:
+               a) call.ini : OPTIONAL. Character with the date in which the calibration period started. ONLY used for drawing a vertical red line at this date. 
+               b) val.ini  : OPTIONAL. Character with the date in which the validation period started.  ONLY used for drawing a vertical red line at this date. 
+               c) date.fmt : character indicating the format in which the dates entered are stored in 'cal.ini' adn 'val.ini'. Default value is "\%Y-\%m-\%d"
+*) 'ggof' : -) the problem with size and position of the legend plotted when 'leg.gof' is TRUE was solved. This function interacts with 'plot2' (calling it) 
+            -) 4 new arguments were added, for allowing to draw vertical lines at the begining of the calibration and validation period of an hydrological simulation
+               a) call.ini : OPTIONAL. Character with the date in which the calibration period started. ONLY used for drawing a vertical red line at this date. 
+               b) val.ini  : OPTIONAL. Character with the date in which the validation period started.  ONLY used for drawing a vertical red line at this date. 
+               c) date.fmt : character indicating the format in which the dates entered are stored in 'cal.ini' adn 'val.ini'. Default value is "\%Y-\%m-\%d"
+               d) leg.gof  : logical, indicating if several numerical goodness of fit have to be computed between 'sim' and 'obs', and ploted as a legend on the graph. 
+                             If leg.gof=TRUE, then 'x' is considered as observed and 'y' as simulated values (for some gof functions this is important). Default value is TRUE 
+
+v 0.1.0: 
+-) Release Date: 07-Sep-2009.

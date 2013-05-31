@@ -1,33 +1,34 @@
-%% File VE.Rd
+% File rsr.Rd
 %% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 %%                                 http://cran.r-project.org/web/packages/hydroGOF/
 %% Copyright 2011-2013 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or later
 
-\name{ve}
+
+\name{rsr}
 \Rdversion{1.1}
-\alias{VE}
-\alias{VE.default}
-\alias{VE.matrix}
-\alias{VE.data.frame}
-\alias{VE.zoo}
+\alias{rsr}
+\alias{rsr.default}
+\alias{rsr.matrix}
+\alias{rsr.data.frame}
+\alias{rsr.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Volumetric Efficiency
+Ratio of RMSE to the standard deviation of the observations
 }
 \description{
-Volumetric efficiency between \code{sim} and \code{obs}, with treatment of missing values.
+Ratio of the RMSE between simulated and observed values to the standard deviation of the observations.
 }
 \usage{
-VE(sim, obs, ...)
+rsr(sim, obs, ...)
 
-\method{VE}{default}(sim, obs, na.rm=TRUE, ...)
+\method{rsr}{default}(sim, obs, na.rm=TRUE, ...)
 
-\method{VE}{data.frame}(sim, obs, na.rm=TRUE, ...)
+\method{rsr}{data.frame}(sim, obs, na.rm=TRUE, ...)
 
-\method{VE}{matrix}(sim, obs, na.rm=TRUE, ...)
+\method{rsr}{matrix}(sim, obs, na.rm=TRUE, ...)
 
-\method{VE}{zoo}(sim, obs, na.rm=TRUE, ...)
+\method{rsr}{zoo}(sim, obs, na.rm=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -45,27 +46,22 @@ When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{s
 further arguments passed to or from other methods.
 }
 }
-\details{
-\deqn{ VE = 1 -\frac { \sum_{i=1}^N { \left| S_i - O_i \right| } } { \sum_{i=1}^N { \left( O_i \right) } }  }{%
-VE = 1 - ( sum( abs(obs - sim) ) / sum( obs ) ) }
-
-Volumetric efficiency was proposed in order to circumvent some problems associated to the Nash-Sutcliffe efficiency. It ranges from 0 to 1 and represents the fraction of water delivered at the proper time; its compliment represents the fractional volumetric mistmach (Criss and Winston, 2008).
-
-}
+%%\details{
+%%  ~~ If necessary, more details than the description above ~~
+%%}
 \value{
-Volumetric efficiency between \code{sim} and \code{obs}. \cr
+Ratio of RMSE to the standard deviation of the observations. \cr
 
-If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the Volumetric efficiency between each column of \code{sim} and \code{obs}.
+If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the RSR between each column of \code{sim} and \code{obs}.
 }
 \references{
-\cite{Criss, R. E. and Winston, W. E. (2008), Do Nash values have value? Discussion and alternate proposals. Hydrological Processes, 22: 2723-2725. doi: 10.1002/hyp.7072}
-
+\cite{Moriasi, D.N., Arnold, J.G., Van Liew, M.W., Bingner, R.L., Harmel, R.D., Veith, T.L. 2007. Model evaluation guidelines for systematic quantification of accuracy in watershed simulations. Transactions of the ASABE. 50(3):885-900}
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 }
 \note{
-\code{obs} and \code{sim} have to have the same length/dimension \cr
+\code{obs} and \code{sim} has to have the same length/dimension \cr
 
 The missing values in \code{obs} and \code{sim} are removed before the computation proceeds, and only those positions with non-missing values in \code{obs} and \code{sim} are considered in the computation
 }
@@ -73,16 +69,16 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{gof}}, \code{\link{ggof}}, \code{\link{NSE}}
+\code{\link{sd}}, \code{\link{rSD}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
-obs <- 1:10
 sim <- 1:10
-VE(sim, obs)
-
 obs <- 1:10
+rsr(sim, obs)
+
 sim <- 2:11
-VE(sim, obs)
+obs <- 1:10
+rsr(sim, obs)
 
 ##################
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
@@ -93,15 +89,15 @@ obs <- EgaEnEstellaQts
 # Generating a simulated daily time series, initially equal to the observed series
 sim <- obs 
 
-# Computing the volumetric efficiency for the "best" case
-VE(sim=sim, obs=obs)
+# Computing the 'rsr' for the "best" (unattainable) case
+rsr(sim=sim, obs=obs)
 
 # Randomly changing the first 2000 elements of 'sim', by using a normal distribution 
 # with mean 10 and standard deviation equal to 1 (default of 'rnorm').
 sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 
-# Computing the new volumetric efficiency
-VE(sim=sim, obs=obs)
+# Computing the new 'rsr'
+rsr(sim=sim, obs=obs)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

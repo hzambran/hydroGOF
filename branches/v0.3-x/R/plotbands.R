@@ -1,11 +1,18 @@
-########################################################################
-# plotbands: Plot a ts with simulated values and two confidence bands  #
-########################################################################
-# Author : Mauricio Zambrano-Bigiarini                                 #
-# Started: 13-Oct-2009                                                 #
-# Updates: 30-Jun-2010; 28-Oct-2010; 28-Nov-2010 ;                     # 
-#          15-Apr-2011 ; 17-May-2011                                   #
-########################################################################      
+# File plotbands.R
+# Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
+#                                 http://cran.r-project.org/web/packages/hydroGOF/
+# Copyright 2009-2013 Mauricio Zambrano-Bigiarini
+# Distributed under GPL 2 or later
+
+################################################################################
+# plotbands: Plot a ts with simulated values and two confidence bands          #
+################################################################################
+# Author : Mauricio Zambrano-Bigiarini                                         #
+# Started: 13-Oct-2009                                                         #
+# Updates: 30-Jun-2010; 28-Oct-2010; 28-Nov-2010 ;                             # 
+#          15-Apr-2011 ; 17-May-2011                                           #
+#          15-Apr-2013                                                         #
+################################################################################
 plotbands <- function(x, lband, uband, sim,
                       
                       dates,
@@ -148,12 +155,12 @@ plotbands <- function(x, lband, uband, sim,
       # If the class of 'x' 'lband', 'uband' and 'sim' (when provided) 
       # are not 'zoo' and the user provides the dates, 
       # then we turn them into a zoo objects
-      if ( !zoo::is.zoo(x) )      x     <- hydroTSM::vector2zoo(x=x, dates=dates, date.fmt=date.fmt) 
-      if ( !zoo::is.zoo(lband) )  lband <- hydroTSM::vector2zoo(x=lband, dates=dates, date.fmt=date.fmt) 
-      if ( !zoo::is.zoo(uband) )  uband <- hydroTSM::vector2zoo(x=uband, dates=dates, date.fmt=date.fmt) 
+      if ( !zoo::is.zoo(x) )      x     <- vector2zoo(x=x, dates=dates, date.fmt=date.fmt)     # hydroTSM::vector2zoo
+      if ( !zoo::is.zoo(lband) )  lband <- vector2zoo(x=lband, dates=dates, date.fmt=date.fmt) # hydroTSM::vector2zoo
+      if ( !zoo::is.zoo(uband) )  uband <- vector2zoo(x=uband, dates=dates, date.fmt=date.fmt) # hydroTSM::vector2zoo
       if ( !missing(sim) ) {
         if ( !zoo::is.zoo(sim) )  {
-           sim <- hydroTSM::vector2zoo(x=sim, dates=dates, date.fmt=date.fmt) 
+           sim <- vector2zoo(x=sim, dates=dates, date.fmt=date.fmt) # hydroTSM::vector2zoo
 	   message("[Note: 'sim'  was transformed into a zoo object, with 'time(sim)' equal to 'time(obs)']") 
 	} # IF end
       }  # IF end 
@@ -195,7 +202,7 @@ plotbands <- function(x, lband, uband, sim,
 
     # Draws custom ticks and labels on the X axis
     if ( zoo::is.zoo(x) | xts::is.xts(x) ) {
-      hydroTSM::drawTimeAxis(x, tick.tstep=tick.tstep, lab.tstep=lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis)
+      drawTimeAxis(x, tick.tstep=tick.tstep, lab.tstep=lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis) # hydroTSM::drawTimeAxis
     } else axis(side = 1, labels = TRUE)
 
     # Plotting the OBSERVED time series, over the polygons

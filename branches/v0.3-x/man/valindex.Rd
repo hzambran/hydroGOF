@@ -46,7 +46,7 @@ A vector with the indexes that are simultaneously valid (not missing) in \code{o
 %% ~put references to the literature/web site here ~
 %%}
 \author{
-Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
+Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
 }
 \note{
 This function is used in the functions of this package for removing missing values from the observed and simulated time series.

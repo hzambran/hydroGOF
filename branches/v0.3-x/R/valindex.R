@@ -11,7 +11,7 @@
 ################################################################################
 # Started: 19-Jan-2009                                                         #
 # Updates: 08-May-2012                                                         #
-#          22-Mar-2013                                                         #
+#          22-Mar-2013 ; 15-Apr-2013                                           #
 ################################################################################
 # 'x'     : vector (numeric, xts, zoo)
 # 'y'     : vector (numeric, xts, zoo)
@@ -26,7 +26,7 @@ valindex.default <- function(sim, obs, ...) {
 	  stop( "Invalid argument: 'length(sim) != length(obs)' !! (", length(sim), "!=", length(obs), ") !!" )
    } else { 
        index <- which(!is.na(sim) & !is.na(obs))
-       if (length(index==0)) warning("'sim' and 'obs' are empty or they do not have any common pair of elements with data !!")
+       if (length(index)==0) warning("'sim' and 'obs' are empty or they do not have any common pair of elements with data !!")
        return( index  )
      } # ELSE end
      
