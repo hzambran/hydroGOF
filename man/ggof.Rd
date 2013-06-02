@@ -18,7 +18,10 @@ Missing values in observed and/or simulated values can removed before the comput
 \usage{
 ggof(sim, obs, na.rm = TRUE, dates, date.fmt = "\%Y-\%m-\%d", 
      pt.style = "ts", ftype = "o",  FUN, 
+     stype="default", season.names=c("Winter", "Spring", "Summer", "Autumn"),
      gof.leg = TRUE,  digits=2, 
+     gofs=c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", 
+             "rNSE", "d", "md", "rd", "r", "R2", "bR2", "KGE", "VE"),
      legend, leg.cex=1,
      tick.tstep = "auto", lab.tstep = "auto", lab.fmt=NULL,
      cal.ini=NA, val.ini=NA,
@@ -54,19 +57,35 @@ Character indicating if the 2 ts have to be plotted as lines or bars. When \code
 }
   \item{ftype}{
 Character indicating how many plots are desired by the user. Valid values are: \cr
--) \kbd{o}  : only the original \code{sim} and \code{obs} time series are plotted \cr
--) \kbd{dm} : it assumes that \code{sim} and \code{obs} are daily time series and Daily and Monthly values are plotted  \cr
--) \kbd{ma} : it assumes that \code{sim} and \code{obs} are daily or monthly time series and Monthly and Annual values are plotted \cr
--) \kbd{dma}: it assumes that \code{sim} and \code{obs} are daily time series and Daily, Monthly and Annual values are plotted
+-) \kbd{o}       : only the original \code{sim} and \code{obs} time series are plotted \cr
+-) \kbd{dm}      : it assumes that \code{sim} and \code{obs} are daily time series and Daily and Monthly values are plotted  \cr
+-) \kbd{ma}      : it assumes that \code{sim} and \code{obs} are daily or monthly time series and Monthly and Annual values are plotted \cr
+-) \kbd{dma}     : it assumes that \code{sim} and \code{obs} are daily time series and Daily, Monthly and Annual values are plotted \cr
+-) \kbd{seasonal}: seasonal values are plotted. See \code{stype} and \code{season.names}
 }
   \item{FUN}{
-OPTIONAL, ONLY required when \code{ftype} is in \code{c('dm', 'ma', 'dma')}. Function that have to be applied for transforming from daily to monthly or annual time step (e.g., for precipitation FUN MUST be \code{sum}, for temperature and flow time series, FUN MUST be \code{mean})
+OPTIONAL, ONLY required when \code{ftype} is in \code{c('dm', 'ma', 'dma', 'seasonal')}. Function that have to be applied for transforming teh original ts into monthly, annual or seasonal time step (e.g., for precipitation FUN MUST be \code{sum}, for temperature and flow time series, FUN MUST be \code{mean})
+}
+  \item{stype}{
+ OPTIONAL, only used when \code{ftype=seasonal}. \cr
+character, indicating whath weather seasons will be used for computing the output. Possible values are: \cr
+-) \kbd{default}          =>  "winter"= DJF  = Dec, Jan, Feb;      "spring"= MAM = Mar, Apr, May;  "summer"= JJA  = Jun, Jul, Aug;       "autumn"= SON = Sep, Oct, Nov  \cr
+-) \kbd{FrenchPolynesia}  =>  "winter"= DJFM = Dec, Jan, Feb, Mar; "spring"= AM  = Apr, May;       "summer"= JJAS = Jun, Jul, Aug, Sep;  "autumn"= ON  = Oct, Nov 
+}
+  \item{season.names}{
+ OPTIONAL, only used when \code{ftype=seasonal}. \cr
+character of length 4 indicating the names of each one of the weather seasons defined by \code{stype}.These names are only used for plotting purposes
 }
   \item{gof.leg}{
 logical, indicating if several numerical goodness of fit have to be computed between \code{sim} and \code{obs}, and plotted as a legend on the graph. If \code{leg.gof=TRUE}, then \code{x} is considered as observed and \code{y} as simulated values (for some gof functions this is important).
 }
   \item{digits}{
 OPTIONAL, only used when \code{leg.gof=TRUE}. Numeric, representing the decimal places used for rounding the goodness-of-fit indexes.
+}
+  \item{gofs}{
+character, with one or more strings indicating the goodness-of-fit measures to be shown in the legend of the plot when  \code{gof.leg=TRUE}. \cr
+Possible values when \code{ftype!='seasonal'} are in \code{c("ME", "MAE", "MSE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", "rNSE", "d", "md", "rd", "cp", "r", "R2", "bR2", "KGE", "VE")} \cr
+Possible values when \code{ftype='seasonal'} are in c("ME", "RMSE", "PBIAS", "RSR", "NSE", "d", "R2", "KGE", "VE")
 }
   \item{legend}{
 character of length 2 to appear in the legend.  
@@ -225,6 +244,12 @@ gof(sim=sim, obs=obs)
 # goodness-of-fit measures for the daily and monthly time series 
 \dontrun{
 ggof(sim=sim, obs=obs, ftype="dm", FUN=mean)
+}
+
+# Getting the graphical representation of 'obs' and 'sim' along with some numeric 
+# goodness-of-fit measures for the seasonal time series 
+\dontrun{
+ggof(sim=sim, obs=obs, ftype="seasonal", FUN=mean)
 }
 
 # Computing the daily residuals 

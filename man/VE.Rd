@@ -62,7 +62,7 @@ If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with 
 
 }
 \author{
-Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
+Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
 }
 \note{
 \code{obs} and \code{sim} have to have the same length/dimension \cr
