@@ -43,15 +43,21 @@ When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{s
 }
   \item{norm}{
 character, indicating the value to be used to normalise the RMS. Valid values are: \cr
--) 'sd'    : standard deviation of observations. \cr
--) 'maxmin': difference between maximum and minimum observed values
+-) \kbd{sd}    : standard deviation of observations (default). \cr
+-) \kbd{maxmin}: difference between the maximum and minimum observed values
 }
   \item{\dots}{
 further arguments passed to or from other methods.
 }
 }
 \details{
-\deqn{ nrmse = 100 \frac {\sqrt{ \frac{1}{N} \sum_{i=1}^N { \left( S_i - O_i \right)^2 } } } {O_{max} - O_{min}} }{%
+\deqn{ nrmse = 100 \frac {\sqrt{ \frac{1}{N} \sum_{i=1}^N { \left( S_i - O_i \right)^2 } } } {nval} }
+\deqn{nval=  \left\{
+  \begin{array}{cl}
+    sd(O_i)           & , \: \textrm{norm="sd"} \\
+    O_{max} - O_{min} & , \: \textrm{norm="maxmin"}    
+  \end{array}
+  \right.}{%
 nrmse =  100 * [ rmse(sim, obs) / ( max(obs, na.rm = TRUE) - min(obs, na.rm = TRUE) ) ] } 
 }
 \value{

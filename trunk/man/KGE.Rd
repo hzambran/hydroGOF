@@ -64,7 +64,7 @@ When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{s
 }
   \item{method}{
 character, indicating the formula used to compute the variability ratio in the Kling-Gupta efficiency. Valid values are:\cr
--) \kbd{2009}: the variability is defined as \sQuote{Alpha}, the ratio of the standard deviation of \code{sim} values to the standard deviation of \code{obs}. See Gupta et al. 2009\cr
+-) \kbd{2009}: the variability is defined as \sQuote{Alpha}, the ratio of the standard deviation of \code{sim} values to the standard deviation of \code{obs}. This is the default option. See Gupta et al. 2009\cr
 -) \kbd{2012}: the variability is defined as \sQuote{Gamma}, the ratio of the coefficient of variation of \code{sim} values to the coefficient of variation of \code{obs}. See Kling et al. 2012. 
 }
   \item{out.type}{
