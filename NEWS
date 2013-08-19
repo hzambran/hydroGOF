@@ -1,6 +1,9 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
-0.3-7	02-Jun-2013
+0.3-8	(under developement)
+        o 'nrmse'       : -) added formula representing the computation done when 'norm="sd"' (default). Thanks to Markus Eichhoff !.
+
+0.3-7	03-Jun-2013
         o 'valindex'     : false warning fixed. 
                            This warning raised the message "'sim' and 'obs' are empty or they do not have any common pair of elements with data !!",
                            even when 'sim' and 'obs' were fully compatible.
@@ -42,13 +45,13 @@ NEWS/ChangeLog for hydroGOF
         o 'KGE'         : -) now it works with matrices/data.frames of zoo class.      
         o 'VE'          : -) now it works with matrices/data.frames of zoo class.  
         o 'd'           : -) now it works with matrices/data.frames of zoo class.         
-                          -) fixed typo in the formula presented in the pdf manual (a square was missing). Thanks to T. Ladson and  I. Thiele-Eich !
+                          -) fixed typo in the formula presented in the pdf manual (a square was missing). Thanks to T. Ladson and  Insa Thiele-Eich !
         o 'rd'          : -) now it works with matrices/data.frames of zoo class. 
-                          -) fixed typo in the formula presented in the pdf manual (a square was missing). Thanks to I. Thiele-Eich !                                                   
+                          -) fixed typo in the formula presented in the pdf manual (a square was missing). Thanks to Insa Thiele-Eich !                                                   
         o 'nrmse'       : -) now it works with matrices/data.frames of zoo class.                          
 	o 'nrmse.matrix': fixed error in checking the 'norm' argument.
 	o 'valindex'    : a warning was added when 'sim' and 'obs' do not have any pair of elements with data in both variables.
-        o e-mail address of maintainer was changed from the @ing.unit.it to @gmail.com
+        o e-mail address of maintainer was changed from the @ing.unit.it to the @gmail.com domain
 	
 0.3-5	19-Oct-2012
 	o now it depends on 'hydroTSM' >= 0.3-6, in order to allow handling sub-daily values in 'ggof'
