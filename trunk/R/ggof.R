@@ -71,7 +71,7 @@ ggof <- function (sim, obs,
   # Checking length
   if ( length(sim) != length(obs) )  
      stop("Invalid argument: 'obs' and 'sim' must have the same length ! (", 
-          length(obs), "vs", length(sim), ")")
+          length(obs), " vs ", length(sim), ")")
                 
   # 'xname' and 'yname' values
   sim.name <- deparse(substitute(sim))

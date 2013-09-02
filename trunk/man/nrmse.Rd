@@ -42,7 +42,7 @@ a logical value indicating whether 'NA' should be stripped before the computatio
 When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{sim}, the i-th value of \code{obs} \bold{AND} \code{sim} are removed before the computation.
 }
   \item{norm}{
-character, indicating the value to be used to normalise the RMS. Valid values are: \cr
+character, indicating the value to be used for normalising the root mean square error (RMSE). Valid values are: \cr
 -) \kbd{sd}    : standard deviation of observations (default). \cr
 -) \kbd{maxmin}: difference between the maximum and minimum observed values
 }
@@ -58,7 +58,7 @@ further arguments passed to or from other methods.
     O_{max} - O_{min} & , \: \textrm{norm="maxmin"}    
   \end{array}
   \right.}{%
-nrmse =  100 * [ rmse(sim, obs) / ( max(obs, na.rm = TRUE) - min(obs, na.rm = TRUE) ) ] } 
+nrmse =  100 * [ rmse(sim, obs) / nval ] ; nval= range(obs, na.rm=TRUE) OR nval=sd(obs), depending on the \code{norm} value } 
 }
 \value{
 Normalized root mean square error (nrmse) between \code{sim} and \code{obs}. The result is given in percentage (\%) \cr
@@ -72,9 +72,9 @@ If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with 
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 }
 \note{
-\code{obs} and \code{sim} has to have the same length/dimension \cr
+\code{obs} and \code{sim} have to have the same length/dimension \cr
 
-The missing values in \code{obs} and \code{sim} are removed before the computation proceeds, and only those positions with non-missing values in \code{obs} and \code{sim} are considered in the computation
+Missing values in \code{obs} and \code{sim} are removed before the computation proceeds, and only those positions with non-missing values in \code{obs} and \code{sim} are considered in the computation
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
