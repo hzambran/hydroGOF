@@ -2,6 +2,8 @@ NEWS/ChangeLog for hydroGOF
 --------------------------
 0.3-8	(under developement)
         o 'nrmse'       : -) added formula representing the computation done when 'norm="sd"' (default). Thanks to Markus Eichhoff !.
+        o 'Author' field was removed from DESCRIPTION file
+        o 'WhatsNew.txt' file was renamed to 'ChangeLog'
 
 0.3-7	03-Jun-2013
         o 'valindex'     : false warning fixed. 
