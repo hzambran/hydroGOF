@@ -1,7 +1,7 @@
 # File KGE.R
 # Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 #                                 http://cran.r-project.org/web/packages/hydroGOF/
-# Copyright 2011-2012 Mauricio Zambrano-Bigiarini
+# Copyright 2011-2014 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -13,6 +13,7 @@
 # Updates: 25-Aug-2011                                                         #
 #          10-Oct-2012                                                         #
 #          18-Oct-2012 ; 19-Oct-2012                                           #
+#          24-Jan-2014                                                         #
 ################################################################################
 # The optimal value of KGE is 1
 
@@ -42,7 +43,7 @@ KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
                         method=c("2009", "2012"), out.type=c("single", "full"), ...) { 
 
   # If the user provided a value for 's'
-  if (!all.equal(s, c(1,1,1)) )  {
+  if (!identical(s, c(1,1,1)) )  {
      if ( length(s) != 3 ) stop("Invalid argument: lenght(s) must be equal to 3 !")
      if ( sum(s) != 1 )    stop("Invalid argument: sum(s) must be equal to 1.0 !")
   } # IF end

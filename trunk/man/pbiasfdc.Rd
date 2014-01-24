@@ -70,6 +70,8 @@ If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with 
 }
 \references{
 \cite{Yilmaz, K. K., H. V. Gupta, and T. Wagener  (2008), A process-based diagnostic approach to model evaluation: Application to the NWS distributed hydrologic model, Water Resour. Res., 44, W09417, doi:10.1029/2007WR006716}
+
+\cite{Yilmaz, K. K., H. V. Gupta, and T. Wagener  (2008), A process-based diagnostic approach to model evaluation: Application to the NWS distributed hydrologic model, Water Resour. Res., 44, W09417, doi:10.1029/2007WR006716}
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
