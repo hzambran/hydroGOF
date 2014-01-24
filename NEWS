@@ -1,10 +1,12 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
 0.3-8	(under developement)
-        o 'nrmse'       : -) added formula representing the computation done when 'norm="sd"' (default). Thanks to Markus Eichhoff !.
-        o 'Author' field was removed from DESCRIPTION file
+        o 'nrmse'         : -) added formula representing the computation done when 'norm="sd"' (default). Thanks to Markus Eichhoff !.
+        o 'KGE'           : -) fixed error raised when 's != c(1,1,1)'
+        o 'Author' field was removed from the DESCRIPTION file
+        o Imports from the 'zoo' package were made explicit in the NAMESPACE file (due related changes in hydroTSM)
         o 'WhatsNew.txt' file was renamed to 'ChangeLog'
-
+ 
 0.3-7	03-Jun-2013
         o 'valindex'     : false warning fixed. 
                            This warning raised the message "'sim' and 'obs' are empty or they do not have any common pair of elements with data !!",
