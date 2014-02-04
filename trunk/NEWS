@@ -1,11 +1,15 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
-0.3-8	(under developement)
+0.3-8	04-Feb-2014
         o 'nrmse'         : -) added formula representing the computation done when 'norm="sd"' (default). Thanks to Markus Eichhoff !.
         o 'KGE'           : -) fixed error raised when 's != c(1,1,1)'
+        o 'pbiasfdc'      : -) now does not need to load 'hydroTSM' package before being used.
+                               In previous versions, when this function was applied to numeric vectors, it raised the following werror:
+                               "Error in UseMethod("fdc") : no applicable method for 'fdc' applied to an object of class c('double', 'numeric')"
         o 'Author' field was removed from the DESCRIPTION file
         o Imports from the 'zoo' package were made explicit in the NAMESPACE file (due related changes in hydroTSM)
         o 'WhatsNew.txt' file was renamed to 'ChangeLog'
+        o 'require(zoo)' (before loading the 'EgaEnEstellaQts' dataset) was removed from all the examples
  
 0.3-7	03-Jun-2013
         o 'valindex'     : false warning fixed. 

@@ -1,7 +1,7 @@
 % File rsr.Rd
 %% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 %%                                 http://cran.r-project.org/web/packages/hydroGOF/
-%% Copyright 2011-2013 Mauricio Zambrano-Bigiarini
+%% Copyright 2011-2014 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or later
 
 
@@ -82,7 +82,6 @@ rsr(sim, obs)
 
 ##################
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
-require(zoo)
 data(EgaEnEstellaQts)
 obs <- EgaEnEstellaQts
 

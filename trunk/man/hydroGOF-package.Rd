@@ -1,13 +1,19 @@
+% File hydroGOF-package.Rd
+%% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
+%%                                 http://cran.r-project.org/web/packages/hydroGOF/
+%% Copyright 2009-2014 Mauricio Zambrano-Bigiarini
+%% Distributed under GPL 2 or later
+
 \name{hydroGOF-package}
 \Rdversion{1.1}
 \alias{hydroGOF-package}
 \alias{hydroGOF}
 \docType{package}
 \title{
-Goodness-of-fit (GOF) functions for numerical and graphical comparison of simulated and observed time series, focused on hydrological modelling.
+Goodness-of-fit (GoF) functions for numerical and graphical comparison of simulated and observed time series, mainly focused on hydrological modelling.
 }
 \description{
-S3 functions implementing both statistical and graphical goodness-of-fit measures between observed and simulated values, for being used during the calibration, validation, and application of hydrological models. \cr
+S3 functions implementing both statistical and graphical goodness-of-fit measures between observed and simulated values, to be used during the calibration, validation, and application of hydrological models. \cr
 
 Missing values in observed and/or simulated values can be removed before computations. \cr
 
@@ -18,12 +24,12 @@ Quantitative statistics included are: Mean Error (\bold{me}), Mean Absolute Erro
 \tabular{ll}{
 Package: \tab hydroGOF\cr
 Type: \tab Package\cr
-Version: \tab 0.3-7\cr
-Date: \tab 2013-06-03\cr
+Version: \tab 0.3-8\cr
+Date: \tab 2014-02-04\cr
 License: \tab GPL >= 2\cr
 LazyLoad: \tab yes\cr
-Packaged: \tab Mon Jun  3 08:48:27 CEST 2013; MZB \cr
-BuiltUnder: \tab R version 3.0.0 (2013-04-03) -- "Masked Marvel"; x86_64-redhat-linux-gnu (64-bit) \cr
+Packaged: \tab Tue Feb  4 16:21:59 CLST 2014; MZB \cr
+BuiltUnder: \tab R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"; x86_64-pc-linux-gnu (64-bit) \cr
 }
 %%~~ An overview of how to use the package, including the most important functions ~~
 }
