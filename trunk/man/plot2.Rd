@@ -74,7 +74,7 @@ ONLY used for drawing a vertical red line at this date.
 OPTIONAL. Character indicating the format in which the dates entered are stored in \code{cal.ini} and \code{val.ini}. Default value is \kbd{\%Y-\%m-\%d}. ONLY required when \code{cal.ini} or \code{val.ini} is provided.
 }
   \item{gof.leg}{
-logical, indicating if several numerical goodness of fit have to be computed between \code{sim} and \code{obs}, and plotted as a legend on the graph. If \code{leg.gof=TRUE} (default value), then \code{x} is considered as observed and \code{y} as simulated values (for some gof functions this is important). This legend is ONLY plotted when 'plot.type' is 'single'
+logical, indicating if several numerical goodness-of-fit values have to be computed between \code{sim} and \code{obs}, and plotted as a legend on the graph. If \code{gof.leg=TRUE} (default value), then \code{x} is considered as observed and \code{y} as simulated values (for some gof functions this is important). This legend is ONLY plotted when \code{plot.type="single"}
 }
   \item{gof.digits}{
 OPTIONAL, only used when \code{gof.leg=TRUE}. Decimal places used for rounding the goodness-of-fit indexes.
