@@ -231,7 +231,9 @@ plot2 <- function (x, y,
         # Barplot  
         barplot(b, beside=TRUE, axis.lty=1, col=col, density=25, angle=c(45,-45), 
                 main=main, xlab=xlab, ylab= ylab, legend.text=legend, 
-                cex.axis=cex.axis, cex.lab=cex.lab, ...)
+                args.legend=list(x="topleft", y.intersp=0.8, inset=0.00, bty="n", 
+                                 cex= cex.axis, col = col), # lwd= lwd, lty= lty, pch=pch),
+                cex.axis=cex.axis, cex.lab=cex.lab, cex = cex.lab, ...)  
        
         if ( !missing(cal.ini) ) {
           # Index of the bar corresponding to 'cal.ini'.

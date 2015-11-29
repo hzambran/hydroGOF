@@ -1,7 +1,7 @@
 %% File ggof.Rd
 %% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 %%                                 http://cran.r-project.org/web/packages/hydroGOF/
-%% Copyright 2011-2014 Mauricio Zambrano-Bigiarini
+%% Copyright 2011-2015 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or lat
 
 \name{ggof}
@@ -51,9 +51,9 @@ OPTIONAL. character indicating the format in which the dates are stored in \code
 ONLY required when \code{class(dates)=="character"} or \code{class(dates)=="factor"} or when \code{cal.ini} and/or \code{val.ini} is provided.
 }
   \item{pt.style}{
-Character indicating if the 2 ts have to be plotted as lines or bars. When \code{ftype} is NOT \kbd{o}, it only applies for the annual values. Valid values are: \cr
+Character indicating if the 2 ts have to be plotted as lines or bars. When \code{ftype} is NOT \kbd{o}, it only applies to the annual values. Valid values are: \cr
 -) \kbd{ts} : (default) each ts is plotted as a lines along the 'x' axis \cr
--) \kbd{bar}: the 2 series are plotted as a barplot. 
+-) \kbd{bar}: both series are plotted as barplots. 
 }
   \item{ftype}{
 Character indicating how many plots are desired by the user. Valid values are: \cr
