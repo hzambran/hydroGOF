@@ -1,5 +1,11 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
+0.3-8-2	28-Feb-2016 (under-development version)
+        o 'KGE'           : -) now works correctly when 'out.type="full"', even if 'sim' and 'obs' do not have a single element in common (i.e., results in labelled NAs)
+        o 'ggof'          : -) legend and axis fonts are preserved when 'pt.style' is set to bar
+        o 'plot2'         : -) legend and axis fonts are preserved when 'pt.style' is set to bar
+
+
 0.3-8	04-Feb-2014
         o 'nrmse'         : -) added formula representing the computation done when 'norm="sd"' (default). Thanks to Markus Eichhoff !.
         o 'KGE'           : -) fixed error raised when 's != c(1,1,1)'

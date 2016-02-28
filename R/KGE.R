@@ -14,6 +14,7 @@
 #          10-Oct-2012                                                         #
 #          18-Oct-2012 ; 19-Oct-2012                                           #
 #          24-Jan-2014                                                         #
+#          28-Feb-2016                                                         #
 ################################################################################
 # The optimal value of KGE is 1
 
@@ -106,6 +107,12 @@ KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
       } # ELSE end  
             
   } else {
+      r    <- NA
+      Beta <- NA
+      vr   <- NA
+      if(method=="2012") {
+        vr.stg <- "Gamma"
+      } else vr.stg <- "Alpha" 
       KGE <- NA
       warning("There are no pairs of 'sim' and 'obs' without missing values !")
     } # ELSE end
