@@ -48,7 +48,7 @@ d.default <- function (sim, obs, na.rm=TRUE, ...){
      
      } else {      
          d <- NA   
-         stop("'sum((abs(sim-Om)+abs(obs-Om))^2)=0', it is not possible to compute 'IoA'")           
+         warning("'sum((abs(sim-Om)+abs(obs-Om))^2)=0', it is not possible to compute 'IoA'")           
        }
      
      return(d) 
