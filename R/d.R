@@ -2,6 +2,7 @@
 # 'IoA': Index of Agreement            #
 ########################################
 # December 18th, 2008;  06-Sep-09      #
+# 28-Feb-2016                          #
 ########################################
 # 1) Willmott, C.J. 1981. On the validation of models. Physical Geography, 2, 184-194
 # 2) Willmott, C. J. (1984). "On the evaluation of model performance in physical geography." Spatial Statistics and Models, G. L. Gaile and C. J. Willmott, eds., 443-460.
@@ -45,7 +46,10 @@ d.default <- function (sim, obs, na.rm=TRUE, ...){
       
        d <- 1 - ( sum( (obs - sim)^2 ) / denominator )
      
-     } else stop("'sum((abs(sim-Om)+abs(obs-Om))^2)=0', it is not possible to compute 'IoA'")  
+     } else {         
+         stop("'sum((abs(sim-Om)+abs(obs-Om))^2)=0', it is not possible to compute 'IoA'")  
+         d <- NA
+       }
      
      return(d) 
      
