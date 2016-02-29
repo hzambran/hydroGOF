@@ -46,9 +46,9 @@ d.default <- function (sim, obs, na.rm=TRUE, ...){
       
        d <- 1 - ( sum( (obs - sim)^2 ) / denominator )
      
-     } else {         
-         stop("'sum((abs(sim-Om)+abs(obs-Om))^2)=0', it is not possible to compute 'IoA'")  
-         d <- NA
+     } else {      
+         d <- NA   
+         stop("'sum((abs(sim-Om)+abs(obs-Om))^2)=0', it is not possible to compute 'IoA'")           
        }
      
      return(d) 
