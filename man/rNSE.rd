@@ -1,7 +1,7 @@
 % File rNSE.Rd
 %% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 %%                                 http://cran.r-project.org/web/packages/hydroGOF/
-%% Copyright 2011-2014 Mauricio Zambrano-Bigiarini
+%% Copyright 2011-2016 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or later
 
 
@@ -49,8 +49,8 @@ further arguments passed to or from other methods.
 }
 \details{
 
-\deqn{ rNSE = 1 -\frac { \sum_{i=1}^N { ( \frac{ S_i - O_i }{\bar{O}} )^2 } } { \sum_{i=1}^N { ( \frac{ O_i - \bar{O} }{\bar{O}} )^2 } }  }{%
-rNSE = 1 - ( sum( ( (obs - sim)/ mean(obs) )^2 ) / sum( abs( (obs - mean(obs)) / mean(obs) )^2 )}
+\deqn{ rNSE = 1 -\frac { \sum_{i=1}^N { ( \frac{ S_i - O_i }{O_i} )^2 } } { \sum_{i=1}^N { ( \frac{ O_i - \bar{O} }{\bar{O}} )^2 } }  }{%
+rNSE = 1 - ( sum( ( (obs - sim)/ obs )^2 ) / sum( abs( (obs - mean(obs)) / mean(obs) )^2 )}
 }
 \value{
 Relative Nash-Sutcliffe efficiency between \code{sim} and \code{obs}. \cr
