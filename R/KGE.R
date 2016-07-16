@@ -14,7 +14,7 @@
 #          10-Oct-2012                                                         #
 #          18-Oct-2012 ; 19-Oct-2012                                           #
 #          24-Jan-2014                                                         #
-#          28-Feb-2016                                                         #
+#          28-Feb-2016 ; 17-Jul-2016                                           #
 ################################################################################
 # The optimal value of KGE is 1
 
@@ -72,7 +72,7 @@ KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
     sigma.obs <- sd(obs, na.rm=na.rm)
          
     # Pearson product-moment correlation coefficient
-    r     <- .rPearson(sim, obs)
+    r     <- rPearson(sim, obs)
 
     # Alpha is a measure of relative variability between simulated and observed values (See Ref1)
     Alpha <- sigma.sim / sigma.obs
