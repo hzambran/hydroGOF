@@ -125,7 +125,7 @@ PC.default <- function(sim, obs, trgt=NA, breaks=NA, include.lowest=TRUE,
   if (out.type=="single") {
         out <- PC
   } else {
-      out <- list(PC.value=PC, KGE.elements=c(H, FA, M, CN, Ne, L.obs.ini-Ne))
+      out <- list(PC.value=PC, PC.elements=c(H, FA, M, CN, Ne, L.obs.ini-Ne))
       names(out[[2]]) <- c("Hits", "False Alarms", "Missed", "Correct Negatives", "Number of points", "Discarded points")
     } # ELSE end 
      
@@ -144,7 +144,7 @@ PC.default <- function(sim, obs, trgt=NA, breaks=NA, include.lowest=TRUE,
 ################################################################################
 PC.matrix <- function(sim, obs, trgt=NA, breaks=NA, include.lowest=TRUE,
                       labels=NA, na.rm=TRUE, out.type=c("single", "full"), 
-                      verbose=TRUE, ...){ 
+                      verbose=FALSE, ...){ 
 
   # Checking that 'sim' and 'obs' have the same dimensions
   if ( all.equal(dim(sim), dim(obs)) != TRUE )
@@ -196,7 +196,7 @@ PC.matrix <- function(sim, obs, trgt=NA, breaks=NA, include.lowest=TRUE,
 ################################################################################
 PC.data.frame <- function(sim, obs, trgt=NA, breaks=NA, include.lowest=TRUE,
                           labels=NA, na.rm=TRUE, out.type=c("single", "full"), 
-                          verbose=TRUE, ...){
+                          verbose=FALSE, ...){
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
