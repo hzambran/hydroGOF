@@ -9,7 +9,7 @@
 # Author : Mauricio Zambrano-Bigiarini                                        ##
 ################################################################################
 # Created: 09-Mar-2016                                                        ##
-# Updates:                                                                    ##
+# Updates: 09-Aug-2016                                                        ##
 ################################################################################
 # Reference: -) Jolliffe, I.T., Stephenson, D.B. (Eds.), 2003.                ##
 #               Forecast verification: A practitioners guide in atmospheric   ##
@@ -68,15 +68,24 @@ FAR.default <- function (sim, obs, trgt=NA, breaks=NA, include.lowest=FALSE, lab
    Ne <- length(obs)
      
    # H: Hits
-   H <- sum(obs==sim)
+   #H <- sum(obs==sim)
+   obs.events.index <- which(obs==trgt)
+   sim.events.index <- which(sim==trgt)
+   H <- length( intersect(obs.events.index, sim.events.index) )
 
    # M: Missed
-   obs.events.index <- which(obs==trgt)
-   M <- sum(sim[obs.events.index] != obs[obs.events.index])
+   #obs.events.index <- which(obs==trgt)
+   #M <- sum(sim[obs.events.index] != obs[obs.events.index])
+   obs.events.index   <- which(obs==trgt)
+   sim.noevents.index <- which(sim!=trgt)
+   M <- length( intersect(obs.events.index, sim.noevents.index) )
 
    # F: False alarms
-   sim.events.index <- which(sim==trgt)
-   F <- sum(sim[sim.events.index] != obs[sim.events.index])
+   #sim.events.index <- which(sim==trgt)
+   #FA <- sum(sim[sim.events.index] != obs[sim.events.index])
+   obs.noevents.index <- which(obs!=trgt)
+   sim.events.index   <- which(sim==trgt)
+   FA <- length( intersect(obs.noevents.index, sim.events.index) )
 
    # CN: correct negative
    obs.noevents.index <- which(obs!=trgt)
@@ -84,10 +93,10 @@ FAR.default <- function (sim, obs, trgt=NA, breaks=NA, include.lowest=FALSE, lab
    CN <- length( intersect(obs.noevents.index, sim.noevents.index) )
 
    # He:
-   He <- (H+F)*(H+M)/Ne
+   He <- ( H + FA ) * ( H + M ) / Ne
 
    # FAR
-   FAR <- F / (H+F)
+   FAR <- FA / ( H + FA )
      
    return(FAR)
      
@@ -160,4 +169,14 @@ FAR.zoo <- function(sim, obs, trgt, breaks, na.rm=TRUE, verbose=TRUE, ...){
     } else NextMethod(sim, obs, trgt=trgt, breaks=breaks, na.rm=na.rm, verbose=verbose,...)
      
   } # 'FAR.zoo' end
+
+# Example
+# set.seed(100)
+# categories <- c("L","H")
+# obs     <- rnorm(12, mean=10, sd= 5)
+# sim     <- rnorm(12, mean=7, sd= 5)
+# obs.cat <- cut(obs, breaks=c(0, 10, 100), include.lowest=FALSE, labels=categories)
+# sim.cat <- cut(sim, breaks=c(0, 10, 100), include.lowest=FALSE, labels=categories)
+# obs.cat
+# sim.cat
 
