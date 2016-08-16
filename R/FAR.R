@@ -220,19 +220,8 @@ FAR.zoo <- function(sim, obs, trgt=NA, breaks=NA, include.lowest=TRUE,
     
     if (is.matrix(sim) | is.data.frame(sim)) {
        FAR.matrix(sim, obs, trgt=trgt, breaks=breaks, include.lowest=include.lowest, 
-                 labels=labels, na.rm=na.rm, out.type=out.type, verbose=FALSE, ... )
+                 labels=labels, na.rm=na.rm, out.type=out.type, verbose=verbose, ... )
     } else NextMethod(sim, obs, trgt=trgt, breaks=breaks, include.lowest=include.lowest, 
                       labels=labels, na.rm=na.rm, out.type=out.type, verbose=verbose, ... )
 
 } # 'FAR.zoo' end
-
-# Example
-# set.seed(100)
-# categories <- c("L","H")
-# obs     <- rnorm(12, mean=10, sd= 5)
-# sim     <- rnorm(12, mean=7, sd= 5)
-# obs.cat <- cut(obs, breaks=c(0, 10, 100), include.lowest=FALSE, labels=categories)
-# sim.cat <- cut(sim, breaks=c(0, 10, 100), include.lowest=FALSE, labels=categories)
-# obs.cat
-# sim.cat
-
