@@ -121,13 +121,13 @@ PC.default <- function(sim, obs, trgt=NA, breaks=NA, include.lowest=TRUE,
      if (verbose) message("Discarded points : ", L.obs.ini-Ne)
    } # IF end
 
-  # final output
-  if (out.type=="single") {
+   # final output
+   if (out.type=="single") {
         out <- PC
-  } else {
+   } else {
       out <- list(PC.value=PC, PC.elements=c(H, FA, M, CN, Ne, L.obs.ini-Ne))
       names(out[[2]]) <- c("Hits", "False Alarms", "Missed", "Correct Negatives", "Number of points", "Discarded points")
-    } # ELSE end 
+     } # ELSE end 
      
    return(out)
      
@@ -231,5 +231,5 @@ PC.zoo <- function(sim, obs, trgt=NA, breaks=NA, include.lowest=TRUE,
     } else NextMethod(sim, obs, trgt=trgt, breaks=breaks, include.lowest=include.lowest, 
                       labels=labels, na.rm=na.rm, out.type=out.type, verbose=verbose, ... )
      
-  } # 'PC.zoo' end
+} # 'PC.zoo' end
 
