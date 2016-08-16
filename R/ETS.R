@@ -225,7 +225,7 @@ ETS.zoo <- function(sim, obs, trgt=NA, breaks=NA, include.lowest=TRUE,
     
     if (is.matrix(sim) | is.data.frame(sim)) {
        ETS.matrix(sim, obs, trgt=trgt, breaks=breaks, include.lowest=include.lowest, 
-                 labels=labels, na.rm=na.rm, out.type=out.type, verbose=verbose, ... )
+                 labels=labels, na.rm=na.rm, out.type=out.type, verbose=FALSE, ... )
     } else NextMethod(sim, obs, trgt=trgt, breaks=breaks, include.lowest=include.lowest, 
                       labels=labels, na.rm=na.rm, out.type=out.type, verbose=verbose, ... )
    
