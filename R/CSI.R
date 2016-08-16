@@ -11,7 +11,7 @@
 # Author : Mauricio Zambrano-Bigiarini                                        ##
 ################################################################################
 # Created: 09-Mar-2016                                                        ##
-# Updates: 09-Aug-2016                                                        ##
+# Updates: 09-Aug-2016 ; 16-Aug-2016                                          ##
 ################################################################################
 # Reference: -) Jolliffe, I.T., Stephenson, D.B. (Eds.), 2003.                ##
 #               Forecast verification: A practitioners guide in atmospheric   ##
@@ -36,33 +36,39 @@
 
 CSI <-function(sim, obs, trgt=NA, ...) UseMethod("CSI")
 
-CSI.default <- function (sim, obs, trgt=NA, breaks=NA, include.lowest=FALSE, labels=NA, na.rm=TRUE, verbose=TRUE, ...){ 
+CSI.default <- function (sim, obs, trgt=NA, breaks=NA, include.lowest=TRUE,
+                        labels=NA, na.rm=TRUE, out.type=c("single", "full"), 
+                        verbose=TRUE, ...){ 
+
+   # Checking that 'trgt' was provided 
+   if (is.na(trgt)) 
+     stop("Missing argument: You have to provide 'trgt' to compute PC !")    
+
+   # Getting the initial length of 'obs'
+   L.obs.ini <- length(obs)
 
    if ( is.na(match(class(sim), c("factor"))) | 
-        is.na(match(class(obs), c("factor"))) 
-      ) { if ( (missing(breaks)) ) {
-         stop("Missing argument: 'breaks' have to be provided when 'sim' & 'obs' are not factors !")  
-       } else {
-          if (verbose) message("Using 'breaks' to identify factor classes....")
-          if (!is.na(labels)) {
-            sim <- cut(sim, breaks=breaks, include.lowest=include.lowest, labels=labels)
-            obs <- cut(obs, breaks=breaks, include.lowest=include.lowest, labels=labels)
-          } else {
-              sim <- cut(sim, breaks=breaks, include.lowest=include.lowest)
-              obs <- cut(obs, breaks=breaks, include.lowest=include.lowest)
-            }
-         } 
-       }
+        is.na(match(class(obs), c("factor"))) ) { 
+      if ( ( (class(breaks)=="numeric") | (class(breaks)=="integer") ) ) {
+        if (verbose) message("[ Using 'breaks' to identify factor classes....]")
+        if (class(labels)=="character") {
+          sim <- cut(sim, breaks=breaks, right=!include.lowest, labels=labels)
+          obs <- cut(obs, breaks=breaks, right=!include.lowest, labels=labels)
+        } else {
+            sim <- cut(sim, breaks=breaks, right=!include.lowest)
+            obs <- cut(obs, breaks=breaks, right=!include.lowest)
+          } # ELSE end
+         if (verbose) message("[ classes(obs): ", paste(levels(obs), collapse = ", "), " ]")
+      } else stop("Missing argument: 'breaks' have to be provided when 'sim' & 'obs' are not factors !")  
+   } # IF end
 
+   # Checking that 'obs' and 'sim' has the same classes
    if (!(all.equal(levels(sim), levels(obs))))
      warning("'sim' and 'obs' do not have the same classes.")   
 
-   if (missing(trgt)) {
-     stop("Missing argument: You have to provide 'trgt' to compute CSI !")    
-   } else {
-     if ( !(trgt %in% levels(sim) ) | !(trgt %in% levels(obs) ) )
-       stop("Invalid argument: 'trgt' has to be present in both 'sim' and 'obs' !")  
-     } # ELSE end
+   # Checking that 'trgt' is present in both 'sim' and 'obs'
+   if ( !(trgt %in% levels(sim) ) | !(trgt %in% levels(obs) ) )
+     stop("Invalid argument: 'trgt' has to be present in both 'sim' and 'obs' !")  
 
    vi <- valindex(sim, obs)
      
@@ -103,7 +109,25 @@ CSI.default <- function (sim, obs, trgt=NA, breaks=NA, include.lowest=FALSE, lab
    # CSI
    CSI <- H / ( H + FA + M )
      
-   return(CSI)
+   # If verbose, it shows some intermediate elements of the computation
+   if (verbose) message("Hits             : ", H)
+   if (verbose) message("False Alarms     : ", FA)
+   if (verbose) message("Missed           : ", M)
+   if (verbose) message("Correct Negatives: ", CN)
+   if (verbose) message("Number of points : ", Ne)
+   if (L.obs.ini!=Ne) {
+     if (verbose) message("Discarded points : ", L.obs.ini-Ne)
+   } # IF end
+
+   # final output
+   if (out.type=="single") {
+        out <- CSI
+   } else {
+      out <- list(CSI.value=CSI, CSI.elements=c(H, FA, M, CN, Ne, L.obs.ini-Ne))
+      names(out[[2]]) <- c("Hits", "False Alarms", "Missed", "Correct Negatives", "Number of points", "Discarded points")
+     } # ELSE end 
+     
+   return(out)
      
 } # 'CSI' end
 
@@ -116,26 +140,49 @@ CSI.default <- function (sim, obs, trgt=NA, breaks=NA, include.lowest=FALSE, lab
 # Author : Mauricio Zambrano-Bigiarini                                        ##
 ################################################################################
 # Created: 09-Mar-2016                                                        ##
-# Updates:                                                                    ##
+# Updates: 16-Aug-2016                                                        ##
 ################################################################################
-CSI.matrix <- function (sim, obs, trgt=NA, breaks=NA, na.rm=TRUE, verbose=TRUE, ...){ 
+CSI.matrix <- function(sim, obs, trgt=NA, breaks=NA, include.lowest=TRUE,
+                       labels=NA, na.rm=TRUE, out.type=c("single", "full"), 
+                       verbose=FALSE, ...){ 
 
   # Checking that 'sim' and 'obs' have the same dimensions
   if ( all.equal(dim(sim), dim(obs)) != TRUE )
     stop( paste("Invalid argument: dim(sim) != dim(obs) ( [", 
           paste(dim(sim), collapse=" "), "] != [", 
           paste(dim(obs), collapse=" "), "] )", sep="") )
- 
-  CSI <- rep(NA, ncol(obs))       
+
+
+  out.type <- match.arg(out.type) 
+
+  CSI                <- rep(NA, ncol(obs))       
+  elements           <- matrix(NA, nrow=6, ncol=ncol(obs))
+  rownames(elements) <- c("Hits", "False Alarms", "Missed", "Correct Negatives", "Number of points", "Discarded points")
+  colnames(elements) <- colnames(obs)
           
-  CSI <- sapply(1:ncol(obs), function(i,x,y) { 
-                 CSI[i] <- CSI.default( x[,i], y[,i], trgt=trgt, breaks=breaks, na.rm=na.rm, verbose=verbose, ... )
-               }, x=sim, y=obs )    
-                     
-  names(CSI) <- colnames(obs)
+  if (out.type=="single") {
+    out <- sapply(1:ncol(obs), function(i,x,y) { 
+                   CSI[i] <- CSI.default( x[,i], y[,i], trgt=trgt, breaks=breaks, 
+                                      include.lowest=include.lowest, labels=labels, 
+                                      na.rm=na.rm, out.type=out.type, 
+                                      verbose=verbose, ... )
+                 }, x=sim, y=obs )  
+    names(out) <- colnames(obs) 
+  } else { out <- lapply(1:ncol(obs), function(i,x,y) { 
+                         CSI.default( x[,i], y[,i], trgt=trgt, breaks=breaks, 
+                                      include.lowest=include.lowest, labels=labels, 
+                                      na.rm=na.rm, out.type=out.type, 
+                                      verbose=verbose, ... )
+                       }, x=sim, y=obs ) 
+            for (i in 1:length(out) ) {
+               CSI[i] <- out[[i]][[1]]
+               elements[,i] <- as.numeric(out[[i]][[2]])
+            } # FOR end 
+            out <- list(CSI.value=CSI, CSI.elements=elements)
+          } # ELSE end                     
   
-  return(CSI)
-     
+  return(out)
+
 } # 'CSI.matrix' end
 
 
@@ -147,15 +194,20 @@ CSI.matrix <- function (sim, obs, trgt=NA, breaks=NA, na.rm=TRUE, verbose=TRUE, 
 # Author : Mauricio Zambrano-Bigiarini                                        ##
 ################################################################################
 # Created: 09-Mar-2016                                                        ##
-# Updates:                                                                    ##
+# Updates: 16-Aug-2016                                                        ##
 ################################################################################
-CSI.data.frame <- function (sim, obs, trgt, breaks, na.rm=TRUE, verbose=TRUE, ...){ 
+CSI.data.frame <- function(sim, obs, trgt=NA, breaks=NA, include.lowest=TRUE,
+                           labels=NA, na.rm=TRUE, out.type=c("single", "full"), 
+                           verbose=FALSE, ...){ 
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
+
+  out.type <- match.arg(out.type) 
    
-  CSI.matrix(sim, obs, trgt=trgt, breaks=breaks, na.rm=na.rm, verbose=verbose,...)
-     
+  CSI.matrix(sim, obs, trgt=trgt, breaks=breaks, include.lowest=include.lowest, 
+            labels=labels, na.rm=na.rm, out.type=out.type, verbose=verbose, ... )
+           
 } # 'CSI.data.frame' end
 
 
@@ -168,16 +220,20 @@ CSI.data.frame <- function (sim, obs, trgt, breaks, na.rm=TRUE, verbose=TRUE, ..
 # Author : Mauricio Zambrano-Bigiarini                                        ##
 ################################################################################
 # Created: 09-Mar-2016                                                        ##
-# Updates:                                                                    ##
+# Updates: 16-Aug-2016                                                        ##
 ################################################################################
-CSI.zoo <- function(sim, obs, trgt, breaks, na.rm=TRUE, verbose=TRUE, ...){
-    
+CSI.zoo <- function(sim, obs, trgt=NA, breaks=NA, include.lowest=TRUE,
+                    labels=NA, na.rm=TRUE, out.type=c("single", "full"), 
+                    verbose=TRUE, ...){ 
+
     sim <- zoo::coredata(sim)
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
     
     if (is.matrix(sim) | is.data.frame(sim)) {
-       CSI.matrix(sim, obs, na.rm=na.rm, ...)
-    } else NextMethod(sim, obs, trgt=trgt, breaks=breaks, na.rm=na.rm, verbose=verbose,...)
-     
-  } # 'CSI.zoo' end
+       CSI.matrix(sim, obs, trgt=trgt, breaks=breaks, include.lowest=include.lowest, 
+                 labels=labels, na.rm=na.rm, out.type=out.type, verbose=verbose, ... )
+    } else NextMethod(sim, obs, trgt=trgt, breaks=breaks, include.lowest=include.lowest, 
+                      labels=labels, na.rm=na.rm, out.type=out.type, verbose=verbose, ... )
+  
+} # 'CSI.zoo' end
 
