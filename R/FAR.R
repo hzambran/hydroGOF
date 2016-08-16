@@ -158,14 +158,14 @@ FAR.matrix <- function(sim, obs, trgt=NA, breaks=NA, include.lowest=TRUE,
                    FAR[i] <- FAR.default( x[,i], y[,i], trgt=trgt, breaks=breaks, 
                                       include.lowest=include.lowest, labels=labels, 
                                       na.rm=na.rm, out.type=out.type, 
-                                      verbose=verbose, ... )
+                                      verbose=FALSE, ... )
                  }, x=sim, y=obs )  
     names(out) <- colnames(obs) 
   } else { out <- lapply(1:ncol(obs), function(i,x,y) { 
                          FAR.default( x[,i], y[,i], trgt=trgt, breaks=breaks, 
                                       include.lowest=include.lowest, labels=labels, 
                                       na.rm=na.rm, out.type=out.type, 
-                                      verbose=verbose, ... )
+                                      verbose=FALSE, ... )
                        }, x=sim, y=obs ) 
             for (i in 1:length(out) ) {
                FAR[i] <- out[[i]][[1]]
@@ -197,7 +197,7 @@ FAR.data.frame <- function(sim, obs, trgt=NA, breaks=NA, include.lowest=TRUE,
   out.type <- match.arg(out.type) 
    
   FAR.matrix(sim, obs, trgt=trgt, breaks=breaks, include.lowest=include.lowest, 
-            labels=labels, na.rm=na.rm, out.type=out.type, verbose=verbose, ... )
+            labels=labels, na.rm=na.rm, out.type=out.type, verbose=FALSE, ... )
       
 } # 'FAR.data.frame' end
 
