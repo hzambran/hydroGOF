@@ -50,8 +50,8 @@ further arguments passed to or from other methods.
 }
 }
 \details{
-\deqn{md = 1 - \frac{ \sum_{i=1}^N {(O_i - S_i)^j} } { \sum_{i=1}^N { \left| S_i -  \bar{O} \right| + \left| O_i -  \bar{O}  \right|^j } } }{%
-md = [ 1 - ( sum( (obs - sim)^j ) ] /  sum( ( abs(sim - mean(obs)) + abs(obs - mean(obs))  )^j ) } 
+\deqn{md = 1 - \frac{ \sum_{i=1}^N {\left| O_i - S_i \right| ^j} } { \sum_{i=1}^N { \left| S_i -  \bar{O} \right| + \left| O_i -  \bar{O}  \right|^j } } }{%
+md = [ 1 - ( sum( (abs(obs - sim))^j ) ] /  sum( ( abs(sim - mean(obs)) + abs(obs - mean(obs))  )^j ) } 
 
 The Index of Agreement (d) developed by Willmott (1981) as a standardized measure of the degree of model prediction error and varies between 0 and 1. \cr
 A value of 1 indicates a perfect match, and 0 indicates no agreement at all (Willmott, 1981).
