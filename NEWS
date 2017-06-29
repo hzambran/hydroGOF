@@ -1,12 +1,13 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
-0.4	30-Nov-2016 (under-development version)
+0.4	29-Jun-2017 (under-development version)
         o 'd'       : -) now it returns NA when it is not possible to compute the index of agreement (sum((abs(sim-Om)+abs(obs-Om))^2)=0)
         o 'KGE'     : -) now works correctly when 'out.type="full"', even if 'sim' and 'obs' do not have a single element in common (i.e., results in labelled NAs)
         o 'ggof'    : -) legend and axis fonts are preserved when 'pt.style' is set to bar
         o 'plot2'   : -) legend and axis fonts are preserved when 'pt.style' is set to bar
         o 'rNSE'    : -) fixed typo in the formula presented in the documentation (thanks to James Ward!)
-        o 'rPearson': -) now it is exported in the NASPECE and visible to the users.                                                          
+        o 'rPearson': -) now it is exported in the NASPECE and visible to the users.       
+        o 'NSE'     : -) three new argumnts (FUN, epsilon, epsilon.value) were added to allow pre-processing simulated and observed values (e.g., log, sqrt, 1/x)                                              
         o new function 'PC', to compute the percent correct (usually in forecast verification)
         o new function 'POD', to compute the probability of detection (usually in forecast verification)
         o new function 'FAR', to compute the false alarm ratio (usually in forecast verification)

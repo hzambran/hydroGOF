@@ -1,7 +1,8 @@
 ########################################
-# 'NSE': Nash-sutcliffe Efficiency   #
+# 'NSE': Nash-sutcliffe Efficiency     #
 ########################################
 # 15-Dic-2008   ; 06-Sep-09            #
+# 29-Jun-2017                          #
 ########################################
 # Nash-Sutcliffe efficiencies (Nash and Sutcliffe, 1970) range from -∞ to 1. 
 # An efficiency of 1 (NSE = 1) corresponds to a perfect match of modeled to the observed data. 
@@ -16,7 +17,7 @@
 
 NSE <-function(sim, obs, ...) UseMethod("NSE")
 
-NSE.default <- function (sim, obs, na.rm=TRUE, ...){ 
+NSE.default <- function (sim, obs, na.rm=TRUE, FUN, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...){ 
 
    if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
           is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
@@ -26,6 +27,12 @@ NSE.default <- function (sim, obs, na.rm=TRUE, ...){
      
    obs <- obs[vi]
    sim <- sim[vi]
+
+   if (!missing(FUN)) {
+     new <- preproc(sim=sim, obs=obs, FUN=FUN, epsilon=epsilon, epsilon.value=epsilon.value, ...)
+     sim <- new[["sim"]]
+     obs <- new[["obs"]]
+   } # IF end
      
    denominator <- sum( (obs - mean(obs))^2 )
      
@@ -43,7 +50,7 @@ NSE.default <- function (sim, obs, na.rm=TRUE, ...){
 } # 'NSE' end
 
 
-NSE.matrix <- function (sim, obs, na.rm=TRUE, ...){ 
+NSE.matrix <- function (sim, obs, na.rm=TRUE, FUN, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...){ 
 
   # Checking that 'sim' and 'obs' have the same dimensions
   if ( all.equal(dim(sim), dim(obs)) != TRUE )
@@ -54,7 +61,7 @@ NSE.matrix <- function (sim, obs, na.rm=TRUE, ...){
   NS <- rep(NA, ncol(obs))       
           
   NS <- sapply(1:ncol(obs), function(i,x,y) { 
-                 NS[i] <- NSE.default( x[,i], y[,i], na.rm=na.rm, ... )
+                 NS[i] <- NSE.default( x[,i], y[,i], na.rm=na.rm, FUN=FUN, epsilon=epsilon, epsilon.value=epsilon.value, ...)
                }, x=sim, y=obs )    
                      
   names(NS) <- colnames(obs)
@@ -64,12 +71,12 @@ NSE.matrix <- function (sim, obs, na.rm=TRUE, ...){
 } # 'NSE.matrix' end
 
 
-NSE.data.frame <- function (sim, obs, na.rm=TRUE, ...){ 
+NSE.data.frame <- function (sim, obs, na.rm=TRUE, FUN, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...){ 
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
    
-  NSE.matrix(sim, obs, na.rm=na.rm, ...)
+  NSE.matrix(sim, obs, na.rm=na.rm, FUN=FUN, epsilon=epsilon, epsilon.value=epsilon.value, ...)
      
 } # 'NSE.data.frame' end
 
@@ -83,14 +90,14 @@ NSeff <-function(sim, obs, ...) UseMethod("NSE")
 # Started: 22-Mar-2013                                                         #
 # Updates:                                                                     #
 ################################################################################
-NSE.zoo <- function(sim, obs, na.rm=TRUE, ...){
+NSE.zoo <- function(sim, obs, na.rm=TRUE, FUN, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...){
     
     sim <- zoo::coredata(sim)
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
     
     if (is.matrix(sim) | is.data.frame(sim)) {
-       NSE.matrix(sim, obs, na.rm=na.rm, ...)
-    } else NextMethod(sim, obs, na.rm=na.rm, ...)
+       NSE.matrix(sim, obs, na.rm=na.rm, FUN=FUN, epsilon=epsilon, epsilon.value=epsilon.value, ...)
+    } else NextMethod(sim, obs, na.rm=na.rm, FUN=FUN, epsilon=epsilon, epsilon.value=epsilon.value, ...)
      
   } # 'NSE.zoo' end
 
