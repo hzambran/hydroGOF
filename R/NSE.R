@@ -17,7 +17,7 @@
 
 NSE <-function(sim, obs, ...) UseMethod("NSE")
 
-NSE.default <- function (sim, obs, na.rm=TRUE, FUN, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...){ 
+NSE.default <- function (sim, obs, na.rm=TRUE, FUN=NULL, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...){ 
 
    if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
           is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
@@ -28,7 +28,7 @@ NSE.default <- function (sim, obs, na.rm=TRUE, FUN, epsilon=c(0, "Pushpalatha201
    obs <- obs[vi]
    sim <- sim[vi]
 
-   if (!missing(FUN)) {
+   if (!is.null(FUN)) {
      new <- preproc(sim=sim, obs=obs, FUN=FUN, epsilon=epsilon, epsilon.value=epsilon.value, ...)
      sim <- new[["sim"]]
      obs <- new[["obs"]]
@@ -50,7 +50,7 @@ NSE.default <- function (sim, obs, na.rm=TRUE, FUN, epsilon=c(0, "Pushpalatha201
 } # 'NSE' end
 
 
-NSE.matrix <- function (sim, obs, na.rm=TRUE, FUN, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...){ 
+NSE.matrix <- function (sim, obs, na.rm=TRUE, FUN=NULL, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...){ 
 
   # Checking that 'sim' and 'obs' have the same dimensions
   if ( all.equal(dim(sim), dim(obs)) != TRUE )
@@ -71,7 +71,7 @@ NSE.matrix <- function (sim, obs, na.rm=TRUE, FUN, epsilon=c(0, "Pushpalatha2012
 } # 'NSE.matrix' end
 
 
-NSE.data.frame <- function (sim, obs, na.rm=TRUE, FUN, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...){ 
+NSE.data.frame <- function (sim, obs, na.rm=TRUE, FUN=NULL, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...){ 
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
@@ -90,7 +90,7 @@ NSeff <-function(sim, obs, ...) UseMethod("NSE")
 # Started: 22-Mar-2013                                                         #
 # Updates:                                                                     #
 ################################################################################
-NSE.zoo <- function(sim, obs, na.rm=TRUE, FUN, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...){
+NSE.zoo <- function(sim, obs, na.rm=TRUE, FUN=NULL, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...){
     
     sim <- zoo::coredata(sim)
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
