@@ -22,13 +22,13 @@ Nash-Sutcliffe efficiency between \code{sim} and \code{obs}, with treatment of m
 \usage{
 NSE(sim, obs, ...)
 
-\method{NSE}{default}(sim, obs, na.rm=TRUE, ...)
+\method{NSE}{default}(sim, obs, na.rm=TRUE, FUN=NULL, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...)
 
-\method{NSE}{data.frame}(sim, obs, na.rm=TRUE, ...)
+\method{NSE}{data.frame}(sim, obs, na.rm=TRUE, FUN=NULL, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...)
 
-\method{NSE}{matrix}(sim, obs, na.rm=TRUE, ...)
+\method{NSE}{matrix}(sim, obs, na.rm=TRUE, FUN=NULL, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...)
 
-\method{NSE}{zoo}(sim, obs, na.rm=TRUE, ...)
+\method{NSE}{zoo}(sim, obs, na.rm=TRUE, FUN=NULL, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -41,6 +41,20 @@ numeric, zoo, matrix or data.frame with observed values
   \item{na.rm}{
 a logical value indicating whether 'NA' should be stripped before the computation proceeds. \cr
 When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{sim}, the i-th value of \code{obs} \bold{AND} \code{sim} are removed before the computation.
+}
+  \item{FUN}{
+function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing the Nash-Sutcliffe efficiency.
+}
+  \item{epsilon}{
+argument used to define a numeric value to be added to both \code{sim} and \code{obs} before applying \code{FUN}. \cr
+It is was  designed to allow the use of logarithm and other similar functions that do not work with zero values. \cr
+Valid values are:\cr
+1) \kbd{0}: zero is added to both \code{sim} and \code{obs}.
+2) \kbd{"Pushpalatha2012"}: one hundredth of the mean observed values is added to both \code{sim} and \code{obs}, as described in Pushpalatha et al., (2012). 
+3) \kbd{"other"}: the numeric value defined in the \code{epsilon.value} argument is added to both \code{sim} and \code{obs}
+}
+  \item{epsilon.value}{
+ numeric value to be added to both \code{sim} and \code{obs} when \code{epsilon="other"}.
 }
   \item{\dots}{
 further arguments passed to or from other methods.
@@ -68,6 +82,8 @@ If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with 
 \cite{Nash, J. E. and J. V. Sutcliffe (1970), River flow forecasting through conceptual models part I -A discussion of principles, Journal of Hydrology, 10 (3), 282-290} \cr
 
 \url{http://en.wikipedia.org/wiki/Nash\%E2\%80\%93Sutcliffe_model_efficiency_coefficient}
+
+\cite{Pushpalatha, R., Perrin, C., Le Moine, N. and Andreassian, V. (2012). A review of efficiency criteria suitable for evaluating low-flow simulations. Journal of Hydrology, 420, 171-182. DOI: 10.1016/j.jhydrol.2011.11.055}  
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
@@ -91,6 +107,12 @@ NSE(sim, obs)
 obs <- 1:10
 sim <- 2:11
 NSE(sim, obs)
+
+#################
+# Computing NSE on the (natural) logarithm of simulated and observed values
+obs <- 1:10/10
+sim <- 2:11/10
+NSE(sim=sim, obs=obs, FUN=log)
 
 ##################
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
