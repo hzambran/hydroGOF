@@ -8,7 +8,7 @@
 # This index allows accounting for the discrepancy in the magnitude of two signals
 # under or overpredictions, (depicted by 'b') as well as their dynamics (depicted by R2).
 
-# Krause, P., Boyle, D. P., and Bäse, F.: Comparison of different efficiency 
+# Krause, P., Boyle, D. P., and Base, F.: Comparison of different efficiency 
 # criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005
 
 br2 <-function(sim, obs, ...) UseMethod("br2")
