@@ -4,7 +4,7 @@
 # April 07th, 2010                     #
 ########################################
 # Ref
-# 1) Krause, P., Boyle, D. P., and Bäse, F.: Comparison of different efficiency criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005 
+# 1) Krause, P., Boyle, D. P., and Base, F.: Comparison of different efficiency criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005 
 
 # Index of Agreement (Willmott et al., 1984) range from 0.0 to 1.0 
 # and the closer to 1 the better the performance of the model 

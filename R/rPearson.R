@@ -7,13 +7,13 @@
 # Before Oct 27th 2009, this function was included in 'gof' function
 # Up to 17-Jul2016, this function was a hidden function 
 
-# The 'r.Pearson' coefficient ranges from −1 to 1. 
+# The 'r.Pearson' coefficient ranges from -1 to 1. 
 # A value of 1 shows that a linear equation describes the relationship 
 # perfectly and positively, with all data points lying on the same line 
 # and with Y increasing with X. 
-# A score of −1 shows that all data points lie on a single line but 
+# A score of -1 shows that all data points lie on a single line but 
 # that Y increases as X decreases. 
-# A value of 0 shows that a linear model is not needed – that there 
+# A value of 0 shows that a linear model is not needed, i.e., that there 
 # is no linear relationship between the variables.
 
 ################################################################################

@@ -4,11 +4,11 @@
 # 15-Dic-2008   ; 06-Sep-09            #
 # 29-Jun-2017                          #
 ########################################
-# Nash-Sutcliffe efficiencies (Nash and Sutcliffe, 1970) range from -∞ to 1. 
+# Nash-Sutcliffe efficiencies (Nash and Sutcliffe, 1970) range from -Inf to 1. 
 # An efficiency of 1 (NSE = 1) corresponds to a perfect match of modeled to the observed data. 
 # An efficiency of 0 (NSE = 0) indicates that the model predictions are as accurate
 # as the mean of the observed data, whereas 
-# an efficiency less than zero (-∞ < NSE < 0) occurs when the observed mean is a better predictor than the model.
+# an efficiency less than zero (-Inf < NSE < 0) occurs when the observed mean is a better predictor than the model.
 # Essentially, the closer the model efficiency is to 1, the more accurate the model is.  
 
 # 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values

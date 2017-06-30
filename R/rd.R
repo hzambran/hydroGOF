@@ -5,7 +5,7 @@
 # Updates: 01-Jun-2011                 #
 ########################################
 # Ref
-# 1) Krause, P., Boyle, D. P., and Bäse, F.: 
+# 1) Krause, P., Boyle, D. P., and Base, F.: 
 #    Comparison of different efficiency criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005 
 
 # Relative Index of Agreement (Willmott et al., 1984) range from 0.0 to 1.0 

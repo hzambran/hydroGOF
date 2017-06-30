@@ -5,7 +5,7 @@
 # Updates: 01-Jun-2011                           #
 ##################################################
 # Ref:
-# Krause, P., Boyle, D. P., and Bäse, F.: Comparison of different efficiency 
+# Krause, P., Boyle, D. P., and Base, F.: Comparison of different efficiency 
 #                           criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005 
 # Legates and McCabe, 1999. Evaluating the use of "goodness-of-fit" measures 
 #                           in hydrologic and hydroclimatic model validation. 

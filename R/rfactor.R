@@ -28,7 +28,7 @@
 # Abbaspour, K. C., J. Yang, I. Maximov, R. Siber, K. Bogner, J. Mieleitner, 
 # J. Zobrist, and R. Srinivasan (2007), Modelling hydrology and water quality 
 # in the pre-alpine/alpine Thur watershed using SWAT, Journal of Hydrology, 
-# 333(2-4), 413–430, doi:10.1016/j.jhydrol.2006.09.014.
+# 333(2-4), 413-430, doi:10.1016/j.jhydrol.2006.09.014.
 
 # Schuol, J., K. Abbaspour, R. Srinivasan, and H. Yang (2008b), 
 # Estimation of freshwater availability in the West African sub-continent 

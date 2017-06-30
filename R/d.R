@@ -6,7 +6,7 @@
 ########################################
 # 1) Willmott, C.J. 1981. On the validation of models. Physical Geography, 2, 184-194
 # 2) Willmott, C. J. (1984). "On the evaluation of model performance in physical geography." Spatial Statistics and Models, G. L. Gaile and C. J. Willmott, eds., 443-460.
-# 3) Legates, D. R., and G. J. McCabe Jr. (1999), Evaluating the Use of "Goodness-of-Fit" Measures in Hydrologic and Hydroclimatic Model Validation, Water Resour. Res., 35(1), 233–241. 
+# 3) Legates, D. R., and G. J. McCabe Jr. (1999), Evaluating the Use of "Goodness-of-Fit" Measures in Hydrologic and Hydroclimatic Model Validation, Water Resour. Res., 35(1), 233-241. 
 
 # Index of Agreement (Willmott et al., 1984) range from 0.0 to 1.0 
 # and the closer to 1 the better the performance of the model 
