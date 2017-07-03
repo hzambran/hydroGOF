@@ -31,14 +31,14 @@ nrmse.default <- function (sim, obs, na.rm=TRUE, norm="sd", ...) {
     if (is.na(match(norm, c("sd", "maxmin") ) ) ) 
        stop("Invalid argument: 'norm' must be in c('sd', 'maxmin')")
 
-   if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
+    if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
           is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
      ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo', 'xts')")      
 
-   vi <- valindex(sim, obs)
+    vi <- valindex(sim, obs)
      
-   obs <- obs[vi]
-   sim <- sim[vi]
+    obs <- obs[vi]
+    sim <- sim[vi]
        
     if (norm=="sd") {
       cte <- sd(obs, na.rm=na.rm)
