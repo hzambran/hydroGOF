@@ -18,6 +18,7 @@ NEWS/ChangeLog for hydroGOF
         o 'NSE'         : -) three new arguments (FUN, epsilon, epsilon.value), added to allow pre-processing simulated and observed values (e.g., log, sqrt, 1/x)                                              
         o 'md'          : -) correct small typo in documentation (thanks to Raphael Felber !)
         o 'rSD'         : -) missing values in 'obs' or 'sim' are now removed before the computations (thanks to Colin Hansen !)
+        o 'nrmse'       : -) missing values in 'obs' or 'sim' are now removed before the computations (thanks to Colin Hansen !)
         o NAMESPACE file:
                           -) One hundred nineteen (119) S3 methods are now registered.
                           -) Web page of the package updated to the new github repository.

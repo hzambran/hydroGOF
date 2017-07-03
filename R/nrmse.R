@@ -1,7 +1,7 @@
 # File nrmse.R
 # Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 #                                 http://cran.r-project.org/web/packages/hydroGOF/
-# Copyright 2008-2013 Mauricio Zambrano-Bigiarini
+# Copyright 2008-2017 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -11,6 +11,7 @@
 ################################################################################
 # Started: 15-Dic-2008                                                         #
 # Updates: 06-Sep-2009                                                         #
+#          03-Jul-2017                                                         #
 ################################################################################
 # 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values
 # 'sim'   : numeric 'data.frame', 'matrix' or 'vector' with simulated values
@@ -29,6 +30,15 @@ nrmse.default <- function (sim, obs, na.rm=TRUE, norm="sd", ...) {
     # Checking that the user provied a valid argument for 'norm'       
     if (is.na(match(norm, c("sd", "maxmin") ) ) ) 
        stop("Invalid argument: 'norm' must be in c('sd', 'maxmin')")
+
+   if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
+          is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
+     ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo', 'xts')")      
+
+   vi <- valindex(sim, obs)
+     
+   obs <- obs[vi]
+   sim <- sim[vi]
        
     if (norm=="sd") {
       cte <- sd(obs, na.rm=na.rm)
