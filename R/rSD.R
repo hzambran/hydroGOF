@@ -1,7 +1,14 @@
+# File rSD.R
+# Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
+#                                 http://cran.r-project.org/web/packages/hydroGOF/
+# Copyright 2011-2017 Mauricio Zambrano-Bigiarini
+# Distributed under GPL 2 or later
+
 ################################################
 # 'rSD': Ratio of Standard Deviations          #
 ################################################
 #   15-Dic-2008; 06-Sep-09    #
+#   03-Jul-2017               #
 ###############################
 # SD(sim) / SD(obs)  
 # 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values
@@ -12,6 +19,15 @@
 rSD <-function(sim, obs, ...) UseMethod("rSD")
 
 rSD.default <- function (sim, obs, na.rm=TRUE, ...){
+
+     if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
+          is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
+       ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo', 'xts')")      
+
+     vi <- valindex(sim, obs)
+     
+     obs <- obs[vi]
+     sim <- sim[vi]
 
      denominator <- sd(obs, na.rm = na.rm)
      
