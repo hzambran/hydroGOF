@@ -1,7 +1,7 @@
 % File NSE.Rd
 %% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 %%                                 http://cran.r-project.org/web/packages/hydroGOF/
-%% Copyright 2011-2014 Mauricio Zambrano-Bigiarini
+%% Copyright 2011-2017 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or later
 
 \name{NSE}
@@ -61,7 +61,7 @@ Valid values are:\cr
  numeric value to be added to both \code{sim} and \code{obs} when \code{epsilon="other"}.
 }
   \item{\dots}{
-further arguments passed to or from other methods.
+further arguments passed to \code{FUN}.
 }
 }
 \details{
