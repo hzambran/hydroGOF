@@ -1,7 +1,7 @@
 # File plotbands.R
 # Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 #                                 http://cran.r-project.org/web/packages/hydroGOF/
-# Copyright 2009-2013 Mauricio Zambrano-Bigiarini
+# Copyright 2009-2017 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -12,6 +12,7 @@
 # Updates: 30-Jun-2010; 28-Oct-2010; 28-Nov-2010 ;                             # 
 #          15-Apr-2011 ; 17-May-2011                                           #
 #          15-Apr-2013                                                         #
+#          06-Aug-2017                                                         #
 ################################################################################
 plotbands <- function(x, lband, uband, sim,
                       
@@ -185,16 +186,17 @@ plotbands <- function(x, lband, uband, sim,
     
     # Creating the plot, but without anything on it, for allowign the call to polygon
     if ( zoo::is.zoo(x) ) {
-      if ( !xts::is.xts(x) ) x <- xts::as.xts(x)   
+      #if ( !xts::is.xts(x) ) x <- xts::as.xts(x)   
       # Creating the plot, but without anything on it, for allowign the call to polygon
-      plot.xts(x, type="n", axes=FALSE, main=main, xlab=xlab, ylab=ylab, ylim=ylim, 
-         cex.axis=cex.axis, cex.lab=cex.lab, ...) 
+      zoo::plot.zoo(x, xaxt = "n", yaxt = "n", type="n", main=main, 
+                    xlab=xlab, ylab=ylab, ylim=ylim, 
+                    cex.axis=cex.axis, cex.lab=cex.lab, ...) 
       axis(2, cex.axis=cex.axis, cex.lab=cex.lab)  
     } else plot(x, type="n", xaxt = "n", main=main, xlab=xlab, ylab=ylab, ylim=ylim, 
                 cex.axis=cex.axis, cex.lab=cex.lab, ...)
 
-    if ( zoo::is.zoo(lband) & !xts::is.xts(lband) )  lband <- xts::as.xts(lband)
-    if ( zoo::is.zoo(uband) & !xts::is.xts(uband) )  uband <- xts::as.xts(uband)
+    #if ( zoo::is.zoo(lband) & !xts::is.xts(lband) )  lband <- xts::as.xts(lband)
+    #if ( zoo::is.zoo(uband) & !xts::is.xts(uband) )  uband <- xts::as.xts(uband)
     
     # Plotting the uncertainty bounds (polygon)
     plotbandsonly(lband=lband, uband=uband, dates=dates, date.fmt=date.fmt, 

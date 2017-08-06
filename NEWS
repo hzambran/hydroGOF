@@ -3,16 +3,13 @@ NEWS/ChangeLog for hydroGOF
 0.3-8-13  06-Ago-2017 (under-development version)
         o repository management moved from SVN to GIT, including rforge.
   ToDo: o citation with DOI is now possible (and new CITATION file).
-        o new function 'PC', to compute the percent correct (usually in forecast verification)
-        o new function 'POD', to compute the probability of detection (usually in forecast verification)
-        o new function 'FAR', to compute the false alarm ratio (usually in forecast verification)
-        o new function 'CSI', to compute the probability of detection (usually in forecast verification)
-        o new function 'ETS', to compute the equitable threat score (usually in forecast verification)
-        o new function 'fbias', to compute the frequency bias (usually in forecast verification)
         o 'd'           : -) now it returns NA when it is not possible to compute the index of agreement (sum((abs(sim-Om)+abs(obs-Om))^2)=0)
         o 'KGE'         : -) now works correctly when 'out.type="full"', even if 'sim' and 'obs' do not have a single element in common (i.e., results in labelled NAs)
         o 'ggof'        : -) legend and axis fonts are preserved when 'pt.style' is set to bar
+                          -) fixed error raised for xts >= 0.10-0
         o 'plot2'       : -) legend and axis fonts are preserved when 'pt.style' is set to bar
+                          -) fixed error raised for xts >= 0.10-0
+        o 'plotbands    : -) fixed error raised for xts >= 0.10-0
         o 'rNSE'        : -) fixed typo in the formula presented in the documentation (thanks to James Ward!)
         o 'rPearson'    : -) now it is exported in the NASPECE and visible to the users.       
         o 'NSE'         : -) three new arguments (FUN, epsilon, epsilon.value), added to allow pre-processing simulated and observed values (e.g., log, sqrt, 1/x)                                              
@@ -23,7 +20,8 @@ NEWS/ChangeLog for hydroGOF
                           -) One hundred nineteen (119) S3 methods are now registered.
                           -) Web page of the package updated to the new github repository.
                           -) CRAN website removed from URL field in DESCRIPTION file (requested by CRAN).
-                          -) 'plot.xts' is no longer imported from 'xts' package (to avoid error with xts >= _0.10-0)
+                          -) 'plot.xts' is no longer imported from 'xts' package (to avoid error with xts >= 0.10-0)
+                          -) 'axTicksByTime' is now imported from 'xts'
 
 0.3-8	04-Feb-2014
         o 'nrmse'         : -) added formula representing the computation done when 'norm="sd"' (default). Thanks to Markus Eichhoff !.
