@@ -1,13 +1,12 @@
 # File plot2.R
 # Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 #                                 http://cran.r-project.org/web/packages/hydroGOF/
-# Copyright 2011-2013 Mauricio Zambrano-Bigiarini
+# Copyright 2011-2017 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
 # 'plot2':     Plots 2 time series on the same graph                           #
-#              It is a wrapper for the 'plot.zoo' &                            #
-#              plot.xts functions                                              #
+#              It is a wrapper for the 'plot.zoo'                              #
 ################################################################################
 # Author : Mauricio Zambrano-Bigiarini                                         #
 ################################################################################
@@ -18,6 +17,7 @@
 #          25-Aug-2011 ; 31-Aug-2011 ; 14-Sep-2011                             #
 #          23-Jan-2012                                                         #
 #          15-Apr-2013 ; 15-May-2013                                           #
+#          06-Aug-2017                                                         #
 ################################################################################
                 
 plot2 <- function (x, y, 
@@ -152,22 +152,25 @@ plot2 <- function (x, y,
     # If both time series have to be ploted in the same plot area
     if (plot.type == "single") {
 
-      if (length(which(!is.na(match(class(x), c("ts", "zoo", "xts") )))) > 0) x <- xts::as.xts(x) 
-      if (length(which(!is.na(match(class(y), c("ts", "zoo", "xts") )))) > 0) y <- xts::as.xts(y) 
+      if (length(which(!is.na(match(class(x), c("ts", "zoo", "xts") )))) > 0) x <- zoo::as.zoo(x) 
+      if (length(which(!is.na(match(class(y), c("ts", "zoo", "xts") )))) > 0) y <- zoo::as.zoo(y) 
 
       # Y axis limits
       if (!hasArg(ylim)) ylim <- range( range(x[is.finite(x)]), range(y[is.finite(y)]) )
 
       # Plotting the Observed Time Series. 
-      # It calls to 'plot', 'plot.zoo' or 'plot.xts', depending on 'x' class
+      # It calls to 'plot' or 'plot.zoo'  depending on 'x' class
       if (!hasArg(ylim)) {
-         plot(x, axes=FALSE, type="o", lwd=lwd[1], lty= lty[1], col= col[1], 
-              pch= pch[1], cex = cex[1], cex.axis=cex.axis, cex.lab=cex.lab,
-              main=main, xlab=xlab, ylab= ylab, ylim=ylim, ... )
-      } else plot(x, axes=FALSE, type="o", lwd=lwd[1], lty= lty[1], col= col[1], 
-              pch= pch[1], cex = cex[1], cex.axis=cex.axis, cex.lab=cex.lab,
-              main=main, xlab=xlab, ylab= ylab, ... )
+         zoo::plot.zoo(x, xaxt = "n", yaxt = "n",
+                       type="o", lwd=lwd[1], lty= lty[1], col= col[1], pch= pch[1], 
+                       cex = cex[1], cex.axis=cex.axis, cex.lab=cex.lab,
+                       main=main, xlab=xlab, ylab= ylab, ylim=ylim, ... )
+      } else zoo::plot.zoo(x, xaxt = "n", yaxt = "n", 
+                      type="o", lwd=lwd[1], lty= lty[1], col= col[1], pch= pch[1], 
+                      cex = cex[1], cex.axis=cex.axis, cex.lab=cex.lab,
+                      main=main, xlab=xlab, ylab= ylab, ... )
       axis(2, cex.axis=cex.axis, cex.lab=cex.lab)
+     
       lines(y, type="o", lwd=lwd[2], lty= lty[2], col= col[2], pch= pch[2], cex = cex[2])      
                
       # If the user provided a value for 'cal.ini', a vertical line is drawn
@@ -195,11 +198,15 @@ plot2 <- function (x, y,
     
         # Draws ticks in the X axis, but labels only in years
         drawTimeAxis(z, tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis, cex.lab=cex.lab) # hydroTSM::drawTimeAxis
-    
+      
       } else { # When 'numeric' or 'integer' values (not 'zoo' or 'xts') are plotted
              Axis(side = 1, labels = TRUE, cex.axis=cex.axis, cex.lab=cex.lab)
              box()
              }
+
+      # manually adding a grid
+      grid(nx=NA, ny=NULL)
+      abline(v=time(x)[axTicksByTime(x)], col = "lightgray", lty = "dotted")
                
     } else  #plot.type == "multiple"  
           {       

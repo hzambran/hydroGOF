@@ -1,6 +1,6 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
-0.3-8-12  03-Jul-2017 (under-development version)
+0.3-8-13  06-Ago-2017 (under-development version)
         o repository management moved from SVN to GIT, including rforge.
   ToDo: o citation with DOI is now possible (and new CITATION file).
         o new function 'PC', to compute the percent correct (usually in forecast verification)
@@ -22,7 +22,8 @@ NEWS/ChangeLog for hydroGOF
         o NAMESPACE file:
                           -) One hundred nineteen (119) S3 methods are now registered.
                           -) Web page of the package updated to the new github repository.
-  ToDo:                   -) CRAN website removed from URL field in DESCRIPTION file (requested by CRAN).
+                          -) CRAN website removed from URL field in DESCRIPTION file (requested by CRAN).
+                          -) 'plot.xts' is no longer imported from 'xts' package (to avoid error with xts >= _0.10-0)
 
 0.3-8	04-Feb-2014
         o 'nrmse'         : -) added formula representing the computation done when 'norm="sd"' (default). Thanks to Markus Eichhoff !.
