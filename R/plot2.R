@@ -198,15 +198,17 @@ plot2 <- function (x, y,
     
         # Draws ticks in the X axis, but labels only in years
         drawTimeAxis(z, tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis, cex.lab=cex.lab) # hydroTSM::drawTimeAxis
+
+        # manually adding a grid
+        grid(nx=NA, ny=NULL)
+        abline(v=time(x)[axTicksByTime(x)], col = "lightgray", lty = "dotted")
       
       } else { # When 'numeric' or 'integer' values (not 'zoo' or 'xts') are plotted
              Axis(side = 1, labels = TRUE, cex.axis=cex.axis, cex.lab=cex.lab)
              box()
+             # manually adding a grid
+             grid()
              }
-
-      # manually adding a grid
-      grid(nx=NA, ny=NULL)
-      abline(v=time(x)[axTicksByTime(x)], col = "lightgray", lty = "dotted")
                
     } else  #plot.type == "multiple"  
           {       
