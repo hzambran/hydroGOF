@@ -20,6 +20,11 @@ install_github("hzambran/hydroGOF")
 ```
 
 
+## Reporting bugs, request of new features
+
+If you find an error in some function, or want to report a typo in the documentation, or to request a new feature (and wish it be implemented :) you can do it [here](https://github.com/hzambran/hydroGOF/issues)
+
+
 ## Citation 
 ```{r}
 citation("hydroGOF")
@@ -27,17 +32,17 @@ citation("hydroGOF")
 
 To cite hydroGOF in publications use:
 
->  Mauricio Zambrano-Bigiarini. hydroTSM: Time Series Management, Analysis and Interpolation for Hydrological ModellingR package version 0.5-0. URL https://github.com/hzambran/hydroTSM. DOI:10.5281/zenodo.839566
+>  Mauricio Zambrano-Bigiarini. hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series. URL https://github.com/hzambran/hydroGOF. DOI:10.5281/zenodo.839855
 
 
 A BibTeX entry for LaTeX users is
 
->  @Manual{,
->    title = {hydroTSM: Time Series Management, Analysis and Interpolation for Hydrological Modelling},
->    author = {{Mauricio Zambrano-Bigiarini}},
->    note = {R package version 0.5-0},
->    url = {https://github.com/hzambran/hydroTSM},
->    note = {DOI:10.5281/zenodo.839566},
+>  @Manual{hydroGOF,  
+>    title = {hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series},  
+>    author = {{Mauricio Zambrano-Bigiarini}},  
+>    note = {R package version 0.3-9},  
+>    url = {https://github.com/hzambran/hydroGOF},  
+>    doi = {DOI:10.5281/zenodo.839855},  
 >  }
 
 
