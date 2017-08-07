@@ -20,7 +20,7 @@ install_github("hzambran/hydroGOF")
 ```
 
 
-## Reporting bugs, request of new features
+## Reporting bugs, requesting new features
 
 If you find an error in some function, or want to report a typo in the documentation, or to request a new feature (and wish it be implemented :) you can do it [here](https://github.com/hzambran/hydroGOF/issues)
 
