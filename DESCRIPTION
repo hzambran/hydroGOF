@@ -3,22 +3,16 @@ Type: Package
 Title: Goodness-of-Fit Functions for Comparison of Simulated and
         Observed Hydrological Time Series
 Version: 0.3-9
-Date: 2017-08-06
-Authors@R: c(person("Mauricio", "Zambrano-Bigiarini", email = "mzb.devel@gmail.com", role=c("aut", "cre") ) )
+Date: 2017-08-07
+Authors@R: c(person("Mauricio Zambrano-Bigiarini", email = "mzb.devel@gmail.com", role=c("aut", "cre", "cph") ) )
 Maintainer: Mauricio Zambrano-Bigiarini <mzb.devel@gmail.com>
 Description: S3 functions implementing both statistical and graphical goodness-of-fit measures between observed and simulated values, mainly oriented to be used during the calibration, validation, and application of hydrological models. Missing values in observed and/or simulated values can be removed before computations. Comments / questions / collaboration of any kind are very welcomed.
 License: GPL (>= 2)
 Depends: R (>= 2.10.0), zoo (>= 1.7-2)
-Imports: hydroTSM (>= 0.3-6), xts (>= 0.8-2), methods
-HowToCite: > citation("hydroGOF")
+Imports: hydroTSM (>= 0.5-0), xts (>= 0.8-2), methods
 URL: https://github.com/hzambran/hydroGOF
 BugReports: https://github.com/hzambran/hydroGOF/issues
-Keywords: hydrology, hydrological modelling, hydrologic modeling,
-        calibration, verification, goodness-of-fit, objective function,
-        simulated vs observed, observed vs simulated
 LazyLoad: yes
-Packaged: Sun Aug  6 20:06:40 CLT 2017; hzambran
-Author: Mauricio Zambrano-Bigiarini [aut, cre]
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2017-08-06 21:05:43
+Packaged: Mon Aug  7 15:56:40 CLT 2017; hzambran

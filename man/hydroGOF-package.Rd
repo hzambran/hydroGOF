@@ -28,7 +28,7 @@ Version: \tab 0.3-9\cr
 Date: \tab 2017-08-06\cr
 License: \tab GPL >= 2\cr
 LazyLoad: \tab yes\cr
-Packaged: \tab Sun Aug  6 20:06:40 CLT 2017; MZB \cr
+Packaged: \tab Mon Aug  7 15:56:40 CLT 2017; MZB \cr
 BuiltUnder: \tab R version 3.4.1 (2017-06-30) -- "Single Candle"; x86_64-pc-linux-gnu (64-bit)) \cr
 }
 %%~~ An overview of how to use the package, including the most important functions ~~

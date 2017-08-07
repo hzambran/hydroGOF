@@ -1,27 +1,34 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
-0.3-9  06-Ago-2017 (under-development version)
+0.3-9  07-Ago-2017
         o repository management moved from SVN to GIT, including rforge.
-  ToDo: o citation with DOI is now possible (and new CITATION file).
-        o 'd'           : -) now it returns NA when it is not possible to compute the index of agreement (sum((abs(sim-Om)+abs(obs-Om))^2)=0)
+        o citation with DOI is now possible (and new CITATION file).
+        o 'NSE'         : -) three new arguments (FUN, epsilon, epsilon.value), added to allow pre-processing simulated and observed values (e.g., log, sqrt, 1/x)                                              
         o 'KGE'         : -) now works correctly when 'out.type="full"', even if 'sim' and 'obs' do not have a single element in common (i.e., results in labelled NAs)
+        o 'd'           : -) now it returns NA when it is not possible to compute the index of agreement (sum((abs(sim-Om)+abs(obs-Om))^2)=0)
         o 'ggof'        : -) legend and axis fonts are preserved when 'pt.style' is set to bar
                           -) fixed error raised for xts >= 0.10-0
         o 'plot2'       : -) legend and axis fonts are preserved when 'pt.style' is set to bar
                           -) fixed error raised for xts >= 0.10-0
         o 'plotbands    : -) fixed error raised for xts >= 0.10-0
         o 'rNSE'        : -) fixed typo in the formula presented in the documentation (thanks to James Ward!)
-        o 'rPearson'    : -) now it is exported in the NASPECE and visible to the users.       
-        o 'NSE'         : -) three new arguments (FUN, epsilon, epsilon.value), added to allow pre-processing simulated and observed values (e.g., log, sqrt, 1/x)                                              
+        o 'rPearson'    : -) now it is exported in the NASPECE and visible to the users.
         o 'md'          : -) correct small typo in documentation (thanks to Raphael Felber !)
         o 'rSD'         : -) missing values in 'obs' or 'sim' are now removed before the computations (thanks to Colin Hansen !)
         o 'nrmse'       : -) missing values in 'obs' or 'sim' are now removed before the computations (thanks to Colin Hansen !)
         o NAMESPACE file:
-                          -) One hundred nineteen (119) S3 methods are now registered.
+                          -) One ninty five (95) S3 methods are now registered.
                           -) Web page of the package updated to the new github repository.
                           -) CRAN website removed from URL field in DESCRIPTION file (requested by CRAN).
                           -) 'plot.xts' is no longer imported from 'xts' package (to avoid error with xts >= 0.10-0)
                           -) 'axTicksByTime' is now imported from 'xts'
+        o NAMESPACE file     : -) several functions explicitly imported from the c(stats, utils, methods, graphics, grDevices) to be compatible with R 3.3.0.
+                               -) 'plot.xts' NOT used anymore, to avoid error raised by xts>=0.10-0
+                               -) 'index' and 'time<-' imported from 'zoo' package.
+                               -) 'over', 'coordinates<-', 'proj4string<-' imported from 'sp' package.
+                               -) 'readShapePoly' imported from 'maptools' package.
+                               -) 'start', 'end' and 'window', 'aggregate' are now explicitly imported from the 'stats' package (affects 'dwi', 'izoo2rzoo' and 'monthlyfunction')
+                               -) Fifty three (53) S3 methods are now registered.
 
 0.3-8	04-Feb-2014
         o 'nrmse'         : -) added formula representing the computation done when 'norm="sd"' (default). Thanks to Markus Eichhoff !.
