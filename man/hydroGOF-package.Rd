@@ -1,7 +1,7 @@
 % File hydroGOF-package.Rd
 %% Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 %%                                 https://CRAN.R-project.org/package=hydroGOF
-%% Copyright 2009-2014 Mauricio Zambrano-Bigiarini
+%% Copyright 2009-2017 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or later
 
 \name{hydroGOF-package}
@@ -24,12 +24,12 @@ Quantitative statistics included are: Mean Error (\bold{me}), Mean Absolute Erro
 \tabular{ll}{
 Package: \tab hydroGOF\cr
 Type: \tab Package\cr
-Version: \tab 0.3-8\cr
-Date: \tab 2014-02-04\cr
+Version: \tab 0.3-9\cr
+Date: \tab 2017-08-06\cr
 License: \tab GPL >= 2\cr
 LazyLoad: \tab yes\cr
-Packaged: \tab Tue Feb  4 16:21:59 CLST 2014; MZB \cr
-BuiltUnder: \tab R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"; x86_64-pc-linux-gnu (64-bit) \cr
+Packaged: \tab Sun Aug  6 20:06:40 CLT 2017; MZB \cr
+BuiltUnder: \tab R version 3.4.1 (2017-06-30) -- "Single Candle"; x86_64-pc-linux-gnu (64-bit)) \cr
 }
 %%~~ An overview of how to use the package, including the most important functions ~~
 }

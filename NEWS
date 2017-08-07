@@ -1,6 +1,6 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
-0.3-8-13  06-Ago-2017 (under-development version)
+0.3-9  06-Ago-2017 (under-development version)
         o repository management moved from SVN to GIT, including rforge.
   ToDo: o citation with DOI is now possible (and new CITATION file).
         o 'd'           : -) now it returns NA when it is not possible to compute the index of agreement (sum((abs(sim-Om)+abs(obs-Om))^2)=0)
