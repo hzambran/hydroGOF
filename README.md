@@ -32,7 +32,7 @@ citation("hydroGOF")
 
 To cite hydroGOF in publications use:
 
->  Mauricio Zambrano-Bigiarini. hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series. URL https://github.com/hzambran/hydroGOF. DOI:10.5281/zenodo.839855
+>  Mauricio Zambrano-Bigiarini. hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series. R package version 0.3-10. URL https://github.com/hzambran/hydroGOF. DOI:10.5281/zenodo.840087
 
 
 A BibTeX entry for LaTeX users is
@@ -40,9 +40,9 @@ A BibTeX entry for LaTeX users is
 >  @Manual{hydroGOF,  
 >    title = {hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series},  
 >    author = {{Mauricio Zambrano-Bigiarini}},  
->    note = {R package version 0.3-9},  
+>    note = {R package version 0.3-10},  
 >    url = {https://github.com/hzambran/hydroGOF},  
->    doi = {DOI:10.5281/zenodo.839855},  
+>    doi = {DOI:10.5281/zenodo.840087},  
 >  }
 
 
