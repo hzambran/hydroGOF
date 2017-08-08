@@ -1,5 +1,8 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
+0.3-10 08-Ago-2017
+        o citation file changed, following CRAN comments.
+
 0.3-9  07-Ago-2017
         o repository management moved from SVN to GIT, including rforge.
         o citation with DOI is now possible (and new CITATION file).

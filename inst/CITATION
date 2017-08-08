@@ -9,7 +9,7 @@ citEntry(entry = "manual",
 	year = year,
 	note = vers,
 	url = "https://github.com/hzambran/hydroGOF",
-        doi = "https://doi.org/10.5281/zenodo.839855",
+        doi = "10.5281/zenodo.839855",
 
 	textVersion = paste("Mauricio Zambrano-Bigiarini. (", year, ") ",
         "hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series",
