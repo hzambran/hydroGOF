@@ -54,9 +54,9 @@ Mean error between \code{sim} and \code{obs}. \cr
 
 If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the mean error between each column of \code{sim} and \code{obs}.
 }
-%%\references{
-%% ~put references to the literature/web site here ~
-%%}
+\references{
+\cite{Hill, T., Lewicki, P., & Lewicki, P. (2006). Statistics: methods and applications: a comprehensive reference for science, industry, and data mining. StatSoft, Inc.}
+}
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 }
