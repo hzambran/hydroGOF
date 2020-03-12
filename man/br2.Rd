@@ -44,8 +44,8 @@ When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{s
 }
   \item{use.abs}{
 logical value indicating whether the condition to select the formula used to compute \code{br2} should be 'b<=1' or 'abs(b) <=1'. \cr
-Krausse et al. (2005) uses 'b<=1' as condition, but strictly speaking tis condition should be 'abs(b)<=1'. However, if your model simulations are somewhat "close" to the observations, this condition should not have much impact on the computation of 'br2'. \cr
-This argument was introduced in hydroGOF 0.4-0, following a comment by Ellie White. Its defualt value is \code{FALSE} to ensure compatibiity with previous versions of hydroGOF.
+Krausse et al. (2005) uses 'b<=1' as condition, but strictly speaking this condition should be 'abs(b)<=1'. However, if your model simulations are somewhat "close" to the observations, this condition should not have much impact on the computation of 'br2'. \cr
+This argument was introduced in hydroGOF 0.4-0, following a comment by E. White. Its default value is \code{FALSE} to ensure compatibility with previous versions of hydroGOF.
 }
   \item{\dots}{
 further arguments passed to or from other methods.
