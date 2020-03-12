@@ -8,14 +8,14 @@ citEntry(entry = "manual",
 	author = personList(person("Mauricio Zambrano-Bigiarini", email = "mzb.devel@gmail.com", role=c("aut", "cre", "cph"), comment=c(ORCID = "0000-0002-9536-643X"))),
 	year = year,
 	note = vers,
-	url = "http://hzambran.github.io/hydroGOF/",
-        doi = "10.5281/zenodo.840087",
+	url = "https://github.com/hzambran/hydroGOF",
+        doi = "10.5281/zenodo.839854",
 
 	textVersion = paste("Mauricio Zambrano-Bigiarini. (", year, ") ",
         "hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series",
         vers,
-        ". URL http://hzambran.github.io/hydroGOF/",
-        ". DOI:10.5281/zenodo.840087",
+        ". URL https://github.com/hzambran/hydroGOF",
+        ". DOI:10.5281/zenodo.839854",
         ".", sep = ""))
 
 citFooter("I have invested an important amount of time and effort in creating hydroGOF, please cite it if you use it !")
