@@ -6,7 +6,7 @@ NEWS/ChangeLog for hydroGOF
         o Vignette on Goodness-of-fit Measures to Compare Obserligved and Simulated Values was moved from Sweave to Knitr.
         o New references were added for 'KGE' (Santos et. al, 2018; Knoben et al., 2019; Mizukami et al., 2019)
         o New reference was added for 'me' (Hill et al., 2006) Thanks to Erli Pinto dos Santos !.
-        o 'br2'       : new argument 'use.abs=FALSE', to allow the user to use 'abs(b)' as condition to decide wether using abs(b)*r2 or [1/abs(b)]*r2 in equation (5) in Krausse et al. (2005). Thanks to Ellie White !
+        o 'br2'       : new argument 'use.abs=FALSE', to allow the user to use 'abs(b)' as condition to decide whether using abs(b)*r2 or [1/abs(b)]*r2 in equation (5) in Krausse et al. (2005). Thanks to Ellie White !
 
 
 
