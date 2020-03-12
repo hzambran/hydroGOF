@@ -79,7 +79,7 @@ br2.matrix <- function (sim, obs, na.rm=TRUE, use.abs=FALSE, ...){
   } # 'br2.matrix' END
   
   
-br2.data.frame <- function (sim, obs, na.rm=TRUE, ...){
+br2.data.frame <- function (sim, obs, na.rm=TRUE, use.abs=FALSE, ...){
 
     sim <- as.matrix(sim)
     obs <- as.matrix(obs)
