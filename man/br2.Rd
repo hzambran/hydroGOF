@@ -1,7 +1,8 @@
 %% File br2.Rd
-%% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
-%%                                 http://cran.r-project.org/web/packages/hydroGOF/
-%% Copyright 2011-2014 Mauricio Zambrano-Bigiarini
+%% Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
+%%                                 https://CRAN.R-project.org/package=hydroGOF
+%%                                 http://www.rforge.net/hydroGOF/
+%% Copyright 2011-2020 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or lat
 
 \name{br2}
@@ -21,13 +22,13 @@ Coefficient of determination (r2) multiplied by the slope of the regression line
 \usage{
 br2(sim, obs, ...)
 
-\method{br2}{default}(sim, obs, na.rm=TRUE, ...)
+\method{br2}{default}(sim, obs, na.rm=TRUE, use.abs=FALSE, ...)
 
-\method{br2}{data.frame}(sim, obs, na.rm=TRUE, ...)
+\method{br2}{data.frame}(sim, obs, na.rm=TRUE, use.abs=FALSE, ...)
 
-\method{br2}{matrix}(sim, obs, na.rm=TRUE, ...)
+\method{br2}{matrix}(sim, obs, na.rm=TRUE, use.abs=FALSE, ...)
 
-\method{br2}{zoo}(sim, obs, na.rm=TRUE, ...)
+\method{br2}{zoo}(sim, obs, na.rm=TRUE, use.abs=FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -38,16 +39,21 @@ numeric, zoo, matrix or data.frame with simulated values
 numeric, zoo, matrix or data.frame with observed values
 }
   \item{na.rm}{
-a logical value indicating whether 'NA' should be stripped before the computation proceeds. \cr
+logical value indicating whether 'NA' should be stripped before the computation proceeds. \cr
 When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{sim}, the i-th value of \code{obs} \bold{AND} \code{sim} are removed before the computation.
+}
+  \item{use.abs}{
+logical value indicating whether the condition to select the formula used to compute \code{br2} should be 'b<=1' or 'abs(b) <=1'. \cr
+Krausse et al. (2005) uses 'b<=1' as condition, but strictly speaking tis condition should be 'abs(b)<=1'. However, if your model simulations are somewhat "close" to the observations, this condition should not have much impact on the computation of 'br2'. \cr
+This argument was introduced in hydroGOF 0.4-0, following a comment by Ellie White. Its defualt value is \code{FALSE} to ensure compatibiity with previous versions of hydroGOF.
 }
   \item{\dots}{
 further arguments passed to or from other methods.
 }
 }
 \details{
-\deqn{ br2 = |b| R2 , |b| <= 1  ; br2 = \frac{R2}{|b|}, b > 1  }{%
-br2 = abs(b)*R2, abs(b) <= 1; br2= R2/abs(b), abs(b) > 1 } 
+\deqn{ br2 = |b| R2 , b <= 1  ; br2 = \frac{R2}{|b|}, b > 1  }{%
+br2 = abs(b)*R2, b <= 1; br2= R2/abs(b), b > 1 } 
 
 A model that systematically over or under-predicts all the time will still result in "good" \code{r2} (close to 1), even if all predictions were wrong (Krause et al., 2005).
 The \code{br2} coefficient allows accounting for the discrepancy in the magnitude of two signals (depicted by 'b') as well as their dynamics (depicted by \code{r2})

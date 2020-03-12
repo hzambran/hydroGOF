@@ -1,8 +1,13 @@
+# File br2.R
+# Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
+#                                 https://CRAN.R-project.org/package=hydroGOF
+#                                 http://www.rforge.net/hydroGOF/
 #########################################################################
 # 'br2': Weighted R2                                                    #
 # Coef. of  determination multiplied by the coef. of the regression line#
 #########################################################################
-#   27-Oct-2009                                                         #
+# Started: 27-Oct-2009                                                  #
+# Updates: 11-Mar-2020                                                  #
 #########################################################################
 
 # This index allows accounting for the discrepancy in the magnitude of two signals
@@ -17,7 +22,7 @@ br2 <-function(sim, obs, ...) UseMethod("br2")
 # 'sim'   : numeric 'data.frame', 'matrix' or 'vector' with simulated values
 # 'Result': weighted R2 between 'sim' and 'obs'
 
-br2.default <- function (sim, obs, na.rm=TRUE, ...){
+br2.default <- function (sim, obs, na.rm=TRUE, use.abs=FALSE, ...){
 
      if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo"))) |
           is.na(match(class(obs), c("integer", "numeric", "ts", "zoo")))
@@ -45,15 +50,17 @@ br2.default <- function (sim, obs, na.rm=TRUE, ...){
      
      # computing the r2
      r2 <- (.rPearson(sim, obs))^2
-     
-     br2 <- ifelse(b <= 1, r2*abs(b), r2/abs(b))
+
+     if (!(use.abs)) {
+       br2 <- ifelse(b <= 1, r2*abs(b), r2/abs(b))
+     } else br2 <- ifelse(abs(b) <= 1, r2*abs(b), r2/abs(b))
      
      return(br2)
      
   } # 'br2' END
   
 
-br2.matrix <- function (sim, obs, na.rm=TRUE, ...){
+br2.matrix <- function (sim, obs, na.rm=TRUE, use.abs=FALSE, ...){
 
     # Checking that 'sim' and 'obs' have the same dimensions
     if ( all.equal(dim(sim), dim(obs)) != TRUE )
@@ -64,7 +71,7 @@ br2.matrix <- function (sim, obs, na.rm=TRUE, ...){
     br2 <- rep(NA, ncol(obs))       
           
     br2 <- sapply(1:ncol(obs), function(i,x,y) { 
-                 br2[i] <- br2.default( x[,i], y[,i], na.rm=na.rm, ... )
+              br2[i] <- br2.default( x[,i], y[,i], na.rm=na.rm, use.abs=use.abs, ... )
             }, x=sim, y=obs )            
            
     return(br2)
@@ -77,7 +84,7 @@ br2.data.frame <- function (sim, obs, na.rm=TRUE, ...){
     sim <- as.matrix(sim)
     obs <- as.matrix(obs)
 
-    br2.matrix(sim, obs, na.rm=na.rm, ...)        
+    br2.matrix(sim, obs, na.rm=na.rm, use.abs=use.abs, ...)        
      
   } # 'br2.data.frame' END
   
@@ -86,15 +93,15 @@ br2.data.frame <- function (sim, obs, na.rm=TRUE, ...){
 # Author: Mauricio Zambrano-Bigiarini                                          #
 ################################################################################
 # Started: 22-Mar-2013                                                         #
-# Updates:                                                                     #
+# Updates: 11-Mar-2020                                                         #
 ################################################################################
-br2.zoo <- function(sim, obs, na.rm=TRUE, ...){
+br2.zoo <- function(sim, obs, na.rm=TRUE, use.abs=FALSE, ...){
     
     sim <- zoo::coredata(sim)
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
     
     if (is.matrix(sim) | is.data.frame(sim)) {
-       br2.matrix(sim, obs, na.rm=na.rm, ...)
-    } else NextMethod(sim, obs, na.rm=na.rm, ...)
+       br2.matrix(sim, obs, na.rm=na.rm, use.abs=use.abs, ...)
+    } else NextMethod(sim, obs, na.rm=na.rm, use.abs=use.abs, ...)
      
   } # 'br2.zoo' end

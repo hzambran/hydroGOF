@@ -2,8 +2,12 @@ NEWS/ChangeLog for hydroGOF
 --------------------------
 0.4-0  11-Mar-2020
         o Package tested against R Under development (unstable) (2020-03-10 r77920) -- "Unsuffered Consequences", following an imperative request made by CRAN.
-        o citation file changed, following CRAN comments.
-        o Vignette on Goodness-of-fit Measures to Compare Observed and Simulated Values was moved from Sweave to Knitr.
+        o Citation file changed, following CRAN comments.
+        o Vignette on Goodness-of-fit Measures to Compare Obserligved and Simulated Values was moved from Sweave to Knitr.
+        o New references were added for 'KGE' (Santos et. al, 2018; Knoben et al., 2019; Mizukami et al., 2019)
+        o New reference was added for 'me' (Hill et al., 2006) Thanks to Erli Pinto dos Santos !.
+
+
 
 0.3-9  07-Ago-2017
         o repository management moved from SVN to GIT, including rforge.
