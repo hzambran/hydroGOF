@@ -47,6 +47,10 @@ A BibTeX entry for LaTeX users is
 >  }
 
 
+## Vignette 
+[Here](https://cran.r-project.org/web/packages/hydroGOF/vignettes/hydroGOF_Vignette.pdf) you can find an introductory vignette showing the use of several hydroGOF functions.
+
+
 ## Related Material 
 
 * *R: a statistical environment for hydrological analysis* (**EGU-2010**)  [abstract](http://meetingorganizer.copernicus.org/EGU2010/EGU2010-13008.pdf), [poster](http://www.slideshare.net/hzambran/egu2010-ra-statisticalenvironmentfordoinghydrologicalanalysis-9095709).
