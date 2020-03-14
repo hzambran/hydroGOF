@@ -4,8 +4,8 @@ year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
 vers <- paste("R package version", meta$Version)
 
 citEntry(entry = "manual",
-	title = "hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series",
-	author = personList(person("Mauricio Zambrano-Bigiarini", email = "mzb.devel@gmail.com", role=c("aut", "cre", "cph"), comment=c(ORCID = "0000-0002-9536-643X"))),
+	title = "{hydroGOF}: Goodness-of-fit functions for comparison of simulated and observed hydrological time series",
+	author = personList(person("Zambrano-Bigiarini, Mauricio", email = "mzb.devel@gmail.com", role=c("aut", "cre", "cph"), comment=c(ORCID = "0000-0002-9536-643X"))),
 	year = year,
 	note = vers,
 	url = "https://github.com/hzambran/hydroGOF",
