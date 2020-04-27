@@ -2,6 +2,7 @@
 # 'pbias': Percent Bias          #
 ##################################
 #   03-Feb-2009;  06-Sep-09      #
+#   27-Apr-2020                  #
 ##################################
 # 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values
 # 'sim'   : numeric 'data.frame', 'matrix' or 'vector' with simulated values
@@ -13,7 +14,7 @@
 
 pbias <-function(sim, obs, ...) UseMethod("pbias")
 
-pbias.default <- function (sim, obs, na.rm=TRUE, ...){
+pbias.default <- function (sim, obs, na.rm=TRUE, dec=1, ...){
 
      if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo"))) |
           is.na(match(class(obs), c("integer", "numeric", "ts", "zoo")))
@@ -41,12 +42,12 @@ pbias.default <- function (sim, obs, na.rm=TRUE, ...){
         warning("'sum((obs)=0', it is not possible to compute 'pbias'")  
        } # ELSE end
      
-     return( round(pbias, 1) )
+     return( round(pbias, dec) )
      
 } # 'pbias.default' end
   
   
-pbias.matrix <- function (sim, obs, na.rm=TRUE, ...){
+pbias.matrix <- function (sim, obs, na.rm=TRUE, dec=1, ...){
 
    # Checking that 'sim' and 'obs' have the same dimensions
    if ( all.equal(dim(sim), dim(obs)) != TRUE )
@@ -57,7 +58,7 @@ pbias.matrix <- function (sim, obs, na.rm=TRUE, ...){
    pbias <- rep(NA, ncol(obs))       
           
    pbias <- sapply(1:ncol(obs), function(i,x,y) { 
-                 pbias[i] <- pbias.default( x[,i], y[,i], na.rm=na.rm, ... )
+                 pbias[i] <- pbias.default( x[,i], y[,i], na.rm=na.rm, dec=dec, ... )
             }, x=sim, y=obs )        
                     
    return(pbias)
@@ -70,7 +71,7 @@ pbias.data.frame <- function (sim, obs, na.rm=TRUE, ...){
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
    
-  pbias.matrix(sim, obs, na.rm=na.rm, ...)
+  pbias.matrix(sim, obs, na.rm=na.rm, dec=dec, ...)
      
 } # 'pbias.data.frame' end  
 
@@ -79,15 +80,15 @@ pbias.data.frame <- function (sim, obs, na.rm=TRUE, ...){
 # Author: Mauricio Zambrano-Bigiarini                                          #
 ################################################################################
 # Started: 22-Mar-2013                                                         #
-# Updates:                                                                     #
+# Updates: 27-Apr-2020                                                         #
 ################################################################################
-pbias.zoo <- function(sim, obs, na.rm=TRUE, ...){
+pbias.zoo <- function(sim, obs, na.rm=TRUE, dec=1, ...){
     
     sim <- zoo::coredata(sim)
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
     
     if (is.matrix(sim) | is.data.frame(sim)) {
-       pbias.matrix(sim, obs, na.rm=na.rm, ...)
-    } else NextMethod(sim, obs, na.rm=na.rm, ...)
+       pbias.matrix(sim, obs, na.rm=na.rm, dec=dec, ...)
+    } else NextMethod(sim, obs, na.rm=na.rm, dec=dec, ...)
      
   } # 'pbias.zoo' end
