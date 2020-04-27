@@ -21,13 +21,13 @@ Percent Bias between \code{sim} and \code{obs}, with treatment of missing values
 \usage{
 pbias(sim, obs, ...)
 
-\method{pbias}{default}(sim, obs, na.rm=TRUE, ...)
+\method{pbias}{default}(sim, obs, na.rm=TRUE, dec=1, ...)
 
-\method{pbias}{data.frame}(sim, obs, na.rm=TRUE, ...)
+\method{pbias}{data.frame}(sim, obs, na.rm=TRUE, dec=1, ...)
 
-\method{pbias}{matrix}(sim, obs, na.rm=TRUE, ...)
+\method{pbias}{matrix}(sim, obs, na.rm=TRUE, dec=1, ...)
 
-\method{pbias}{zoo}(sim, obs, na.rm=TRUE, ...)
+\method{pbias}{zoo}(sim, obs, na.rm=TRUE, dec=1, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -40,6 +40,9 @@ numeric, zoo, matrix or data.frame with observed values
   \item{na.rm}{
 a logical value indicating whether 'NA' should be stripped before the computation proceeds. \cr
 When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{sim}, the i-th value of \code{obs} \bold{AND} \code{sim} are removed before the computation.
+}
+  \item{dec}{
+numeric, specifying the number of decimal places used to rounf the output object. Default value is 1.
 }
   \item{\dots}{
 further arguments passed to or from other methods.
