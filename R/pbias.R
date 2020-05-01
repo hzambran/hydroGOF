@@ -1,8 +1,8 @@
 ##################################
 # 'pbias': Percent Bias          #
 ##################################
-#   03-Feb-2009;  06-Sep-09      #
-#   27-Apr-2020                  #
+#   03-Feb-2009; 06-Sep-2009     #
+#   27-Apr-2020; 01-May-2020     #
 ##################################
 # 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values
 # 'sim'   : numeric 'data.frame', 'matrix' or 'vector' with simulated values
@@ -66,7 +66,7 @@ pbias.matrix <- function (sim, obs, na.rm=TRUE, dec=1, ...){
   } # 'pbias.matrix' end
   
 
-pbias.data.frame <- function (sim, obs, na.rm=TRUE, ...){ 
+pbias.data.frame <- function (sim, obs, na.rm=TRUE, dec=1, ...){ 
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
