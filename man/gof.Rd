@@ -91,6 +91,7 @@ The output of the \code{gof} function is a matrix with one column only, and the 
 \item{RSR}{Ratio of RMSE to the Standard Deviation of the Observations, RSR = rms / sd(obs). ( 0 <= RSR <= +Inf )}
 \item{rSD}{Ratio of Standard Deviations, rSD = sd(sim) / sd(obs)}
 \item{NSE}{Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 )}
+\item{lnNSE}{Logarithmic Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 )}
 \item{mNSE}{Modified Nash-Sutcliffe Efficiency}
 \item{rNSE}{Relative Nash-Sutcliffe Efficiency }
 \item{d}{Index of Agreement ( 0 <= d <= 1 )}

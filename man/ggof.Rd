@@ -20,8 +20,8 @@ ggof(sim, obs, na.rm = TRUE, dates, date.fmt = "\%Y-\%m-\%d",
      pt.style = "ts", ftype = "o",  FUN, 
      stype="default", season.names=c("Winter", "Spring", "Summer", "Autumn"),
      gof.leg = TRUE,  digits=2, 
-     gofs=c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", 
-             "rNSE", "d", "md", "rd", "r", "R2", "bR2", "KGE", "VE"),
+     gofs=c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "lnNSE",
+             "mNSE", "rNSE", "d", "md", "rd", "r", "R2", "bR2", "KGE", "VE"),
      legend, leg.cex=1,
      tick.tstep = "auto", lab.tstep = "auto", lab.fmt=NULL,
      cal.ini=NA, val.ini=NA,
@@ -162,6 +162,7 @@ If \code{gof.leg=TRUE}, it computes the numerical values of: \cr
 \item{RSR}{Ratio of RMSE to the Standard Deviation of the Observations, RSR = rms / sd(obs). ( 0 <= RSR <= +Inf )}
 \item{rSD}{Ratio of Standard Deviations, rSD = sd(sim) / sd(obs)}
 \item{NSE}{Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 )}
+\item{lnNSE}{Logarithmic Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 )}
 \item{mNSE}{Modified Nash-Sutcliffe Efficiency}
 \item{rNSE}{Relative Nash-Sutcliffe Efficiency}
 \item{d}{Index of Agreement ( 0 <= d <= 1 )}
