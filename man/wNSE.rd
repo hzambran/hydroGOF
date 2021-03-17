@@ -60,10 +60,6 @@ Weighted Nash-Sutcliffe efficiency between \code{sim} and \code{obs}. \cr
 If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the relative Nash-Sutcliffe efficiency between each column of \code{sim} and \code{obs}.
 }
 \references{
-\cite{Krause, P., Boyle, D. P., and Base, F.: Comparison of different efficiency criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005} \cr
-
-\cite{Legates, D. R., and G. J. McCabe Jr. (1999), Evaluating the Use of "Goodness-of-Fit" Measures in Hydrologic and Hydroclimatic Model Validation, Water Resour. Res., 35(1), 233-241}. 
-
 \cite{Hundecha, Y. and Merz, B. (2012), Exploring the Relationship between Changes in Climate and Floods Using a Model-Based Analysis, Water Resour. Res., 48(4), 1-21, doi: 10.1029/2011WR010527}. 
 }
 \author{

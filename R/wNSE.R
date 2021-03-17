@@ -5,20 +5,7 @@
 ##################################################
 
 # Ref:
-# @article{hundecha2012,
-#   title = {Exploring the Relationship between Changes in Climate and Floods Using a Model-Based Analysis},
-#   author = {Hundecha, Yeshewatesfa and Merz, Bruno},
-#   year = {2012},
-#   month = apr,
-#   volume = {48},
-#   pages = {1--21},
-#   issn = {0043-1397},
-#   doi = {10.1029/2011WR010527},
-#   url = {http://www.agu.org/pubs/crossref/2012/2011WR010527.shtml},
-#   journal = {Water Resources Research},
-#   keywords = {“Germany,climate,flood trend,hydrological model},
-#   number = {4}
-# }
+# \cite{Hundecha, Y. and Merz, B. (2012), Exploring the Relationship between Changes in Climate and Floods Using a Model-Based Analysis, Water Resour. Res., 48(4), 1-21, doi: 10.1029/2011WR010527}. 
 
 # 'obs' : numeric 'data.frame', 'matrix' or 'vector' with observed values
 # 'sim' : numeric 'data.frame', 'matrix' or 'vector' with simulated values
@@ -29,29 +16,21 @@ wNSE <- function(sim, obs, ...) UseMethod("wNSE")
 
 wNSE.default <- function(sim, obs, na.rm = TRUE, ...) {
 
-   if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
+   if (is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
           is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
-     ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo', 'xts')")
+     )stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo', 'xts')")
 
    vi <- valindex(sim, obs)
 
    obs <- obs[vi]
    sim <- sim[vi]
-
-   # Testing for zero values in obs, which leads to -Inf as result
-   zero.index <- which(obs == 0)
-   if (length(zero.index > 0)) {
-       warning("'wNSE' can not be computed: some elements in 'obs' are zero !",
-               call. = FALSE)
-   } # IF end
-
    denominator <- sum(obs * ((obs - mean(obs))^2))
 
    if (denominator != 0) {
 
    wNSE <- 1 - (sum(obs * ((obs - sim)^2)) / denominator)
 
-   } else {
+   }else {
       wNSE <- NA
       warning("'sum( obs * ( ( obs - mean(obs) ) )^2 ) = 0', it is not possible to compute 'wNSE'")
      } # ELSE end
