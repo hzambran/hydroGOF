@@ -21,7 +21,7 @@ ggof(sim, obs, na.rm = TRUE, dates, date.fmt = "\%Y-\%m-\%d",
      stype="default", season.names=c("Winter", "Spring", "Summer", "Autumn"),
      gof.leg = TRUE,  digits=2, 
      gofs=c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", 
-             "rNSE", "d", "md", "rd", "r", "R2", "bR2", "KGE", "VE"),
+             "rNSE", "wNSE", "d", "md", "rd", "r", "R2", "bR2", "KGE", "VE"),
      legend, leg.cex=1,
      tick.tstep = "auto", lab.tstep = "auto", lab.fmt=NULL,
      cal.ini=NA, val.ini=NA,
@@ -84,7 +84,7 @@ OPTIONAL, only used when \code{leg.gof=TRUE}. Numeric, representing the decimal 
 }
   \item{gofs}{
 character, with one or more strings indicating the goodness-of-fit measures to be shown in the legend of the plot when  \code{gof.leg=TRUE}. \cr
-Possible values when \code{ftype!='seasonal'} are in \code{c("ME", "MAE", "MSE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", "rNSE", "d", "md", "rd", "cp", "r", "R2", "bR2", "KGE", "VE")} \cr
+Possible values when \code{ftype!='seasonal'} are in \code{c("ME", "MAE", "MSE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", "rNSE", "wNSE", "d", "md", "rd", "cp", "r", "R2", "bR2", "KGE", "VE")} \cr
 Possible values when \code{ftype='seasonal'} are in c("ME", "RMSE", "PBIAS", "RSR", "NSE", "d", "R2", "KGE", "VE")
 }
   \item{legend}{
@@ -149,7 +149,7 @@ further arguments passed to or from other methods.
 Plots observed and simulated values in the same graph.
 
 If \code{gof.leg=TRUE}, it computes the numerical values of: \cr
-'me', 'mae', 'rmse', 'nrmse', 'PBIAS',  'RSR, 'rSD', 'NSE', 'mNSE', 'rNSE', 'd', 'md, 'rd', 'cp', 'r', 'r.Spearman', 'R2', 'bR2', 'KGE', 'VE'
+'me', 'mae', 'rmse', 'nrmse', 'PBIAS',  'RSR, 'rSD', 'NSE', 'mNSE', 'rNSE', 'wNSE', 'd', 'md, 'rd', 'cp', 'r', 'r.Spearman', 'R2', 'bR2', 'KGE', 'VE'
 }
 \value{
 \item{me}{Mean Error}
@@ -164,6 +164,7 @@ If \code{gof.leg=TRUE}, it computes the numerical values of: \cr
 \item{NSE}{Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 )}
 \item{mNSE}{Modified Nash-Sutcliffe Efficiency}
 \item{rNSE}{Relative Nash-Sutcliffe Efficiency}
+\item{wNSE}{Weighted Nash-Sutcliffe Efficiency}
 \item{d}{Index of Agreement ( 0 <= d <= 1 )}
 \item{md}{Modified Index of Agreement}
 \item{rd}{Relative Index of Agreement}
@@ -210,7 +211,7 @@ Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 \seealso{
 \code{\link{gof}}, \code{\link{plot2}}, 
 \code{\link{me}}, \code{\link{mae}}, \code{\link{rmse}}, \code{\link{nrmse}}, \code{\link{pbias}},
-\code{\link{pbiasfdc}}, \code{\link{rSD}}, \code{\link{NSE}}, \code{\link{mNSE}}, \code{\link{rNSE}}, 
+\code{\link{pbiasfdc}}, \code{\link{rSD}}, \code{\link{NSE}}, \code{\link{mNSE}}, \code{\link{rNSE}}, \code{\link{wNSE}}, 
 \code{\link{d}}, \code{\link{md}}, \code{\link{rd}}, \code{\link{cp}}, \code{\link{br2}}, \code{\link{KGE}}, \code{\link{VE}}
 }
 \examples{

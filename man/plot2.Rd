@@ -22,7 +22,7 @@ plot2(x, y, plot.type = "multiple",
       cal.ini=NA, val.ini=NA, date.fmt="\%Y-\%m-\%d",
       gof.leg = FALSE, gof.digits=2, 
       gofs=c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", 
-             "rNSE", "d", "md", "rd", "r", "R2", "bR2", "KGE", "VE"),
+             "rNSE", "wNSE", "d", "md", "rd", "r", "R2", "bR2", "KGE", "VE"),
       legend, leg.cex = 1,
       col = c("black", "blue"),
       cex = c(0.5, 0.5), cex.axis=1.2, cex.lab=1.2, 
@@ -81,7 +81,7 @@ OPTIONAL, only used when \code{gof.leg=TRUE}. Decimal places used for rounding t
 }
   \item{gofs}{
 character, with one or more strings indicating the goodness-of-fit measures to be shown in the legend of the plot when  \code{gof.leg=TRUE}. \cr
-Possible values are in \code{c("ME", "MAE", "MSE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", "rNSE", "d", "md", "rd", "cp", "r", "R2", "bR2", "KGE", "VE")}.
+Possible values are in \code{c("ME", "MAE", "MSE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", "rNSE", "wNSE", "d", "md", "rd", "cp", "r", "R2", "bR2", "KGE", "VE")}.
 }
   \item{legend}{
 vector of length 2 to appear in the legend.  

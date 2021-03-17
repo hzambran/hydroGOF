@@ -93,6 +93,7 @@ The output of the \code{gof} function is a matrix with one column only, and the 
 \item{NSE}{Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 )}
 \item{mNSE}{Modified Nash-Sutcliffe Efficiency}
 \item{rNSE}{Relative Nash-Sutcliffe Efficiency }
+\item{wNSE}{Weighted Nash-Sutcliffe Efficiency }
 \item{d}{Index of Agreement ( 0 <= d <= 1 )}
 \item{d1}{Modified Index of Agreement}
 \item{rd}{Relative Index of Agreement}
@@ -143,7 +144,7 @@ Although \code{r} and \code{r2} have been widely used for model evaluation, thes
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 \code{\link{me}}, \code{\link{mae}}, \code{\link{rmse}}, \code{\link{nrmse}}, \code{\link{pbias}},
-\code{\link{pbiasfdc}}, \code{\link{rSD}}, \code{\link{NSE}}, \code{\link{mNSE}}, \code{\link{rNSE}}, 
+\code{\link{pbiasfdc}}, \code{\link{rSD}}, \code{\link{NSE}}, \code{\link{mNSE}}, \code{\link{rNSE}}, \code{\link{wNSE}}, 
 \code{\link{d}}, \code{\link{md}}, \code{\link{rd}}, \code{\link{cp}}, \code{\link{br2}}, \code{\link{KGE}}, \code{\link{VE}}
 }
 \examples{

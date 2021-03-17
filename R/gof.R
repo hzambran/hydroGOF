@@ -29,6 +29,7 @@
 # 'NSE'       : Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 )
 # 'mNSE'      : Modified Nash-Sutcliffe Efficiency
 # 'rNSE'      : Relative Nash-Sutcliffe Efficiency
+# 'wNSE'      : weighted Nash-Sutcliffe Efficiency
 # 'd'         : Index of Agreement( 0 <= d <= 1 )
 # 'md'        : Modified Index of Agreement( 0 <= md <= 1 )
 # 'rd'        : Relative Index of Agreement( 0 <= md <= 1 )
@@ -57,6 +58,7 @@ gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE
      NSE    <- NSE(sim, obs, na.rm=na.rm, ...)
      mNSE   <- mNSE(sim, obs, na.rm=na.rm, j=j, ...)
      rNSE   <- rNSE(sim, obs, na.rm=na.rm, ...)
+     wNSE   <- wNSE(sim, obs, na.rm=na.rm, ...)
      d      <- d(sim, obs, na.rm=na.rm, ...)
      md     <- md(sim, obs, na.rm=na.rm, ...)
      rd     <- rd(sim, obs, na.rm=na.rm, ...)
@@ -90,7 +92,7 @@ gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE
      
      if (do.pbfdc) { pbfdc  <- pbiasfdc(sim, obs, na.rm=na.rm, lQ.thr=lQ.thr, hQ.thr=hQ.thr, plot=FALSE, ...) }
      
-     gof <- rbind(ME, MAE, MSE, RMSE, NRMSE, PBIAS, RSR, rSD, NSE, mNSE, rNSE, d, md, rd, cp, r, R2, bR2, KGE, VE)     
+     gof <- rbind(ME, MAE, MSE, RMSE, NRMSE, PBIAS, RSR, rSD, NSE, mNSE, rNSE, wNSE, d, md, rd, cp, r, R2, bR2, KGE, VE)     
      
      rownames(gof)[5] <- "NRMSE %"
      rownames(gof)[6] <- "PBIAS %"    
