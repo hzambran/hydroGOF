@@ -47,11 +47,9 @@ further arguments passed to or from other methods.
 }
 }
 \details{
-\deqn{
-    wNSE = 1 -\frac { \sum_{i=1}^N  O_i * ( S_i - O_i )^2 } { \sum_{i=1}^N  O_i * (  O_i - \bar{O}  )^2 } }
-    {
-    wNSE = 1 - ( sum( obs * ( obs - sim )^2 ) / sum( obs * ( obs - mean(obs) ) ^2 ) )
-    }
+
+\deqn{ wNSE = 1 -\frac { \sum_{i=1}^N { O_i * (S_i - O_i )^2 } } { \sum_{i=1}^N {  O_i * ( O_i - \bar{O} )^2 } }  }{%
+wNSE = 1 -  sum ( obs * ( obs - sim ) ^2 ) / sum ( obs * ( obs - mean ( obs ) ) ^2 )}
 }
 
 \value{
@@ -60,7 +58,7 @@ Weighted Nash-Sutcliffe efficiency between \code{sim} and \code{obs}. \cr
 If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the relative Nash-Sutcliffe efficiency between each column of \code{sim} and \code{obs}.
 }
 \references{
-\cite{Hundecha, Y. and Merz, B. (2012), Exploring the Relationship between Changes in Climate and Floods Using a Model-Based Analysis, Water Resour. Res., 48(4), 1-21, doi: 10.1029/2011WR010527}. 
+\cite{Hundecha, Y. and Merz, B. (2012), Exploring the Relationship between Changes in Climate and Floods Using a Model-Based Analysis, Water Resour. Res., 48(4), 1-21, 10.1029/2011WR010527}. 
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
@@ -76,7 +74,7 @@ If some of the observed values are equal to zero (at least one of them), this in
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{NSE}}, \code{\link{mNSE}}, \code{\link{gof}}, \code{\link{ggof}}
+\code{\link{NSE}}, \code{\link{mNSE}}, \code{\link{rNSE}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 sim <- 1:10

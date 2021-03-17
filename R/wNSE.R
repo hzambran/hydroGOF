@@ -5,7 +5,7 @@
 ##################################################
 
 # Ref:
-# \cite{Hundecha, Y. and Merz, B. (2012), Exploring the Relationship between Changes in Climate and Floods Using a Model-Based Analysis, Water Resour. Res., 48(4), 1-21, doi: 10.1029/2011WR010527}. 
+# \cite{Hundecha, Y. and Merz, B. (2012), Exploring the Relationship between Changes in Climate and Floods Using a Model-Based Analysis, Water Resour. Res., 48(4), 1-21, 10.1029/2011WR010527}
 
 # 'obs' : numeric 'data.frame', 'matrix' or 'vector' with observed values
 # 'sim' : numeric 'data.frame', 'matrix' or 'vector' with simulated values
