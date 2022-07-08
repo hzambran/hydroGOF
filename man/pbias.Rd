@@ -62,7 +62,7 @@ Percent bias between \code{sim} and \code{obs}. The result is given in percentag
 If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the percent bias between each column of \code{sim} and \code{obs}.
 }
 \references{
-\cite{Yapo P. O., Gupta H. V., Sorooshian S., 1996. Automatic calibration of conceptual rainfall-runoff models: sensitivity to calibration data. Journal of Hydrology. v181 i1-4. 23-48}\cr
+\cite{Yapo, P.O., Gupta, H.V. and Sorooshian, S., 1996. Automatic calibration of conceptual rainfall-runoff models: sensitivity to calibration data. Journal of hydrology, 181(1-4), 23-48. doi:10.1016/0022-1694(95)02918-4} \cr
 
 \cite{Sorooshian, S., Q. Duan, and V. K. Gupta. 1993. Calibration of rainfall-runoff models: Application of global optimization to the Sacramento Soil Moisture Accounting Model, Water Resources Research, 29 (4), 1185-1194, doi:10.1029/92WR02617}.
 }
