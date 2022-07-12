@@ -15,6 +15,7 @@
 #          18-Oct-2012 ; 19-Oct-2012                                           #
 #          24-Jan-2014                                                         #
 #          28-Feb-2016 ; 17-Jul-2016                                           #
+#          12-Jul-2022                                                         #
 ################################################################################
 # The optimal value of KGE is 1
 
@@ -41,7 +42,10 @@
 KGE <- function(sim, obs, ...) UseMethod("KGE")
 
 KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, 
-                        method=c("2009", "2012"), out.type=c("single", "full"), ...) { 
+                        method=c("2009", "2012"), out.type=c("single", "full"), 
+                        FUN=NULL, ...,
+                        epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                        epsilon.value=NA) { 
 
   # If the user provided a value for 's'
   if (!identical(s, c(1,1,1)) )  {
@@ -62,6 +66,12 @@ KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
 	 
     obs <- as.numeric(obs[vi])
     sim <- as.numeric(sim[vi])
+
+    if (!is.null(FUN)) {
+      new <- preproc(sim=sim, obs=obs, FUN=FUN, epsilon=epsilon, epsilon.value=epsilon.value, ...)
+      sim <- new[["sim"]]
+      obs <- new[["obs"]]
+    } # IF end
 
     # Mean values
     mean.sim <- mean(sim, na.rm=na.rm)
@@ -136,9 +146,13 @@ KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
 # Updates: 25-Aug-2011                                                         #
 #          10-Oct-2012                                                         #
 #          18-Oct-2012 ; 19-Oct-2012                                           #
+#          12-Jul-2022                                                         #
 ################################################################################
 KGE.matrix <- function (sim, obs, s=c(1,1,1), na.rm=TRUE, 
-                        method=c("2009", "2012"), out.type=c("single", "full"), ...){ 
+                        method=c("2009", "2012"), out.type=c("single", "full"), 
+                        FUN=NULL, ...,
+                        epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                        epsilon.value=NA) { 
 
   # Checking that 'sim' and 'obs' have the same dimensions
   if ( all.equal(dim(sim), dim(obs)) != TRUE )
@@ -164,11 +178,16 @@ KGE.matrix <- function (sim, obs, s=c(1,1,1), na.rm=TRUE,
           
   if (out.type=="single") {
     out <- sapply(1:ncol(obs), function(i,x,y) { 
-                   KGE[i] <- KGE.default( x[,i], y[,i], s=s, na.rm=na.rm, method=method, out.type=out.type, ... )
+                   KGE[i] <- KGE.default( x[,i], y[,i], s=s, na.rm=na.rm, 
+                                         method=method, out.type=out.type, 
+                                         FUN=FUN, ..., epsilon=epsilon, 
+                                         epsilon.value=epsilon.value )
                  }, x=sim, y=obs )  
     names(out) <- colnames(obs) 
   } else { out <- lapply(1:ncol(obs), function(i,x,y) { 
-                         KGE.default( x[,i], y[,i], s=s, na.rm=na.rm, method=method, out.type=out.type, ... )
+                         KGE.default( x[,i], y[,i], s=s, na.rm=na.rm, method=method, 
+                                      out.type=out.type, FUN=FUN, ..., 
+                                      epsilon=epsilon, epsilon.value=epsilon.value )
                        }, x=sim, y=obs ) 
             for (i in 1:length(out) ) {
                KGE[i] <- out[[i]][[1]]
@@ -189,9 +208,13 @@ KGE.matrix <- function (sim, obs, s=c(1,1,1), na.rm=TRUE,
 # Updates: 25-Aug-2011                                                         #
 #          10-Oct-2012                                                         #
 #          18-Oct-2012 ; 19-Oct-2012                                           #
+#          12-Jul-2022                                                         #
 ################################################################################
 KGE.data.frame <- function (sim, obs, s=c(1,1,1), na.rm=TRUE, 
-                            method=c("2009", "2012"), out.type=c("single", "full"), ...){ 
+                            method=c("2009", "2012"), out.type=c("single", "full"), 
+                            FUN=NULL, ...,
+                            epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                            epsilon.value=NA) { 
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
@@ -199,7 +222,8 @@ KGE.data.frame <- function (sim, obs, s=c(1,1,1), na.rm=TRUE,
   method   <- match.arg(method)
   out.type <- match.arg(out.type) 
    
-  KGE.matrix(sim, obs, s=s, na.rm=na.rm, method=method, out.type=out.type, ...)
+  KGE.matrix(sim, obs, s=s, na.rm=na.rm, method=method, out.type=out.type, 
+             FUN=FUN, ..., epsilon=epsilon, epsilon.value=epsilon.value)
      
 } # 'KGE.data.frame' end
 
@@ -209,15 +233,21 @@ KGE.data.frame <- function (sim, obs, s=c(1,1,1), na.rm=TRUE,
 ################################################################################
 # Started: 22-Mar-2013                                                         #
 # Updates: 16-Aug-2016                                                         #
+#          12-Jul-2022                                                         #
 ################################################################################
 KGE.zoo <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, 
-                    method=c("2009", "2012"), out.type=c("single", "full"), ...){
+                    method=c("2009", "2012"), out.type=c("single", "full"), 
+                    FUN=NULL, ...,
+                    epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                    epsilon.value=NA) { 
     
     sim <- zoo::coredata(sim)
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
     
     if (is.matrix(sim) | is.data.frame(sim)) {
-       KGE.matrix(sim, obs, s=s, na.rm=na.rm, method=method, out.type=out.type, ...)
-    } else NextMethod(sim, obs, s=s, na.rm=na.rm, method=method, out.type=out.type, ...)
+       KGE.matrix(sim, obs, s=s, na.rm=na.rm, method=method, out.type=out.type, 
+                  FUN=FUN, ..., epsilon=epsilon, epsilon.value=epsilon.value)
+    } else NextMethod(sim, obs, s=s, na.rm=na.rm, method=method, out.type=out.type, 
+                      FUN=FUN, ..., epsilon=epsilon, epsilon.value=epsilon.value)
      
   } # 'KGE.zoo' end

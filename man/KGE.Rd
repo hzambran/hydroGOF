@@ -35,16 +35,24 @@ For a full discussion pf the Kling-Gupta index, and its advantages over the Nash
 KGE(sim, obs, ...)
 
 \method{KGE}{default}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
-             out.type=c("single", "full"), ...)
+             out.type=c("single", "full"), FUN=NULL, ...,
+             epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+             epsilon.value=NA)
 
 \method{KGE}{data.frame}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
-             out.type=c("single", "full"), ...)
+             out.type=c("single", "full"), FUN=NULL, ...,
+             epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+             epsilon.value=NA)
 
 \method{KGE}{matrix}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
-             out.type=c("single", "full"), ...)
+             out.type=c("single", "full"), FUN=NULL, ...,
+             epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+             epsilon.value=NA)
              
 \method{KGE}{zoo}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
-             out.type=c("single", "full"), ...)
+             out.type=c("single", "full"), FUN=NULL, ...,
+             epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+             epsilon.value=NA)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -72,8 +80,22 @@ character, indicating the if the output of the function has to include or not ea
 -) \kbd{single}: the output is a numeric with the Kling-Gupta efficiency only\cr
 -) \kbd{full}: the output is a list of two elements: the first one with the Kling-Gupta efficiency, and the second is a numeric with 3 elements: the Pearson product-moment correlation coefficient (\sQuote{r}), the ratio between the mean of the simulated values to the mean of observations (\sQuote{Beta}), and the variability measure (\sQuote{Gamma} or \sQuote{Alpha}, depending on the value of \code{method})
 }
+  \item{FUN}{
+function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing the Nash-Sutcliffe efficiency.
+}
   \item{\dots}{
-further arguments passed to or from other methods.
+further arguments passed to \code{FUN}.
+}
+  \item{epsilon}{
+argument used to define a numeric value to be added to both \code{sim} and \code{obs} before applying \code{FUN}. \cr
+It is was  designed to allow the use of logarithm and other similar functions that do not work with zero values. \cr
+Valid values are:\cr
+2) \kbd{"Pushpalatha2012"}: one hundredth (1/100) of the mean observed values is added to both \code{sim} and \code{obs}, as described in Pushpalatha et al. (2012). 
+3) \kbd{"otherFactor"}: the numeric value defined in the \code{epsilon.value} argument is used to multiply the the mean observed values, instead of the one hundredth (1/100) described in Pushpalatha et al. (2012). The resulting value is then added to both \code{sim} and \code{obs}.
+3) \kbd{"otherValue"}: the numeric value defined in the \code{epsilon.value} argument is directly added to both \code{sim} and \code{obs}.
+}
+  \item{epsilon.value}{
+ numeric value to be added to both \code{sim} and \code{obs} when \code{epsilon="other"}.
 }
 }
 \details{
