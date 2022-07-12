@@ -23,12 +23,12 @@
 ################################################################################
 # 'sim'     : numeric, with simulated values
 # 'obs'     : numeric, with observed values
-# 'FUN'     : function to be applied to 'sim' and 'obs' in order to obtain 
+# 'fun'     : function to be applied to 'sim' and 'obs' in order to obtain 
 #             transformed values thereof before applying any goodness-of-fit 
 #             function included in the hydroGOF package
-# '...'     : additional argument to be passed to FUN
+# '...'     : additional argument to be passed to fun
 # 'epsilon' : argument used to define a numeric value to be added to both 'sim' 
-#             and 'obs' before applying FUN. It is was  designed to allow the 
+#             and 'obs' before applying fun. It is was  designed to allow the 
 #             use of logarithm and other similar functions that do not work with 
 #             zero values. It must be one of the following three possible values:
 #             -) "Pushpalatha2012": one hundredth of the mean observed values is 
@@ -42,22 +42,24 @@
 #                                   \code{sim} and \code{obs}.
 #             -) "otherValue"     : the numeric value defined in the 'epsilon.value'
 #                                   argument is directly added to both 'sim' and 'obs'
+
 # 'epsilon.value': numeric value to be added to both 'sim' and 'obs' when 
 #                  'epsilon="other"'
+
 # 'Output': a list with two numeric vectors:
 #           1) 'sim': simulated values after adding 'epsilon.value' and 
-#                     applying 'FUN' 
+#                     applying 'fun' 
 #           2) 'obs': observed values after adding 'epsilon.value' and 
-#                     applying 'FUN' 
-preproc <- function (sim, obs, na.rm=TRUE, FUN,  ..., 
+#                     applying 'fun' 
+preproc <- function (sim, obs, na.rm=TRUE, fun,  ..., 
                      epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
                      epsilon.value=NA) { 
 
-   # FUN ?
+   # fun ?
    fun.exists <- FALSE
-   if (!missing(FUN)) {
+   if (!missing(fun)) {
      fun.exists <- TRUE
-     FUN        <- match.fun(FUN)
+     fun        <- match.fun(fun)
    } # IF end
 
    # epsilon.value ?
@@ -77,20 +79,20 @@ preproc <- function (sim, obs, na.rm=TRUE, FUN,  ...,
        epsilon.value <- epsilon.value*mean(obs, na.rm=na.rm)
      } # ELSE (epsilon="otherValue"): epsilon.value=epsilon.value
 
-   # Adding epsilon, before applying FUN
+   # Adding epsilon, before applying fun
    obs <- obs + epsilon.value
    sim <- sim + epsilon.value
 
-   # using FUN (and 'epsilon.value')
+   # using fun (and 'epsilon.value')
    if (fun.exists) {
      obs.bak <- obs
      sim.bak <- sim
 
-     obs <- FUN( obs, ...)     
-     sim <- FUN( sim, ...)
+     obs <- fun( obs, ...)     
+     sim <- fun( sim, ...)
 
      if (length(obs) != length(obs.bak))
-        stop("Invalid argument: 'FUN' returns an object with a length different from 'obs' or 'sim' !")
+        stop("Invalid argument: 'fun' returns an object with a length different from 'obs' or 'sim' !")
    } # IF 'fun.exists' end
      
    out <- list(sim=sim, obs=obs)
