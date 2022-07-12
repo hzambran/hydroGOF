@@ -44,9 +44,9 @@ Maintainer: Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
 
 \cite{Criss, R. E. and Winston, W. E. (2008), Do Nash values have value? Discussion and alternate proposals. Hydrological Processes, 22: 2723-2725. doi: 10.1002/hyp.7072}
 
-\cite{Fenicia, F., D. P. Solomatine, H. H. G. Savenije, and P. Matgen, Soft combination of local models in a multi-objective framework. Hydrological and Earth Systems Science, Vol. 4, pp. 91-123, 2007. DOI:10.5194/hessd-4-91-2007} \cr
+\cite{Fenicia, F., D. P. Solomatine, H. H. G. Savenije, and P. Matgen. (2007) Soft combination of local models in a multi-objective framework. Hydrological and Earth Systems Science, Vol. 4, pp. 91-123. doi:10.5194/hessd-4-91-2007} \cr
 
-\cite{Gupta, Hoshin V., Harald Kling, Koray K. Yilmaz, Guillermo F. Martinez. Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological modelling. Journal of Hydrology, Volume 377, Issues 1-2, 20 October 2009, Pages 80-91. DOI: 10.1016/j.jhydrol.2009.08.003. ISSN 0022-1694} \cr
+\cite{Gupta, Hoshin V., Harald Kling, Koray K. Yilmaz, Guillermo F. Martinez. Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological modelling. (2009). Journal of Hydrology, Volume 377, Issues 1-2, 20, Pages 80-91. DOI: 10.1016/j.jhydrol.2009.08.003. ISSN 0022-1694} \cr
 
 \cite{Kitanidis, P. K., and R. L. Bras (1980), Real-Time Forecasting With a Conceptual Hydrologic Model 2. Applications and Results, Water Resour. Res., 16(6), 1034--1044} \cr
 
@@ -56,13 +56,13 @@ Maintainer: Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
 
 \cite{Legates, D. R., and G. J. McCabe Jr. (1999), Evaluating the Use of "Goodness-of-Fit" Measures in Hydrologic and Hydroclimatic Model Validation, Water Resour. Res., 35(1), 233--241} \cr
 
-\cite{Moriasi, D.N., Arnold, J.G., Van Liew, M.W., Bingner, R.L., Harmel, R.D., Veith, T.L. 2007. Model evaluation guidelines for systematic quantification of accuracy in watershed simulations \cr Transactions of the ASABE. 50(3):885-900} \cr
+\cite{Moriasi, D.N.; Arnold, J.G.; Van Liew, M.W.; Bingner, R.L.; Harmel, R.D.; Veith, T.L. (2007). Model evaluation guidelines for systematic quantification of accuracy in watershed simulations \cr Transactions of the ASABE. 50(3):885-900} \cr
 
 \cite{Nash, J.E. and J.V. Sutcliffe, River flow forecasting through conceptual models. Part 1: a discussion of principles, J. Hydrol. 10 (1970), pp. 282--290} \cr
 
-\cite{Pushpalatha, R., Perrin, C., Le Moine, N. and Andreassian, V. (2012). A review of efficiency criteria suitable for evaluating low-flow simulations. Journal of Hydrology, 420, 171-182. DOI: 10.1016/j.jhydrol.2011.11.055}  \cr 
+\cite{Pushpalatha, R.; Perrin, C., Le Moine, N. and Andreassian, V. (2012). A review of efficiency criteria suitable for evaluating low-flow simulations. Journal of Hydrology, 420, 171-182. DOI: 10.1016/j.jhydrol.2011.11.055}  \cr 
 
-\cite{Yapo, P.O., Gupta, H.V. and Sorooshian, S., 1996. Automatic calibration of conceptual rainfall-runoff models: sensitivity to calibration data. Journal of hydrology, 181(1-4), 23-48. doi:10.1016/0022-1694(95)02918-4} \cr
+\cite{Yapo, P. O.; Gupta, H. V.; Sorooshian S. (1996). Automatic calibration of conceptual rainfall-runoff models: sensitivity to calibration data. Journal of Hydrology. v181 i1-4. 23--48. doi:10.1016/0022-1694(95)02918-4} \cr
 
 \cite{Yilmaz, K. K., H. V. Gupta, and T. Wagener  (2008), A process-based diagnostic approach to model evaluation: Application to the NWS distributed hydrologic model, Water Resour. Res., 44, W09417, doi:10.1029/2007WR006716} \cr
 }
