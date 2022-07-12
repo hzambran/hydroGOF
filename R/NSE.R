@@ -32,9 +32,11 @@ NSE.default <- function (sim, obs, na.rm=TRUE, FUN=NULL, ...,
    sim <- sim[vi]
 
    if (!is.null(FUN)) {
-     new <- preproc(sim=sim, obs=obs, FUN=FUN, epsilon=epsilon, epsilon.value=epsilon.value, ...)
-     sim <- new[["sim"]]
-     obs <- new[["obs"]]
+     fun1 <- match.fun(FUN)
+     new  <- preproc(sim=sim, obs=obs, fun=fun1, ..., 
+                     epsilon=epsilon, epsilon.value=epsilon.value)
+     sim  <- new[["sim"]]
+     obs  <- new[["obs"]]
    } # IF end
      
    denominator <- sum( (obs - mean(obs))^2 )
@@ -66,7 +68,8 @@ NSE.matrix <- function(sim, obs, na.rm=TRUE, FUN=NULL, ...,
   NS <- rep(NA, ncol(obs))       
           
   NS <- sapply(1:ncol(obs), function(i,x,y) { 
-                 NS[i] <- NSE.default( x[,i], y[,i], na.rm=na.rm, FUN=FUN, epsilon=epsilon, epsilon.value=epsilon.value, ...)
+                 NS[i] <- NSE.default( x[,i], y[,i], na.rm=na.rm, FUN=FUN, ..., 
+                                       epsilon=epsilon, epsilon.value=epsilon.value)
                }, x=sim, y=obs )    
                      
   names(NS) <- colnames(obs)
@@ -83,7 +86,8 @@ NSE.data.frame <- function(sim, obs, na.rm=TRUE, FUN=NULL, ...,
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
    
-  NSE.matrix(sim, obs, na.rm=na.rm, FUN=FUN, epsilon=epsilon, epsilon.value=epsilon.value, ...)
+  NSE.matrix(sim, obs, na.rm=na.rm, FUN=FUN, ..., 
+             epsilon=epsilon, epsilon.value=epsilon.value)
      
 } # 'NSE.data.frame' end
 
@@ -105,8 +109,10 @@ NSE.zoo <- function(sim, obs, na.rm=TRUE, FUN=NULL, ...,
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
     
     if (is.matrix(sim) | is.data.frame(sim)) {
-       NSE.matrix(sim, obs, na.rm=na.rm, FUN=FUN, epsilon=epsilon, epsilon.value=epsilon.value, ...)
-    } else NextMethod(sim, obs, na.rm=na.rm, FUN=FUN, epsilon=epsilon, epsilon.value=epsilon.value, ...)
+       NSE.matrix(sim, obs, na.rm=na.rm, FUN=FUN, epsilon=epsilon, 
+                  epsilon.value=epsilon.value, ...)
+    } else NextMethod(sim, obs, na.rm=na.rm, FUN=FUN, epsilon=epsilon, 
+                      epsilon.value=epsilon.value, ...)
      
   } # 'NSE.zoo' end
 
