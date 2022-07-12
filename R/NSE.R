@@ -18,9 +18,9 @@
 
 NSE <-function(sim, obs, ...) UseMethod("NSE")
 
-NSE.default <- function (sim, obs, na.rm=TRUE, FUN=NULL,
+NSE.default <- function (sim, obs, na.rm=TRUE, FUN=NULL, ..., 
                          epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
-                         epsilon.value=NA, ...){ 
+                         epsilon.value=NA){ 
 
    if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
           is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
@@ -53,9 +53,9 @@ NSE.default <- function (sim, obs, na.rm=TRUE, FUN=NULL,
 } # 'NSE' end
 
 
-NSE.matrix <- function(sim, obs, na.rm=TRUE, FUN=NULL,
+NSE.matrix <- function(sim, obs, na.rm=TRUE, FUN=NULL, ..., 
                        epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
-                       epsilon.value=NA, ...){ 
+                       epsilon.value=NA){ 
 
   # Checking that 'sim' and 'obs' have the same dimensions
   if ( all.equal(dim(sim), dim(obs)) != TRUE )
@@ -76,9 +76,9 @@ NSE.matrix <- function(sim, obs, na.rm=TRUE, FUN=NULL,
 } # 'NSE.matrix' end
 
 
-NSE.data.frame <- function(sim, obs, na.rm=TRUE, FUN=NULL,
+NSE.data.frame <- function(sim, obs, na.rm=TRUE, FUN=NULL, ..., 
                            epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
-                           epsilon.value=NA, ...){ 
+                           epsilon.value=NA){ 
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
@@ -97,9 +97,9 @@ NSeff <-function(sim, obs, ...) UseMethod("NSE")
 # Started: 22-Mar-2013                                                         #
 # Updates:                                                                     #
 ################################################################################
-NSE.zoo <- function(sim, obs, na.rm=TRUE, FUN=NULL,
+NSE.zoo <- function(sim, obs, na.rm=TRUE, FUN=NULL, ..., 
                     epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
-                    epsilon.value=NA, ...){ 
+                    epsilon.value=NA){ 
     
     sim <- zoo::coredata(sim)
     if (is.zoo(obs)) obs <- zoo::coredata(obs)

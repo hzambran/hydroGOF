@@ -23,21 +23,21 @@ Nash-Sutcliffe efficiency between \code{sim} and \code{obs}, with treatment of m
 \usage{
 NSE(sim, obs, ...)
 
-\method{NSE}{default}(sim, obs, na.rm=TRUE, FUN=NULL, 
+\method{NSE}{default}(sim, obs, na.rm=TRUE, FUN=NULL, ..., 
                       epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
-                      epsilon.value=NA, ...)
+                      epsilon.value=NA)
 
-\method{NSE}{data.frame}(sim, obs, na.rm=TRUE, FUN=NULL, 
-                       epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
-                      epsilon.value=NA, ...)
+\method{NSE}{data.frame}(sim, obs, na.rm=TRUE, FUN=NULL, ..., 
+                         epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                         epsilon.value=NA)
 
-\method{NSE}{matrix}(sim, obs, na.rm=TRUE, FUN=NULL, 
-                      epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
-                      epsilon.value=NA, ...)
+\method{NSE}{matrix}(sim, obs, na.rm=TRUE, FUN=NULL, ..., 
+                     epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                     epsilon.value=NA)
 
-\method{NSE}{zoo}(sim, obs, na.rm=TRUE, FUN=NULL, 
-                   epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
-                      epsilon.value=NA, ...)
+\method{NSE}{zoo}(sim, obs, na.rm=TRUE, FUN=NULL, ..., 
+                  epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                  epsilon.value=NA)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
