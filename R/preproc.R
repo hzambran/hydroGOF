@@ -26,6 +26,7 @@
 # 'FUN'     : function to be applied to 'sim' and 'obs' in order to obtain 
 #             transformed values thereof before applying any goodness-of-fit 
 #             function included in the hydroGOF package
+# '...'     : additional argument to be passed to FUN
 # 'epsilon' : argument used to define a numeric value to be added to both 'sim' 
 #             and 'obs' before applying FUN. It is was  designed to allow the 
 #             use of logarithm and other similar functions that do not work with 
@@ -48,9 +49,9 @@
 #                     applying 'FUN' 
 #           2) 'obs': observed values after adding 'epsilon.value' and 
 #                     applying 'FUN' 
-preproc <- function (sim, obs, na.rm=TRUE, FUN, 
+preproc <- function (sim, obs, na.rm=TRUE, FUN,  ..., 
                      epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
-                     epsilon.value=NA, ...) { 
+                     epsilon.value=NA) { 
 
    # FUN ?
    fun.exists <- FALSE
@@ -88,9 +89,8 @@ preproc <- function (sim, obs, na.rm=TRUE, FUN,
      obs <- FUN( obs, ...)     
      sim <- FUN( sim, ...)
 
-     if (length(obs) != length(obs.bak)) {
-        stop("Invalid argument: 'FUN' returns an object with a length different from the one of the original object !")
-     } # IF end
+     if (length(obs) != length(obs.bak))
+        stop("Invalid argument: 'FUN' returns an object with a length different from 'obs' or 'sim' !")
    } # IF 'fun.exists' end
      
    out <- list(sim=sim, obs=obs)
