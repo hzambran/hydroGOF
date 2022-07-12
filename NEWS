@@ -1,13 +1,14 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
 0.4-1  Under-development
-        o 'br2'       : new argument 'dec' to allow the user to specify the number of decimals shown in the output object. Default value set to 1 for compatibility with previous versions. Thanks to Ken Newman !
+        o 'br2': new argument 'dec' to allow the user to specify the number of decimals shown in the output object. Default value set to 1 for compatibility with previous versions. Thanks to Ken Newman !
+        o 'NSE': possible values of 'epsilon' argument were changed to c('Pushpalatha2012', 'otherFactor', 'otherValue'), to give the user more flexibility in the computation of the constant value added to 'sim' and 'obs' when using transformed values to compute the NSE (e.g., when focusing on low flows)
 
 
 0.4-0  11-Mar-2020
         o Package tested against R Under development (unstable) (2020-03-10 r77920) -- "Unsuffered Consequences", following an imperative request made by CRAN.
         o Citation file changed, following CRAN comments.
-        o Vignette on Goodness-of-fit Measures to Compare Obserligved and Simulated Values was moved from Sweave to Knitr.
+        o Vignette on Goodness-of-fit Measures to Compare Observed and Simulated Values was moved from Sweave to Knitr.
         o New references were added for 'KGE' (Santos et. al, 2018; Knoben et al., 2019; Mizukami et al., 2019)
         o New reference was added for 'me' (Hill et al., 2006) Thanks to Erli Pinto dos Santos !.
         o 'br2'       : new argument 'use.abs=FALSE', to allow the user to use 'abs(b)' as condition to decide whether using abs(b)*r2 or [1/abs(b)]*r2 in equation (5) in Krausse et al. (2005). Thanks to Ellie White !
@@ -31,24 +32,17 @@ NEWS/ChangeLog for hydroGOF
         o 'rSD'         : -) missing values in 'obs' or 'sim' are now removed before the computations (thanks to Colin Hansen !)
         o 'nrmse'       : -) missing values in 'obs' or 'sim' are now removed before the computations (thanks to Colin Hansen !)
         o NAMESPACE file:
-                          -) One ninty five (95) S3 methods are now registered.
+                          -) Ninety five (95) S3 methods are now registered.
                           -) Web page of the package updated to the new github repository.
                           -) CRAN website removed from URL field in DESCRIPTION file (requested by CRAN).
                           -) 'plot.xts' is no longer imported from 'xts' package (to avoid error with xts >= 0.10-0)
                           -) 'axTicksByTime' is now imported from 'xts'
-        o NAMESPACE file     : -) several functions explicitly imported from the c(stats, utils, methods, graphics, grDevices) to be compatible with R 3.3.0.
-                               -) 'plot.xts' NOT used anymore, to avoid error raised by xts>=0.10-0
-                               -) 'index' and 'time<-' imported from 'zoo' package.
-                               -) 'over', 'coordinates<-', 'proj4string<-' imported from 'sp' package.
-                               -) 'readShapePoly' imported from 'maptools' package.
-                               -) 'start', 'end' and 'window', 'aggregate' are now explicitly imported from the 'stats' package (affects 'dwi', 'izoo2rzoo' and 'monthlyfunction')
-                               -) Fifty three (53) S3 methods are now registered.
 
 0.3-8	04-Feb-2014
         o 'nrmse'         : -) added formula representing the computation done when 'norm="sd"' (default). Thanks to Markus Eichhoff !.
         o 'KGE'           : -) fixed error raised when 's != c(1,1,1)'
         o 'pbiasfdc'      : -) now does not need to load 'hydroTSM' package before being used.
-                               In previous versions, when this function was applied to numeric vectors, it raised the following werror:
+                               In previous versions, when this function was applied to numeric vectors, it raised the following error:
                                "Error in UseMethod("fdc") : no applicable method for 'fdc' applied to an object of class c('double', 'numeric')"
         o 'Author' field was removed from the DESCRIPTION file
         o Imports from the 'zoo' package were made explicit in the NAMESPACE file (due related changes in hydroTSM)
