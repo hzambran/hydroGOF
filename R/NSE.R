@@ -3,6 +3,7 @@
 ########################################
 # 15-Dic-2008   ; 06-Sep-09            #
 # 29-Jun-2017                          #
+# 11-Jul-2022 ; 12-Jul-2022            #
 ########################################
 # Nash-Sutcliffe efficiencies (Nash and Sutcliffe, 1970) range from -Inf to 1. 
 # An efficiency of 1 (NSE = 1) corresponds to a perfect match of modeled to the observed data. 
@@ -17,7 +18,9 @@
 
 NSE <-function(sim, obs, ...) UseMethod("NSE")
 
-NSE.default <- function (sim, obs, na.rm=TRUE, FUN=NULL, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...){ 
+NSE.default <- function (sim, obs, na.rm=TRUE, FUN=NULL,
+                         epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                         epsilon.value=NA, ...){ 
 
    if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
           is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
@@ -50,7 +53,9 @@ NSE.default <- function (sim, obs, na.rm=TRUE, FUN=NULL, epsilon=c(0, "Pushpalat
 } # 'NSE' end
 
 
-NSE.matrix <- function (sim, obs, na.rm=TRUE, FUN=NULL, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...){ 
+NSE.matrix <- function(sim, obs, na.rm=TRUE, FUN=NULL,
+                       epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                       epsilon.value=NA, ...){ 
 
   # Checking that 'sim' and 'obs' have the same dimensions
   if ( all.equal(dim(sim), dim(obs)) != TRUE )
@@ -71,7 +76,9 @@ NSE.matrix <- function (sim, obs, na.rm=TRUE, FUN=NULL, epsilon=c(0, "Pushpalath
 } # 'NSE.matrix' end
 
 
-NSE.data.frame <- function (sim, obs, na.rm=TRUE, FUN=NULL, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...){ 
+NSE.data.frame <- function(sim, obs, na.rm=TRUE, FUN=NULL,
+                           epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                           epsilon.value=NA, ...){ 
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
@@ -90,7 +97,9 @@ NSeff <-function(sim, obs, ...) UseMethod("NSE")
 # Started: 22-Mar-2013                                                         #
 # Updates:                                                                     #
 ################################################################################
-NSE.zoo <- function(sim, obs, na.rm=TRUE, FUN=NULL, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...){
+NSE.zoo <- function(sim, obs, na.rm=TRUE, FUN=NULL,
+                    epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                    epsilon.value=NA, ...){ 
     
     sim <- zoo::coredata(sim)
     if (is.zoo(obs)) obs <- zoo::coredata(obs)

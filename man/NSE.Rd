@@ -23,16 +23,20 @@ Nash-Sutcliffe efficiency between \code{sim} and \code{obs}, with treatment of m
 NSE(sim, obs, ...)
 
 \method{NSE}{default}(sim, obs, na.rm=TRUE, FUN=NULL, 
-                      epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...)
+                      epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                      epsilon.value=NA, ...)
 
 \method{NSE}{data.frame}(sim, obs, na.rm=TRUE, FUN=NULL, 
-                      epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...)
+                       epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                      epsilon.value=NA, ...)
 
 \method{NSE}{matrix}(sim, obs, na.rm=TRUE, FUN=NULL, 
-                      epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...)
+                      epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                      epsilon.value=NA, ...)
 
 \method{NSE}{zoo}(sim, obs, na.rm=TRUE, FUN=NULL, 
-                      epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...)
+                   epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                      epsilon.value=NA, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -53,9 +57,9 @@ function to be applied to \code{sim} and \code{obs} in order to obtain transform
 argument used to define a numeric value to be added to both \code{sim} and \code{obs} before applying \code{FUN}. \cr
 It is was  designed to allow the use of logarithm and other similar functions that do not work with zero values. \cr
 Valid values are:\cr
-1) \kbd{0}: zero is added to both \code{sim} and \code{obs}.
-2) \kbd{"Pushpalatha2012"}: one hundredth of the mean observed values is added to both \code{sim} and \code{obs}, as described in Pushpalatha et al., (2012). 
-3) \kbd{"other"}: the numeric value defined in the \code{epsilon.value} argument is added to both \code{sim} and \code{obs}
+2) \kbd{"Pushpalatha2012"}: one hundredth (1/100) of the mean observed values is added to both \code{sim} and \code{obs}, as described in Pushpalatha et al. (2012). 
+3) \kbd{"otherFactor"}: the numeric value defined in the \code{epsilon.value} argument is used to multiply the the mean observed values, instead of the one hundredth (1/100) described in Pushpalatha et al. (2012). The resulting value is then added to both \code{sim} and \code{obs}.
+3) \kbd{"otherValue"}: the numeric value defined in the \code{epsilon.value} argument is directly added to both \code{sim} and \code{obs}.
 }
   \item{epsilon.value}{
  numeric value to be added to both \code{sim} and \code{obs} when \code{epsilon="other"}.
@@ -87,7 +91,7 @@ If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with 
 
 \url{http://en.wikipedia.org/wiki/Nash\%E2\%80\%93Sutcliffe_model_efficiency_coefficient}
 
-\cite{Pushpalatha, R., Perrin, C., Le Moine, N. and Andreassian, V. (2012). A review of efficiency criteria suitable for evaluating low-flow simulations. Journal of Hydrology, 420, 171-182. DOI: 10.1016/j.jhydrol.2011.11.055}  
+\cite{Pushpalatha, R., Perrin, C., Le Moine, N. and Andreassian, V. (2012). A review of efficiency criteria suitable for evaluating low-flow simulations. Journal of Hydrology, 420, 171-182. doi:10.1016/j.jhydrol.2011.11.055}  
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>

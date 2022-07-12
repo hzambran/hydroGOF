@@ -19,7 +19,7 @@
 #            DOI: 10.1016/j.jhydrol.2011.11.055                                #
 ################################################################################
 # Started: 29-Jun-2017                                                         #
-# Updates:                                                                     #
+# Updates: 11-Jul-2022 ; 12-Jul-2022                                           #
 ################################################################################
 # 'sim'     : numeric, with simulated values
 # 'obs'     : numeric, with observed values
@@ -30,12 +30,17 @@
 #             and 'obs' before applying FUN. It is was  designed to allow the 
 #             use of logarithm and other similar functions that do not work with 
 #             zero values. It must be one of the following three possible values:
-#             -) 0                : zero is added to both 'sim' and 'obs'.
 #             -) "Pushpalatha2012": one hundredth of the mean observed values is 
 #                                   added to both 'sim' and 'obs', as described  
 #                                   in Pushpalatha et al., (2012). 
-#             -) "other"          : the numeric value defined in the 'epsilon.value'
-#                                   argument is added to both 'sim' and 'obs'
+#             -) "otherFactor"    : the numeric value defined in the \code{epsilon.value} 
+#                                   argument is used to multiply the the mean 
+#                                   observed values, instead of the 
+#                                   one hundredth (1/100) described in Pushpalatha et al. (2012). 
+#                                   The resulting value is then added to both 
+#                                   \code{sim} and \code{obs}.
+#             -) "otherValue"     : the numeric value defined in the 'epsilon.value'
+#                                   argument is directly added to both 'sim' and 'obs'
 # 'epsilon.value': numeric value to be added to both 'sim' and 'obs' when 
 #                  'epsilon="other"'
 # 'Output': a list with two numeric vectors:
@@ -43,7 +48,9 @@
 #                     applying 'FUN' 
 #           2) 'obs': observed values after adding 'epsilon.value' and 
 #                     applying 'FUN' 
-preproc <- function (sim, obs, FUN, epsilon=c(0, "Pushpalatha2012", "other"), epsilon.value=NA, ...) { 
+preproc <- function (sim, obs, na.rm=TRUE, FUN, 
+                     epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                     epsilon.value=NA, ...) { 
 
    # FUN ?
    fun.exists <- FALSE
@@ -53,27 +60,30 @@ preproc <- function (sim, obs, FUN, epsilon=c(0, "Pushpalatha2012", "other"), ep
    } # IF end
 
    # epsilon.value ?
-   epsilon <- match.arg(epsilon)  
-   if (epsilon==0) {
-         epsilon.value <- 0
-   } else if (epsilon=="Pushpalatha2012") {    
-       if (  length(which(is.na(obs))) > 0 ) {
-          stop("Invalid argument: you can not have 'NA' values in 'obs' when using 'epsilon=Pushpalatha2012'")
-       } else epsilon.value <- mean(obs, na.rm=TRUE)/100
-     } else if (epsilon=="other") {
-         if (is.na(epsilon.value))
-           stop("Missing argument: you need to provide 'epsilon.value'")
-       } # ELSE end
+   epsilon <- match.arg(epsilon)
+
+   if (epsilon %in% c("otherFactor", "otherValue") )  {
+     if (is.na(epsilon.value))
+       stop("Missing argument: you need to provide 'epsilon.value' !")
+
+     if ( !is.numeric(epsilon.value) )
+       stop("Invalid argument: 'epsilon.value' must be numeric !")
+   } # IF end
+ 
+   if (epsilon=="Pushpalatha2012") {    
+       epsilon.value <- (1/100)*mean(obs, na.rm=na.rm)
+   } else if (epsilon=="otherFactor") {
+       epsilon.value <- epsilon.value*mean(obs, na.rm=na.rm)
+     } # ELSE (epsilon="otherValue"): epsilon.value=epsilon.value
+
+   # Adding epsilon, before applying FUN
+   obs <- obs + epsilon.value
+   sim <- sim + epsilon.value
 
    # using FUN (and 'epsilon.value')
    if (fun.exists) {
      obs.bak <- obs
      sim.bak <- sim
-
-     if (epsilon.value!=0) {
-       obs <- obs + epsilon.value
-       sim <- sim + epsilon.value
-     } # IF end
 
      obs <- FUN( obs, ...)     
      sim <- FUN( sim, ...)
