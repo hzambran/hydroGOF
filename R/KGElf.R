@@ -120,7 +120,7 @@ KGElf.data.frame <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
   
-  method   <- match.arg(method)
+  method  <- match.arg(method)
   epsilon <- match.arg(epsilon) 
    
   KGElf.matrix(sim, obs, s=s, na.rm=na.rm, method=method, FUN=FUN, ..., 
