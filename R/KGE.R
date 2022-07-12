@@ -68,9 +68,11 @@ KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
     sim <- as.numeric(sim[vi])
 
     if (!is.null(FUN)) {
-      new <- preproc(sim=sim, obs=obs, FUN=FUN, epsilon=epsilon, epsilon.value=epsilon.value, ...)
-      sim <- new[["sim"]]
-      obs <- new[["obs"]]
+      fun1 <- match.fun(FUN)
+      new  <- preproc(sim=sim, obs=obs, fun=fun1, ..., 
+                      epsilon=epsilon, epsilon.value=epsilon.value)
+      sim  <- new[["sim"]]
+      obs  <- new[["obs"]]
     } # IF end
 
     # Mean values
