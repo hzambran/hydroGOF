@@ -1,6 +1,7 @@
 % File NSE.Rd
-%% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
-%%                                 http://cran.r-project.org/web/packages/hydroGOF/
+%% Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
+%%                                 https://cran.r-project.org/package=hydroGOF
+%%                                 http://www.rforge.net/hydroGOF/
 %% Copyright 2011-2017 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or later
 
@@ -53,6 +54,9 @@ When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{s
   \item{FUN}{
 function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing the Nash-Sutcliffe efficiency.
 }
+  \item{\dots}{
+further arguments passed to \code{FUN}.
+}
   \item{epsilon}{
 argument used to define a numeric value to be added to both \code{sim} and \code{obs} before applying \code{FUN}. \cr
 It is was  designed to allow the use of logarithm and other similar functions that do not work with zero values. \cr
@@ -63,9 +67,6 @@ Valid values are:\cr
 }
   \item{epsilon.value}{
  numeric value to be added to both \code{sim} and \code{obs} when \code{epsilon="other"}.
-}
-  \item{\dots}{
-further arguments passed to \code{FUN}.
 }
 }
 \details{
