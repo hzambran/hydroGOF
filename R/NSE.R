@@ -1,10 +1,10 @@
-########################################
-# 'NSE': Nash-sutcliffe Efficiency     #
-########################################
-# 15-Dic-2008   ; 06-Sep-09            #
-# 29-Jun-2017                          #
-# 11-Jul-2022 ; 12-Jul-2022            #
-########################################
+################################################################################
+# 'NSE': Nash-sutcliffe Efficiency                                             #
+################################################################################
+# 15-Dic-2008   ; 06-Sep-09                                                    #
+# 29-Jun-2017                                                                  #
+# 11-Jul-2022 ; 12-Jul-2022 ; 13-Jul-2022                                      #
+################################################################################
 # Nash-Sutcliffe efficiencies (Nash and Sutcliffe, 1970) range from -Inf to 1. 
 # An efficiency of 1 (NSE = 1) corresponds to a perfect match of modeled to the observed data. 
 # An efficiency of 0 (NSE = 0) indicates that the model predictions are as accurate
@@ -18,8 +18,8 @@
 
 NSE <-function(sim, obs, ...) UseMethod("NSE")
 
-NSE.default <- function (sim, obs, na.rm=TRUE, FUN=NULL, ..., 
-                         epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+NSE.default <- function (sim, obs, na.rm=TRUE, fun=NULL, ..., 
+                         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                          epsilon.value=NA){ 
 
    if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
@@ -31,10 +31,10 @@ NSE.default <- function (sim, obs, na.rm=TRUE, FUN=NULL, ...,
    obs <- obs[vi]
    sim <- sim[vi]
 
-   if (!is.null(FUN)) {
-     fun1 <- match.fun(FUN)
+   if (!is.null(fun)) {
+     fun1 <- match.fun(fun)
      new  <- preproc(sim=sim, obs=obs, fun=fun1, ..., 
-                     epsilon=epsilon, epsilon.value=epsilon.value)
+                     epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      sim  <- new[["sim"]]
      obs  <- new[["obs"]]
    } # IF end
@@ -55,8 +55,8 @@ NSE.default <- function (sim, obs, na.rm=TRUE, FUN=NULL, ...,
 } # 'NSE' end
 
 
-NSE.matrix <- function(sim, obs, na.rm=TRUE, FUN=NULL, ..., 
-                       epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+NSE.matrix <- function(sim, obs, na.rm=TRUE, fun=NULL, ..., 
+                       epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                        epsilon.value=NA){ 
 
   # Checking that 'sim' and 'obs' have the same dimensions
@@ -68,8 +68,8 @@ NSE.matrix <- function(sim, obs, na.rm=TRUE, FUN=NULL, ...,
   NS <- rep(NA, ncol(obs))       
           
   NS <- sapply(1:ncol(obs), function(i,x,y) { 
-                 NS[i] <- NSE.default( x[,i], y[,i], na.rm=na.rm, FUN=FUN, ..., 
-                                       epsilon=epsilon, epsilon.value=epsilon.value)
+                 NS[i] <- NSE.default( x[,i], y[,i], na.rm=na.rm, fun=fun, ..., 
+                                       epsilon.type=epsilon.type, epsilon.value=epsilon.value)
                }, x=sim, y=obs )    
                      
   names(NS) <- colnames(obs)
@@ -79,15 +79,15 @@ NSE.matrix <- function(sim, obs, na.rm=TRUE, FUN=NULL, ...,
 } # 'NSE.matrix' end
 
 
-NSE.data.frame <- function(sim, obs, na.rm=TRUE, FUN=NULL, ..., 
-                           epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+NSE.data.frame <- function(sim, obs, na.rm=TRUE, fun=NULL, ..., 
+                           epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                            epsilon.value=NA){ 
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
    
-  NSE.matrix(sim, obs, na.rm=na.rm, FUN=FUN, ..., 
-             epsilon=epsilon, epsilon.value=epsilon.value)
+  NSE.matrix(sim, obs, na.rm=na.rm, fun=fun, ..., 
+             epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
 } # 'NSE.data.frame' end
 
@@ -99,19 +99,19 @@ NSeff <-function(sim, obs, ...) UseMethod("NSE")
 # Author: Mauricio Zambrano-Bigiarini                                          #
 ################################################################################
 # Started: 22-Mar-2013                                                         #
-# Updates:                                                                     #
+# Updates: 12-Jul-2022 ; 13-Jul-2022                                           #
 ################################################################################
-NSE.zoo <- function(sim, obs, na.rm=TRUE, FUN=NULL, ..., 
-                    epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+NSE.zoo <- function(sim, obs, na.rm=TRUE, fun=NULL, ..., 
+                    epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                     epsilon.value=NA){ 
     
     sim <- zoo::coredata(sim)
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
     
     if (is.matrix(sim) | is.data.frame(sim)) {
-       NSE.matrix(sim, obs, na.rm=na.rm, FUN=FUN, epsilon=epsilon, 
+       NSE.matrix(sim, obs, na.rm=na.rm, fun=fun, epsilon.type=epsilon.type, 
                   epsilon.value=epsilon.value, ...)
-    } else NextMethod(sim, obs, na.rm=na.rm, FUN=FUN, epsilon=epsilon, 
+    } else NextMethod(sim, obs, na.rm=na.rm, fun=fun, epsilon.type=epsilon.type, 
                       epsilon.value=epsilon.value, ...)
      
   } # 'NSE.zoo' end
