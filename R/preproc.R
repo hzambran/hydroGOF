@@ -1,7 +1,8 @@
 # File preproc.R
-# Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
-#                                 http://cran.r-project.org/web/packages/hydroGOF/
-# Copyright 2017 Mauricio Zambrano-Bigiarini
+# Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
+#                                 https://cran.r-project.org/package=hydroGOF
+#                                 http://www.rforge.net/hydroGOF/
+# Copyright 2017-2022 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -19,7 +20,7 @@
 #            DOI: 10.1016/j.jhydrol.2011.11.055                                #
 ################################################################################
 # Started: 29-Jun-2017                                                         #
-# Updates: 11-Jul-2022 ; 12-Jul-2022                                           #
+# Updates: 11-Jul-2022 ; 12-Jul-2022 ; 13-Jul-2022                             #
 ################################################################################
 # 'sim'     : numeric, with simulated values
 # 'obs'     : numeric, with observed values
@@ -27,10 +28,10 @@
 #             transformed values thereof before applying any goodness-of-fit 
 #             function included in the hydroGOF package
 # '...'     : additional argument to be passed to fun
-# 'epsilon' : argument used to define a numeric value to be added to both 'sim' 
-#             and 'obs' before applying fun. It is was  designed to allow the 
-#             use of logarithm and other similar functions that do not work with 
-#             zero values. It must be one of the following three possible values:
+# 'epsilon.type' : argument used to define a numeric value to be added to both 'sim' 
+#                  and 'obs' before applying fun. It is was  designed to allow the 
+#                  use of logarithm and other similar functions that do not work with 
+#                  zero values. It must be one of the following three possible values:
 #             -) "Pushpalatha2012": one hundredth of the mean observed values is 
 #                                   added to both 'sim' and 'obs', as described  
 #                                   in Pushpalatha et al., (2012). 
@@ -52,8 +53,8 @@
 #           2) 'obs': observed values after adding 'epsilon.value' and 
 #                     applying 'fun' 
 preproc <- function (sim, obs, na.rm=TRUE, fun,  ..., 
-                     epsilon=c("Pushpalatha2012", "otherFactor", "otherValue"), 
-                     epsilon.value=NA) { 
+                     epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                     epsilon.value=0) { 
 
    # fun ?
    fun.exists <- FALSE
@@ -62,22 +63,25 @@ preproc <- function (sim, obs, na.rm=TRUE, fun,  ...,
      fun        <- match.fun(fun)
    } # IF end
 
-   # epsilon.value ?
-   epsilon <- match.arg(epsilon)
+   # epsilon.type ?
+   epsilon.type <- match.arg(epsilon.type)
 
-   if (epsilon %in% c("otherFactor", "otherValue") )  {
+   if (epsilon.type %in% c("otherFactor", "otherValue") )  {
      if (is.na(epsilon.value))
        stop("Missing argument: you need to provide 'epsilon.value' !")
 
      if ( !is.numeric(epsilon.value) )
        stop("Invalid argument: 'epsilon.value' must be numeric !")
    } # IF end
- 
-   if (epsilon=="Pushpalatha2012") {    
+
+   # epsilon.value 
+   if (epsilon.type != "none") {
+     if (epsilon.type=="Pushpalatha2012") {    
        epsilon.value <- (1/100)*mean(obs, na.rm=na.rm)
-   } else if (epsilon=="otherFactor") {
-       epsilon.value <- epsilon.value*mean(obs, na.rm=na.rm)
-     } # ELSE (epsilon="otherValue"): epsilon.value=epsilon.value
+     } else if (epsilon.type=="otherFactor") {
+         epsilon.value <- epsilon.value*mean(obs, na.rm=na.rm)
+       } # ELSE (epsilon="otherValue"): epsilon.value=epsilon.value
+   } else epsilon.value <- 0
 
    # Adding epsilon, before applying fun
    obs <- obs + epsilon.value
