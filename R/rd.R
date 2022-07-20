@@ -32,7 +32,7 @@ rd.default <- function (sim, obs, na.rm=TRUE,
                         method=c("1985", "2011"), 
                         fun=NULL, ...,
                         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                        epsilon.value=NA), ...){ 
+                        epsilon.value=NA){ 
 
   if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo"))) |
        is.na(match(class(obs), c("integer", "numeric", "ts", "zoo")))
@@ -96,7 +96,7 @@ rd.matrix <- function (sim, obs, na.rm=TRUE,
                        method=c("1985", "2011"), 
                        fun=NULL, ...,
                        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                       epsilon.value=NA), ...){ 
+                       epsilon.value=NA){ 
 
  # Checking that 'sim' and 'obs' have the same dimensions
  if ( all.equal(dim(sim), dim(obs)) != TRUE )
@@ -120,7 +120,7 @@ rd.data.frame <- function (sim, obs, na.rm=TRUE,
                            method=c("1985", "2011"), 
                            fun=NULL, ...,
                            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                           epsilon.value=NA), ...){ 
+                           epsilon.value=NA){ 
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
@@ -140,7 +140,7 @@ rd.zoo <- function(sim, obs,
                    method=c("1985", "2011"), 
                    fun=NULL, ...,
                    epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                   epsilon.value=NA), ...){ 
+                   epsilon.value=NA){ 
     
     sim <- zoo::coredata(sim)
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
