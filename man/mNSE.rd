@@ -22,13 +22,21 @@ Modified Nash-Sutcliffe efficiency between \code{sim} and \code{obs}, with treat
 \usage{
 mNSE(sim, obs, ...)
 
-\method{mNSE}{default}(sim, obs, j=1, na.rm=TRUE, ...)
+\method{mNSE}{default}(sim, obs, j=1, na.rm=TRUE, fun=NULL, ...,
+                       epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                       epsilon.value=NA)
 
-\method{mNSE}{data.frame}(sim, obs, j=1, na.rm=TRUE, ...)
+\method{mNSE}{data.frame}(sim, obs, j=1, na.rm=TRUE, fun=NULL, ...,
+                          epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                          epsilon.value=NA)
 
-\method{mNSE}{matrix}(sim, obs, j=1, na.rm=TRUE, ...)
+\method{mNSE}{matrix}(sim, obs, j=1, na.rm=TRUE, fun=NULL, ...,
+                      epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                      epsilon.value=NA)
 
-\method{mNSE}{zoo}(sim, obs, j=1, na.rm=TRUE, ...)
+\method{mNSE}{zoo}(sim, obs, j=1, na.rm=TRUE, fun=NULL, ...,
+                   epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                   epsilon.value=NA)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -45,8 +53,31 @@ numeric, with the exponent to be used in the computation of the modified Nash-Su
 a logical value indicating whether 'NA' should be stripped before the computation proceeds. \cr
 When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{sim}, the i-th value of \code{obs} \bold{AND} \code{sim} are removed before the computation.
 }
+  \item{fun}{
+function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing the Nash-Sutcliffe efficiency.
+
+The first two arguments of \code{FUN} MUST BE NAMED \kbd{sim} and \kbd{obs} (in that specific order), and addtional arguments are passed using \code{\dots}.
+}
   \item{\dots}{
-further arguments passed to or from other methods.
+arguments passed to \code{FUN}, in addition to the mandatory \kbd{sim} and \kbd{obs}.
+}
+  \item{epsilon.type}{
+argument used to define a numeric value to be added to both \code{sim} and \code{obs} before applying \code{FUN}. 
+
+It is was  designed to allow the use of logarithm and other similar functions that do not work with zero values.
+
+Valid values of \code{epsilon.type} are:
+
+1) \kbd{"none"}: \code{sim} and \code{obs} are used by \code{FUN} without the addition of any nummeric value.
+
+2) \kbd{"Pushpalatha2012"}: one hundredth (1/100) of the mean observed values is added to both \code{sim} and \code{obs} before applying \code{FUN}, as described in Pushpalatha et al. (2012). 
+
+3) \kbd{"otherFactor"}: the numeric value defined in the \code{epsilon.value} argument is used to multiply the the mean observed values, instead of the one hundredth (1/100) described in Pushpalatha et al. (2012). The resulting value is then added to both \code{sim} and \code{obs}, before applying \code{FUN}.
+
+4) \kbd{"otherValue"}: the numeric value defined in the \code{epsilon.value} argument is directly added to both \code{sim} and \code{obs}, before applying \code{FUN}.
+}
+  \item{epsilon.value}{
+ numeric value to be added to both \code{sim} and \code{obs} when \code{epsilon.type="otherValue"}.
 }
 }
 \details{
