@@ -37,6 +37,8 @@ dr.default <- function(sim, obs, na.rm=TRUE,
           is.na(match(class(obs), c("integer", "numeric", "ts", "zoo")))
      ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo')")
 
+     epsilon.type <- match.arg(epsilon.type)
+
      # index of those elements that are present both in 'x' and 'y' (NON- NA values)
      vi <- valindex(sim, obs)
      
@@ -70,8 +72,8 @@ dr.default <- function(sim, obs, na.rm=TRUE,
        B <- c*sum( abs(obs - Om) )
      
        if (A <= B) {      
-         dr <- 1 - A / B )     
-       } else dr <- 1 - B / A ) 
+         dr <- 1 - A / B     
+       } else dr <- 1 - B / A 
      } else {
          dr <- NA
          warning("There are no pairs of 'sim' and 'obs' without missing values !")

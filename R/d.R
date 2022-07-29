@@ -28,6 +28,8 @@ d.default <- function(sim, obs, na.rm=TRUE,
           is.na(match(class(obs), c("integer", "numeric", "ts", "zoo")))
      ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo')")
 
+     epsilon.type <- match.arg(epsilon.type)
+
      # index of those elements that are present both in 'x' and 'y' (NON- NA values)
      vi <- valindex(sim, obs)
      

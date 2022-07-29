@@ -3,7 +3,7 @@
 ########################################
 # Started: April 15th, 2010            #
 # Updates: 01-Jun-2011                 #
-#          20-Jul-2022                 #
+#          20-Jul-2022 ; 29-Jul-2022   #
 ########################################
 # Ref
 # 1) Krause, P., Boyle, D. P., and Base, F.: 
@@ -29,7 +29,6 @@
 rd <-function(sim, obs, ...) UseMethod("rd")
 
 rd.default <- function (sim, obs, na.rm=TRUE,
-                        method=c("1985", "2011"), 
                         fun=NULL, ...,
                         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                         epsilon.value=NA){ 
@@ -38,7 +37,7 @@ rd.default <- function (sim, obs, na.rm=TRUE,
        is.na(match(class(obs), c("integer", "numeric", "ts", "zoo")))
   ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo')")
 
-  method   <- match.arg(method)
+  epsilon.type <- match.arg(epsilon.type)
 
   # index of those elements that are present both in 'x' and 'y' (NON- NA values)
   vi <- valindex(sim, obs)
@@ -69,14 +68,12 @@ rd.default <- function (sim, obs, na.rm=TRUE,
     if ( !is.na(match(class(obs), c("ts", "zoo"))) ) obs <- as.numeric(obs)
      
     # Mean of the observed values
-    Om <- mean(obs)
+    Om <- mean(obs, na.rm=na.rm)
      
     denominator <- sum( ( ( abs(sim - Om) + abs(obs - Om) ) / Om )^2 )
      
-    if (denominator != 0) {
-      
-      rd <- 1 - ( sum( ( (obs - sim) / obs)^2 ) / denominator )
-     
+    if (denominator != 0) {      
+      rd <- 1 - ( sum( ( (obs - sim) / obs)^2 ) / denominator )     
     } else {
         rd <- NA
         warning("'sum( ( ( abs(sim-Om) + abs(obs-Om) ) / Om )^2 ) = 0', it is not possible to compute 'rd'")  
@@ -93,7 +90,6 @@ rd.default <- function (sim, obs, na.rm=TRUE,
 
 
 rd.matrix <- function (sim, obs, na.rm=TRUE,
-                       method=c("1985", "2011"), 
                        fun=NULL, ...,
                        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                        epsilon.value=NA){ 
@@ -117,7 +113,6 @@ rd.matrix <- function (sim, obs, na.rm=TRUE,
 
 
 rd.data.frame <- function (sim, obs, na.rm=TRUE,
-                           method=c("1985", "2011"), 
                            fun=NULL, ...,
                            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                            epsilon.value=NA){ 
@@ -134,10 +129,9 @@ rd.data.frame <- function (sim, obs, na.rm=TRUE,
 # Author: Mauricio Zambrano-Bigiarini                                          #
 ################################################################################
 # Started: 22-Mar-2013                                                         #
-# Updates: 20-Jul-2022                                                         #
+# Updates: 20-Jul-2022 ; 29-Jul-2022                                           #
 ################################################################################
-rd.zoo <- function(sim, obs,
-                   method=c("1985", "2011"), 
+rd.zoo <- function(sim, obs, na.rm=TRUE,
                    fun=NULL, ...,
                    epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                    epsilon.value=NA){ 
