@@ -1,8 +1,9 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
 0.4-3  Under-development
-        o new function 'KGElf', which computes the Kling-Gupta efficiency focused on low flows, propsed by García et al. (2017).
+        o new function 'KGElf', which computes the Kling-Gupta efficiency focused on low flows proposed by García et al. (2017).
         o new function 'sKGE', which computes the Split Kling-Gupta efficiency, which was proposed by Fowler et al. (2018) for calibration in a drying climate.
+        o new function 'dr', which computes the REfined Index of Agreement proposed by Willmott et al. (2012).
         o 'KGE': three new arguments (FUN, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)                                              
         o 'br2': new argument 'dec' to allow the user to specify the number of decimals shown in the output object. Default value set to 1 for compatibility with previous versions. Thanks to Ken Newman !
         o 'NSE': possible values of 'epsilon' argument were changed to c('Pushpalatha2012', 'otherFactor', 'otherValue'), to give the user more flexibility in the computation of the constant value added to 'sim' and 'obs' when using transformed values to compute the NSE (e.g., when focusing on low flows)
