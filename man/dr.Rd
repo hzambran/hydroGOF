@@ -79,12 +79,17 @@ Valid values of \code{epsilon.type} are:
 }
 }
 \details{
-\deqn{dr = 1 - \frac{\sum_{i=1}^N {(O_i - S_i)^2} } { \sum_{i=1}^N { ( \left| S_i -  \bar{O} \right| + \left| O_i -  \bar{O}  \right| } )^2 } }{%
-dr = 1 - [ ( sum( (obs - sim)^2 ) ] /  sum( ( abs(sim - mean(obs)) + abs(obs - mean(obs))  )^2 ) } 
+\deqn{c = 2}
+\deqn{A = \sum_{i=1}^N {\left| S_i - O_i \right|} }
+\deqn{B = c \sum_{i=1}^N {\left| O_i - \bar{O} \right|} }
+\deqn{dr = 1 - \frac{A} { B } ; A \leq B}{%
+dr = 1 - A / B ; A <= B } 
+\deqn{dr = 1 - \frac{B} { A } ; A > B}{%
+dr = 1 - B / A ; A > B } 
 
 The Refined Index of Agreement (dr, Willmott et al., 2012) is a reformulation of the orginal Willmott's index of agreement developed in the 1980s (Willmott, 1981; Willmott, 1984; Willmott et al., 1985)
 
-The Refined Index of Agreement (dr) is dimensionless, and it varies between -1 to 1 (in contrast to the origina d, which varies in [0, 1]).
+The Refined Index of Agreement (dr) is dimensionless, and it varies between -1 to 1 (in contrast to the original d, which varies in [0, 1]).
 
 The Refined Index of Agreement (dr) is monotonically related with the modified Nash-Sutcliffe (E1) desribed in Legates and McCabe (1999).
 
@@ -97,11 +102,11 @@ Refined Index of Agreement (dr) between \code{sim} and \code{obs}. \cr
 If \code{sim} and \code{obs} are matrixes or data.frames, the returned value is a vector, with the Refined Index of Agreement (dr) between each column of \code{sim} and \code{obs}.
 }
 \references{
-\cite{Willmott, C.J., Robeson, S.M. and Matsuura, K. (2012). A refined index of model performance. International Journal of climatology, 32(13), pp.2088-2094. doi:10.1002/joc.2419.}
+\cite{Willmott, C.J., Robeson, S.M. and Matsuura, K. (2012). A refined index of model performance. International Journal of climatology, 32(13), pp.2088-2094. doi:10.1002/joc.2419.} \cr
 
-\cite{Willmott, C.J., Robeson, S.M., Matsuura, K. and Ficklin, D.L. (2015). Assessment of three dimensionless measures of model performance. Environmental Modelling \& Software, 73, pp.167-174. doi:10.1016/j.envsoft.2015.08.012}
+\cite{Willmott, C.J., Robeson, S.M., Matsuura, K. and Ficklin, D.L. (2015). Assessment of three dimensionless measures of model performance. Environmental Modelling & Software, 73, pp.167-174. doi:10.1016/j.envsoft.2015.08.012} \cr
 
-\cite{Willmott, C. J. 1981. On the validation of models. Physical Geography, 2, 184--194} \cr
+\cite{Willmott, C. J. 1981. On the validation of models. Physical Geography, 2, 184--194}  \cr
 
 \cite{Willmott, C. J. (1984). On the evaluation of model performance in physical geography. Spatial Statistics and Models, G. L. Gaile and C. J. Willmott, eds., 443-460} \cr
 
