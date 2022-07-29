@@ -5,7 +5,7 @@
 # Updates: 01-Jun-2011                           #
 ##################################################
 # Ref:
-# Krause, P., Boyle, D. P., and Base, F.: Comparison of different efficiency criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005 
+# Krause, P., Boyle, D. P., and Base, F. (2005). Comparison of different efficiency criteria for hydrological model assessment, Adv. Geosci., 5, 89-97
 # Legates and McCabe, 1999. Evaluating the use of "goodness-of-fit" measures 
 #                           in hydrologic and hydroclimatic model validation. 
 #                           Water Resources Research. v35 i1. 233-241.
@@ -35,7 +35,7 @@ mNSE.default <- function (sim, obs, j=1, na.rm=TRUE, ...){
 	 obs <- obs[vi]
 	 sim <- sim[vi]
 	 
-	 denominator <- sum( abs(obs - mean(obs))^j )
+	 denominator <- sum( abs(obs - mean(obs, na.rm=na.rm))^j )
 	 
 	 if (denominator != 0) {
 	  
