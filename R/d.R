@@ -3,12 +3,11 @@
 ########################################
 # December 18th, 2008;  06-Sep-09      #
 # 28-Feb-2016                          #
-# 20-Jul-2022                          #
+# Updates: 20-Jul-2022 ; 29-Jul-2022   #
 ########################################
 # 1) Willmott, C.J. 1981. On the validation of models. Physical Geography, 2, 184-194
 # 2) Willmott, C. J. (1984). "On the evaluation of model performance in physical geography." Spatial Statistics and Models, G. L. Gaile and C. J. Willmott, eds., 443-460.
 # 3) Legates, D. R., and G. J. McCabe Jr. (1999), Evaluating the Use of "Goodness-of-Fit" Measures in Hydrologic and Hydroclimatic Model Validation, Water Resour. Res., 35(1), 233-241. 
-# 4) Willmott, C.J., Robeson, S.M. and Matsuura, K., 2012. A refined index of model performance. International Journal of climatology, 32(13), pp.2088-2094. doi:10.1002/joc.2419
 
 # Index of Agreement (Willmott et al., 1984) range from 0.0 to 1.0 
 # and the closer to 1 the better the performance of the model 
@@ -21,7 +20,6 @@
 d <-function(sim, obs, ...) UseMethod("d")
 
 d.default <- function(sim, obs, na.rm=TRUE,
-                      method=c("1985", "2011"), 
                       fun=NULL, ...,
                       epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                       epsilon.value=NA){ 
@@ -54,19 +52,16 @@ d.default <- function(sim, obs, na.rm=TRUE,
        if ( !is.na(match(class(obs), c("ts", "zoo"))) ) obs <- as.numeric(obs)
      
        # Mean of the observed values
-       Om <- mean(obs)
+       Om <- mean(obs, na.rm=na.rm)
       
        denominator <- sum( ( abs(sim - Om) + abs(obs - Om)  )^2 )
      
-       if (denominator != 0) {
-      
-         d <- 1 - ( sum( (obs - sim)^2 ) / denominator )
-     
+       if (denominator != 0) {      
+         d <- 1 - ( sum( (obs - sim)^2 ) / denominator )     
        } else {      
            d <- NA   
            warning("'sum((abs(sim-Om)+abs(obs-Om))^2)=0', it is not possible to compute 'IoA'")           
          }
-
      } else {
          d <- NA
          warning("There are no pairs of 'sim' and 'obs' without missing values !")
@@ -77,11 +72,10 @@ d.default <- function(sim, obs, na.rm=TRUE,
 } # 'd.default' end
 
 
-d.matrix <- function (sim, obs, na.rm=TRUE,
-                      method=c("1985", "2011"), 
-                      fun=NULL, ...,
-                      epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                      epsilon.value=NA){ 
+d.matrix <- function(sim, obs, na.rm=TRUE,
+                     fun=NULL, ...,
+                     epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                     epsilon.value=NA){ 
  
  # Checking that 'sim' and 'obs' have the same dimensions
  if ( all.equal(dim(sim), dim(obs)) != TRUE )
@@ -92,8 +86,9 @@ d.matrix <- function (sim, obs, na.rm=TRUE,
  d <- rep(NA, ncol(obs))       
           
  d <- sapply(1:ncol(obs), function(i,x,y) { 
-                 d[i] <- d.default( x[,i], y[,i], na.rm=na.rm, ... )
-                 }, x=sim, y=obs )    
+             d[i] <- d.default( x[,i], y[,i], na.rm=na.rm, ... )
+             }, x=sim, y=obs, na.rm=na.rm, fun=fun, ..., 
+             epsilon.type=epsilon.type, epsilon.value=epsilon.value)    
                      
   names(d) <- colnames(obs)
   return(d)
@@ -101,12 +96,16 @@ d.matrix <- function (sim, obs, na.rm=TRUE,
 } # 'd.matrix' end
 
 
-d.data.frame <- function (sim, obs, na.rm=TRUE, ...){ 
+d.data.frame <- function(sim, obs, na.rm=TRUE,
+                         fun=NULL, ...,
+                         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                         epsilon.value=NA){  
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
    
-  d.matrix(sim, obs, na.rm=na.rm, ...)
+  d.matrix(sim, obs, na.rm=na.rm, fun=fun, ..., 
+           epsilon.type=epsilon.type, epsilon.value=epsilon.value)    
      
 } # 'd.data.frame' end
 
@@ -115,10 +114,9 @@ d.data.frame <- function (sim, obs, na.rm=TRUE, ...){
 # Author: Mauricio Zambrano-Bigiarini                                          #
 ################################################################################
 # Started: 22-Mar-2013                                                         #
-# Updates: 20-Jul-2022                                                         #
+# Updates: 20-Jul-2022 ; 29-Jul-2022                                           #
 ################################################################################
 d.zoo <- function(sim, obs, na.rm=TRUE,
-                  method=c("1985", "2011"), 
                   fun=NULL, ...,
                   epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                   epsilon.value=NA){ 
@@ -127,7 +125,9 @@ d.zoo <- function(sim, obs, na.rm=TRUE,
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
     
     if (is.matrix(sim) | is.data.frame(sim)) {
-       d.matrix(sim, obs, na.rm=na.rm, ...)
-    } else NextMethod(sim, obs, na.rm=na.rm, ...)
+       d.matrix(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                epsilon.type=epsilon.type, epsilon.value=epsilon.value)    
+    } else NextMethod(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                      epsilon.type=epsilon.type, epsilon.value=epsilon.value)    
      
   } # 'd.zoo' end
