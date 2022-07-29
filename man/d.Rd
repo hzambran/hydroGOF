@@ -23,13 +23,21 @@ If \code{x} is a matrix or a data frame, a vector of the Index of Agreement of t
 \usage{
 d(sim, obs, ...)
 
-\method{d}{default}(sim, obs, na.rm=TRUE, ...)
+\method{d}{default}(sim, obs, na.rm=TRUE, fun=NULL, ...,
+                    epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                    epsilon.value=NA)
 
-\method{d}{data.frame}(sim, obs, na.rm=TRUE, ...)
+\method{d}{data.frame}(sim, obs, na.rm=TRUE, fun=NULL, ...,
+                       epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                       epsilon.value=NA)
 
-\method{d}{matrix}(sim, obs, na.rm=TRUE, ...)
+\method{d}{matrix}(sim, obs, na.rm=TRUE, fun=NULL, ...,
+                   epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                   epsilon.value=NA)
 
-\method{d}{zoo}(sim, obs, na.rm=TRUE, ...)
+\method{d}{zoo}(sim, obs, na.rm=TRUE, fun=NULL, ...,
+                epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                epsilon.value=NA)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -43,32 +51,56 @@ numeric, zoo, matrix or data.frame with observed values
 a logical value indicating whether 'NA' should be stripped before the computation proceeds. \cr
 When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{sim}, the i-th value of \code{obs} \bold{AND} \code{sim} are removed before the computation.
 }
+  \item{fun}{
+function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing the Nash-Sutcliffe efficiency.
+
+The first two arguments of \code{FUN} MUST BE NAMED \kbd{sim} and \kbd{obs} (in that specific order), and addtional arguments are passed using \code{\dots}.
+}
   \item{\dots}{
-further arguments passed to or from other methods.
+arguments passed to \code{FUN}, in addition to the mandatory \kbd{sim} and \kbd{obs}.
+}
+  \item{epsilon.type}{
+argument used to define a numeric value to be added to both \code{sim} and \code{obs} before applying \code{FUN}. 
+
+It is was  designed to allow the use of logarithm and other similar functions that do not work with zero values.
+
+Valid values of \code{epsilon.type} are:
+
+1) \kbd{"none"}: \code{sim} and \code{obs} are used by \code{FUN} without the addition of any nummeric value.
+
+2) \kbd{"Pushpalatha2012"}: one hundredth (1/100) of the mean observed values is added to both \code{sim} and \code{obs} before applying \code{FUN}, as described in Pushpalatha et al. (2012). 
+
+3) \kbd{"otherFactor"}: the numeric value defined in the \code{epsilon.value} argument is used to multiply the the mean observed values, instead of the one hundredth (1/100) described in Pushpalatha et al. (2012). The resulting value is then added to both \code{sim} and \code{obs}, before applying \code{FUN}.
+
+4) \kbd{"otherValue"}: the numeric value defined in the \code{epsilon.value} argument is directly added to both \code{sim} and \code{obs}, before applying \code{FUN}.
+}
+  \item{epsilon.value}{
+ numeric value to be added to both \code{sim} and \code{obs} when \code{epsilon.type="otherValue"}.
 }
 }
 \details{
 \deqn{d = 1 - \frac{\sum_{i=1}^N {(O_i - S_i)^2} } { \sum_{i=1}^N { ( \left| S_i -  \bar{O} \right| + \left| O_i -  \bar{O}  \right| } )^2 } }{%
 d = 1 - [ ( sum( (obs - sim)^2 ) ] /  sum( ( abs(sim - mean(obs)) + abs(obs - mean(obs))  )^2 ) } 
 
-The Index of Agreement (d) developed by Willmott (1981) as a standardized measure of the degree of model prediction error and varies between 0 and 1. \cr
-A value of 1 indicates a perfect match, and 0 indicates no agreement at all (Willmott, 1981).
+The Index of Agreement (d) developed by Willmott (1981) as a standardized measure of the degree of model prediction error. 
+
+It is is dimensionless and varies between 0 and 1. A value of 1 indicates a perfect match, and 0 indicates no agreement at all (Willmott, 1981).
 
 The index of agreement can detect additive and proportional differences in the observed and simulated means and variances; however, it is overly sensitive to extreme values due to the squared differences (Legates and McCabe, 1999).
 }
 \value{
 Index of agreement between \code{sim} and \code{obs}. \cr
 
-If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the index of agreement between each column of \code{sim} and \code{obs}.
+If \code{sim} and \code{obs} are matrixes or data.frames, the returned value is a vector, with the index of agreement between each column of \code{sim} and \code{obs}.
 }
 \references{
-\cite{Willmott, C. J. 1981. On the validation of models. Physical Geography, 2, 184--194} \cr
+\cite{Willmott, C. J. 1981. On the validation of models. Physical Geography, 2, 184--194}
 
-\cite{Willmott, C. J. (1984). On the evaluation of model performance in physical geography. Spatial Statistics and Models, G. L. Gaile and C. J. Willmott, eds., 443-460} \cr
+\cite{Willmott, C. J. (1984). On the evaluation of model performance in physical geography. Spatial Statistics and Models, G. L. Gaile and C. J. Willmott, eds., 443-460}
 
-\cite{Willmott, C. J., S. G. Ackleson, R. E. Davis, J. J. Feddema, K. M. Klink, D. R. Legates, J. O'Donnell, and C. M. Rowe (1985), Statistics for the Evaluation and Comparison of Models, J. Geophys. Res., 90(C5), 8995-9005} \cr
+\cite{Willmott, C. J., S. G. Ackleson, R. E. Davis, J. J. Feddema, K. M. Klink, D. R. Legates, J. O'Donnell, and C. M. Rowe (1985), Statistics for the Evaluation and Comparison of Models, J. Geophys. Res., 90(C5), 8995-9005}
 
-\cite{Legates, D. R., and G. J. McCabe Jr. (1999), Evaluating the Use of "Goodness-of-Fit" Measures in Hydrologic and Hydroclimatic Model Validation, Water Resour. Res., 35(1), 233--241}
+\cite{Legates, D. R. and G. J. McCabe Jr. (1999), Evaluating the Use of "Goodness-of-Fit" Measures in Hydrologic and Hydroclimatic Model Validation, Water Resources Research, 35(1), 233-241. doi:10.1029/1998WR900018}
 
 }
 \author{
