@@ -55,7 +55,7 @@ Mean absolute error between \code{sim} and \code{obs}. \cr
 If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the mean absolute error between each column of \code{sim} and \code{obs}.
 }
 \references{
-\url{http://en.wikipedia.org/wiki/Mean_absolute_error}
+\url{https://en.wikipedia.org/wiki/Mean_absolute_error}
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>

@@ -57,7 +57,7 @@ Root mean square error (rmse) between \code{sim} and \code{obs}. \cr
 If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the RMSE between each column of \code{sim} and \code{obs}.
 }
 \references{
-\url{http://en.wikipedia.org/wiki/Root_mean_square_deviation}
+\url{https://en.wikipedia.org/wiki/Root_mean_square_deviation}
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
