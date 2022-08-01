@@ -21,7 +21,7 @@
 # Hydrological sciences journal, 62(7), pp.1149-1166. doi:10.1080/02626667.2017.1308511
 
 # Ref2:
-# Pushpalatha, R., Perrin, C., Le Moine, N. and Andréassian, V. (2012). 
+# Pushpalatha, R., Perrin, C., Le Moine, N. and Andreassian, V. (2012). 
 # A review of efficiency criteria suitable for evaluating low-flow simulations. 
 # Journal of Hydrology, 420, pp.171-182. doi: 10.1016/j.jhydrol.2011.11.055
 
