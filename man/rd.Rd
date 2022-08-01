@@ -24,20 +24,20 @@ If \code{x} is a matrix or a data frame, a vector of the relative index of agree
 rd(sim, obs, ...)
 
 \method{rd}{default}(sim, obs, na.rm=TRUE, fun=NULL, ...,
-                     epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                     epsilon.value=NA)
+            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+            epsilon.value=NA)
 
 \method{rd}{data.frame}(sim, obs, na.rm=TRUE, fun=NULL, ...,
-                        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                        epsilon.value=NA)
+            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+            epsilon.value=NA)
 
 \method{rd}{matrix}(sim, obs, na.rm=TRUE, fun=NULL, ...,
-                    epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                    epsilon.value=NA)
+            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+            epsilon.value=NA)
 
 \method{rd}{zoo}(sim, obs, na.rm=TRUE, fun=NULL, ...,
-                 epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                 epsilon.value=NA)
+            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+            epsilon.value=NA)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

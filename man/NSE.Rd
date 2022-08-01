@@ -2,7 +2,7 @@
 %% Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 %%                                 https://cran.r-project.org/package=hydroGOF
 %%                                 http://www.rforge.net/hydroGOF/
-%% Copyright 2011-2017 Mauricio Zambrano-Bigiarini
+%% Copyright 2011-2022 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or later
 
 \name{NSE}
@@ -24,20 +24,20 @@ Nash-Sutcliffe efficiency between \code{sim} and \code{obs}, with treatment of m
 NSE(sim, obs, ...)
 
 \method{NSE}{default}(sim, obs, na.rm=TRUE, fun=NULL, ..., 
-                      epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                      epsilon.value=NA)
+             epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+             epsilon.value=NA)
 
 \method{NSE}{data.frame}(sim, obs, na.rm=TRUE, fun=NULL, ..., 
-                         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                         epsilon.value=NA)
+             epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+             epsilon.value=NA)
 
 \method{NSE}{matrix}(sim, obs, na.rm=TRUE, fun=NULL, ..., 
-                     epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                     epsilon.value=NA)
+             epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+             epsilon.value=NA)
 
 \method{NSE}{zoo}(sim, obs, na.rm=TRUE, fun=NULL, ..., 
-                  epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                  epsilon.value=NA)
+            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+            epsilon.value=NA)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

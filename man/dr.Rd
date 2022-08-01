@@ -24,20 +24,20 @@ If \code{x} is a matrix or a data frame, a vector of the Index of Agreement of t
 dr(sim, obs, ...)
 
 \method{dr}{default}(sim, obs, na.rm=TRUE, fun=NULL, ...,
-                     epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                     epsilon.value=NA)
+            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+            epsilon.value=NA)
 
 \method{dr}{data.frame}(sim, obs, na.rm=TRUE, fun=NULL, ...,
-                        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                        epsilon.value=NA)
+            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+            epsilon.value=NA)
 
 \method{dr}{matrix}(sim, obs, na.rm=TRUE, fun=NULL, ...,
-                    epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                    epsilon.value=NA)
+            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+            epsilon.value=NA)
 
 \method{dr}{zoo}(sim, obs, na.rm=TRUE, fun=NULL, ...,
-                 epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                 epsilon.value=NA)
+            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+            epsilon.value=NA)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

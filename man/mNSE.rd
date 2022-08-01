@@ -23,20 +23,20 @@ Modified Nash-Sutcliffe efficiency between \code{sim} and \code{obs}, with treat
 mNSE(sim, obs, ...)
 
 \method{mNSE}{default}(sim, obs, j=1, na.rm=TRUE, fun=NULL, ...,
-                       epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                       epsilon.value=NA)
+              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+              epsilon.value=NA)
 
 \method{mNSE}{data.frame}(sim, obs, j=1, na.rm=TRUE, fun=NULL, ...,
-                          epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                          epsilon.value=NA)
+              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+              epsilon.value=NA)
 
 \method{mNSE}{matrix}(sim, obs, j=1, na.rm=TRUE, fun=NULL, ...,
-                      epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                      epsilon.value=NA)
+              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+              epsilon.value=NA)
 
 \method{mNSE}{zoo}(sim, obs, j=1, na.rm=TRUE, fun=NULL, ...,
-                   epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                   epsilon.value=NA)
+              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+              epsilon.value=NA)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

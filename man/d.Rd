@@ -1,7 +1,7 @@
 %% File d.Rd
 %% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 %%                                 http://cran.r-project.org/web/packages/hydroGOF/
-%% Copyright 2011-2014 Mauricio Zambrano-Bigiarini
+%% Copyright 2011-2022 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or lat
 
 \name{d}
@@ -24,20 +24,20 @@ If \code{x} is a matrix or a data frame, a vector of the Index of Agreement of t
 d(sim, obs, ...)
 
 \method{d}{default}(sim, obs, na.rm=TRUE, fun=NULL, ...,
-                    epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                    epsilon.value=NA)
+           epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+           epsilon.value=NA)
 
 \method{d}{data.frame}(sim, obs, na.rm=TRUE, fun=NULL, ...,
-                       epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                       epsilon.value=NA)
+           epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+           epsilon.value=NA)
 
 \method{d}{matrix}(sim, obs, na.rm=TRUE, fun=NULL, ...,
-                   epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                   epsilon.value=NA)
+           epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+           epsilon.value=NA)
 
 \method{d}{zoo}(sim, obs, na.rm=TRUE, fun=NULL, ...,
-                epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                epsilon.value=NA)
+           epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+           epsilon.value=NA)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
