@@ -32,8 +32,8 @@ ggof <- function (sim, obs,
                   gof.leg = TRUE, 
                   digits=2, 
                   gofs=c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", 
-                          "NSE", "mNSE", "rNSE", "d", "md", "rd", "r", "R2", 
-                          "bR2", "KGE", "VE"),
+                         "NSE", "lnNSE", "mNSE", "rNSE", "d", "md", "rd", "r",
+                         "R2", "bR2", "KGE", "VE"),
                   
                   legend,
                   leg.cex=1,
@@ -355,7 +355,7 @@ ggof <- function (sim, obs,
   } else if (ftype=="seasonal") {
 
      gofs.all     <- c("ME", "RMSE", "PBIAS", "RSR", "NSE", "d", "R2", "KGE", "VE") 
-     gofs.default <- c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", "rNSE", "d", "md", "rd", "r", "R2", "bR2", "KGE", "VE")
+     gofs.default <- c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "lnNSE", "mNSE", "rNSE", "d", "md", "rd", "r", "R2", "bR2", "KGE", "VE")
      if (all.equal(gofs, gofs.default)) gofs <- gofs.all
 
      # Checking 'gofs'       

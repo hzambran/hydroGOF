@@ -38,8 +38,8 @@ plot2 <- function (x, y,
                    gof.leg= FALSE, 
                    gof.digits=2, 
                    gofs=c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", 
-                          "NSE", "mNSE", "rNSE", "d", "md", "rd", "r", "R2", 
-                          "bR2", "KGE", "VE"),
+                          "NSE", "lnNSE", "mNSE", "rNSE", "d", "md", "rd", "r",
+                          "R2", "bR2", "KGE", "VE"),
                    
                    legend,
                    leg.cex=1,                       
@@ -66,7 +66,7 @@ plot2 <- function (x, y,
   if ( missing(y) ) stop("Missing argument: 'y'")
 
   # Checking 'gofs'
-  gofs.all=c("ME", "MAE", "MSE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", 
+  gofs.all=c("ME", "MAE", "MSE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "lnNSE",
              "mNSE", "rNSE", "d", "md", "rd", "cp", "r", "R2", "bR2", "KGE", "VE")  
   if (length(noNms <- gofs[!gofs %in% gofs.all])) 
     warning("[Unknown names in 'gofs': ", paste(noNms, collapse = ", "), " (not used) !]")		   
