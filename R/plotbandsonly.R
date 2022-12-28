@@ -12,6 +12,7 @@
 # Started: Date: 24-Nov-2010                                                   #
 ################################################################################
 # Updates: 15-Apr-2013                                                         #
+#          28-Dec-2022                                                         #
 ################################################################################
       
 plotbandsonly <- function(lband, uband,
@@ -45,8 +46,8 @@ plotbandsonly <- function(lband, uband,
       if ( zoo::is.zoo(x) | xts::is.xts(x) ) {
         # class(time(x))== "Date" for 'daily' and 'monthly' time series
         # class(time(x))== "character" for 'annual' time series
-        if ( class(time(x)) == "Date" ) { dates <- time(x) 
-        } else if ( class(time(x)) == "character" ) {  
+        if ( inherits(time(x), "Date") ) { dates <- time(x) 
+        } else if ( inherits(time(x), "character") ) {  
              dates <- as.Date(time(x), format="%Y") 
           }  
       } else # If there is no way to obtain the dates

@@ -13,6 +13,7 @@
 #          15-Apr-2011 ; 17-May-2011                                           #
 #          15-Apr-2013                                                         #
 #          06-Aug-2017                                                         #
+#          28-Dec-2022                                                         #
 ################################################################################
 plotbands <- function(x, lband, uband, sim,
                       
@@ -102,8 +103,8 @@ plotbands <- function(x, lband, uband, sim,
       if ( zoo::is.zoo(x) ) {
         # class(time(x))== "Date" for 'daily' and 'monthly' time series
         # class(time(x))== "character" for 'annual' time series
-        if ( class(time(x)) == "Date" ) { dates <- time(x) 
-        } else if ( class(time(x)) == "character" ) {  
+        if ( inherits(time(x), "Date") ) { dates <- time(x) 
+        } else if ( inherits(time(x), "character") ) {  
              dates <- as.Date(time(x), format="%Y") 
           }  
       } else # If there is no way to obtain the dates

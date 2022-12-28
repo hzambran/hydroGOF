@@ -18,6 +18,7 @@
 #          23-Jan-2012                                                         #
 #          15-Apr-2013 ; 15-May-2013                                           #
 #          06-Aug-2017                                                         #
+#          28-Dec-2022                                                         #
 ################################################################################
                 
 plot2 <- function (x, y, 
@@ -107,9 +108,9 @@ plot2 <- function (x, y,
   
     # class(time(x))== "Date" for 'daily' and 'monthly' time series
     # class(time(x))== "character" for 'annual' time series
-    if ( class(time(x)) == "Date" ) {
+    if ( inherits(time(x), "Date" ) ) {
         y <- vector2zoo(y, dates=time(x)) # hydroTSM::vector2zoo
-    } else if ( class(time(x)) == "character" ) {
+    } else if ( inherits(time(x), "character") ) {
         y <- vector2zoo(y, dates=time(x), date.fmt="%Y") # hydroTSM::vector2zoo
         time(x) <- time(y) #'annual' time series
     } # ELSE END
