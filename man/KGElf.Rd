@@ -149,7 +149,7 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{NSE}}, \code{\link{gof}}, \code{\link{ggof}}
+\code{\link{KGE}}, \code{\link{KGEnp}}, \code{\link{sKGE}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 # Example1: basic ideal case
