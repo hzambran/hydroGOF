@@ -24,25 +24,17 @@ This goodness-of-fit measure was developed by Pool et al. (2018), as a non-param
 \usage{
 KGEnp(sim, obs, ...)
 
-\method{KGEnp}{default}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
-               fun=function(x) 1/x, ...,
-               epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue"), 
-               epsilon.value=NA)
+\method{KGEnp}{default}(sim, obs, na.rm=TRUE, out.type=c("single", "full"), 
+               fun=NULL, ...)
 
-\method{KGEnp}{data.frame}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
-               fun=function(x) 1/x, ...,
-               epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue"), 
-               epsilon.value=NA)
+\method{KGEnp}{data.frame}(sim, obs, na.rm=TRUE, out.type=c("single", "full"), 
+               fun=NULL, ...)
 
-\method{KGEnp}{matrix}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
-               fun=function(x) 1/x, ...,
-               epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue"), 
-               epsilon.value=NA)
+\method{KGEnp}{matrix}(sim, obs, na.rm=TRUE, out.type=c("single", "full"), 
+               fun=NULL, ...)
              
-\method{KGEnp}{zoo}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
-               fun=function(x) 1/x, ...,
-               epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue"), 
-               epsilon.value=NA)
+\method{KGEnp}{zoo}(sim, obs, na.rm=TRUE, out.type=c("single", "full"), 
+               fun=NULL, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -52,20 +44,16 @@ numeric, zoo, matrix or data.frame with simulated values
   \item{obs}{
 numeric, zoo, matrix or data.frame with observed values
 }
-  \item{s}{
-numeric of length 3, representing the scaling factors to be used for re-scaling the criteria space before computing the Euclidean distance from the ideal point c(1,1,1), i.e., \code{s} elements are used for adjusting the emphasis on different components.
-The first elements is used for rescaling the Pearson product-moment correlation coefficient (\code{r}), the second element is used for rescaling \code{Alpha} and the third element is used for re-scaling \code{Beta}
-}
   \item{na.rm}{
 a logical value indicating whether 'NA' should be stripped before the computation proceeds. \cr
 When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{sim}, the i-th value of \code{obs} \bold{AND} \code{sim} are removed before the computation.
 }
-  \item{method}{
-character, indicating the formula used to compute the variability ratio in the Kling-Gupta efficiency. Valid values are:
+  \item{out.type}{
+character, indicating the whether the output of the function has to include each one of the three terms used in the computation of the Kling-Gupta efficiency or not. Valid values are:
 
--) \kbd{2009}: the variability is defined as \sQuote{Alpha}, the ratio of the standard deviation of \code{sim} values to the standard deviation of \code{obs}. This is the default option. See Gupta et al. (2009).
+-) \kbd{single}: the output is a numeric with the Kling-Gupta efficiency only.
 
--) \kbd{2012}: the variability is defined as \sQuote{Gamma}, the ratio of the coefficient of variation of \code{sim} values to the coefficient of variation of \code{obs}. See Kling et al. (2012). 
+-) \kbd{full}: the output is a list of two elements: the first one with the Kling-Gupta efficiency, and the second is a numeric with 3 elements: the Spearman rank correlation coefficient (\sQuote{rSpearman}), the ratio between the mean of the simulated values to the mean of observations (\sQuote{Beta}), and the variability measure (\sQuote{Alpha}).
 }
   \item{fun}{
 function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing this goodness-of-fit index.
@@ -74,24 +62,6 @@ The first two arguments of \code{FUN} MUST BE NAMED \kbd{sim} and \kbd{obs} (in 
 }
   \item{\dots}{
 arguments passed to \code{FUN}, in addition to the mandatory \kbd{sim} and \kbd{obs}.
-}
-  \item{epsilon.type}{
-argument used to define a numeric value to be added to both \code{sim} and \code{obs} before applying \code{FUN}. 
-
-It is was  designed to allow the use of logarithm and other similar functions that do not work with zero values.
-
-Valid values of \code{epsilon.type} are:
-
-1) \kbd{"none"}: \code{sim} and \code{obs} are used by \code{FUN} without the addition of any nummeric value.
-
-2) \kbd{"Pushpalatha2012"}: one hundredth (1/100) of the mean observed values is added to both \code{sim} and \code{obs} before applying \code{FUN}, as described in Pushpalatha et al. (2012). 
-
-3) \kbd{"otherFactor"}: the numeric value defined in the \code{epsilon.value} argument is used to multiply the the mean observed values, instead of the one hundredth (1/100) described in Pushpalatha et al. (2012). The resulting value is then added to both \code{sim} and \code{obs}, before applying \code{FUN}.
-
-4) \kbd{"otherValue"}: the numeric value defined in the \code{epsilon.value} argument is directly added to both \code{sim} and \code{obs}, before applying \code{FUN}.
-}
-  \item{epsilon.value}{
- numeric value to be added to both \code{sim} and \code{obs} when \code{epsilon.type="otherValue"}.
 }
 }
 \details{
@@ -162,7 +132,7 @@ obs <- EgaEnEstellaQts
 sim <- 2*obs 
 
 # KGE 2009
-KGEnp(sim=sim, obs=obs, method="2009", out.type="full")
+KGE(sim=sim, obs=obs, method="2009", out.type="full")
 
 # KGE 2012
 KGE(sim=sim, obs=obs, method="2012", out.type="full")

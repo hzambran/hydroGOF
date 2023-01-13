@@ -187,7 +187,7 @@ KGEnp.data.frame <- function (sim, obs, na.rm=TRUE,
 ################################################################################
 KGEnp.zoo <- function(sim, obs, na.rm=TRUE, 
                       out.type=c("single", "full"), 
-                      fun=NULL) { 
+                      fun=NULL, ...) { 
     
     sim <- zoo::coredata(sim)
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
