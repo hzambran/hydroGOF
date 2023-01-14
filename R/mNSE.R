@@ -22,10 +22,10 @@
 
 mNSE <-function(sim, obs, ...) UseMethod("mNSE")
 
-mNSE.default <- function (sim, obs, j=1, na.rm=TRUE,
-                          fun=NULL, ...,
-                          epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                          epsilon.value=NA){ 
+mNSE.default <- function(sim, obs, j=1, na.rm=TRUE,
+                         fun=NULL, ...,
+                         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                         epsilon.value=NA){ 
 
 	 if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
           is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
@@ -95,10 +95,10 @@ mNSE.matrix <- function (sim, obs, j=1, na.rm=TRUE,
 } # 'mNSE.matrix' end
 
 
-mNSE.data.frame <- function (sim, obs, j=1, na.rm=TRUE,
-                             fun=NULL, ...,
-                             epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                             epsilon.value=NA){  
+mNSE.data.frame <- function(sim, obs, j=1, na.rm=TRUE,
+                            fun=NULL, ...,
+                            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                            epsilon.value=NA){  
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
