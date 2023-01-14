@@ -1,5 +1,5 @@
 ########################################
-# 'IoA': Index of Agreement            #
+# 'dr': Refined Index of Agreement     #
 ########################################
 # December 18th, 2008;  06-Sep-09      #
 # 28-Feb-2016                          #
@@ -12,8 +12,11 @@
 # 5) Legates, D. R., and G. J. McCabe Jr. (1999), Evaluating the Use of "Goodness-of-Fit" Measures in Hydrologic and Hydroclimatic Model Validation, Water Resour. Res., 35(1), 233-241. 
 
 
-# Index of Agreement (Willmott et al., 1984) range from 0.0 to 1.0 
-# and the closer to 1 the better the performance of the model 
+# In contrast to the Index of Agreement (Willmott et al., 1984), which ranges from 0 to 1.0,
+# the Refined Index of Agreement is bounded by -1.0 and 1.0. The closer to 1 the better 
+# the performance of the model.
+# In geneeral, dr is  "more rationally related to model accuracy than are other existing
+# indices" (MSE, NSE, d, rd) (Willmott et a., 2012; Willmott et al., 2015)
 
 # 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values
 # 'sim'   : numeric 'data.frame', 'matrix' or 'vector' with simulated values

@@ -96,7 +96,7 @@ If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with 
 \references{
 \cite{Krause, P., Boyle, D. P., and Base, F.: Comparison of different efficiency criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005} \cr
 
-\cite{Willmott, C. J. 1981. On the validation of models. Physical Geography, 2, 184--194} \cr
+\cite{Willmott, C. J. (1981). On the validation of models. Physical Geography, 2, 184--194} \cr
 
 \cite{Willmott, C. J. (1984). On the evaluation of model performance in physical geography. Spatial Statistics and Models, G. L. Gaile and C. J. Willmott, eds., 443-460} \cr
 
@@ -119,7 +119,7 @@ If some of the observed values are equal to zero (at least one of them), this in
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{d}}, \code{\link{md}}, \code{\link{gof}}, \code{\link{ggof}}
+\code{\link{d}}, \code{\link{md}}, , \code{\link{dr}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 obs <- 1:10

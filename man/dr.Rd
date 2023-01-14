@@ -18,7 +18,7 @@ Refined Index of Agreement
 \description{
 This function computes the Refined Index of Agreement (dr) between \code{sim} and \code{obs}, with treatment of missing values.
 
-If \code{x} is a matrix or a data frame, a vector of the Index of Agreement of the columns is returned.
+If \code{x} is a matrix or a data frame, a vector with the Refined Index of Agreement of each column is returned.
 }
 \usage{
 dr(sim, obs, ...)
@@ -93,7 +93,7 @@ The Refined Index of Agreement (dr) is dimensionless, and it varies between -1 t
 
 The Refined Index of Agreement (dr) is monotonically related with the modified Nash-Sutcliffe (E1) desribed in Legates and McCabe (1999).
 
-In general, dr is more rationally related to model accuracy than are other existing indices (Willmott et al., 2012; Willmott et al., 2015). It also is quite flexible, making it applicable to a wide range of model-performance problems ((Willmott et al., 2012)
+In general, dr is more rationally related to model accuracy than are other existing indices (Willmott et al., 2012; Willmott et al., 2015). It also is quite flexible, making it applicable to a wide range of model-performance problems (Willmott et al., 2012)
 
 }
 \value{
@@ -106,7 +106,7 @@ If \code{sim} and \code{obs} are matrixes or data.frames, the returned value is 
 
 \cite{Willmott, C.J., Robeson, S.M., Matsuura, K. and Ficklin, D.L. (2015). Assessment of three dimensionless measures of model performance. Environmental Modelling & Software, 73, pp.167-174. doi:10.1016/j.envsoft.2015.08.012} \cr
 
-\cite{Willmott, C. J. 1981. On the validation of models. Physical Geography, 2, 184--194}  \cr
+\cite{Willmott, C. J. (1981). On the validation of models. Physical Geography, 2, 184--194}  \cr
 
 \cite{Willmott, C. J. (1984). On the evaluation of model performance in physical geography. Spatial Statistics and Models, G. L. Gaile and C. J. Willmott, eds., 443-460} \cr
 
@@ -127,7 +127,7 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{md}}, \code{\link{rd}}, \code{\link{gof}}, \code{\link{ggof}}
+\code{\link{d}}, \code{\link{md}}, \code{\link{rd}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 obs <- 1:10
