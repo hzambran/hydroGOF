@@ -70,7 +70,7 @@ KGEnp.default <- function(sim, obs, na.rm=TRUE,
     fdc.obs <- sort(obs, decreasing=FALSE) / (mean.obs * nQ)
          
     # Spearman's rank correlation coefficient
-    r     <- cor(sim, obs, method="spearman")
+    rS    <- cor(sim, obs, method="spearman", use="pairwise.complete.obs")
 
     # Alpha is a non-parametric form of the variability, based on the FDC (See Ref)
     Alpha <- 1 - 0.5 * sum(abs(fdc.sim - fdc.obs))
@@ -80,7 +80,7 @@ KGEnp.default <- function(sim, obs, na.rm=TRUE,
 
     # KGEnp Computation
     if ( mean.obs != 0 ) {
-        KGEnp <- 1 - sqrt( (Beta-1)^2 + (Alpha-1)^2 + (r-1)^2 )
+        KGEnp <- 1 - sqrt( (Beta-1)^2 + (Alpha-1)^2 + (rS-1)^2 )
     } else {
         if ( mean.obs != 0)  warning("Warning: 'mean(obs)==0'. Beta = Inf")
         KGEnp <- NA
