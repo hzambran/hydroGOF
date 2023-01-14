@@ -78,7 +78,7 @@ arguments passed to \code{FUN}, in addition to the mandatory \kbd{sim} and \kbd{
   \item{epsilon.type}{
 argument used to define a numeric value to be added to both \code{sim} and \code{obs} before applying \code{FUN}. 
 
-It is was  designed to allow the use of logarithm and other similar functions that do not work with zero values.
+It is designed to allow the use of logarithm and other similar functions that do not work with zero values.
 
 Valid values of \code{epsilon.type} are:
 
