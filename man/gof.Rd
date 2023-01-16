@@ -23,16 +23,24 @@ gof(sim, obs, ...)
 
 \method{gof}{default}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
              j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), lQ.thr=0.7, 
-             hQ.thr=0.2, digits=2,...)
+             hQ.thr=0.2, start.month=1, digits=2, fun=NULL, ...,
+             epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+             epsilon.value=NA)
 \method{gof}{matrix}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
              j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), lQ.thr=0.7, 
-             hQ.thr=0.2, digits=2,...)
+             hQ.thr=0.2, start.month=1, digits=2, fun=NULL, ...,
+             epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+             epsilon.value=NA)
 \method{gof}{data.frame}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
              j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), lQ.thr=0.7, 
-             hQ.thr=0.2, digits=2,...)
+             hQ.thr=0.2, start.month=1, digits=2, fun=NULL, ...,
+             epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+             epsilon.value=NA)
 \method{gof}{zoo}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
              j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), lQ.thr=0.7, 
-             hQ.thr=0.2, digits=2,...)                                       
+             hQ.thr=0.2, start.month=1, digits=2, fun=NULL, ...,
+             epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+             epsilon.value=NA)                                       
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -70,11 +78,39 @@ argument passed to the (optional) \code{\link{pbiasfdc}} function
   \item{hQ.thr}{
 argument passed to the (optional) \code{\link{pbiasfdc}} function
 }
+  \item{start.month}{
+[OPTIONAL]. Only used for the computation of the split KGE (\code{sKGE}) when the (hydrological) year of interest is different from the calendar year.
+
+numeric in [1:12] indicating the starting month of the (hydrological) year. Numeric values in [1, 12] represent months in [January, December]. By default \code{start.month=1}.
+}
   \item{digits}{
 decimal places used for rounding the goodness-of-fit indexes.
 }
+  \item{fun}{
+function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing the all the goodness-of-fit functions.
+
+The first two arguments of \code{fun} MUST BE NAMED \kbd{sim} and \kbd{obs} (in that specific order), and addtional arguments are passed using \code{\dots}.
+}
   \item{\dots}{
-further arguments passed to or from other methods.
+arguments passed to \code{fun}, in addition to the mandatory \kbd{sim} and \kbd{obs}.
+}
+  \item{epsilon.type}{
+argument used to define a numeric value to be added to both \code{sim} and \code{obs} before applying \code{fun}. 
+
+It is was  designed to allow the use of logarithm and other similar functions that do not work with zero values.
+
+Valid values of \code{epsilon.type} are:
+
+1) \kbd{"none"}: \code{sim} and \code{obs} are used by \code{FUN} without the addition of any nummeric value.
+
+2) \kbd{"Pushpalatha2012"}: one hundredth (1/100) of the mean observed values is added to both \code{sim} and \code{obs} before applying \code{FUN}, as described in Pushpalatha et al. (2012). 
+
+3) \kbd{"otherFactor"}: the numeric value defined in the \code{epsilon.value} argument is used to multiply the the mean observed values, instead of the one hundredth (1/100) described in Pushpalatha et al. (2012). The resulting value is then added to both \code{sim} and \code{obs}, before applying \code{FUN}.
+
+4) \kbd{"otherValue"}: the numeric value defined in the \code{epsilon.value} argument is directly added to both \code{sim} and \code{obs}, before applying \code{FUN}.
+}
+  \item{epsilon.value}{
+ numeric value to be added to both \code{sim} and \code{obs} when \code{epsilon.type="otherValue"}.
 }
 }
 %%\details{

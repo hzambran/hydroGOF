@@ -30,6 +30,11 @@ d.default <- function(sim, obs, na.rm=TRUE,
 
      epsilon.type <- match.arg(epsilon.type)
 
+     # the next two lines are required for avoiding an strange behaviour 
+     # of the difference function when sim and obs are time series.
+     if ( !is.na(match(class(sim), c("ts", "zoo"))) ) sim <- as.numeric(sim)
+     if ( !is.na(match(class(obs), c("ts", "zoo"))) ) obs <- as.numeric(obs)
+
      # index of those elements that are present both in 'x' and 'y' (NON- NA values)
      vi <- valindex(sim, obs)
      
@@ -47,11 +52,6 @@ d.default <- function(sim, obs, na.rm=TRUE,
          sim  <- new[["sim"]]
          obs  <- new[["obs"]]
        } # IF end
-     
-       # the next two lines are required for avoiding an strange behaviour 
-       # of the difference function when sim and obs are time series.
-       if ( !is.na(match(class(sim), c("ts", "zoo"))) ) sim <- as.numeric(sim)
-       if ( !is.na(match(class(obs), c("ts", "zoo"))) ) obs <- as.numeric(obs)
      
        # Mean of the observed values
        Om <- mean(obs, na.rm=na.rm)
@@ -88,11 +88,12 @@ d.matrix <- function(sim, obs, na.rm=TRUE,
  d <- rep(NA, ncol(obs))       
           
  d <- sapply(1:ncol(obs), function(i,x,y) { 
-             d[i] <- d.default( x[,i], y[,i], na.rm=na.rm, ... )
-             }, x=sim, y=obs, na.rm=na.rm, fun=fun, ..., 
-             epsilon.type=epsilon.type, epsilon.value=epsilon.value)    
+             d[i] <- d.default( x[,i], y[,i], na.rm=na.rm, fun=fun, ..., 
+                                epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+             }, x=sim, y=obs)    
                      
   names(d) <- colnames(obs)
+
   return(d)
      
 } # 'd.matrix' end

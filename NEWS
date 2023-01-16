@@ -5,12 +5,14 @@ NEWS/ChangeLog for hydroGOF
         o new function 'sKGE', which computes the Split Kling-Gupta efficiency, which was proposed by Fowler et al. (2018) for calibration in a drying climate.
         o new function 'KGEnp', which computes the non-parametric Kling-Gupta efficiency proposed by Pool et al. (2018).
         o new function 'dr', which computes the Refined Index of Agreement proposed by Willmott et al. (2012).
-        o 'KGE': three new arguments (FUN, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)   
-        o 'mNSE': three new arguments (FUN, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)                                              
-        o 'rd': three new arguments (FUN, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)                                                                                         
-        o 'br2': new argument 'dec' to allow the user to specify the number of decimals shown in the output object. Default value set to 1 for compatibility with previous versions. Thanks to Ken Newman !
-        o 'NSE': possible values of 'epsilon' argument were changed to c('Pushpalatha2012', 'otherFactor', 'otherValue'), to give the user more flexibility in the computation of the constant value added to 'sim' and 'obs' when using transformed values to compute the NSE (e.g., when focusing on low flows)
-
+        o 'KGE' : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)   
+        o 'mNSE': three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x) 
+        o 'rNSE': three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)                                                                                           
+        o 'd'   : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)                                                                                         
+        o 'rd'  : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)  
+        o 'br2' : new argument 'dec' to allow the user to specify the number of decimals shown in the output object. Default value set to 1 for compatibility with previous versions. Thanks to Ken Newman !
+        o 'NSE' : possible values of 'epsilon' argument were changed to c('Pushpalatha2012', 'otherFactor', 'otherValue'), to give the user more flexibility in the computation of the constant value added to 'sim' and 'obs' when using transformed values to compute the NSE (e.g., when focusing on low flows)
+        o 'gof' : four new arguments (start.month, fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of all goodness-of-fit.                                                                                    
 
 0.4-0  11-Mar-2020
         o Package tested against R Under development (unstable) (2020-03-10 r77920) -- "Unsuffered Consequences", following an imperative request made by CRAN.
@@ -25,7 +27,7 @@ NEWS/ChangeLog for hydroGOF
 0.3-9  07-Ago-2017
         o repository management moved from SVN to GIT, including rforge.
         o citation with DOI is now possible (and new CITATION file).
-        o 'NSE'         : -) three new arguments (FUN, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of NSE (e.g., log, sqrt, 1/x)                                              
+        o 'NSE'         : -) three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of NSE (e.g., log, sqrt, 1/x)                                              
         o 'KGE'         : -) now works correctly when 'out.type="full"', even if 'sim' and 'obs' do not have a single element in common (i.e., results in labelled NAs)
         o 'd'           : -) now it returns NA when it is not possible to compute the index of agreement (sum((abs(sim-Om)+abs(obs-Om))^2)=0)
         o 'ggof'        : -) legend and axis fonts are preserved when 'pt.style' is set to bar

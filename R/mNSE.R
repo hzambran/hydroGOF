@@ -85,9 +85,9 @@ mNSE.matrix <- function (sim, obs, j=1, na.rm=TRUE,
   NS1 <- rep(NA, ncol(obs))       
           
   NS1 <- sapply(1:ncol(obs), function(i,x,y) { 
-                 NS1[i] <- mNSE.default( x[,i], y[,i], j, na.rm=na.rm, ... )
-               }, x=sim, y=obs, na.rm=na.rm, fun=fun, ..., 
-                  epsilon.type=epsilon.type, epsilon.value=epsilon.value)    
+                 NS1[i] <- mNSE.default( x[,i], y[,i], j=j, na.rm=na.rm, fun=fun, ..., 
+                                         epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+               }, x=sim, y=obs)    
                      
   names(NS1) <- colnames(obs)
   return(NS1)

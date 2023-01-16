@@ -12,6 +12,7 @@
 ################################################################################
 # Started: 2017                                                                #
 # Updates: 07-Jul-2022 ; 11-Jul-2022 ;12-Jul-2022                              #
+#          15-Jan-2023                                                         #              
 ################################################################################
 # The optimal value of KGElf is 1
 
@@ -32,7 +33,7 @@ KGElf.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
                           method=c("2009", "2012"), 
                           fun=function(x) 1/x,
                           ...,
-                          epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                          epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
                           epsilon.value=NA) { 
   
   # Checking 'method' and 'epsilon''
@@ -61,13 +62,13 @@ KGElf.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
 # Author : Mauricio Zambrano-Bigiarini                                         #
 ################################################################################
 # Started: 12-Jul-2022                                                         #
-# Updates:                                                                     #
+# Updates: 15-Jan-2023                                                         #                                                                    #
 ################################################################################
 KGElf.matrix <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, 
                          method=c("2009", "2012"), 
                          fun=function(x) 1/x,
                          ...,
-                         epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                         epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
                          epsilon.value=NA) { 
 
   # Checking that 'sim' and 'obs' have the same dimensions
@@ -109,13 +110,13 @@ KGElf.matrix <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
 # Author : Mauricio Zambrano-Bigiarini                                         #
 ################################################################################
 # Started: 12-Jul-2022                                                         #
-# Updates:                                                                     #
+# Updates: 15-Jan-2023                                                         # 
 ################################################################################
 KGElf.data.frame <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, 
                              method=c("2009", "2012"), 
                              fun=function(x) 1/x,
                              ...,
-                             epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                             epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
                              epsilon.value=NA) { 
  
   sim <- as.matrix(sim)
@@ -134,13 +135,13 @@ KGElf.data.frame <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
 # Author : Mauricio Zambrano-Bigiarini                                         #
 ################################################################################
 # Started: 12-Jul-2022                                                         #
-# Updates:                                                                     #
+# Updates: 15-Jan-2023                                                         # 
 ################################################################################
 KGElf.zoo <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, 
                       method=c("2009", "2012"), 
                       fun=function(x) 1/x,
                       ...,
-                      epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+                      epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
                       epsilon.value=NA) { 
     
     sim <- zoo::coredata(sim)

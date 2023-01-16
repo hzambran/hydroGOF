@@ -103,7 +103,8 @@ rd.matrix <- function (sim, obs, na.rm=TRUE,
  rd <- rep(NA, ncol(obs))       
           
  rd <- sapply(1:ncol(obs), function(i,x,y) { 
-                 rd[i] <- rd.default( x[,i], y[,i], na.rm=na.rm, ... )
+                 rd[i] <- rd.default( x[,i], y[,i], na.rm=na.rm, fun=fun, ..., 
+                                      epsilon.type=epsilon.type, epsilon.value=epsilon.value)
                  }, x=sim, y=obs )    
                      
   names(rd) <- colnames(obs)
@@ -120,7 +121,8 @@ rd.data.frame <- function (sim, obs, na.rm=TRUE,
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
    
-  rd.matrix(sim=sim, obs=obs, na.rm=na.rm, ...)
+  rd.matrix(sim=sim, obs=obs, na.rm=na.rm, fun=fun, ..., 
+            epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
 } # 'rd.data.frame' end
 
@@ -140,7 +142,9 @@ rd.zoo <- function(sim, obs, na.rm=TRUE,
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
     
     if (is.matrix(sim) | is.data.frame(sim)) {
-       rd.matrix(sim, obs, na.rm=na.rm, ...)
-    } else NextMethod(sim, obs, na.rm=na.rm, ...)
+       rd.matrix(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                 epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+    } else NextMethod(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                      epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
   } # 'rd.zoo' end

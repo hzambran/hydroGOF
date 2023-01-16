@@ -26,22 +26,22 @@ KGElf(sim, obs, ...)
 
 \method{KGElf}{default}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
                fun=function(x) 1/x, ...,
-               epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+               epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
                epsilon.value=NA)
 
 \method{KGElf}{data.frame}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
                fun=function(x) 1/x, ...,
-               epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+               epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
                epsilon.value=NA)
 
 \method{KGElf}{matrix}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
                fun=function(x) 1/x, ...,
-               epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+               epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
                epsilon.value=NA)
              
 \method{KGElf}{zoo}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
                fun=function(x) 1/x, ...,
-               epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue"), 
+               epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
                epsilon.value=NA)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -70,25 +70,26 @@ character, indicating the formula used to compute the variability ratio in the K
   \item{fun}{
 function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing this goodness-of-fit index.
 
-The first two arguments of \code{FUN} MUST BE NAMED \kbd{sim} and \kbd{obs} (in that specific order), and addtional arguments are passed using \code{\dots}.
+The first two arguments of \code{FUN} MUST BE NAMED \kbd{sim} and \kbd{obs} (in that specific order), and additional arguments are passed using \code{\dots}.
 }
   \item{\dots}{
 arguments passed to \code{FUN}, in addition to the mandatory \kbd{sim} and \kbd{obs}.
 }
   \item{epsilon.type}{
-argument used to define a numeric value to be added to both \code{sim} and \code{obs} before applying \code{FUN}. 
+argument used to define a numeric value to be added to both \code{sim} and \code{obs} before applying \code{fun}. 
 
 It is designed to allow the use of logarithm and other similar functions that do not work with zero values.
 
 Valid values of \code{epsilon.type} are:
 
-1) \kbd{"none"}: \code{sim} and \code{obs} are used by \code{FUN} without the addition of any nummeric value.
+1) \kbd{"Pushpalatha2012"}: one hundredth (1/100) of the mean observed values is added to both \code{sim} and \code{obs} before applying \code{fun}, as described in Pushpalatha et al. (2012). This is the default option.
 
-2) \kbd{"Pushpalatha2012"}: one hundredth (1/100) of the mean observed values is added to both \code{sim} and \code{obs} before applying \code{FUN}, as described in Pushpalatha et al. (2012). 
+2) \kbd{"otherFactor"}: the numeric value defined in the \code{epsilon.value} argument is used to multiply the the mean observed values, instead of the one hundredth (1/100) described in Pushpalatha et al. (2012). The resulting value is then added to both \code{sim} and \code{obs}, before applying \code{FUN}.
 
-3) \kbd{"otherFactor"}: the numeric value defined in the \code{epsilon.value} argument is used to multiply the the mean observed values, instead of the one hundredth (1/100) described in Pushpalatha et al. (2012). The resulting value is then added to both \code{sim} and \code{obs}, before applying \code{FUN}.
+3) \kbd{"otherValue"}: the numeric value defined in the \code{epsilon.value} argument is directly added to both \code{sim} and \code{obs}, before applying \code{fun}.
 
-4) \kbd{"otherValue"}: the numeric value defined in the \code{epsilon.value} argument is directly added to both \code{sim} and \code{obs}, before applying \code{FUN}.
+4) \kbd{"none"}: \code{sim} and \code{obs} are used by \code{fun} without the addition of any numeric value.
+
 }
   \item{epsilon.value}{
  numeric value to be added to both \code{sim} and \code{obs} when \code{epsilon.type="otherValue"}.

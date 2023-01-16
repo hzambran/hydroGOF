@@ -31,6 +31,8 @@ rNSE.default <- function(sim, obs, na.rm=TRUE, fun=NULL, ...,
      ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo', 'xts')")    
 
    epsilon.type <- match.arg(epsilon.type)  
+
+   vi <- valindex(sim, obs)
    
    if (length(vi) > 0) {	 
      # Filtering 'obs' and 'sim', selecting only those pairs of elements 
@@ -113,7 +115,7 @@ rNSE.data.frame <- function(sim, obs, na.rm=TRUE, fun=NULL, ...,
   obs <- as.matrix(obs)
    
   rNSE.matrix(sim, obs, na.rm=na.rm, fun=fun, ..., 
-              epsilon.type=epsilon.type,  epsilon.value=epsilon.value)
+              epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
 } # 'rNSE.data.frame' end
 
@@ -130,7 +132,7 @@ rNSeff <-function(sim, obs, ...) UseMethod("rNSE")
 ################################################################################
 rNSE.zoo <- function(sim, obs, na.rm=TRUE, fun=NULL, ...,
                      epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                     epsilon.value=NA)){
+                     epsilon.value=NA){
     
     sim <- zoo::coredata(sim)
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
@@ -139,6 +141,6 @@ rNSE.zoo <- function(sim, obs, na.rm=TRUE, fun=NULL, ...,
        rNSE.matrix(sim, obs, na.rm=na.rm, fun=fun, ..., 
                    epsilon.type=epsilon.type, epsilon.value=epsilon.value)
     } else NextMethod(sim, obs, na.rm=na.rm, fun=fun, ..., 
-                      epsilon.type=epsilon.type,  epsilon.value=epsilon.value)
+                      epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
   } # 'rNSE.zoo' end

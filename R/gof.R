@@ -1,7 +1,7 @@
 # File gof.R
 # Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 #                                 http://cran.r-project.org/web/packages/hydroGOF/
-# Copyright 2011-2013 Mauricio Zambrano-Bigiarini
+# Copyright 2011-2023 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -12,6 +12,7 @@
 #          2010                                                                #
 #          21-Jan-2011                                                         #
 #          08-May-2012                                                         #
+#          14-Jan-2023 ; 15-Jan-2023                                           #
 ################################################################################
 
 # It computes:
@@ -30,21 +31,29 @@
 # 'mNSE'      : Modified Nash-Sutcliffe Efficiency
 # 'rNSE'      : Relative Nash-Sutcliffe Efficiency
 # 'd'         : Index of Agreement( 0 <= d <= 1 )
+## 'dr'          Refined Index of Agreement( -1 <= dr <= 1 )
 # 'md'        : Modified Index of Agreement( 0 <= md <= 1 )
-# 'rd'        : Relative Index of Agreement( 0 <= md <= 1 )
+# 'rd'        : Relative Index of Agreement( 0 <= rd <= 1 )
 # 'PI'        : Persistence Index ( 0 <= PI <= 1 ) 
 # 'PBIAS'     : Percent Bias ( -1 <= PBIAS <= 1 )
 # 'bR2'       : weighted coefficient of determination
-# 'KGE'       : Kling-Gupta efficiency
+# 'KGE'       : Kling-Gupta efficiency (-Inf < KGE <= 1)
+## 'sKGE'     : Split Kling-Gupta efficiency (-Inf < sKGE <= 1)
+## 'KGElf'     : Kling-Gupta efficiency with focus on low values (-Inf < KGElf <= 1)
+## 'KGEnp'     : non-parametric Kling-Gupta efficiency (-Inf < KGEnp <= 1)
 # 'VE'        : Volumetric efficiency
 
 gof <-function(sim, obs, ...) UseMethod("gof")
 
-gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
-                         j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), 
-                         lQ.thr=0.7, hQ.thr=0.2, digits=2, ...){
+gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
+                        j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), 
+                        lQ.thr=0.7, hQ.thr=0.2, start.month=1, 
+                        digits=2, fun=NULL, ...,
+                        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                        epsilon.value=NA){
 
-     method   <- match.arg(method)
+     method        <- match.arg(method)
+     epsilon.type  <- match.arg(epsilon.type)
      
      ME     <- me(sim, obs, na.rm=na.rm)
      MAE    <- mae(sim, obs, na.rm=na.rm)
@@ -54,16 +63,32 @@ gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE
      RSR    <- rsr(sim, obs, na.rm=na.rm, ...)
      rSD    <- rSD(sim, obs, na.rm=na.rm)     
      PBIAS  <- pbias(sim, obs, na.rm=na.rm, ...)
-     NSE    <- NSE(sim, obs, na.rm=na.rm, ...)
-     mNSE   <- mNSE(sim, obs, na.rm=na.rm, j=j, ...)
-     rNSE   <- rNSE(sim, obs, na.rm=na.rm, ...)
-     d      <- d(sim, obs, na.rm=na.rm, ...)
-     md     <- md(sim, obs, na.rm=na.rm, ...)
-     rd     <- rd(sim, obs, na.rm=na.rm, ...)
+     NSE    <- NSE(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     mNSE   <- mNSE(sim, obs, na.rm=na.rm, j=j, fun=fun, ..., 
+                    epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     rNSE   <- rNSE(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                    epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     d      <- d(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                 epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     dr     <- dr(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                  epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     md     <- md(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                  epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     rd     <- rd(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                  epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      cp     <- cp(sim, obs, na.rm=na.rm, ...)
      r      <- .rPearson(sim, obs)
      bR2    <- br2(sim, obs, na.rm=na.rm, ...)     
-     KGE    <- KGE(sim, obs, na.rm=na.rm, s=s, method=method, out.type="single", ...) 
+     KGE    <- KGE(sim, obs, na.rm=na.rm, s=s, method=method, out.type="single", 
+                    fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
+     message("epsilon.type:", epsilon.type)
+     KGElf  <- KGElf(sim, obs, na.rm=na.rm, s=s, method=method, 
+                    fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
+     sKGE   <- sKGE(sim, obs, na.rm=na.rm, s=s, method=method, out.type="single", 
+                    start.month=start.month, fun=fun, ..., 
+                    epsilon.type=epsilon.type, epsilon.value=epsilon.value, out.PerYear=FALSE) 
+     KGEnp  <- KGEnp(sim, obs, na.rm=na.rm, out.type="single", fun=fun, ...) 
      VE     <- VE(sim, obs, na.rm=na.rm, ...)     
      
      # 'R2' is the Coefficient of Determination
@@ -118,10 +143,14 @@ gof.default <- function (sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE
 #          2010                                                                #
 #          21-Jan-2011                                                         #
 #          08-May-2012                                                         #
+#          15-Jan-2023                                                         #
 ################################################################################
 gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
                        j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), 
-                       lQ.thr=0.7, hQ.thr=0.2, digits=2, ...){
+                       lQ.thr=0.7, hQ.thr=0.2, start.month=1, 
+                       digits=2, fun=NULL, ...,
+                       epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                       epsilon.value=NA){
     
     # Temporal variable for some computations
     tmp <- gof(1:10,1:10)
@@ -160,10 +189,14 @@ gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
 #          2010                                                                #
 #          21-Jan-2011                                                         #
 #          08-May-2012 ;                                                       #
+#          15-Jan-2023                                                         #
 ################################################################################
 gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
                            j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), 
-                           lQ.thr=0.7, hQ.thr=0.2, digits=2, ...){ 
+                           lQ.thr=0.7, hQ.thr=0.2, start.month=1, 
+                           digits=2, fun=NULL, ...,
+                           epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                           epsilon.value=NA){ 
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
@@ -180,10 +213,14 @@ gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FAL
 ################################################################################
 # Started: 05-Nov-2012                                                         #
 # Updates: 22-Mar-2013                                                         #
+#          15-Jan-2023                                                         #
 ################################################################################
 gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
                     j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), 
-                    lQ.thr=0.7, hQ.thr=0.2, digits=2, ...){
+                    lQ.thr=0.7, hQ.thr=0.2, start.month=1, 
+                    digits=2, fun=NULL, ...,
+                    epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                    epsilon.value=NA){
     
     sim <- zoo::coredata(sim)
     if (is.zoo(obs)) obs <- zoo::coredata(obs)

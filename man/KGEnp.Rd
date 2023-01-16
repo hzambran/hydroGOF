@@ -34,7 +34,7 @@ KGEnp(sim, obs, ...)
                fun=NULL, ...)
              
 \method{KGEnp}{zoo}(sim, obs, na.rm=TRUE, out.type=c("single", "full"), 
-               fun=NULL, ...)
+              fun=NULL, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
