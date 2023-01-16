@@ -81,7 +81,7 @@ The first two arguments of \code{fun} MUST BE NAMED \kbd{sim} and \kbd{obs} (in 
 arguments passed to \code{fun}, in addition to the mandatory \kbd{sim} and \kbd{obs}.
 }
   \item{epsilon.type}{
-argument used to define a numeric value to be added to both \code{sim} and \code{obs} before applying \code{FUN}. 
+argument used to define a numeric value to be added to both \code{sim} and \code{obs} before applying \code{fun}. 
 
 It is was  designed to allow the use of logarithm and other similar functions that do not work with zero values.
 
