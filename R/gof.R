@@ -12,7 +12,7 @@
 #          2010                                                                #
 #          21-Jan-2011                                                         #
 #          08-May-2012                                                         #
-#          14-Jan-2023 ; 15-Jan-2023                                           #
+#          14-Jan-2023 ; 15-Jan-2023 ; 16-Jan-2023                             #
 ################################################################################
 
 # It computes:
@@ -31,16 +31,16 @@
 # 'mNSE'      : Modified Nash-Sutcliffe Efficiency
 # 'rNSE'      : Relative Nash-Sutcliffe Efficiency
 # 'd'         : Index of Agreement( 0 <= d <= 1 )
-## 'dr'          Refined Index of Agreement( -1 <= dr <= 1 )
+# 'dr'        : Refined Index of Agreement( -1 <= dr <= 1 )
 # 'md'        : Modified Index of Agreement( 0 <= md <= 1 )
 # 'rd'        : Relative Index of Agreement( 0 <= rd <= 1 )
 # 'PI'        : Persistence Index ( 0 <= PI <= 1 ) 
 # 'PBIAS'     : Percent Bias ( -1 <= PBIAS <= 1 )
 # 'bR2'       : weighted coefficient of determination
 # 'KGE'       : Kling-Gupta efficiency (-Inf < KGE <= 1)
-## 'sKGE'     : Split Kling-Gupta efficiency (-Inf < sKGE <= 1)
-## 'KGElf'     : Kling-Gupta efficiency with focus on low values (-Inf < KGElf <= 1)
-## 'KGEnp'     : non-parametric Kling-Gupta efficiency (-Inf < KGEnp <= 1)
+# 'sKGE'      : Split Kling-Gupta efficiency (-Inf < sKGE <= 1)
+# 'KGElf'     : Kling-Gupta efficiency with focus on low values (-Inf < KGElf <= 1)
+# 'KGEnp'     : Non-parametric Kling-Gupta efficiency (-Inf < KGEnp <= 1)
 # 'VE'        : Volumetric efficiency
 
 gof <-function(sim, obs, ...) UseMethod("gof")
@@ -82,12 +82,19 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
      bR2    <- br2(sim, obs, na.rm=na.rm, ...)     
      KGE    <- KGE(sim, obs, na.rm=na.rm, s=s, method=method, out.type="single", 
                     fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
-     message("epsilon.type:", epsilon.type)
      KGElf  <- KGElf(sim, obs, na.rm=na.rm, s=s, method=method, 
-                    fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
-     sKGE   <- sKGE(sim, obs, na.rm=na.rm, s=s, method=method, out.type="single", 
-                    start.month=start.month, fun=fun, ..., 
-                    epsilon.type=epsilon.type, epsilon.value=epsilon.value, out.PerYear=FALSE) 
+                     epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
+     if ( inherits(sim, "zoo") & inherits(obs, "zoo") ) {
+       do.sKGE <- TRUE
+       sKGE   <- sKGE(sim, obs, na.rm=na.rm, s=s, method=method, out.type="single", 
+                      start.month=start.month, fun=fun, ..., 
+                      epsilon.type=epsilon.type, epsilon.value=epsilon.value, out.PerYear=FALSE) 
+     } else {
+         do.sKGE <- FALSE
+         sKGE <- NA
+       } # ELSE end
+ 
+       
      KGEnp  <- KGEnp(sim, obs, na.rm=na.rm, out.type="single", fun=fun, ...) 
      VE     <- VE(sim, obs, na.rm=na.rm, ...)     
      
@@ -113,18 +120,25 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
         
      } # IF end
      
-     if (do.pbfdc) { pbfdc  <- pbiasfdc(sim, obs, na.rm=na.rm, lQ.thr=lQ.thr, hQ.thr=hQ.thr, plot=FALSE, ...) }
+     if (do.pbfdc) 
+       pbfdc  <- pbiasfdc(sim, obs, na.rm=na.rm, lQ.thr=lQ.thr, hQ.thr=hQ.thr, plot=FALSE, ...)
      
-     gof <- rbind(ME, MAE, MSE, RMSE, NRMSE, PBIAS, RSR, rSD, NSE, mNSE, rNSE, d, md, rd, cp, r, R2, bR2, KGE, VE)     
+     gof <- rbind(ME, MAE, MSE, RMSE, NRMSE, PBIAS, RSR, rSD, NSE, mNSE, rNSE, d, dr, md, rd, cp, r, R2, bR2, KGE, KGElf, KGEnp, VE)     
      
      rownames(gof)[5] <- "NRMSE %"
      rownames(gof)[6] <- "PBIAS %"    
      
-     if (do.spearman) { gof <- rbind(gof, r.Spearman) }
+     if (do.spearman)
+       gof <- rbind(gof, r.Spearman)
      
      if (do.pbfdc) { 
        gof <- rbind(gof, pbfdc) 
        rownames(gof)[length(rownames(gof))] <- "pbiasFDC %"
+     } # IF end
+
+     if (do.sKGE) { 
+       gof <- c( gof[1:21], sKGE, gof[22:length(gof)] )
+       rownames(gof)[22] <- "sKGE"
      } # IF end
      
      # Rounding the final results, ofr avoiding scientific notation
