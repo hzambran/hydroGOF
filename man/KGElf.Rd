@@ -25,24 +25,20 @@ This goodness-of-fit measure was developed by Garcia et al. (2017), as a modific
 KGElf(sim, obs, ...)
 
 \method{KGElf}{default}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
-               fun=function(x) 1/x, ...,
                epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
-               epsilon.value=NA)
+               epsilon.value=NA, ...)
 
 \method{KGElf}{data.frame}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
-               fun=function(x) 1/x, ...,
                epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
-               epsilon.value=NA)
+               epsilon.value=NA, ...)
 
 \method{KGElf}{matrix}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
-               fun=function(x) 1/x, ...,
                epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
-               epsilon.value=NA)
+               epsilon.value=NA, ...)
              
 \method{KGElf}{zoo}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
-               fun=function(x) 1/x, ...,
                epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
-               epsilon.value=NA)
+               epsilon.value=NA, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -67,14 +63,6 @@ character, indicating the formula used to compute the variability ratio in the K
 
 -) \kbd{2012}: the variability is defined as \sQuote{Gamma}, the ratio of the coefficient of variation of \code{sim} values to the coefficient of variation of \code{obs}. See Kling et al. (2012). 
 }
-  \item{fun}{
-function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing this goodness-of-fit index.
-
-The first two arguments of \code{FUN} MUST BE NAMED \kbd{sim} and \kbd{obs} (in that specific order), and additional arguments are passed using \code{\dots}.
-}
-  \item{\dots}{
-arguments passed to \code{FUN}, in addition to the mandatory \kbd{sim} and \kbd{obs}.
-}
   \item{epsilon.type}{
 argument used to define a numeric value to be added to both \code{sim} and \code{obs} before applying \code{fun}. 
 
@@ -93,6 +81,9 @@ Valid values of \code{epsilon.type} are:
 }
   \item{epsilon.value}{
  numeric value to be added to both \code{sim} and \code{obs} when \code{epsilon.type="otherValue"}.
+}
+  \item{\dots}{
+further arguments passed to or from other methods.
 }
 }
 \details{
