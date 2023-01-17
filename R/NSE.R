@@ -1,3 +1,10 @@
+# File NSE.R
+# Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF
+#                                 https://cran.r-project.org/package=hydroGOF
+#                                 http://www.rforge.net/hydroGOF/ ;
+# Copyright 2008-2023 Mauricio Zambrano-Bigiarini
+# Distributed under GPL 2 or later
+
 ################################################################################
 # 'NSE': Nash-sutcliffe Efficiency                                             #
 ################################################################################
@@ -22,33 +29,41 @@ NSE.default <- function (sim, obs, na.rm=TRUE, fun=NULL, ...,
                          epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                          epsilon.value=NA){ 
 
-   if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
-          is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
-     ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo', 'xts')")      
+  if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
+       is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
+  ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo', 'xts')")      
 
-   vi <- valindex(sim, obs)
-     
-   obs <- obs[vi]
-   sim <- sim[vi]
+  epsilon.type <- match.arg(epsilon.type)  
 
-   if (!is.null(fun)) {
-     fun1 <- match.fun(fun)
-     new  <- preproc(sim=sim, obs=obs, fun=fun1, ..., 
-                     epsilon.type=epsilon.type, epsilon.value=epsilon.value)
-     sim  <- new[["sim"]]
-     obs  <- new[["obs"]]
-   } # IF end
+  # index of those elements that are present both in 'sim' and 'obs' (NON- NA values)
+  vi <- valindex(sim, obs)
+   
+  if (length(vi) > 0) {	 
+    # Filtering 'obs' and 'sim', selecting only those pairs of elements 
+    # that are present both in 'x' and 'y' (NON- NA values)
+    obs <- obs[vi]
+    sim <- sim[vi]
+
+    if (!is.null(fun)) {
+      fun1 <- match.fun(fun)
+      new  <- preproc(sim=sim, obs=obs, fun=fun1, ..., 
+                      epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+      sim  <- new[["sim"]]
+      obs  <- new[["obs"]]
+    } # IF end     
      
-   denominator <- sum( (obs - mean(obs))^2 )
+    denominator <- sum( (obs - mean(obs))^2 )
      
-   if (denominator != 0) {
-      
-     NS <- 1 - ( sum( (obs - sim)^2 ) / denominator )
-     
-   } else {
+    if (denominator != 0) {      
+      NS <- 1 - ( sum( (obs - sim)^2 ) / denominator )     
+    } else {
+        NS <- NA
+        warning("'sum((obs - mean(obs))^2)=0' => it is not possible to compute 'NSE'")  
+      } 
+  } else {
        NS <- NA
-       warning("'sum((obs - mean(obs))^2)=0' => it is not possible to compute 'NSE'")  
-     } # ELSE end
+       warning("There are no pairs of 'sim' and 'obs' without missing values !")
+    } # ELSE end
      
    return(NS)
      
