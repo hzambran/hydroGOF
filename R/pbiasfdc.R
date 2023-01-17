@@ -192,6 +192,6 @@ pbiasfdc.zoo <- function(sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE,
        pbiasfdc.matrix(sim, obs, lQ.thr=lQ.thr, hQ.thr=hQ.thr, na.rm=na.rm, plot=FALSE, verbose=verbose,
                        fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value)
     } else NextMethod(sim, obs, lQ.thr=lQ.thr, hQ.thr=hQ.thr, na.rm=na.rm, plot=plot, verbose=verbose,
-                      fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value))
+                      fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
 } # 'pbiasfdc.zoo' end
