@@ -12,7 +12,7 @@
 # Author : Mauricio Zambrano-Bigiarini                                         #
 ################################################################################
 # Started: 13-Jan-2023                                                         #
-# Updates:                                                                     #
+# Updates: 16-Jan-2023                                                         #
 ################################################################################
 # This function is based on the description provided by Pool et al. (2018) at:
 # https://www.tandfonline.com/doi/suppl/10.1080/02626667.2018.1552002?scroll=top&role=tab
@@ -36,8 +36,9 @@ KGEnp <- function(sim, obs, ...) UseMethod("KGEnp")
 
 KGEnp.default <- function(sim, obs, na.rm=TRUE, 
                           out.type=c("single", "full"), 
-                          fun=NULL, ...
-                          ) { 
+                          fun=NULL, ...,
+                          epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                          epsilon.value=NA) { 
 
   out.type <- match.arg(out.type)  
 
@@ -45,6 +46,9 @@ KGEnp.default <- function(sim, obs, na.rm=TRUE,
        is.na(match(class(obs), c("integer", "numeric", "ts", "zoo")))
   ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo')")      
    
+  epsilon.type <- match.arg(epsilon.type)  
+
+  # index of those elements that are present both in 'sim' and 'obs' (NON- NA values)
   vi <- valindex(sim, obs)
 
   nQ <- length(vi) # nQ = length(sim) = length(obs)
@@ -110,12 +114,13 @@ KGEnp.default <- function(sim, obs, na.rm=TRUE,
 # Author : Mauricio Zambrano-Bigiarini                                         #
 ################################################################################
 # Started: 13-Jan-2023                                                         #
-# Updates:                                                                     #
+# Updates: 16-Jan-2023                                                         #
 ################################################################################
 KGEnp.matrix <- function(sim, obs, na.rm=TRUE, 
                          out.type=c("single", "full"), 
-                         fun=NULL, ...
-                         ) { 
+                         fun=NULL, ...,
+                         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                         epsilon.value=NA) { 
 
   # Checking that 'sim' and 'obs' have the same dimensions
   if ( all.equal(dim(sim), dim(obs)) != TRUE )
@@ -136,12 +141,17 @@ KGEnp.matrix <- function(sim, obs, na.rm=TRUE,
     out <- sapply(1:ncol(obs), function(i,x,y) { 
                    KGEnp[i] <- KGEnp.default( x[,i], y[,i], na.rm=na.rm, 
                                               out.type=out.type, 
-                                              fun=fun, ...)
+                                              fun=fun, ..., 
+                                              epsilon.type=epsilon.type,  
+                                              epsilon.value=epsilon.value)
                  }, x=sim, y=obs )  
     names(out) <- colnames(obs) 
   } else { out <- lapply(1:ncol(obs), function(i,x,y) { 
                          KGEnp.default( x[,i], y[,i], na.rm=na.rm, 
-                                        out.type=out.type, fun=fun, ... 
+                                        out.type=out.type, 
+                                        fun=fun, ..., 
+                                        epsilon.type=epsilon.type,  
+                                        epsilon.value=epsilon.value 
                                       )
                        }, x=sim, y=obs ) 
             for (i in 1:length(out) ) {
@@ -160,12 +170,13 @@ KGEnp.matrix <- function(sim, obs, na.rm=TRUE,
 # Author : Mauricio Zambrano-Bigiarini                                         #
 ################################################################################
 # Started: 13-Jan-2023                                                         #
-# Updates:                                                                     #
+# Updates: 16-Jan-2023                                                         #
 ################################################################################
-KGEnp.data.frame <- function (sim, obs, na.rm=TRUE, 
-                              out.type=c("single", "full"), 
-                              fun=NULL, ...
-                              ) { 
+KGEnp.data.frame <- function(sim, obs, na.rm=TRUE, 
+                             out.type=c("single", "full"), 
+                             fun=NULL, ...,
+                             epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                             epsilon.value=NA) { 
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
@@ -174,7 +185,7 @@ KGEnp.data.frame <- function (sim, obs, na.rm=TRUE,
   out.type <- match.arg(out.type) 
    
   KGEnp.matrix(sim, obs, na.rm=na.rm, out.type=out.type, 
-               fun=fun, ...)
+               fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
 } # 'KGEnp.data.frame' end
 
@@ -187,15 +198,17 @@ KGEnp.data.frame <- function (sim, obs, na.rm=TRUE,
 ################################################################################
 KGEnp.zoo <- function(sim, obs, na.rm=TRUE, 
                       out.type=c("single", "full"), 
-                      fun=NULL, ...) { 
+                      fun=NULL, ...,
+                      epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                      epsilon.value=NA) { 
     
-    sim <- zoo::coredata(sim)
-    if (is.zoo(obs)) obs <- zoo::coredata(obs)
-    
-    if (is.matrix(sim) | is.data.frame(sim)) {
-       KGEnp.matrix(sim, obs, na.rm=na.rm, out.type=out.type, 
-                  fun=fun, ...)
-    } else NextMethod(sim, obs, na.rm=na.rm, out.type=out.type, 
-                      fun=fun, ...)
+  sim <- zoo::coredata(sim)
+  if (is.zoo(obs)) obs <- zoo::coredata(obs)
+   
+  if (is.matrix(sim) | is.data.frame(sim)) {
+     KGEnp.matrix(sim, obs, na.rm=na.rm, out.type=out.type,
+                  fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+  } else NextMethod(sim, obs, na.rm=na.rm, out.type=out.type,
+                    fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
   } # 'KGEnp.zoo' end

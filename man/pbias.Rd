@@ -22,13 +22,21 @@ Percent Bias between \code{sim} and \code{obs}, with treatment of missing values
 \usage{
 pbias(sim, obs, ...)
 
-\method{pbias}{default}(sim, obs, na.rm=TRUE, dec=1, ...)
+\method{pbias}{default}(sim, obs, na.rm=TRUE, dec=1, fun=NULL, ..., 
+               epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+               epsilon.value=NA)
 
-\method{pbias}{data.frame}(sim, obs, na.rm=TRUE, dec=1, ...)
+\method{pbias}{data.frame}(sim, obs, na.rm=TRUE, dec=1, fun=NULL, ..., 
+               epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+               epsilon.value=NA)
 
-\method{pbias}{matrix}(sim, obs, na.rm=TRUE, dec=1, ...)
+\method{pbias}{matrix}(sim, obs, na.rm=TRUE, dec=1, fun=NULL, ..., 
+               epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+               epsilon.value=NA)
 
-\method{pbias}{zoo}(sim, obs, na.rm=TRUE, dec=1, ...)
+\method{pbias}{zoo}(sim, obs, na.rm=TRUE, dec=1, fun=NULL, ..., 
+               epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+               epsilon.value=NA)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -45,8 +53,31 @@ When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{s
   \item{dec}{
 numeric, specifying the number of decimal places used to rounf the output object. Default value is 1.
 }
+  \item{fun}{
+function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing this goodness-of-fit index.
+
+The first two arguments of \code{fun} MUST BE NAMED \kbd{sim} and \kbd{obs} (in that specific order), and additional arguments are passed using \code{\dots}.
+}
   \item{\dots}{
-further arguments passed to or from other methods.
+arguments passed to \code{fun}, in addition to the mandatory \kbd{sim} and \kbd{obs}.
+}
+  \item{epsilon.type}{
+argument used to define a numeric value to be added to both \code{sim} and \code{obs} before applying \code{fun}. 
+
+It is was  designed to allow the use of logarithm and other similar functions that do not work with zero values.
+
+Valid values of \code{epsilon.type} are:
+
+1) \kbd{"none"}: \code{sim} and \code{obs} are used by \code{fun} without the addition of any numeric value. This is the default option.
+
+2) \kbd{"Pushpalatha2012"}: one hundredth (1/100) of the mean observed values is added to both \code{sim} and \code{obs} before applying \code{fun}, as described in Pushpalatha et al. (2012). 
+
+3) \kbd{"otherFactor"}: the numeric value defined in the \code{epsilon.value} argument is used to multiply the the mean observed values, instead of the one hundredth (1/100) described in Pushpalatha et al. (2012). The resulting value is then added to both \code{sim} and \code{obs}, before applying \code{fun}.
+
+4) \kbd{"otherValue"}: the numeric value defined in the \code{epsilon.value} argument is directly added to both \code{sim} and \code{obs}, before applying \code{fun}.
+}
+  \item{epsilon.value}{
+numeric value to be added to both \code{sim} and \code{obs} when \code{epsilon.type="otherValue"}.
 }
 }
 \details{

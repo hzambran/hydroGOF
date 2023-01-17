@@ -1,3 +1,10 @@
+# File rNSE.R
+# Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF
+#                                 https://cran.r-project.org/package=hydroGOF
+#                                 http://www.rforge.net/hydroGOF/ ;
+# Copyright 2010-2023 Mauricio Zambrano-Bigiarini
+# Distributed under GPL 2 or later
+
 ##################################################
 # 'rNSE': Relative Nash-sutcliffe Efficiency     #
 ##################################################
@@ -60,7 +67,7 @@ rNSE.default <- function(sim, obs, na.rm=TRUE, fun=NULL, ...,
 	     rNSE <- 1 - ( sum( ( (obs - sim) / obs )^2 ) / denominator )
 	   } else {
          rNSE <- NA
-         warning("'sum( ( ( obs - mean(obs) ) / mean(obs) )^2 ) = 0', it is not possible to compute 'rNSE'")  
+         warning("'sum( ( ( obs - mean(obs) ) / mean(obs) )^2 ) = 0' -> it is not possible to compute 'rNSE' !")  
        } # ELSE end
    } else {
          rNSE <- NA

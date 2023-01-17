@@ -25,24 +25,24 @@ This goodness-of-fit measure was developed by Fowler et al. (2018), as a modific
 sKGE(sim, obs, ...)
 
 \method{sKGE}{default}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"),
-              start.month=1, fun=NULL, ...,
+              start.month=1, out.PerYear=FALSE, fun=NULL, ...,
               epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-              epsilon.value=NA, out.PerYear=FALSE)
+              epsilon.value=NA)
 
 \method{sKGE}{data.frame}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"),
-              start.month=1, fun=NULL, ...,
+              start.month=1, out.PerYear=FALSE, fun=NULL, ...,
               epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-              epsilon.value=NA, out.PerYear=FALSE)
+              epsilon.value=NA)
 
 \method{sKGE}{matrix}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"),
-              start.month=1, fun=NULL, ...,
+              start.month=1, out.PerYear=FALSE, fun=NULL, ...,
               epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-              epsilon.value=NA, out.PerYear=FALSE)
+              epsilon.value=NA)
              
 \method{sKGE}{zoo}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"),
-              start.month=1, fun=NULL, ...,
+              start.month=1, out.PerYear=FALSE, fun=NULL, ...,
               epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-              epsilon.value=NA, out.PerYear=FALSE)
+              epsilon.value=NA)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -72,10 +72,13 @@ character, indicating the formula used to compute the variability ratio in the K
 
 numeric in [1:12] indicating the starting month of the (hydrological) year. Numeric values in [1, 12] represent months in [January, December]. By default \code{start.month=1}.
 }
+  \item{out.PerYear}{
+logical, indicating the whether the output of the function has to include the Kling-Gupta efficiencies obtained for the individual years in \{code{sim} and \code{obs} or not.
+}
   \item{fun}{
 function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing this goodness-of-fit index.
 
-The first two arguments of \code{fun} MUST BE NAMED \kbd{sim} and \kbd{obs} (in that specific order), and addtional arguments are passed using \code{\dots}.
+The first two arguments of \code{fun} MUST BE NAMED \kbd{sim} and \kbd{obs} (in that specific order), and additional arguments are passed using \code{\dots}.
 }
   \item{\dots}{
 arguments passed to \code{fun}, in addition to the mandatory \kbd{sim} and \kbd{obs}.
@@ -97,9 +100,6 @@ Valid values of \code{epsilon.type} are:
 }
   \item{epsilon.value}{
 numeric value to be added to both \code{sim} and \code{obs} when \code{epsilon.type="otherValue"}.
-}
-  \item{out.PerYear}{
-logical, indicating the whether the output of the function has to include the Kling-Gupta efficincies obtained for the individual years in \{code{sim} and \code{obs} or not.
 }
 }
 \details{
@@ -149,7 +149,7 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{NSE}}, \code{\link{gof}}, \code{\link{ggof}}
+\code{\link{KGE}}, \code{\link{KGElf}}, \code{\link{KGEnp}}, \code{\link{NSE}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 ##################

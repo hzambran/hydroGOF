@@ -1,7 +1,8 @@
 # File gof.R
-# Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
-#                                 http://cran.r-project.org/web/packages/hydroGOF/
-# Copyright 2011-2023 Mauricio Zambrano-Bigiarini
+# Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF
+#                                 https://cran.r-project.org/package=hydroGOF
+#                                 http://www.rforge.net/hydroGOF/ ;
+# Copyright 2008-2023 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -34,7 +35,7 @@
 # 'dr'        : Refined Index of Agreement( -1 <= dr <= 1 )
 # 'md'        : Modified Index of Agreement( 0 <= md <= 1 )
 # 'rd'        : Relative Index of Agreement( 0 <= rd <= 1 )
-# 'PI'        : Persistence Index ( 0 <= PI <= 1 ) 
+# 'cp'        : Coefficient of Persistence ( 0 <= cp <= 1 ) 
 # 'PBIAS'     : Percent Bias ( -1 <= PBIAS <= 1 )
 # 'bR2'       : weighted coefficient of determination
 # 'KGE'       : Kling-Gupta efficiency (-Inf < KGE <= 1)
