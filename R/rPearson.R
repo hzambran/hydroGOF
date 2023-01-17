@@ -1,7 +1,8 @@
 # File rPearson.R
-# Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
-#                                 http://cran.r-project.org/web/packages/hydroGOF/
-# Copyright 2009-2016 Mauricio Zambrano-Bigiarini
+# Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF
+#                                 https://cran.r-project.org/package=hydroGOF
+#                                 http://www.rforge.net/hydroGOF/ ;
+# Copyright 2009-2023 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 # Before Oct 27th 2009, this function was included in 'gof' function
@@ -21,46 +22,86 @@
 ################################################################################
 # Started: 27-Oct-2009                                                         #
 # Updates: 17-Jul-2016                                                         #
+#          16-Jan-2023                                                         #
 ################################################################################
 rPearson <-function(sim, obs, ...) UseMethod("rPearson")
 
-rPearson.default <- function(sim, obs,...) {
+rPearson.default <- function(sim, obs, fun=NULL, ..., 
+                             epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                             epsilon.value=NA) {
 
   if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo"))) |
           is.na(match(class(obs), c("integer", "numeric", "ts", "zoo")))
      ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo')")
+
+  vi <- valindex(sim, obs)
+     
+  if (length(vi) > 0) {
+	 
+    obs <- as.numeric(obs[vi])
+    sim <- as.numeric(sim[vi])
+
+    if (!is.null(fun)) {
+      fun1 <- match.fun(fun)
+      new  <- preproc(sim=sim, obs=obs, fun=fun1, ..., 
+                      epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+      sim  <- new[["sim"]]
+      obs  <- new[["obs"]]
+    } # IF end
   
-  rPearson <- cor(sim, obs, method="pearson", use="pairwise.complete.obs")      
-  # if 'sim' and 'obs' were matrixs or data.frame, then the correlation
-  # between observed and simulated values for each variable is given by the diagonal of 'r.Pearson' 
+    rPearson <- cor(sim, obs, method="pearson", use="pairwise.complete.obs")      
+    # if 'sim' and 'obs' were matrixs or data.frame, then the correlation
+    # between observed and simulated values for each variable is given by the diagonal of 'r.Pearson' 
   
-  #if ( is.matrix(r.Pearson) | is.data.frame(r.Pearson) ) {
-  #r.Pearson        <- diag(r.Pearson)
-  #}
+    #if ( is.matrix(r.Pearson) | is.data.frame(r.Pearson) ) {
+    #r.Pearson        <- diag(r.Pearson)
+    #}
   
   return(rPearson)
   
 } # 'rPearson.default' end
 
-rPearson.matrix <- function (sim, obs, na.rm=TRUE, ...){
+
+
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 27-Oct-2009                                                         #
+# Updates: 17-Jul-2016                                                         #
+#          16-Jan-2023                                                         #
+################################################################################
+rPearson.matrix <- function(sim, obs, na.rm=TRUE, fun=NULL, ..., 
+                            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                            epsilon.value=NA){
 
     rPearson <- rep(NA, ncol(obs))       
           
     rPearson <- sapply(1:ncol(obs), function(i,x,y) { 
-                 rPearson[i] <- rPearson.default( x[,i], y[,i], na.rm=na.rm, ... )
+                 rPearson[i] <- rPearson.default( x[,i], y[,i], na.rm=na.rm, fun=fun, ..., 
+                                                  epsilon.type=epsilon.type, epsilon.value=epsilon.value)
             }, x=sim, y=obs )            
            
     return(rPearson)
      
-  } # 'rPearson.matrix' END
+} # 'rPearson.matrix' END
   
-  
-rPearson.data.frame <- function (sim, obs, na.rm=TRUE, ...){
+
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# Started: 27-Oct-2009                                                         #
+# Updates: 17-Jul-2016                                                         #
+#          16-Jan-2023                                                         #
+################################################################################  
+rPearson.data.frame <- function(sim, obs, na.rm=TRUE, fun=NULL, ..., 
+                                epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                                epsilon.value=NA){
 
     sim <- as.matrix(sim)
     obs <- as.matrix(obs)
 	
-    rPearson.matrix(sim, obs, na.rm=na.rm, ...)        
+    rPearson.matrix(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                    epsilon.type=epsilon.type, epsilon.value=epsilon.value)        
      
   } # 'rPearson.data.frame' END
   
@@ -70,15 +111,20 @@ rPearson.data.frame <- function (sim, obs, na.rm=TRUE, ...){
 ################################################################################
 # Started: 22-Mar-2013                                                         #
 # Updates: 17-Jul-2016                                                         #
+#          16-Jan-2023                                                         #
 ################################################################################
-rPearson.zoo <- function(sim, obs, na.rm=TRUE, ...){
+rPearson.zoo <- function(sim, obs, na.rm=TRUE, fun=NULL, ..., 
+                         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                         epsilon.value=NA){
     
     sim <- zoo::coredata(sim)
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
     
     if (is.matrix(sim) | is.data.frame(sim)) {
-       rPearson.matrix(sim, obs, na.rm=na.rm, ...)
-    } else NextMethod(sim, obs, na.rm=na.rm, ...)
+       rPearson.matrix(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                       epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+    } else NextMethod(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                      epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
   } # 'rPearson.zoo' end
 
