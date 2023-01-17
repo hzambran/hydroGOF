@@ -56,6 +56,11 @@ rPearson.default <- function(sim, obs, fun=NULL, ...,
     #if ( is.matrix(r.Pearson) | is.data.frame(r.Pearson) ) {
     #r.Pearson        <- diag(r.Pearson)
     #}
+
+  } else {
+           rPearson <- NA
+           warning("There are no pairs of 'sim' and 'obs' without missing values !")
+         } # ELSE end
   
   return(rPearson)
   
