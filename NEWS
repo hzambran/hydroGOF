@@ -5,14 +5,25 @@ NEWS/ChangeLog for hydroGOF
         o new function 'sKGE', which computes the Split Kling-Gupta efficiency, which was proposed by Fowler et al. (2018) for calibration in a drying climate.
         o new function 'KGEnp', which computes the non-parametric Kling-Gupta efficiency proposed by Pool et al. (2018).
         o new function 'dr', which computes the Refined Index of Agreement proposed by Willmott et al. (2012).
-        o 'KGE' : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)   
-        o 'mNSE': three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x) 
-        o 'rNSE': three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)                                                                                           
-        o 'd'   : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)                                                                                         
-        o 'rd'  : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)  
-        o 'br2' : new argument 'dec' to allow the user to specify the number of decimals shown in the output object. Default value set to 1 for compatibility with previous versions. Thanks to Ken Newman !
-        o 'NSE' : possible values of 'epsilon' argument were changed to c('Pushpalatha2012', 'otherFactor', 'otherValue'), to give the user more flexibility in the computation of the constant value added to 'sim' and 'obs' when using transformed values to compute the NSE (e.g., when focusing on low flows)
-        o 'gof' : four new arguments (start.month, fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of all goodness-of-fit.                                                                                    
+        o 'KGE'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)   
+        o 'mNSE'    : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of mNSE (e.g., log, sqrt, 1/x) 
+        o 'rNSE'    : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of rNSE (e.g., log, sqrt, 1/x)                                                                                           
+        o 'd'       : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of d (e.g., log, sqrt, 1/x)                                                                                         
+        o 'rd'      : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of rd (e.g., log, sqrt, 1/x)  
+        o 'VE'      : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of VE (e.g., log, sqrt, 1/x)  
+        o 'cp'      : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of cp (e.g., log, sqrt, 1/x)  
+        o 'mae'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of mae (e.g., log, sqrt, 1/x)  
+        o 'me'      : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of me (e.g., log, sqrt, 1/x)
+        o 'mse'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of mse (e.g., log, sqrt, 1/x) 
+        o 'nrmse'   : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of nrmse (e.g., log, sqrt, 1/x)     
+        o 'pbias'   : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of pbias (e.g., log, sqrt, 1/x)  
+        o 'pbiasfdc': three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of pbiasfdc (e.g., log, sqrt, 1/x)  
+        o 'rSD'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of rSD (e.g., log, sqrt, 1/x)  
+        o 'rsr'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of rsr (e.g., log, sqrt, 1/x)  
+        o 'br2'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of br2 (e.g., log, sqrt, 1/x)  
+        o 'br2'     : new argument 'dec' to allow the user to specify the number of decimals shown in the output object. Default value set to 1 for compatibility with previous versions. Thanks to Ken Newman !
+        o 'NSE'     : possible values of 'epsilon' argument were changed to c('Pushpalatha2012', 'otherFactor', 'otherValue'), to give the user more flexibility in the computation of the constant value added to 'sim' and 'obs' when using transformed values to compute the NSE (e.g., when focusing on low flows)
+        o 'gof'     : four new arguments (start.month, fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of all goodness-of-fit.                                                                                                                                                                      
 
 0.4-0  11-Mar-2020
         o Package tested against R Under development (unstable) (2020-03-10 r77920) -- "Unsuffered Consequences", following an imperative request made by CRAN.
@@ -20,7 +31,7 @@ NEWS/ChangeLog for hydroGOF
         o Vignette on Goodness-of-fit Measures to Compare Observed and Simulated Values was moved from Sweave to Knitr.
         o New references were added for 'KGE' (Santos et. al, 2018; Knoben et al., 2019; Mizukami et al., 2019)
         o New reference was added for 'me' (Hill et al., 2006) Thanks to Erli Pinto dos Santos !.
-        o 'br2'       : new argument 'use.abs=FALSE', to allow the user to use 'abs(b)' as condition to decide whether using abs(b)*r2 or [1/abs(b)]*r2 in equation (5) in Krausse et al. (2005). Thanks to Ellie White !
+        o 'br2'     : new argument 'use.abs=FALSE', to allow the user to use 'abs(b)' as condition to decide whether using abs(b)*r2 or [1/abs(b)]*r2 in equation (5) in Krausse et al. (2005). Thanks to Ellie White !
 
 
 
