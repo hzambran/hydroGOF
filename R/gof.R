@@ -56,14 +56,22 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
      method        <- match.arg(method)
      epsilon.type  <- match.arg(epsilon.type)
      
-     ME     <- me(sim, obs, na.rm=na.rm)
-     MAE    <- mae(sim, obs, na.rm=na.rm)
-     MSE    <- mse(sim, obs, na.rm=na.rm)
-     RMSE   <- rmse(sim, obs, na.rm=na.rm) 
-     NRMSE  <- nrmse(sim, obs, na.rm=na.rm, norm=norm)
-     RSR    <- rsr(sim, obs, na.rm=na.rm, ...)
-     rSD    <- rSD(sim, obs, na.rm=na.rm)     
-     PBIAS  <- pbias(sim, obs, na.rm=na.rm, ...)
+     ME     <- me(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                  epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     MAE    <- mae(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     MSE    <- mse(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     RMSE   <- rmse(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                   epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
+     NRMSE  <- nrmse(sim, obs, na.rm=na.rm, norm=norm, fun=fun, ..., 
+                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     RSR    <- rsr(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     rSD    <- rSD(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)     
+     PBIAS  <- pbias(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      NSE    <- NSE(sim, obs, na.rm=na.rm, fun=fun, ..., 
                    epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      mNSE   <- mNSE(sim, obs, na.rm=na.rm, j=j, fun=fun, ..., 
@@ -78,9 +86,12 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      rd     <- rd(sim, obs, na.rm=na.rm, fun=fun, ..., 
                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)
-     cp     <- cp(sim, obs, na.rm=na.rm, ...)
-     r      <- .rPearson(sim, obs)
-     bR2    <- br2(sim, obs, na.rm=na.rm, ...)     
+     cp     <- cp(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                  epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     r      <- .rPearson(sim, obs, fun=fun, ..., 
+                         epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     bR2    <- br2(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)     
      KGE    <- KGE(sim, obs, na.rm=na.rm, s=s, method=method, out.type="single", 
                     fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
      KGElf  <- KGElf(sim, obs, na.rm=na.rm, s=s, method=method, 
@@ -88,16 +99,18 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
      if ( inherits(sim, "zoo") & inherits(obs, "zoo") ) {
        do.sKGE <- TRUE
        sKGE   <- sKGE(sim, obs, na.rm=na.rm, s=s, method=method, out.type="single", 
-                      start.month=start.month, fun=fun, ..., 
-                      epsilon.type=epsilon.type, epsilon.value=epsilon.value, out.PerYear=FALSE) 
+                      start.month=start.month, out.PerYear=FALSE, fun=fun, ..., 
+                      epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
      } else {
          do.sKGE <- FALSE
          sKGE <- NA
        } # ELSE end
  
        
-     KGEnp  <- KGEnp(sim, obs, na.rm=na.rm, out.type="single", fun=fun, ...) 
-     VE     <- VE(sim, obs, na.rm=na.rm, ...)     
+     KGEnp  <- KGEnp(sim, obs, na.rm=na.rm, out.type="single", fun=fun, ..., 
+                     epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
+     VE     <- VE(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                  epsilon.type=epsilon.type, epsilon.value=epsilon.value)     
      
      # 'R2' is the Coefficient of Determination
      # The coefficient of determination, R2, is useful because it gives the proportion of
@@ -111,18 +124,40 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
      R2 <- r^2
       
      if (do.spearman) {
-       r.Spearman <- cor(sim, obs, method="spearman", use="pairwise.complete.obs") 
+       # index of those elements that are present both in 'sim' and 'obs' (NON- NA values)
+       vi <- valindex(sim, obs)
+   
+       if (length(vi) > 0) {	 
+         # Filtering 'obs' and 'sim', selecting only those pairs of elements 
+         # that are present both in 'x' and 'y' (NON- NA values)
+         obs <- obs[vi]
+         sim <- sim[vi]
+
+         if (!is.null(fun)) {
+           fun1 <- match.fun(fun)
+           new  <- preproc(sim=sim, obs=obs, fun=fun1, ..., 
+                           epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+           sim  <- new[["sim"]]
+           obs  <- new[["obs"]]
+         } # IF end     
+
+         r.Spearman <- cor(sim, obs, method="spearman", use="pairwise.complete.obs") 
      
-       # if 'sim' and 'obs' were matrixs or data.frame, then the correlation
-       # between observed and simulated values for each variable is given by the diagonal of 'r.Pearson' 
-       if ( is.matrix(r.Spearman) | is.data.frame(r.Spearman) ) {
-         r.Spearman        <- diag(r.Spearman)
-        } # IF end
+         # if 'sim' and 'obs' were matrixs or data.frame, then the correlation
+         # between observed and simulated values for each variable is given by the diagonal of 'r.Pearson' 
+         if ( is.matrix(r.Spearman) | is.data.frame(r.Spearman) )
+           r.Spearman <- diag(r.Spearman)
+
+       } else {
+           r.Spearman <- NA
+           warning("There are no pairs of 'sim' and 'obs' without missing values !")
+         } # ELSE end
         
-     } # IF end
+     } # IF 'do.spearman' end
      
      if (do.pbfdc) 
-       pbfdc  <- pbiasfdc(sim, obs, na.rm=na.rm, lQ.thr=lQ.thr, hQ.thr=hQ.thr, plot=FALSE, ...)
+       pbfdc  <- pbiasfdc(sim, obs, na.rm=na.rm, lQ.thr=lQ.thr, hQ.thr=hQ.thr, plot=FALSE, 
+                          fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
      gof <- rbind(ME, MAE, MSE, RMSE, NRMSE, PBIAS, RSR, rSD, NSE, mNSE, rNSE, d, dr, md, rd, cp, r, R2, bR2, KGE, KGElf, KGEnp, VE)     
      
