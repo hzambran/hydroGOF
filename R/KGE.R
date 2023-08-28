@@ -112,17 +112,17 @@ KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
     Gamma <- CV.sim / CV.obs
        
     # Variability ratio depending on 'method'
-    if (method=="2012") {
+    if (method == "2012") {
       br     <- Beta
       br.stg <- "Beta"
       vr     <- Gamma
       vr.stg <- "Gamma"
-    } else if (method=="2009") {
+    } else if (method == "2009") {
         br     <- Beta
         br.stg <- "Beta"
         vr     <- Alpha
         vr.stg <- "Alpha"
-      } else if (method=="2021") {
+      } else if (method == "2021") {
           br     <- Beta.2021
           br.stg <- "Beta.2021"
           vr     <- Alpha
@@ -131,40 +131,40 @@ KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
 
     # KGE Computation
     if ( (mean.obs != 0) | (sigma.obs != 0) ) {
-        if ( (method=="2009") | if (method=="2012") ) {
+        if ( (method == "2009") | (method == "2012") ) {
           KGE <- 1 - sqrt( (s[1]*(r-1))^2 + (s[2]*(vr-1))^2 + (s[3]*(Beta-1))^2 )
         } else KGE <- 1 - sqrt( (s[1]*(r-1))^2 + (s[2]*(vr-1))^2 + (s[3]*(Beta.2021))^2 )
     } else {
         if ( mean.obs != 0)  warning("Warning: 'mean(obs)==0'. Beta = Inf")
         if ( sigma.obs != 0) warning("Warning: 'sd(obs)==0'. ", vr.stg, " = Inf")
         KGE <- NA
-      } # ELSE end  
+    } # ELSE end  
             
   } else {
       r    <- NA
       Beta <- NA
       vr   <- NA
       br   <- NA
-      if (method=="2012") {
+      if (method == "2012") {
         br.stg <- "Beta"
         vr.stg <- "Gamma"
-      } else if (method=="2009") {
+      } else if (method == "2009") {
           br.stg <- "Beta"
           vr.stg <- "Alpha" 
         } else {
             br.stg <- "Beta.2021"
             vr.stg <- "Alpha" 
-          } # ELSE end
+        } # ELSE end
       KGE <- NA
       warning("There are no pairs of 'sim' and 'obs' without missing values !")
-    } # ELSE end
+  } # ELSE end
 
-  if (out.type=="single") {
+  if (out.type == "single") {
         out <- KGE
   } else {
-      out <- list(KGE.value=KGE, KGE.elements=c(r, br, vr))
+      out <- list(KGE.value = KGE, KGE.elements = c(r, br, vr))
       names(out[[2]]) <- c("r", br.stg, vr.stg)
-    } # ELSE end    
+  } # ELSE end    
  
   return(out)
      
