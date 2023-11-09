@@ -23,7 +23,6 @@ Quantitative statistics included are: Mean Error (\bold{me}), Mean Absolute Erro
 }
 \details{
 \tabular{ll}{
-Package: \tab hydroGOF\cr
 Type: \tab Package\cr
 Version: \tab 0.4-0\cr
 Date: \tab 2020-03-11\cr
@@ -81,7 +80,7 @@ Maintainer: Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
 
 \cite{Willmott, C.J., Robeson, S.M. and Matsuura, K. (2012). A refined index of model performance. International Journal of climatology, 32(13), pp.2088-2094. doi:10.1002/joc.2419.} \cr
 
-\cite{Willmott, C.J., Robeson, S.M., Matsuura, K. and Ficklin, D.L. (2015). Assessment of three dimensionless measures of model performance. Environmental Modelling & Software, 73, pp.167-174. doi:10.1016/j.envsoft.2015.08.012} \cr
+\cite{Willmott, C.J., Robeson, S.M., Matsuura, K. and Ficklin, D.L. (2015). Assessment of three dimensionless measures of model performance. Environmental Modelling \& Software, 73, pp.167-174. doi:10.1016/j.envsoft.2015.08.012} \cr
 
 \cite{Willmott, C. J. (1981). On the validation of models. Physical Geography, 2, 184--194} \cr
 
