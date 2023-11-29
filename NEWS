@@ -1,6 +1,6 @@
 NEWS/ChangeLog for hydroGOF
 --------------------------
-0.4-7  Under-development
+0.5-0  Under-development
         o new function 'KGElf', which computes the Kling-Gupta efficiency focused on low flows proposed by García et al. (2017).
         o new function 'sKGE', which computes the Split Kling-Gupta efficiency, which was proposed by Fowler et al. (2018) for calibration in a drying climate.
         o new function 'KGEnp', which computes the non-parametric Kling-Gupta efficiency proposed by Pool et al. (2018).
@@ -22,6 +22,7 @@ NEWS/ChangeLog for hydroGOF
         o 'rsr'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of rsr (e.g., log, sqrt, 1/x)  
         o 'br2'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of br2 (e.g., log, sqrt, 1/x)  
         o 'br2'     : new argument 'dec' to allow the user to specify the number of decimals shown in the output object. Default value set to 1 for compatibility with previous versions. Thanks to Ken Newman !
+        o 'br2'     : R2 is now correctly computed as 1 - SSres/SStot. Before it was computed as rPearson^2, whcih was only correct for linear models. Thanks to eugenioLR (https://github.com/hzambran/hydroGOF/issues/16#issue-1736556320)
         o 'NSE'     : possible values of 'epsilon' argument were changed to c('Pushpalatha2012', 'otherFactor', 'otherValue'), to give the user more flexibility in the computation of the constant value added to 'sim' and 'obs' when using transformed values to compute the NSE (e.g., when focusing on low flows)
         o 'gof'     : four new arguments (start.month, fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of all goodness-of-fit.                                                                                                                                                                      
 
