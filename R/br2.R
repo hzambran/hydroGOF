@@ -13,7 +13,7 @@
 ################################################################################
 # Started: 27-Oct-2009                                                         #
 # Updates: 11-Mar-2020                                                         #
-#          16-Jan-2023                                                         #
+#          16-Jan-2023 ; 29-Nov-2023                                           #
 ################################################################################
 
 # This index allows accounting for the discrepancy in the magnitude of two signals
@@ -68,7 +68,9 @@ br2.default <- function(sim, obs, na.rm=TRUE, use.abs=FALSE, fun=NULL, ...,
     b <- as.numeric( coefficients(x.lm)["obs"]   )
      
     # computing the r2
-    r2 <- (.rPearson(sim, obs))^2
+    #r2 <- (.rPearson(sim, obs))^2 # this works only for linear models. 
+    # https://github.com/hzambran/hydroGOF/issues/16#issue-1736556320
+    r2 <- .R2(sim=sim, obs=obs)
 
     if (!(use.abs)) {
       br2 <- ifelse(b <= 1, r2*abs(b), r2/abs(b))
@@ -158,3 +160,20 @@ br2.zoo <- function(sim, obs, na.rm=TRUE, use.abs=FALSE, fun=NULL, ...,
                       epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
 } # 'br2.zoo' end
+
+################################################################################
+# Author: Mauricio Zambrano-Bigiarini                                          #
+################################################################################
+# It was originated int he following github issue:                             #
+#   https://github.com/hzambran/hydroGOF/issues/16#issue-1736556320            #
+################################################################################
+# Started: 29-Nov-2023                                                         #
+# Updates:                                                                     #
+################################################################################
+.R2 <- function(sim, obs) {
+  Om    <- mean(obs)
+  SSres <- sum( (obs - sim)^2 )
+  SStot <- sum( (obs - Om)^2 )
+  R2    <- 1 - SSres/SStot
+  return(R2)
+} # '.R2' END
