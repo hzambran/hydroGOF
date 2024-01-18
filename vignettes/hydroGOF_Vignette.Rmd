@@ -1,20 +1,20 @@
 ---
-title: <center>Goodness-of-fit Measures to Compare Observed and 
- Simulated Values with hydroGOF</center>
+title: Goodness-of-fit measures to compare observed and simulated time series with hydroGOF
 author:
 - Mauricio Zambrano-Bigiarini^[mauricio.zambrano@ufrontera.cl]
-date: " version 0.2, 11-Mar-2020"
+date: "version 0.3, 18-Jan-2024"
 output:
   pdf_document:
     number_sections: yes
   html_document:
     df_print: paged
+    number_sections: yes
 vignette: |
-  %\VignetteIndexEntry{Tutorial for computing goodness-of-fit measures with hydroGOF}
+  %\VignetteIndexEntry{Goodness-of-fit measures to compare observed and simulated time series with hydroGOF}
   %\VignetteKeyword{hydrology}
   %\VignetteKeyword{hydrological modelling}
   %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown} \usepackage[utf8]{inputenc} 
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 ```{r setup, include = FALSE}
@@ -136,6 +136,7 @@ paste("hydroGOF", sessionInfo()$otherPkgs$hydroGOF$Version)
 
 # Version history
 
+* v0.3: Jan-2024
 * v0.2: Mar-2020
 * v0.1: Aug 2011
 
