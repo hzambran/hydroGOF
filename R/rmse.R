@@ -64,7 +64,10 @@ rmse.default <- function(sim, obs, na.rm=TRUE,
 } # 'rmse.default' end
   
 
-rmse.matrix <- function (sim, obs, na.rm=TRUE, ...) {
+rmse.matrix <- function(sim, obs, na.rm=TRUE, 
+                        fun=NULL, ...,
+                        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                        epsilon.value=NA) {
 
    # Checking 'epsilon.type'
    epsilon.type <- match.arg(epsilon.type) 
