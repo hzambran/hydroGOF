@@ -1,10 +1,16 @@
-NEWS/ChangeLog for hydroGOF
+NEWS/ChangeLog for hydroTSM
+
 --------------------------
-0.5-0  Under-development
-        o new function 'KGElf', which computes the Kling-Gupta efficiency focused on low flows proposed by García et al. (2017).
-        o new function 'sKGE', which computes the Split Kling-Gupta efficiency, which was proposed by Fowler et al. (2018) for calibration in a drying climate.
-        o new function 'KGEnp', which computes the non-parametric Kling-Gupta efficiency proposed by Pool et al. (2018).
-        o new function 'dr', which computes the Refined Index of Agreement proposed by Willmott et al. (2012).
+# Changes in version 0.5-0  XX-Jan-2024
+
+## New functions
+
+        o 'KGElf': to compute the Kling-Gupta efficiency focused on low flows proposed by García et al. (2017).
+        o 'sKGE' : to compute the Split Kling-Gupta efficiency, which was proposed by Fowler et al. (2018) for calibration in a drying climate.
+        o 'KGEnp': to compute the non-parametric Kling-Gupta efficiency proposed by Pool et al. (2018).
+        o 'dr'   : to compute the Refined Index of Agreement proposed by Willmott et al. (2012).
+
+## New features    
         o 'KGE'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)   
         o 'mNSE'    : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of mNSE (e.g., log, sqrt, 1/x) 
         o 'rNSE'    : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of rNSE (e.g., log, sqrt, 1/x)                                                                                           
@@ -22,11 +28,14 @@ NEWS/ChangeLog for hydroGOF
         o 'rsr'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of rsr (e.g., log, sqrt, 1/x)  
         o 'br2'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of br2 (e.g., log, sqrt, 1/x)  
         o 'br2'     : new argument 'dec' to allow the user to specify the number of decimals shown in the output object. Default value set to 1 for compatibility with previous versions. Thanks to Ken Newman !
-        o 'br2'     : R2 is now correctly computed as 1 - SSres/SStot. Before it was computed as rPearson^2, whcih was only correct for linear models. Thanks to eugenioLR (https://github.com/hzambran/hydroGOF/issues/16#issue-1736556320)
-        o 'NSE'     : possible values of 'epsilon' argument were changed to c('Pushpalatha2012', 'otherFactor', 'otherValue'), to give the user more flexibility in the computation of the constant value added to 'sim' and 'obs' when using transformed values to compute the NSE (e.g., when focusing on low flows)
         o 'gof'     : four new arguments (start.month, fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of all goodness-of-fit.                                                                                                                                                                      
+        o 'NSE'     : possible values of 'epsilon' argument were changed to c('Pushpalatha2012', 'otherFactor', 'otherValue'), to give the user more flexibility in the computation of the constant value added to 'sim' and 'obs' when using transformed values to compute the NSE (e.g., when focusing on low flows)
 
-0.4-0  11-Mar-2020
+## Bug fixes
+        o 'br2'     : R2 is now correctly computed as 1 - SSres/SStot. Before it was computed as rPearson^2, whcih was only correct for linear models. Thanks to eugenioLR (https://github.com/hzambran/hydroGOF/issues/16#issue-1736556320)
+
+
+# Changes in version 0.4-0  11-Mar-2020
         o Package tested against R Under development (unstable) (2020-03-10 r77920) -- "Unsuffered Consequences", following an imperative request made by CRAN.
         o Citation file changed, following CRAN comments.
         o Vignette on Goodness-of-fit Measures to Compare Observed and Simulated Values was moved from Sweave to Knitr.
@@ -35,8 +44,7 @@ NEWS/ChangeLog for hydroGOF
         o 'br2'     : new argument 'use.abs=FALSE', to allow the user to use 'abs(b)' as condition to decide whether using abs(b)*r2 or [1/abs(b)]*r2 in equation (5) in Krausse et al. (2005). Thanks to Ellie White !
 
 
-
-0.3-9  07-Ago-2017
+# Changes in version 0.3-9  07-Ago-2017
         o repository management moved from SVN to GIT, including rforge.
         o citation with DOI is now possible (and new CITATION file).
         o 'NSE'         : -) three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of NSE (e.g., log, sqrt, 1/x)                                              
@@ -59,7 +67,8 @@ NEWS/ChangeLog for hydroGOF
                           -) 'plot.xts' is no longer imported from 'xts' package (to avoid error with xts >= 0.10-0)
                           -) 'axTicksByTime' is now imported from 'xts'
 
-0.3-8	04-Feb-2014
+
+# Changes in version  0.3-8	04-Feb-2014
         o 'nrmse'         : -) added formula representing the computation done when 'norm="sd"' (default). Thanks to Markus Eichhoff !.
         o 'KGE'           : -) fixed error raised when 's != c(1,1,1)'
         o 'pbiasfdc'      : -) now does not need to load 'hydroTSM' package before being used.
@@ -70,7 +79,8 @@ NEWS/ChangeLog for hydroGOF
         o 'WhatsNew.txt' file was renamed to 'ChangeLog'
         o 'require(zoo)' (before loading the 'EgaEnEstellaQts' dataset) was removed from all the examples
  
-0.3-7	03-Jun-2013
+
+# Changes in version  0.3-7	03-Jun-2013
         o 'valindex'     : false warning fixed. 
                            This warning raised the message "'sim' and 'obs' are empty or they do not have any common pair of elements with data !!",
                            even when 'sim' and 'obs' were fully compatible.
@@ -89,7 +99,8 @@ NEWS/ChangeLog for hydroGOF
         o 'plotbands'    : -) internal: 'hydroTSM::vector2zoo' was replaced by 'vector2zoo' 
                            -) internal: 'hydroTSM::drawTimeAxis' was replaced by 'drawTimeAxis' 
 
-0.3-6	22-Mar-2013
+
+# Changes in version  0.3-6	22-Mar-2013
         o 'gof'         : -) now it works with matrices/data.frames of zoo/xts class. Thanks to L. Pagliero !
                           -) new arguments 's' and 'method' which are passed to the 'KGE' function ('out.type' is fixed to "single")
                           -) new argument 'j', which is passed to the 'mNSE' function
@@ -116,12 +127,13 @@ NEWS/ChangeLog for hydroGOF
         o 'rd'          : -) now it works with matrices/data.frames of zoo class. 
                           -) fixed typo in the formula presented in the pdf manual (a square was missing). Thanks to Insa Thiele-Eich !                                                   
         o 'nrmse'       : -) now it works with matrices/data.frames of zoo class.                          
-	o 'nrmse.matrix': fixed error in checking the 'norm' argument.
-	o 'valindex'    : a warning was added when 'sim' and 'obs' do not have any pair of elements with data in both variables.
+        o 'nrmse.matrix': fixed error in checking the 'norm' argument.
+        o 'valindex'    : a warning was added when 'sim' and 'obs' do not have any pair of elements with data in both variables.
         o e-mail address of maintainer was changed from the @ing.unit.it to the @gmail.com domain
 	
-0.3-5	19-Oct-2012
-	o now it depends on 'hydroTSM' >= 0.3-6, in order to allow handling sub-daily values in 'ggof'
+
+# Changes in version  0.3-5	19-Oct-2012
+        o now it depends on 'hydroTSM' >= 0.3-6, in order to allow handling sub-daily values in 'ggof'
         o 'ggof'      : -) now it handles sub-daily values in 'sim' and 'obs' (aggregation to daily/monthly/annual values not yet available)
                         -) 'dates' argument accepts 'POSIXct' objects
         o 'KGE'       : -) two new arguments: 'method', to allow KGE-2009 and KGE-2012 formulas, and 'out.type', in order to allow look at the
@@ -132,7 +144,8 @@ NEWS/ChangeLog for hydroGOF
                            (thanks to Giovanni Forzieri !)
         o DESCRIPTION : 'Author@R' field was replaced by 'Authors@R'                        
         
-0.3-4	03-Jul-2012
+
+# Changes in version  0.3-4	03-Jul-2012
         o new function 'VE', which computes the volumetric efficiency proposed by Criss and Winston 2008
          (thanks to Eric Morway for giving the final push to include it !)
         o 'gof'   : VE is now included in the computed goodness-of-fit measures
@@ -142,89 +155,91 @@ NEWS/ChangeLog for hydroGOF
         o 'zoo' package was moved from 'Imports' to 'Depends'
         o 'methods' package is now imported, in order to avoid problems with Rscript, which currently does not load 'methods'
         
-0.3-3	02-May-2012
+
+# Changes in version  0.3-3	02-May-2012
         o 'gof'   : added new example and description of the output class (thanks to Kris Jaeger !)
-	o 'br2'   : the new example included in version 0.3-2 was improved
+        o 'br2'   : the new example included in version 0.3-2 was improved
         o 'ggof'  : fixed problem with 'ylim' when some elements in 'sim' or 'obs' were NA (the issue was in the 'plot2' function)
-	o 'plot2' : fixed problem with 'ylim' when some elements in 'x' or 'y' were NA
+        o 'plot2' : fixed problem with 'ylim' when some elements in 'x' or 'y' were NA
 	            
-0.3-2	07-Oct-2011
-	o 'br2'   : fixed documentation error in its formula (thanks to Jan Corluy !), and a new example was added.
-	            Its value was already computed in the correct way.
+
+# Changes in version  0.3-2	07-Oct-2011
+        o 'br2'   : fixed documentation error in its formula (thanks to Jan Corluy !), and a new example was added.
+                    Its value was already computed in the correct way.
 	
-0.3-1	14-Sep-2011
-	o 'ggof'  : fixed problem when 'ylim' is specified by the user (the issue was in the 'plot2' function)
-	o 'plot2' : fixed problem when 'ylim' is specified by the user
 
-0.3-0	01-Sep-2011
+# Changes in version  0.3-1	14-Sep-2011
+        o 'ggof'  : fixed problem when 'ylim' is specified by the user (the issue was in the 'plot2' function)
+        o 'plot2' : fixed problem when 'ylim' is specified by the user
 
-	o NAMESPACE created, which leads to reduced dependency on the package hydroTSM.
-	o hydroGOF now depends on xts >= 0.8-2 (=> zoo >= 1.7-2), in order to make use of improved plotting capabilities for ts objects.
+
+# Changes in version  0.3-0	01-Sep-2011
+        o NAMESPACE created, which leads to reduced dependency on the package hydroTSM.
+        o hydroGOF now depends on xts >= 0.8-2 (=> zoo >= 1.7-2), in order to make use of improved plotting capabilities for ts objects.
           The first release of 'xts' after the 0.8-0 (which was set as the default building block for plotting time series in hydroTSM) 
           was the 0.8-2, and appeared on CRAN on August 9th, 2011       
-	o now it depends on 'hydroTSM' >= 0.3-0, in order to use the re-written 'drawxaxis/drawTimeAxis' function.	
-	o a vignette is now included with the package, in order to illustrate some basic functionality of hydroGOF
-	o 'plot2'        : -) better display of time series objects, when 'plot.type' is 'single'.
-		              The (nicer) 'plot.xts' function is used instead of the previous 'plot.zoo'.
-		           -) 'tick.tstep' and 'lab.tstep' now accept the values: "auto", "weeks", "hours", "minutes", 
-		              "seconds", which should work with sub-daily time series
-		           -) when 'cal.ini' is provided, all the values in 'obs' and 'sim' with dates previous to 'cal.ini' are SKIPPED 
-		              from the computation of the goodness-of-fit measures (when 'gof.leg=TRUE'), but their values are still plotted, 
-		              in order to examine if the warming up period was too short, acceptable or too long for the chosen calibration
-		              period.
-		           -) fixed problem with the 'cex.axis' argument when 'plot.type="multiple"' (this was a zoo problem, and it was 
-		              fixed in zoo_1.7-1).		           
-	o 'ggof'         : -) better display of time series objects (by using the new 'plot2' and 'drawxaxis/drawTimeAxis')
-		           -) it works with xts objects as well.
-		           -) 'tick.tstep' and 'lab.tstep' now accept the values: "auto", "quarters", "weeks", "hours", 
-	 	              "minutes", and "seconds", and its default value was changed to "auto". 
-	 	           -) the name of 'sim' and 'obs' are now used as default for the legend.
-	 	           -) when 'cal.ini' is provided, all the values in 'obs' and 'sim' with dates previous to 'cal.ini' are SKIPPED 
-		              from the computation of the goodness-of-fit measures (when 'gof.leg=TRUE'), but their values are still plotted, 
-		              in order to examine if the warming up period was too short, acceptable or too long for the chosen calibration
-		              period.
-		           -) added error checking for 'ftype' when 'sim' and 'obs' are not time series.
-	o 'plotbands'    : -) better display of time series objects. The (nicer) 'plot.xts' function is used 
-			      instead of the previous 'plot.zoo', and it uses the new 'drawTimeAxis' function.
-		           -) 'tick.tstep' and 'lab.tstep' now accept the values: "auto", "quarters", "weeks", "hours", 
-	 		      "minutes", and "seconds", and its default value was changed to "auto". 
-	o 'plotbandsonly': -) it works with xts objects as well
-			   -) 'legend' argument was removed (it was not used)
-			   -) 'leg.cex' argument was removed (it was not used)
-	o 'NSeff'   : -) its name was changed to 'NSE'. The old name 'NSeff' is deprecated but is still working for backwards compatibility.
-	              -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'rNSeff'  : -) its name was changed to 'rNSE'. The old name 'rNSeff' is deprecated but is still working for backwards compatibility.
-	              -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'mNSeff'  : -) its name was changed to 'mNSE'. The old name 'mNSeff' is deprecated but is still working for backwards compatibility.
-	              -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'rd'      : -) a warning message is created when -at least one of- the observed values is/are zero,
-	                 which makes impossible to compute this index (thanks to Tom Purucker !)
-	              -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'rNSE'    : -) a warning message is created when -at least one of- the observed values is/are zero,
-	                 which makes impossible to compute this index
-	              -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'md'      : -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'pbias'   : -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'pbiasfdc': -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'pfactor' : -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'rfactor' : -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'rSD'     : -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'RSR'     : -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'NRMSE'   : -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
-	o 'KGE'     : -) now it returns NA instead of '-Inf' when the denominator of Alpha or Beta were equal to zero.	
-	o 'rd'      : -) fixed documentation error in its formula (thanks to Tom Purucker !). Its value was already computed in the correct way.
+        o now it depends on 'hydroTSM' >= 0.3-0, in order to use the re-written 'drawxaxis/drawTimeAxis' function.	
+        o a vignette is now included with the package, in order to illustrate some basic functionality of hydroGOF
+        o 'plot2'        : -) better display of time series objects, when 'plot.type' is 'single'.
+		                      The (nicer) 'plot.xts' function is used instead of the previous 'plot.zoo'.
+		                   -) 'tick.tstep' and 'lab.tstep' now accept the values: "auto", "weeks", "hours", "minutes", 
+		                       "seconds", which should work with sub-daily time series
+		                   -) when 'cal.ini' is provided, all the values in 'obs' and 'sim' with dates previous to 'cal.ini' are SKIPPED 
+		                      from the computation of the goodness-of-fit measures (when 'gof.leg=TRUE'), but their values are still plotted, 
+		                      in order to examine if the warming up period was too short, acceptable or too long for the chosen calibration
+		                      period.
+		                   -) fixed problem with the 'cex.axis' argument when 'plot.type="multiple"' (this was a zoo problem, and it was 
+		                      fixed in zoo_1.7-1).		           
+	o 'ggof'         :     -) better display of time series objects (by using the new 'plot2' and 'drawxaxis/drawTimeAxis')
+		                   -) it works with xts objects as well.
+		                   -) 'tick.tstep' and 'lab.tstep' now accept the values: "auto", "quarters", "weeks", "hours", 
+	 	                      "minutes", and "seconds", and its default value was changed to "auto". 
+	 	                   -) the name of 'sim' and 'obs' are now used as default for the legend.
+	 	                   -) when 'cal.ini' is provided, all the values in 'obs' and 'sim' with dates previous to 'cal.ini' are SKIPPED 
+		                      from the computation of the goodness-of-fit measures (when 'gof.leg=TRUE'), but their values are still plotted, 
+		                      in order to examine if the warming up period was too short, acceptable or too long for the chosen calibration
+		                      period.
+		                   -) added error checking for 'ftype' when 'sim' and 'obs' are not time series.
+	o 'plotbands'    :     -) better display of time series objects. The (nicer) 'plot.xts' function is used 
+			                  instead of the previous 'plot.zoo', and it uses the new 'drawTimeAxis' function.
+		                   -) 'tick.tstep' and 'lab.tstep' now accept the values: "auto", "quarters", "weeks", "hours", 
+	 		                  "minutes", and "seconds", and its default value was changed to "auto". 
+	o 'plotbandsonly':     -) it works with xts objects as well
+			               -) 'legend' argument was removed (it was not used)
+			               -) 'leg.cex' argument was removed (it was not used)
+	o 'NSeff'        :     -) its name was changed to 'NSE'. The old name 'NSeff' is deprecated but is still working for backwards compatibility.
+	                       -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'rNSeff'       :     -) its name was changed to 'rNSE'. The old name 'rNSeff' is deprecated but is still working for backwards compatibility.
+	                       -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'mNSeff'       :     -) its name was changed to 'mNSE'. The old name 'mNSeff' is deprecated but is still working for backwards compatibility.
+	                       -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'rd'           :     -) a warning message is created when -at least one of- the observed values is/are zero,
+	                          which makes impossible to compute this index (thanks to Tom Purucker !)
+	                       -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'rNSE'         :     -) a warning message is created when -at least one of- the observed values is/are zero,
+	                          which makes impossible to compute this index
+	                       -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'md'           :     -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'pbias'        :     -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'pbiasfdc'     :     -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'pfactor'      :     -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'rfactor'      :     -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'rSD'          :     -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'RSR'          :     -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'NRMSE'        :     -) now it returns NA instead of an error when the denominator of its formula is equal to zero.
+	o 'KGE'          :     -) now it returns NA instead of '-Inf' when the denominator of Alpha or Beta were equal to zero.	
+	o 'rd'           :     -) fixed documentation error in its formula (thanks to Tom Purucker !). Its value was already computed in the correct way.
 	o New dimension checking (number of columns and rows) for all the functions that are applied over a matrix or data.frame
 
 
 
-###################################################
-# Previous Releases (see old file 'WhatsNew.txt)' #
-###################################################
 
-0.2-2. Release Date: 14-Apr-2011
-0.2-1. Release Date: 30-Nov-2010
-0.2-0. Release Date: 07-Oct-2010
-0.1.3. Release Date: 01-Dec-2009
-0.1.2. Release Date: 29-Oct-2009
-0.1.1. Release Date: 05-Oct-2009
-0.1.0. Release Date: 07-Sep-2009 (but the functions have been developed since 2008)
+-- Previous Releases: see old file 'ChangeLog' (see old file 'WhatsNew.txt)' #
+
+# version 0.2-2. Release Date: 14-Apr-2011
+# version 0.2-1. Release Date: 30-Nov-2010
+# version 0.2-0. Release Date: 07-Oct-2010
+# version 0.1.3. Release Date: 01-Dec-2009
+# version 0.1.2. Release Date: 29-Oct-2009
+# version 0.1.1. Release Date: 05-Oct-2009
+# version 0.1.0. Release Date: 07-Sep-2009 (but the functions have been developed since 2008)
