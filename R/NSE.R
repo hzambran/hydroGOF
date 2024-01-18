@@ -29,11 +29,12 @@ NSE.default <- function (sim, obs, na.rm=TRUE, fun=NULL, ...,
                          epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                          epsilon.value=NA){ 
 
+  # Checking 'epsilon.type'
+  epsilon.type <- match.arg(epsilon.type) 
+
   if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo", "xts"))) |
        is.na(match(class(obs), c("integer", "numeric", "ts", "zoo", "xts")))
   ) stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo', 'xts')")      
-
-  epsilon.type <- match.arg(epsilon.type)  
 
   # index of those elements that are present both in 'sim' and 'obs' (NON- NA values)
   vi <- valindex(sim, obs)
@@ -74,6 +75,9 @@ NSE.matrix <- function(sim, obs, na.rm=TRUE, fun=NULL, ...,
                        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                        epsilon.value=NA){ 
 
+  # Checking 'epsilon.type'
+  epsilon.type <- match.arg(epsilon.type)  
+
   # Checking that 'sim' and 'obs' have the same dimensions
   if ( all.equal(dim(sim), dim(obs)) != TRUE )
     stop( paste("Invalid argument: dim(sim) != dim(obs) ( [", 
@@ -98,6 +102,9 @@ NSE.data.frame <- function(sim, obs, na.rm=TRUE, fun=NULL, ...,
                            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                            epsilon.value=NA){ 
  
+  # Checking 'epsilon.type'
+  epsilon.type <- match.arg(epsilon.type)  
+
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
    
@@ -115,6 +122,7 @@ NSeff <-function(sim, obs, ...) UseMethod("NSE")
 ################################################################################
 # Started: 22-Mar-2013                                                         #
 # Updates: 12-Jul-2022 ; 13-Jul-2022                                           #
+#          18-Jan-2024                                                         #
 ################################################################################
 NSE.zoo <- function(sim, obs, na.rm=TRUE, fun=NULL, ..., 
                     epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
@@ -124,10 +132,10 @@ NSE.zoo <- function(sim, obs, na.rm=TRUE, fun=NULL, ...,
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
     
     if (is.matrix(sim) | is.data.frame(sim)) {
-       NSE.matrix(sim, obs, na.rm=na.rm, fun=fun, epsilon.type=epsilon.type, 
-                  epsilon.value=epsilon.value, ...)
-    } else NextMethod(sim, obs, na.rm=na.rm, fun=fun, epsilon.type=epsilon.type, 
-                      epsilon.value=epsilon.value, ...)
+       NSE.matrix(sim, obs, na.rm=na.rm, fun=fun, ..., epsilon.type=epsilon.type, 
+                  epsilon.value=epsilon.value)
+    } else NextMethod(sim, obs, na.rm=na.rm, fun=fun, ..., epsilon.type=epsilon.type, 
+                      epsilon.value=epsilon.value)
      
   } # 'NSE.zoo' end
 
