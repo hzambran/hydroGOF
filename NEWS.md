@@ -5,10 +5,11 @@ NEWS/ChangeLog for hydroTSM
 
 ## New functions
 
-        o 'KGElf': to compute the Kling-Gupta efficiency focused on low flows proposed by García et al. (2017).
-        o 'sKGE' : to compute the Split Kling-Gupta efficiency, which was proposed by Fowler et al. (2018) for calibration in a drying climate.
-        o 'KGEnp': to compute the non-parametric Kling-Gupta efficiency proposed by Pool et al. (2018).
-        o 'dr'   : to compute the Refined Index of Agreement proposed by Willmott et al. (2012).
+        o 'KGElf'   : to compute the Kling-Gupta efficiency focused on low flows proposed by García et al. (2017).
+        o 'sKGE'    : to compute the Split Kling-Gupta efficiency, which was proposed by Fowler et al. (2018) for calibration in a drying climate.
+        o 'KGEnp'   : to compute the non-parametric Kling-Gupta efficiency proposed by Pool et al. (2018).
+        o 'dr'      : to compute the Refined Index of Agreement proposed by Willmott et al. (2012).
+        o 'ubRMSE'  : to compute the unbiased Root mean Squared Error proposed by Entekhabi et al. (2010).
 
 ## New features    
         o 'KGE'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)   
@@ -21,6 +22,7 @@ NEWS/ChangeLog for hydroTSM
         o 'mae'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of mae (e.g., log, sqrt, 1/x)  
         o 'me'      : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of me (e.g., log, sqrt, 1/x)
         o 'mse'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of mse (e.g., log, sqrt, 1/x) 
+        o 'rmse'    : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of nrmse (e.g., log, sqrt, 1/x)     
         o 'nrmse'   : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of nrmse (e.g., log, sqrt, 1/x)     
         o 'pbias'   : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of pbias (e.g., log, sqrt, 1/x)  
         o 'pbiasfdc': three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of pbiasfdc (e.g., log, sqrt, 1/x)  
