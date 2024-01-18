@@ -2,7 +2,7 @@
 [![Research software impact](http://depsy.org/api/package/cran/hydroGOF/badge.svg)](http://depsy.org/package/r/hydroGOF) [![CRAN](http://www.r-pkg.org/badges/version/hydroGOF)](https://cran.r-project.org/package=hydroGOF) [![License](https://img.shields.io/badge/license-GPL%20%28%3E=%203%29-lightgrey.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html) [![monthly](http://cranlogs.r-pkg.org/badges/hydroGOF)](https://www.rpackages.io/package/hydroGOF) [![total](http://cranlogs.r-pkg.org/badges/grand-total/hydroGOF)](https://www.rpackages.io/package/hydroGOF) [![Build Status](https://travis-ci.org/hzambran/hydroGOF.svg?branch=master)](https://travis-ci.org/hzambran/hydroGOF) [![dependencies](https://tinyverse.netlify.com/badge/hydroGOF)](https://CRAN.R-project.org/package=hydroGOF)
 
 <!-- badges: start -->
-  [![R-CMD-check](https://github.com/hzambran/hydroTSM/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hzambran/hydroTSM/actions/workflows/R-CMD-check.yaml)
+  [![R-CMD-check](https://github.com/hzambran/hydroGOF/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hzambran/hydroGOF/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 hydroGOF is an R package that provides S3 functions implementing both statistical and graphical goodness-of-fit measures between observed and simulated values, mainly oriented to be used during the calibration, validation, and application of hydrological models.
