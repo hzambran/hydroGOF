@@ -110,36 +110,50 @@ Valid values of \code{epsilon.type} are:
 4) \kbd{"otherValue"}: the numeric value defined in the \code{epsilon.value} argument is directly added to both \code{sim} and \code{obs}, before applying \code{FUN}.
 }
   \item{epsilon.value}{
- numeric value to be added to both \code{sim} and \code{obs} when \code{epsilon.type="otherValue"}.
+ -) when \code{epsilon.type="otherValue"} it represents the numeric value to be added to both \code{sim} and \code{obs} before applying \code{fun}. \cr
+ -) when \code{epsilon.type="otherFactor"} it represents the numeric factor used to multiply the mean of the observed values, instead of the one hundredth (1/100) described in Pushpalatha et al. (2012). The resulting value is then added to both \code{sim} and \code{obs} before applying \code{fun}.
 }
 }
 %%\details{
 %%}
+ME,MAE,MSE,RMSE,ubRMSE,NRMSE,PBIAS,RSR,rSD
+NSE,mNSE,rNSE,d,dr,md,rd,cp,r,R2,bR2,KGE,KGElf,sKGE, KGEnp,VE
+
 \value{
 The output of the \code{gof} function is a matrix with one column only, and the following rows:
-\item{me}{Mean Error}
-\item{mae}{Mean Absolute Error}
-\item{mse}{Mean Squared Error}
-\item{rmse}{Root Mean Square Error}
-\item{nrmse}{Normalized Root Mean Square Error  ( -100\% <= nrms <= 100\% )}
-\item{PBIAS}{Percent Bias }
-\item{pbiasfdc}{PBIAS in the slope of the midsegment of the Flow Duration Curve}
+\item{ME}{Mean Error}
+\item{MAE}{Mean Absolute Error}
+\item{MSE}{Mean Squared Error}
+\item{RMSE}{Root Mean Square Error}
+\item{ubRMSE}{Unbiased Root Mean Square Error}
+\item{NRMSE}{Normalized Root Mean Square Error  ( -100\% <= nrms <= 100\% )}
+\item{PBIAS}{Percent Bias}
 \item{RSR}{Ratio of RMSE to the Standard Deviation of the Observations, RSR = rms / sd(obs). ( 0 <= RSR <= +Inf )}
 \item{rSD}{Ratio of Standard Deviations, rSD = sd(sim) / sd(obs)}
 \item{NSE}{Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 )}
 \item{mNSE}{Modified Nash-Sutcliffe Efficiency}
-\item{rNSE}{Relative Nash-Sutcliffe Efficiency }
+\item{rNSE}{Relative Nash-Sutcliffe Efficiency}
 \item{d}{Index of Agreement ( 0 <= d <= 1 )}
-\item{d1}{Modified Index of Agreement}
+\item{dr}{Refined Index of Agreement ( -1 <= dr <= 1 )}
+\item{md}{Modified Index of Agreement ( 0 <= md <= 1 )}
 \item{rd}{Relative Index of Agreement}
 \item{cp}{Persistence Index ( 0 <= PI <= 1 ) }
 \item{r}{Pearson Correlation coefficient ( -1 <= r <= 1 )}
-\item{r.Spearman}{Spearman Correlation coefficient ( -1 <= r.Spearman <= 1 ) }
 \item{R2}{Coefficient of Determination ( 0 <= R2 <= 1 ). \cr
           Gives the proportion of the variance of one variable that is predictable from the other variable}
 \item{bR2}{R2 multiplied by the coefficient of the regression line between \code{sim} and \code{obs} \cr ( 0 <= bR2 <= 1 )}
-\item{KGE}{Kling-Gupta efficiency between \code{sim} and \code{obs} \cr ( 0 <= KGE <= 1 )}
+\item{KGE}{Kling-Gupta efficiency between \code{sim} and \code{obs} \cr ( -Inf <= KGE <= 1 )}
+\item{KGElf}{Kling-Gupta Efficiency for low values between \code{sim} and \code{obs} \cr ( -Inf <= KGElf <= 1 )}
+\item{sKGE}{Split Kling-Gupta Efficiency between \code{sim} and \code{obs} \cr ( -Inf <= sKGE <= 1 ). Only computed when both 'sim' and 'obs' are zoo objects}
+\item{KGEnp}{Non-parametric version of the Kling-Gupta Efficiency between \code{sim} and \code{obs} \cr ( -Inf <= KGEnp <= 1 )}
 \item{VE}{Volumetric efficiency between \code{sim} and \code{obs} \cr ( -Inf <= VE <= 1)}
+\item{r.Spearman}{Spearman Correlation coefficient ( -1 <= r.Spearman <= 1 ). Only computed when \code{do.spearman=TRUE}}
+\item{pbiasfdc}{PBIAS in the slope of the midsegment of the Flow Duration Curve}
+
+
+
+
+
 %% ...
 }
 \references{

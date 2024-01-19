@@ -24,14 +24,26 @@ Quantitative statistics included are: Mean Error (\bold{me}), Mean Absolute Erro
 \details{
 \tabular{ll}{
 Type: \tab Package\cr
-Version: \tab 0.4-0\cr
-Date: \tab 2020-03-11\cr
+Version: \tab 0.5-0\cr
+Date: \tab 2024-01-19\cr
 License: \tab GPL >= 2\cr
 LazyLoad: \tab yes\cr
 Packaged: \tab Wed Mar 11 22:23:51 -03 2020; MZB \cr
-BuiltUnder: \tab R version 3.6.3 (2020-02-29) -- "Holding the Windsock"; x86_64-pc-linux-gnu (64-bit)) \cr
+BuiltUnder: \tab R version 4.3.2 (2023-10-31) ;x86_64-pc-linux-gnu (64-bit) \cr
 }
-%%~~ An overview of how to use the package, including the most important functions ~~
+
+--------------------------------------------------------------------------------------------------------------------------- \cr
+Datasets:
+
+  \tabular{ll}{
+    \code{\link{Cauquenes7336001}}  Hydrometeorological time series for "Cauquenes en El Arrayan" catchment.\cr
+    \code{\link{EbroPPtsMonthly}}   Ebro Monthly Precipitation Time Series. \cr
+    \code{\link{KarameaAtGorgeQts}} Karamea at Gorge, time series of hourly streamflows. \cr
+    \code{\link{MaquehueTemuco}}    San Martino, ts of daily precipitation. \cr
+    \code{\link{OcaEnOnaQts}}       Oca in "Ona" (Q0931), time series of daily streamflows \cr
+    \code{\link{SanMartinoPPts}}    San Martino, ts of daily precipitation. \cr
+--------------------------------------------------------------------------------------------------------------------------- \cr
+}
 }
 \author{
 Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>

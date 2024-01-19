@@ -120,7 +120,8 @@ Valid values of \code{epsilon.type} are:
 4) \kbd{"otherValue"}: the numeric value defined in the \code{epsilon.value} argument is directly added to both \code{sim} and \code{obs}, before applying \code{fun}.
 }
   \item{epsilon.value}{
- numeric value to be added to both \code{sim} and \code{obs} when \code{epsilon.type="otherValue"}.
+ -) when \code{epsilon.type="otherValue"} it represents the numeric value to be added to both \code{sim} and \code{obs} before applying \code{fun}. \cr
+ -) when \code{epsilon.type="otherFactor"} it represents the numeric factor used to multiply the mean of the observed values, instead of the one hundredth (1/100) described in Pushpalatha et al. (2012). The resulting value is then added to both \code{sim} and \code{obs} before applying \code{fun}.
 }
 }
 \details{
