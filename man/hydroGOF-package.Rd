@@ -34,14 +34,14 @@ BuiltUnder: \tab R version 4.3.2 (2023-10-31) ;x86_64-pc-linux-gnu (64-bit) \cr
 Quantitative statistics included in this package are: 
 
   \tabular{ll}{
-    \code{\link{ME}}         Mean Error \cr
-    \code{\link{MAE}}        Mean Absolute Error \cr 
-    \code{\link{MSE}}        Mean Squared Error \cr
-    \code{\link{RMSE}}       Root Mean Square Error \cr
+    \code{\link{me}}         Mean Error \cr
+    \code{\link{mae}}        Mean Absolute Error \cr 
+    \code{\link{mse}}        Mean Squared Error \cr
+    \code{\link{rmse}}       Root Mean Square Error \cr
     \code{\link{ubRMSE}}     Unbiased Root Mean Square Error \cr
-    \code{\link{NRMSE}}      Normalized Root Mean Square Error  ( -100\% <= nrms <= 100\% ) \cr
-    \code{\link{PBIAS}}      Percent Bias}
-    \code{\link{RSR}}        Ratio of RMSE to the Standard Deviation of the Observations, RSR = rms / sd(obs). ( 0 <= RSR <= +Inf ) \cr
+    \code{\link{nrmse}}      Normalized Root Mean Square Error  ( -100\% <= nrms <= 100\% ) \cr
+    \code{\link{pbias}}      Percent Bias}
+    \code{\link{rsr}}        Ratio of RMSE to the Standard Deviation of the Observations, RSR = rms / sd(obs). ( 0 <= RSR <= +Inf ) \cr
     \code{\link{rSD}}        Ratio of Standard Deviations, rSD = sd(sim) / sd(obs) \cr
     \code{\link{NSE}}        Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 ) \cr
     \code{\link{mNSE}}       Modified Nash-Sutcliffe Efficiency \cr
@@ -51,9 +51,9 @@ Quantitative statistics included in this package are:
     \code{\link{md}}         Modified Index of Agreement ( 0 <= md <= 1 ) \cr
     \code{\link{rd}}         Relative Index of Agreement ( 0 <= rd <= 1 ) \cr
     \code{\link{cp}}         Persistence Index ( 0 <= PI <= 1 ) \cr
-    \code{\link{r}}          Pearson Correlation coefficient ( -1 <= r <= 1 ) \cr
+    \code{\link{rPearson}}   Pearson Correlation coefficient ( -1 <= r <= 1 ) \cr
     \code{\link{R2}}         Coefficient of Determination ( 0 <= R2 <= 1 ) \cr
-    \code{\link{bR2}}        R2 multiplied by the coefficient of the regression line between \code{sim} and \code{obs} \cr ( 0 <= bR2 <= 1 ) \cr
+    \code{\link{br2}}        R2 multiplied by the coefficient of the regression line between \code{sim} and \code{obs} \cr ( 0 <= bR2 <= 1 ) \cr
     \code{\link{KGE}}        Kling-Gupta efficiency between \code{sim} and \code{obs} \cr ( -Inf <= KGE <= 1 ) \cr
     \code{\link{KGElf}}      Kling-Gupta Efficiency for low values between \code{sim} and \code{obs} \cr ( -Inf <= KGElf <= 1 ) \cr
     \code{\link{KGEnp}}      Non-parametric version of the Kling-Gupta Efficiency between \code{sim} and \code{obs} \cr ( -Inf <= KGEnp <= 1 ) \cr
