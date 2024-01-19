@@ -20,7 +20,7 @@ Unbiased Root Mean Square Error
 \description{
 unbiased Root Mean Square Error (ubRMSE) between \code{sim} and \code{obs}, in the same units of \code{sim} and \code{obs}, with treatment of missing values. \cr
 
-ubRMSE was introduced by Entekhabi et al. (2010) to evaluate the temporal dynamic variability to remove the bias error caused by the mistmatch of the spatial representativeness between in situ soil moisture data and the corresponding gridded values. \cr 
+ubRMSE was introduced by Entekhabi et al. (2010) to improve the evaluation of the temporal dynamic of volumentric soil moisture, by removing from the traditional RMSE the mean bias error caused by the mistmatch  between the spatial representativeness of in situ soil moisture and the corresponding gridded values. \cr 
 
 A smaller value indicates better model performance.
 }
@@ -83,6 +83,10 @@ Valid values of \code{epsilon.type} are:
 }
 }
 \details{
+The traditional root mean square error (RMSE) is severely compromised if there are biases in either the mean
+or the amplitude of fluctuations of the simulated values. If it can be estimated reliably, the
+mean-bias (BIAS) can easily be removed from RMSE, leading to the unbiased RMSE:
+
 \deqn{ ubRMSE = \sqrt{ RMSE^2 - BIAS^2 } }{%
 ubRMSE = sqrt( RMSE^2 - BIAS^2 ) } 
 }
