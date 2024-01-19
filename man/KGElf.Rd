@@ -144,6 +144,7 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 \code{\link{KGE}}, \code{\link{KGEnp}}, \code{\link{sKGE}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
+##################
 # Example1: basic ideal case
 obs <- 1:10
 sim <- 1:10
@@ -173,20 +174,17 @@ KGElf(sim=sim, obs=obs, method="2012")
 
 ##################
 # Example3: KGElf for simulated values equal to observations plus random noise 
-#           on the first half of the observed values
+#           on the first half of the observed values. 
+#           This random noise has more relative importance for ow flows than 
+#           for medium and high flows.
+  
 # Randomly changing the first 1826 elements of 'sim', by using a normal distribution 
 # with mean 10 and standard deviation equal to 1 (default of 'rnorm').
 sim <- obs 
 sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
+ggof(sim, obs)
 
-# Computing the new 'KGElf'
-KGElf(sim=sim, obs=obs)
-
-# Randomly changing the first 2000 elements of 'sim', by using a normal distribution 
-# with mean 10 and standard deviation equal to 1 (default of 'rnorm').
-sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
-
-# Computing the new 'KGElf'
+# Computing 'KGElf'
 KGElf(sim=sim, obs=obs)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
