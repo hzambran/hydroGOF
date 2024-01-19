@@ -23,6 +23,7 @@ This goodness-of-fit measure was developed by Gupta et al. (2009) to provide a d
 Kling et al. (2012), proposed a revised version of this index, to ensure that the bias and variability ratios are not cross-correlated.
 
 Kling-Gupta efficiencies range from -Inf to 1. Essentially, the closer to 1, the more accurate the model is. 
+
 Knoben et al. (2019) showed that KGE values greater than -0.41 indicate that a model improves upon the mean flow benchmark, even if the model's KGE value is negative.
 
 In the computation of this index, there are three main components involved: 
