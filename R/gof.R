@@ -19,15 +19,15 @@
 
 # It computes:
 
-# 1)  'me'        : Mean Error
-# 2)  'mae'       : Mean Absolute Error
-# 3)  'rmse'      : Root Mean Square Error
-# 4)  'ubRMSE'    : unbiased Root Mean Square Error
-# 5)  'nrms'      : Normalized Root Mean Square Error
-# 6)  'r'         : Pearson Correlation coefficient ( -1 <= r <= 1 )
-# 7)  'R2'        : Coefficient of Determination ( 0 <= R2 <= 1 )
-# 8)  'rSD'       : Ratio of Standard Deviations, rSD = SD(sim) / SD(obs)
-# 9)  'RSR'       : Ratio of the RMSE to the standard deviation of the observations
+# 1) 'me'         : Mean Error
+# 2) 'mae'        : Mean Absolute Error
+# 3) 'mse'        : Mean Square Error
+# 4) 'rmse'       : Root Mean Square Error
+# 5) 'ubRMSE'     : unbiased Root Mean Square Error
+# 6) 'nrms'       : Normalized Root Mean Square Error
+# 7) 'PBIAS'      : Percent Bias ( -1 <= PBIAS <= 1 )
+# 8) 'RSR'        : Ratio of the RMSE to the standard deviation of the observations
+# 9) 'rSD'        : Ratio of Standard Deviations, rSD = SD(sim) / SD(obs)
 # 10) 'NSE'       : Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 )
 # 11) 'mNSE'      : Modified Nash-Sutcliffe Efficiency
 # 12) 'rNSE'      : Relative Nash-Sutcliffe Efficiency
@@ -36,15 +36,16 @@
 # 15) 'md'        : Modified Index of Agreement( 0 <= md <= 1 )
 # 16) 'rd'        : Relative Index of Agreement( 0 <= rd <= 1 )
 # 17) 'cp'        : Coefficient of Persistence ( 0 <= cp <= 1 ) 
-# 18) 'PBIAS'     : Percent Bias ( -1 <= PBIAS <= 1 )
-# 19) 'bR2'       : weighted coefficient of determination
-# 20) 'KGE'       : Kling-Gupta efficiency (-Inf < KGE <= 1)
-# 21) 'KGElf'     : Kling-Gupta efficiency with focus on low values (-Inf < KGElf <= 1)
-# 22) 'KGEnp'     : Non-parametric Kling-Gupta efficiency (-Inf < KGEnp <= 1)
-# 23) 'sKGE'      : Split Kling-Gupta efficiency (-Inf < sKGE <= 1)
-# 24) 'VE'        : Volumetric efficiency
-# 25) 'r.Spearman': Spearman Correlation coefficient ( -1 <= r <= 1 ) 
-# 26) 'pbiasFDC'  : PBIAS in the slope of the midsegment of the Flow Duration Curve  ( 0 <= pbiasFDC ) 
+# 18) 'r'         : Pearson Correlation coefficient ( -1 <= r <= 1 )
+# 19) 'R2'        : Coefficient of Determination ( 0 <= R2 <= 1 )
+# 20) 'bR2'       : weighted coefficient of determination
+# 21) 'KGE'       : Kling-Gupta efficiency (-Inf < KGE <= 1)
+# 22) 'KGElf'     : Kling-Gupta efficiency with focus on low values (-Inf < KGElf <= 1)
+# 23) 'KGEnp'     : Non-parametric Kling-Gupta efficiency (-Inf < KGEnp <= 1)
+# 24) 'sKGE'      : Split Kling-Gupta efficiency (-Inf < sKGE <= 1)
+# 25) 'VE'        : Volumetric efficiency
+# 26) 'r.Spearman': Spearman Correlation coefficient ( -1 <= r <= 1 ) 
+# 27) 'pbiasFDC'  : PBIAS in the slope of the midsegment of the Flow Duration Curve  ( 0 <= pbiasFDC ) 
 
 gof <-function(sim, obs, ...) UseMethod("gof")
 
