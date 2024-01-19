@@ -2,7 +2,7 @@
 %% Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 %%                                 https://cran.r-project.org/package=hydroGOF
 %%                                 http://www.rforge.net/hydroGOF/
-%% Copyright 2009-2020 Mauricio Zambrano-Bigiarini
+%% Copyright 2009-2024 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or later
 
 \name{hydroGOF-package}
@@ -18,8 +18,6 @@ S3 functions implementing both statistical and graphical goodness-of-fit measure
 
 Missing values in observed and/or simulated values can be removed before computations. \cr
 
-Quantitative statistics included are: Mean Error (\bold{me}), Mean Absolute Error (\bold{mae}), Root Mean Square Error (\bold{rms}), Normalized Root Mean Square Error (\bold{nrms}), Pearson product-moment correlation coefficient (\bold{r}), Spearman Correlation coefficient (\bold{r.Spearman}), Coefficient of Determination (\bold{R2}), Ratio of Standard Deviations (\bold{rSD}), Nash-Sutcliffe efficiency (\bold{NSE}), Modified Nash-Sutcliffe efficiency (\bold{mNSE}), Relative Nash-Sutcliffe efficiency (\bold{rNSE}), Index of Agreement (\bold{d}), Modified Index of Agreement (\bold{md}),  Relative Index of Agreement (\bold{rd}), Coefficient of Persistence (\bold{cp}), Percent Bias (\bold{pbias}), Kling-Gupta efficiency (\bold{KGE}), the coef. of determination multiplied by the slope of the linear regression between 'sim' and 'obs' (\bold{bR2}), and volumetric efficiency (\bold{VE}).
-
 }
 \details{
 \tabular{ll}{
@@ -29,10 +27,43 @@ Version: \tab 0.5-0\cr
 Date: \tab 2024-01-19\cr
 License: \tab GPL >= 2\cr
 LazyLoad: \tab yes\cr
-Packaged: \tab Wed Mar 11 22:23:51 -03 2020; MZB \cr
+Packaged: \tab Fri 19 Jan 2024 19:21:57 -03; MZB \cr
 BuiltUnder: \tab R version 4.3.2 (2023-10-31) ;x86_64-pc-linux-gnu (64-bit) \cr
 }
-%%~~ An overview of how to use the package, including the most important functions ~~
+
+Quantitative statistics included in this package are: 
+
+  \tabular{ll}{
+    \code{\link{ME}}         Mean Error \cr
+    \code{\link{MAE}}        Mean Absolute Error \cr 
+    \code{\link{MSE}}        Mean Squared Error \cr
+    \code{\link{RMSE}}       Root Mean Square Error \cr
+    \code{\link{ubRMSE}}     Unbiased Root Mean Square Error \cr
+    \code{\link{NRMSE}}      Normalized Root Mean Square Error  ( -100\% <= nrms <= 100\% ) \cr
+    \code{\link{PBIAS}}      Percent Bias}
+    \code{\link{RSR}}        Ratio of RMSE to the Standard Deviation of the Observations, RSR = rms / sd(obs). ( 0 <= RSR <= +Inf ) \cr
+    \code{\link{rSD}}        Ratio of Standard Deviations, rSD = sd(sim) / sd(obs) \cr
+    \code{\link{NSE}}        Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 ) \cr
+    \code{\link{mNSE}}       Modified Nash-Sutcliffe Efficiency \cr
+    \code{\link{rNSE}}       Relative Nash-Sutcliffe Efficiency \cr
+    \code{\link{d}}          Index of Agreement ( 0 <= d <= 1 ) \cr
+    \code{\link{dr}}         Refined Index of Agreement ( -1 <= dr <= 1 ) \cr
+    \code{\link{md}}         Modified Index of Agreement ( 0 <= md <= 1 ) \cr
+    \code{\link{rd}}         Relative Index of Agreement ( 0 <= rd <= 1 ) \cr
+    \code{\link{cp}}         Persistence Index ( 0 <= PI <= 1 ) }
+    \code{\link{r}}          Pearson Correlation coefficient ( -1 <= r <= 1 ) \cr
+    \code{\link{R2}}         Coefficient of Determination ( 0 <= R2 <= 1 ) \cr
+    \code{\link{bR2}}        R2 multiplied by the coefficient of the regression line between \code{sim} and \code{obs} \cr ( 0 <= bR2 <= 1 ) \cr
+    \code{\link{KGE}}        Kling-Gupta efficiency between \code{sim} and \code{obs} \cr ( -Inf <= KGE <= 1 ) \cr
+    \code{\link{KGElf}}      Kling-Gupta Efficiency for low values between \code{sim} and \code{obs} \cr ( -Inf <= KGElf <= 1 ) \cr
+    \code{\link{KGEnp}}      Non-parametric version of the Kling-Gupta Efficiency between \code{sim} and \code{obs} \cr ( -Inf <= KGEnp <= 1 ) \cr
+    \code{\link{sKGE}}       Split Kling-Gupta Efficiency between \code{sim} and \code{obs} \cr ( -Inf <= sKGE <= 1 ). Only computed when both \code{sim} and \code{obs} are zoo objects \cr
+    \code{\link{VE}}         Volumetric efficiency between \code{sim} and \code{obs} \cr ( -Inf <= VE <= 1) \cr
+    \code{\link{r.Spearman}} Spearman Correlation coefficient ( -1 <= r.Spearman <= 1 ). Only computed when \code{do.spearman=TRUE} \cr
+    \code{\link{pbiasfdc}}   PBIAS in the slope of the midsegment of the Flow Duration Curve \cr
+--------------------------------------------------------------------------------------------------------------------------- \cr
+}
+
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
@@ -93,7 +124,7 @@ Maintainer: Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 
 \cite{Yapo, P. O.; Gupta, H. V.; Sorooshian S. (1996). Automatic calibration of conceptual rainfall-runoff models: sensitivity to calibration data. Journal of Hydrology. v181 i1-4. 23-48. doi:10.1016/0022-1694(95)02918-4} \cr
 
-\cite{Yilmaz, K. K., H. V. Gupta, and T. Wagener  (2008), A process-based diagnostic approach to model evaluation: Application to the NWS distributed hydrologic model, Water Resources Research, 44, W09417, doi:10.1029/2007WR006716} \cr
+\cite{Yilmaz, K. K., H. V. Gupta, and T. Wagener (2008), A process-based diagnostic approach to model evaluation: Application to the NWS distributed hydrologic model, Water Resources Research, 44, W09417, doi:10.1029/2007WR006716} \cr
 }
 %%~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation directory ~~
 \keyword{ package }
