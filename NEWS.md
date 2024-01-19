@@ -236,7 +236,7 @@ NEWS/ChangeLog for hydroTSM
 
 
 
--- Previous Releases: see old file 'ChangeLog' (see old file 'WhatsNew.txt)' #
+-- Previous Releases: see old file 'ChangeLog' (see old file 'WhatsNew.txt)'
 
 # version 0.2-2. Release Date: 14-Apr-2011
 # version 0.2-1. Release Date: 30-Nov-2010
