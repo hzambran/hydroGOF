@@ -187,8 +187,8 @@ Although \code{r} and \code{r2} have been widely used for model evaluation, thes
 \code{\link{me}}, \code{\link{mae}}, \code{\link{mse}}, \code{\link{rmse}}, \code{\link{ubRMSE}}, \code{\link{nrmse}}, 
 \code{\link{pbias}}, \code{\link{rsr}}, \code{\link{rSD}}, \code{\link{NSE}}, \code{\link{mNSE}}, \code{\link{rNSE}}, 
 \code{\link{d}}, \code{\link{dr}}, \code{\link{md}}, \code{\link{rd}}, \code{\link{cp}}, \code{\link{rPearson}}, 
-\code{\link{br2}}, \code{\link{KGE}}, \code{\link{KGElf}}, \code{\link{sKGE}}, \code{\link{KGEnp}}, \code{\link{VE}}, 
-\code{\link{rSpearman}}, \code{\link{pbiasfdc}},
+\code{\link{br2}}, \code{\link{KGE}}, \code{\link{KGElf}}, \code{\link{sKGE}}, \code{\link{KGEnp}}, \code{\link{VE}},
+\code{\link{pbiasfdc}},
 }
 \examples{
 sim <- 1:10
