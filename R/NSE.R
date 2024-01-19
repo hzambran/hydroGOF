@@ -122,12 +122,15 @@ NSeff <-function(sim, obs, ...) UseMethod("NSE")
 ################################################################################
 # Started: 22-Mar-2013                                                         #
 # Updates: 12-Jul-2022 ; 13-Jul-2022                                           #
-#          18-Jan-2024                                                         #
+#          18-Jan-2024 ; 19-Jan-2024                                           #
 ################################################################################
 NSE.zoo <- function(sim, obs, na.rm=TRUE, fun=NULL, ..., 
                     epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                     epsilon.value=NA){ 
     
+    # Checking 'epsilon.type'
+    epsilon.type <- match.arg(epsilon.type) 
+
     sim <- zoo::coredata(sim)
     if (is.zoo(obs)) obs <- zoo::coredata(obs)
     
