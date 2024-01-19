@@ -1,7 +1,7 @@
 %% File gof.Rd
 %% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 %%                                 http://cran.r-project.org/web/packages/hydroGOF/
-%% Copyright 2011-2014 Mauricio Zambrano-Bigiarini
+%% Copyright 2011-2024 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or later
 
 \name{gof}
@@ -116,11 +116,8 @@ Valid values of \code{epsilon.type} are:
 }
 %%\details{
 %%}
-ME,MAE,MSE,RMSE,ubRMSE,NRMSE,PBIAS,RSR,rSD
-NSE,mNSE,rNSE,d,dr,md,rd,cp,r,R2,bR2,KGE,KGElf,sKGE, KGEnp,VE
-
 \value{
-The output of the \code{gof} function is a matrix with one column only, and the following rows:
+The output of the \code{gof} function is a matrix with one column only, and the following rows: \cr
 \item{ME}{Mean Error}
 \item{MAE}{Mean Absolute Error}
 \item{MSE}{Mean Squared Error}
@@ -136,23 +133,18 @@ The output of the \code{gof} function is a matrix with one column only, and the 
 \item{d}{Index of Agreement ( 0 <= d <= 1 )}
 \item{dr}{Refined Index of Agreement ( -1 <= dr <= 1 )}
 \item{md}{Modified Index of Agreement ( 0 <= md <= 1 )}
-\item{rd}{Relative Index of Agreement}
+\item{rd}{Relative Index of Agreement ( 0 <= rd <= 1 )}
 \item{cp}{Persistence Index ( 0 <= PI <= 1 ) }
 \item{r}{Pearson Correlation coefficient ( -1 <= r <= 1 )}
-\item{R2}{Coefficient of Determination ( 0 <= R2 <= 1 ). \cr
-          Gives the proportion of the variance of one variable that is predictable from the other variable}
+\item{R2}{Coefficient of Determination ( 0 <= R2 <= 1 )}
 \item{bR2}{R2 multiplied by the coefficient of the regression line between \code{sim} and \code{obs} \cr ( 0 <= bR2 <= 1 )}
 \item{KGE}{Kling-Gupta efficiency between \code{sim} and \code{obs} \cr ( -Inf <= KGE <= 1 )}
 \item{KGElf}{Kling-Gupta Efficiency for low values between \code{sim} and \code{obs} \cr ( -Inf <= KGElf <= 1 )}
-\item{sKGE}{Split Kling-Gupta Efficiency between \code{sim} and \code{obs} \cr ( -Inf <= sKGE <= 1 ). Only computed when both 'sim' and 'obs' are zoo objects}
 \item{KGEnp}{Non-parametric version of the Kling-Gupta Efficiency between \code{sim} and \code{obs} \cr ( -Inf <= KGEnp <= 1 )}
+\item{sKGE}{Split Kling-Gupta Efficiency between \code{sim} and \code{obs} \cr ( -Inf <= sKGE <= 1 ). Only computed when both \code{sim} and \code{obs} are zoo objects}
 \item{VE}{Volumetric efficiency between \code{sim} and \code{obs} \cr ( -Inf <= VE <= 1)}
 \item{r.Spearman}{Spearman Correlation coefficient ( -1 <= r.Spearman <= 1 ). Only computed when \code{do.spearman=TRUE}}
 \item{pbiasfdc}{PBIAS in the slope of the midsegment of the Flow Duration Curve}
-
-
-
-
 
 %% ...
 }
@@ -192,9 +184,11 @@ Although \code{r} and \code{r2} have been widely used for model evaluation, thes
 
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
-\code{\link{me}}, \code{\link{mae}}, \code{\link{rmse}}, \code{\link{nrmse}}, \code{\link{pbias}},
-\code{\link{pbiasfdc}}, \code{\link{rSD}}, \code{\link{NSE}}, \code{\link{mNSE}}, \code{\link{rNSE}}, 
-\code{\link{d}}, \code{\link{md}}, \code{\link{rd}}, \code{\link{cp}}, \code{\link{br2}}, \code{\link{KGE}}, \code{\link{VE}}
+\code{\link{me}}, \code{\link{mae}}, \code{\link{mse}}, \code{\link{rmse}}, \code{\link{ubRMSE}}, \code{\link{nrmse}}, 
+\code{\link{pbias}}, \code{\link{rsr}}, \code{\link{rSD}}, \code{\link{NSE}}, \code{\link{mNSE}}, \code{\link{rNSE}}, 
+\code{\link{d}}, \code{\link{dr}}, \code{\link{md}}, \code{\link{rd}}, \code{\link{cp}}, \code{\link{rPearson}}, 
+\code{\link{br2}}, \code{\link{KGE}}, \code{\link{KGElf}}, \code{\link{sKGE}}, \code{\link{KGEnp}}, \code{\link{VE}}, 
+\code{\link{rSpearman}}, \code{\link{pbiasfdc}},
 }
 \examples{
 sim <- 1:10
