@@ -50,7 +50,7 @@ Quantitative statistics included in this package are:
     \code{\link{dr}}         Refined Index of Agreement ( -1 <= dr <= 1 ) \cr
     \code{\link{md}}         Modified Index of Agreement ( 0 <= md <= 1 ) \cr
     \code{\link{rd}}         Relative Index of Agreement ( 0 <= rd <= 1 ) \cr
-    \code{\link{cp}}         Persistence Index ( 0 <= PI <= 1 ) }
+    \code{\link{cp}}         Persistence Index ( 0 <= PI <= 1 ) \cr
     \code{\link{r}}          Pearson Correlation coefficient ( -1 <= r <= 1 ) \cr
     \code{\link{R2}}         Coefficient of Determination ( 0 <= R2 <= 1 ) \cr
     \code{\link{bR2}}        R2 multiplied by the coefficient of the regression line between \code{sim} and \code{obs} \cr ( 0 <= bR2 <= 1 ) \cr
@@ -64,7 +64,6 @@ Quantitative statistics included in this package are:
 --------------------------------------------------------------------------------------------------------------------------- \cr
 }
 
-}
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 
