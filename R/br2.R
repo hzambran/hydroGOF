@@ -160,20 +160,3 @@ br2.zoo <- function(sim, obs, na.rm=TRUE, use.abs=FALSE, fun=NULL, ...,
                       epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
 } # 'br2.zoo' end
-
-################################################################################
-# Author: Mauricio Zambrano-Bigiarini                                          #
-################################################################################
-# It was originated int he following github issue:                             #
-#   https://github.com/hzambran/hydroGOF/issues/16#issue-1736556320            #
-################################################################################
-# Started: 29-Nov-2023                                                         #
-# Updates:                                                                     #
-################################################################################
-.R2 <- function(sim, obs) {
-  Om    <- mean(obs)
-  SSres <- sum( (obs - sim)^2 )
-  SStot <- sum( (obs - Om)^2 )
-  R2    <- 1 - SSres/SStot
-  return(R2)
-} # '.R2' END
