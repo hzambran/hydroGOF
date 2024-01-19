@@ -2,7 +2,7 @@
 # Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF
 #                                 https://cran.r-project.org/package=hydroGOF
 #                                 http://www.rforge.net/hydroGOF/ ;
-# Copyright 2008-2023 Mauricio Zambrano-Bigiarini
+# Copyright 2008-2024 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -14,12 +14,14 @@
 #          21-Jan-2011                                                         #
 #          08-May-2012                                                         #
 #          14-Jan-2023 ; 15-Jan-2023 ; 16-Jan-2023                             #
+#          19-Jan-2024                                                         #
 ################################################################################
 
 # It computes:
 # 'me'        : Mean Error
 # 'mae'       : Mean Absolute Error
-# 'rms'       : Root Mean Square Error
+# 'rmse'      : Root Mean Square Error
+# 'ubRMSE'    : unbiased Root Mean Square Error
 # 'nrms'      : Normalized Root Mean Square Error
 # 'r'         : Pearson Correlation coefficient ( -1 <= r <= 1 )
 # 'r.Spearman': Spearman Correlation coefficient ( -1 <= r <= 1 ) 
@@ -39,8 +41,8 @@
 # 'PBIAS'     : Percent Bias ( -1 <= PBIAS <= 1 )
 # 'bR2'       : weighted coefficient of determination
 # 'KGE'       : Kling-Gupta efficiency (-Inf < KGE <= 1)
-# 'sKGE'      : Split Kling-Gupta efficiency (-Inf < sKGE <= 1)
 # 'KGElf'     : Kling-Gupta efficiency with focus on low values (-Inf < KGElf <= 1)
+# 'sKGE'      : Split Kling-Gupta efficiency (-Inf < sKGE <= 1)
 # 'KGEnp'     : Non-parametric Kling-Gupta efficiency (-Inf < KGEnp <= 1)
 # 'VE'        : Volumetric efficiency
 
@@ -63,6 +65,8 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
      MSE    <- mse(sim, obs, na.rm=na.rm, fun=fun, ..., 
                    epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      RMSE   <- rmse(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     ubRMSE <- ubRMSE(sim, obs, na.rm=na.rm, fun=fun, ..., 
                    epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
      NRMSE  <- nrmse(sim, obs, na.rm=na.rm, norm=norm, fun=fun, ..., 
                    epsilon.type=epsilon.type, epsilon.value=epsilon.value)
@@ -95,17 +99,17 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
      KGE    <- KGE(sim, obs, na.rm=na.rm, s=s, method=method, out.type="single", 
                     fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
      KGElf  <- KGElf(sim, obs, na.rm=na.rm, s=s, method=method, 
-                     epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
-     if ( inherits(sim, "zoo") & inherits(obs, "zoo") ) {
+                     epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+                     
+     if ( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) {
        do.sKGE <- TRUE
-       sKGE   <- sKGE(sim, obs, na.rm=na.rm, s=s, method=method, out.type="single", 
-                      start.month=start.month, out.PerYear=FALSE, fun=fun, ..., 
-                      epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
+       sKGE    <- sKGE(sim, obs, s=s, na.rm=na.rm, method=method, 
+                       start.month=start.month, out.PerYear=FALSE, fun=fun, ..., 
+                       epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
      } else {
          do.sKGE <- FALSE
          sKGE <- NA
        } # ELSE end
- 
        
      KGEnp  <- KGEnp(sim, obs, na.rm=na.rm, out.type="single", fun=fun, ..., 
                      epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
@@ -121,7 +125,8 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
      # variation.
      # The coefficient of determination is such that 0 <  R2 < 1,  and denotes the strength
      # of the linear association between x and y. 
-     R2 <- r^2
+     R2 <- .R2(sim, obs, na.rm=na.rm, out.type="single", fun=fun, ..., 
+               epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
       
      if (do.spearman) {
        # index of those elements that are present both in 'sim' and 'obs' (NON- NA values)
@@ -155,29 +160,37 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
         
      } # IF 'do.spearman' end
      
-     if (do.pbfdc) 
-       pbfdc  <- pbiasfdc(sim, obs, na.rm=na.rm, lQ.thr=lQ.thr, hQ.thr=hQ.thr, plot=FALSE, 
-                          fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     gof <- rbind(ME,  MAE ,   MSE, RMSE, ubRMSE, NRMSE, PBIAS, RSR, rSD, NSE, 
+                mNSE,  rNSE,     d,   dr,     md,    rd,    cp,   r,  R2, bR2, 
+                KGE , KGElf, KGEnp,  VE)   
      
-     gof <- rbind(ME, MAE, MSE, RMSE, NRMSE, PBIAS, RSR, rSD, NSE, mNSE, rNSE, d, dr, md, rd, cp, r, R2, bR2, KGE, KGElf, KGEnp, VE)     
+     rownames(gof)[6] <- "NRMSE %"
+     rownames(gof)[7] <- "PBIAS %"   
      
-     rownames(gof)[5] <- "NRMSE %"
-     rownames(gof)[6] <- "PBIAS %"    
+     print("1")
+     print(gof)
      
      if (do.spearman)
        gof <- rbind(gof, r.Spearman)
      
      if (do.pbfdc) { 
+       pbfdc  <- pbiasfdc(sim, obs, na.rm=na.rm, lQ.thr=lQ.thr, hQ.thr=hQ.thr, plot=FALSE, 
+                          fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+                          
        gof <- rbind(gof, pbfdc) 
        rownames(gof)[length(rownames(gof))] <- "pbiasFDC %"
      } # IF end
 
-     if (do.sKGE) { 
-       gof <- c( gof[1:21], sKGE, gof[22:length(gof)] )
-       rownames(gof)[22] <- "sKGE"
+     print("2")
+     print(gof)
+     
+     if (do.sKGE) { # 'sKGE' is presented after 'KGElf'
+       gof <- c( gof[1:22], sKGE, gof[23:length(gof)] )
+       print(gof)
+       rownames(gof)[23] <- "sKGE"
      } # IF end
      
-     # Rounding the final results, ofr avoiding scientific notation
+     # Rounding the final results, for avoiding scientific notation
      gof <- round(gof, digits)
      
      return(gof)
@@ -194,6 +207,7 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
 #          21-Jan-2011                                                         #
 #          08-May-2012                                                         #
 #          15-Jan-2023                                                         #
+#          19-Jan-2024                                                         #
 ################################################################################
 gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
                        j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), 
@@ -220,7 +234,9 @@ gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
                                         do.spearman=do.spearman, do.pbfdc=FALSE, 
                                         j=j, norm=norm, s=s, method=method, 
                                         lQ.thr=lQ.thr, hQ.thr=hQ.thr, 
-                                        digits=digits, ... )
+                                        digits=digits, fun=fun, ...,  
+                                        epsilon.type=epsilon.type, 
+                                        epsilon.value=epsilon.value)
             }, x=sim, y=obs )            
      
     rownames(gof) <- gofnames
@@ -240,6 +256,7 @@ gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
 #          21-Jan-2011                                                         #
 #          08-May-2012 ;                                                       #
 #          15-Jan-2023                                                         #
+#          19-Jan-2024                                                         #
 ################################################################################
 gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
                            j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), 
@@ -253,7 +270,8 @@ gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FAL
    
   gof.matrix(sim, obs, na.rm=na.rm, do.spearman=do.spearman, do.pbfdc=FALSE, 
              j=j, norm=norm, s=s, method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr,
-             digits=digits, ...)
+             digits=digits, fun=fun, ...,  
+             epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
 } # 'gof.data.frame' end 
 
@@ -264,6 +282,7 @@ gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FAL
 # Started: 05-Nov-2012                                                         #
 # Updates: 22-Mar-2013                                                         #
 #          15-Jan-2023                                                         #
+#          19-Jan-2024                                                         #
 ################################################################################
 gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
                     j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), 
@@ -272,17 +291,19 @@ gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
                     epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                     epsilon.value=NA){
     
-    sim <- zoo::coredata(sim)
-    if (is.zoo(obs)) obs <- zoo::coredata(obs)
+    #sim <- zoo::coredata(sim)
+    #if (is.zoo(obs)) obs <- zoo::coredata(obs)
     
     if (is.matrix(sim) | is.data.frame(sim)) {
        gof.matrix(sim, obs, na.rm=na.rm, do.spearman=FALSE, do.pbfdc=FALSE, 
-             j=j, norm=norm, s=s, method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr,
-             digits=digits, ...)
+                  j=j, norm=norm, s=s, method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr,
+                  digits=digits, fun=fun, ...,  
+                  epsilon.type=epsilon.type, epsilon.value=epsilon.value)
     } else
         NextMethod(sim, obs, na.rm=na.rm, do.spearman=FALSE, do.pbfdc=FALSE, 
                    j=j, norm=norm, s=s, method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr,
-                   digits=digits, ...)
+                   digits=digits, fun=fun, ...,  
+                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
   } # 'gof.zoo' end
   
