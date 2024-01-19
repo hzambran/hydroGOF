@@ -1,7 +1,7 @@
 NEWS/ChangeLog for hydroTSM
 
 --------------------------
-# Changes in version 0.5-0  XX-Jan-2024
+# Changes in version 0.5-0  19-Jan-2024
 
 ## New functions
 
