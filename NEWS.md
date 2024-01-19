@@ -10,6 +10,7 @@ NEWS/ChangeLog for hydroTSM
         o 'KGEnp'   : to compute the non-parametric Kling-Gupta efficiency proposed by Pool et al. (2018).
         o 'dr'      : to compute the Refined Index of Agreement proposed by Willmott et al. (2012).
         o 'ubRMSE'  : to compute the unbiased Root mean Squared Error proposed by Entekhabi et al. (2010).
+        o 'wNSE'    : to compute the weighted Nash-Sutcliffe eficiency proposed by Hundecha and Bardossy (2004) to put special focus on high values.
 
 ## New features    
         o 'KGE'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)   
