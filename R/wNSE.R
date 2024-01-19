@@ -23,7 +23,7 @@
 
 #\cite{Hundecha, Y., Ouarda, T. B., B\'{a}rdossy, A. (2008). 
 #      Regional estimation of parameters of a rainfall‐runoff model at ungauged 
-#      watersheds using the "spatial" structures of the parameters within a canonical 
+#      watersheds using the 'spatial' structures of the parameters within a canonical 
 #      physiographic‐climatic space. Water Resources Research, 44(1). 
 #      doi:10.1029/2006WR005439} \cr
 
