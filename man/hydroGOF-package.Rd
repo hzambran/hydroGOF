@@ -23,6 +23,7 @@ Quantitative statistics included are: Mean Error (\bold{me}), Mean Absolute Erro
 }
 \details{
 \tabular{ll}{
+Package: \tab hydroGOF\cr
 Type: \tab Package\cr
 Version: \tab 0.5-0\cr
 Date: \tab 2024-01-19\cr
@@ -31,24 +32,12 @@ LazyLoad: \tab yes\cr
 Packaged: \tab Wed Mar 11 22:23:51 -03 2020; MZB \cr
 BuiltUnder: \tab R version 4.3.2 (2023-10-31) ;x86_64-pc-linux-gnu (64-bit) \cr
 }
-
---------------------------------------------------------------------------------------------------------------------------- \cr
-Datasets:
-
-  \tabular{ll}{
-    \code{\link{Cauquenes7336001}}  Hydrometeorological time series for "Cauquenes en El Arrayan" catchment.\cr
-    \code{\link{EbroPPtsMonthly}}   Ebro Monthly Precipitation Time Series. \cr
-    \code{\link{KarameaAtGorgeQts}} Karamea at Gorge, time series of hourly streamflows. \cr
-    \code{\link{MaquehueTemuco}}    San Martino, ts of daily precipitation. \cr
-    \code{\link{OcaEnOnaQts}}       Oca in "Ona" (Q0931), time series of daily streamflows \cr
-    \code{\link{SanMartinoPPts}}    San Martino, ts of daily precipitation. \cr
---------------------------------------------------------------------------------------------------------------------------- \cr
-}
+%%~~ An overview of how to use the package, including the most important functions ~~
 }
 \author{
-Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
+Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 
-Maintainer: Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
+Maintainer: Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 }
 \references{
 
@@ -58,7 +47,7 @@ Maintainer: Mauricio Zambrano Bigiarini <mauricio.zambrano@ing.unitn.it>
 
 \cite{Criss, R. E. and Winston, W. E. (2008), Do Nash values have value? Discussion and alternate proposals. Hydrological Processes, 22: 2723-2725. doi:10.1002/hyp.7072}
 
-\cite{Entekhabi, D., Reichle, R. H., Koster, R. D., & Crow, W. T. (2010). Performance metrics for soil moisture retrievals and application requirements. Journal of Hydrometeorology, 11(3), 832-840. doi: 10.1175/2010JHM1223.1}
+\cite{Entekhabi, D., Reichle, R. H., Koster, R. D., Crow, W. T. (2010). Performance metrics for soil moisture retrievals and application requirements. Journal of Hydrometeorology, 11(3), 832-840. doi: 10.1175/2010JHM1223.1}
 
 \cite{Fenicia, F., D. P. Solomatine, H. H. G. Savenije, and P. Matgen. (2007) Soft combination of local models in a multi-objective framework. Hydrological and Earth Systems Science, Vol. 4, pp. 91-123. doi:10.5194/hessd-4-91-2007} \cr
 
