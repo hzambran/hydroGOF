@@ -18,33 +18,33 @@
 ################################################################################
 
 # It computes:
-# 'me'        : Mean Error
-# 'mae'       : Mean Absolute Error
-# 'rmse'      : Root Mean Square Error
-# 'ubRMSE'    : unbiased Root Mean Square Error
-# 'nrms'      : Normalized Root Mean Square Error
-# 'r'         : Pearson Correlation coefficient ( -1 <= r <= 1 )
-# 'r.Spearman': Spearman Correlation coefficient ( -1 <= r <= 1 ) 
-# 'R2'        : Coefficient of Determination ( 0 <= r2 <= 1 )
-#               Gives the proportion of the variance of one variable that
-#               that is predictable from the other variable
-# 'rSD'       : Ratio of Standard Deviations, rSD = SD(sim) / SD(obs)
-# 'RSR'       : Ratio of the RMSE to the standard deviation of the observations
-# 'NSE'       : Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 )
-# 'mNSE'      : Modified Nash-Sutcliffe Efficiency
-# 'rNSE'      : Relative Nash-Sutcliffe Efficiency
-# 'd'         : Index of Agreement( 0 <= d <= 1 )
-# 'dr'        : Refined Index of Agreement( -1 <= dr <= 1 )
-# 'md'        : Modified Index of Agreement( 0 <= md <= 1 )
-# 'rd'        : Relative Index of Agreement( 0 <= rd <= 1 )
-# 'cp'        : Coefficient of Persistence ( 0 <= cp <= 1 ) 
-# 'PBIAS'     : Percent Bias ( -1 <= PBIAS <= 1 )
-# 'bR2'       : weighted coefficient of determination
-# 'KGE'       : Kling-Gupta efficiency (-Inf < KGE <= 1)
-# 'KGElf'     : Kling-Gupta efficiency with focus on low values (-Inf < KGElf <= 1)
-# 'sKGE'      : Split Kling-Gupta efficiency (-Inf < sKGE <= 1)
-# 'KGEnp'     : Non-parametric Kling-Gupta efficiency (-Inf < KGEnp <= 1)
-# 'VE'        : Volumetric efficiency
+
+# 1)  'me'        : Mean Error
+# 2)  'mae'       : Mean Absolute Error
+# 3)  'rmse'      : Root Mean Square Error
+# 4)  'ubRMSE'    : unbiased Root Mean Square Error
+# 5)  'nrms'      : Normalized Root Mean Square Error
+# 6)  'r'         : Pearson Correlation coefficient ( -1 <= r <= 1 )
+# 7)  'R2'        : Coefficient of Determination ( 0 <= R2 <= 1 )
+# 8)  'rSD'       : Ratio of Standard Deviations, rSD = SD(sim) / SD(obs)
+# 9)  'RSR'       : Ratio of the RMSE to the standard deviation of the observations
+# 10) 'NSE'       : Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 )
+# 11) 'mNSE'      : Modified Nash-Sutcliffe Efficiency
+# 12) 'rNSE'      : Relative Nash-Sutcliffe Efficiency
+# 13) 'd'         : Index of Agreement( 0 <= d <= 1 )
+# 14) 'dr'        : Refined Index of Agreement( -1 <= dr <= 1 )
+# 15) 'md'        : Modified Index of Agreement( 0 <= md <= 1 )
+# 16) 'rd'        : Relative Index of Agreement( 0 <= rd <= 1 )
+# 17) 'cp'        : Coefficient of Persistence ( 0 <= cp <= 1 ) 
+# 18) 'PBIAS'     : Percent Bias ( -1 <= PBIAS <= 1 )
+# 19) 'bR2'       : weighted coefficient of determination
+# 20) 'KGE'       : Kling-Gupta efficiency (-Inf < KGE <= 1)
+# 21) 'KGElf'     : Kling-Gupta efficiency with focus on low values (-Inf < KGElf <= 1)
+# 22) 'KGEnp'     : Non-parametric Kling-Gupta efficiency (-Inf < KGEnp <= 1)
+# 23) 'sKGE'      : Split Kling-Gupta efficiency (-Inf < sKGE <= 1)
+# 24) 'VE'        : Volumetric efficiency
+# 25) 'r.Spearman': Spearman Correlation coefficient ( -1 <= r <= 1 ) 
+# 26) 'pbiasFDC'  : PBIAS in the slope of the midsegment of the Flow Duration Curve  ( 0 <= pbiasFDC ) 
 
 gof <-function(sim, obs, ...) UseMethod("gof")
 
@@ -125,9 +125,9 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
      # variation.
      # The coefficient of determination is such that 0 <  R2 < 1,  and denotes the strength
      # of the linear association between x and y. 
-     R2 <- .R2(sim, obs, na.rm=na.rm, out.type="single", fun=fun, ..., 
+     R2 <- .R2(sim, obs, na.rm=na.rm, fun=fun, ..., 
                epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
-      
+
      if (do.spearman) {
        # index of those elements that are present both in 'sim' and 'obs' (NON- NA values)
        vi <- valindex(sim, obs)
@@ -161,33 +161,32 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
      } # IF 'do.spearman' end
      
      gof <- rbind(ME,  MAE ,   MSE, RMSE, ubRMSE, NRMSE, PBIAS, RSR, rSD, NSE, 
-                mNSE,  rNSE,     d,   dr,     md,    rd,    cp,   r,  R2, bR2, 
-                KGE , KGElf, KGEnp,  VE)   
+                  mNSE,  rNSE,     d,   dr,     md,    rd,    cp,   r,  R2, bR2, 
+                  KGE , KGElf, KGEnp)   
      
      rownames(gof)[6] <- "NRMSE %"
      rownames(gof)[7] <- "PBIAS %"   
      
-     print("1")
-     print(gof)
+     # Adding Split KGE
+     if (do.sKGE) { # 'sKGE' is presented after 'KGElf'
+       gof <- rbind(gof, sKGE) 
+       rownames(gof)[length(rownames(gof))] <- "sKGE"
+     } # IF end
+
+     # Adding Volumetric Efficiency
+     gof <- rbind(gof, VE)
+
+     # Adding r.Spearman
+     if (do.spearman) 
+       gof <- rbind(gof, r.Spearman) 
      
-     if (do.spearman)
-       gof <- rbind(gof, r.Spearman)
-     
+     # Adding pbiasfdc
      if (do.pbfdc) { 
        pbfdc  <- pbiasfdc(sim, obs, na.rm=na.rm, lQ.thr=lQ.thr, hQ.thr=hQ.thr, plot=FALSE, 
                           fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value)
                           
        gof <- rbind(gof, pbfdc) 
        rownames(gof)[length(rownames(gof))] <- "pbiasFDC %"
-     } # IF end
-
-     print("2")
-     print(gof)
-     
-     if (do.sKGE) { # 'sKGE' is presented after 'KGElf'
-       gof <- c( gof[1:22], sKGE, gof[23:length(gof)] )
-       print(gof)
-       rownames(gof)[23] <- "sKGE"
      } # IF end
      
      # Rounding the final results, for avoiding scientific notation
@@ -231,7 +230,7 @@ gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
     # Computing the goodness-of-fit measures for each column of 'sim' and 'obs'      
     gof <- sapply(1:ncol(obs), function(i,x,y) { 
                  gof[, i] <- gof.default( x[,i], y[,i], na.rm=na.rm, 
-                                        do.spearman=do.spearman, do.pbfdc=FALSE, 
+                                        do.spearman=do.spearman, do.pbfdc=do.pbfdc, 
                                         j=j, norm=norm, s=s, method=method, 
                                         lQ.thr=lQ.thr, hQ.thr=hQ.thr, 
                                         digits=digits, fun=fun, ...,  
@@ -268,7 +267,7 @@ gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FAL
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
    
-  gof.matrix(sim, obs, na.rm=na.rm, do.spearman=do.spearman, do.pbfdc=FALSE, 
+  gof.matrix(sim, obs, na.rm=na.rm, do.spearman=do.spearman, do.pbfdc=do.pbfdc, 
              j=j, norm=norm, s=s, method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr,
              digits=digits, fun=fun, ...,  
              epsilon.type=epsilon.type, epsilon.value=epsilon.value)
@@ -295,12 +294,12 @@ gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
     #if (is.zoo(obs)) obs <- zoo::coredata(obs)
     
     if (is.matrix(sim) | is.data.frame(sim)) {
-       gof.matrix(sim, obs, na.rm=na.rm, do.spearman=FALSE, do.pbfdc=FALSE, 
+       gof.matrix(sim, obs, na.rm=na.rm, do.spearman=do.spearman, do.pbfdc=do.pbfdc, 
                   j=j, norm=norm, s=s, method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr,
                   digits=digits, fun=fun, ...,  
                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)
     } else
-        NextMethod(sim, obs, na.rm=na.rm, do.spearman=FALSE, do.pbfdc=FALSE, 
+        NextMethod(sim, obs, na.rm=na.rm, do.spearman=do.spearman, do.pbfdc=do.pbfdc, 
                    j=j, norm=norm, s=s, method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr,
                    digits=digits, fun=fun, ...,  
                    epsilon.type=epsilon.type, epsilon.value=epsilon.value)
