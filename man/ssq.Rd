@@ -10,6 +10,7 @@
 \alias{ssq.default}
 \alias{ssq.matrix}
 \alias{ssq.data.frame}
+\alias{ssq.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Sum of the Squared Residuals
