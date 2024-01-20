@@ -87,7 +87,7 @@ It assesses how well the relationship between two variables can be described usi
 The Spearman correlation between two variables is equal to the Pearson correlation between the rank values of those two variables.
 However, while Pearson's correlation assesses linear relationships, Spearman's correlation assesses monotonic relationships (whether linear or not). \cr
 
-If there are no repeated data values, a perfect Spearman correlation of +1 or −1 occurs when each of the variables is a perfect monotone function of the other.
+If there are no repeated data values, a perfect Spearman correlation of +1 or -1 occurs when each of the variables is a perfect monotone function of the other.
 }
 \value{
 Spearman's rank correlation coefficient between \code{sim} and \code{obs}. \cr

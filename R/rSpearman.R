@@ -6,7 +6,7 @@
 # Distributed under GPL 2 or later
 
 # From https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient:
-# In statistics, Spearman's rank correlation coefficient or Spearman's ρ, named after 
+# In statistics, Spearman's rank correlation coefficient or Spearman's rho, named after 
 # Charles Spearman[1] and often denoted by the Greek letter \rho  (rho) or as r_{s}, 
 # is a nonparametric measure of rank correlation (statistical dependence between the 
 # rankings of two variables). It assesses how well the relationship between two variables
@@ -17,13 +17,13 @@
 # relationships, Spearman's correlation assesses monotonic relationships (whether linear 
 # or not). 
 
-# If there are no repeated data values, a perfect Spearman correlation of +1 or −1 occurs 
+# If there are no repeated data values, a perfect Spearman correlation of +1 or -1 occurs 
 # when each of the variables is a perfect monotone function of the other.
 
 # Intuitively, the Spearman correlation between two variables will be high when observations
 # have a similar (or identical for a correlation of 1) rank (i.e. relative position label 
 # of the observations within the variable: 1st, 2nd, 3rd, etc.) between the two variables, 
-# and low when observations have a dissimilar (or fully opposed for a correlation of −1) 
+# and low when observations have a dissimilar (or fully opposed for a correlation of -1) 
 # rank between the two variables.
 
 ################################################################################
