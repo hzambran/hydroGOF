@@ -2,7 +2,7 @@
 # Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF
 #                                 https://cran.r-project.org/package=hydroGOF
 #                                 http://www.rforge.net/hydroGOF/ ;
-# Copyright 2008-2023 Mauricio Zambrano-Bigiarini
+# Copyright 2008-2024 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -61,6 +61,7 @@ cp.default <- function(sim, obs, na.rm=TRUE, fun=NULL, ...,
   if ( !is.na(match(class(sim), c("ts", "zoo"))) ) sim <- as.numeric(sim)
   if ( !is.na(match(class(obs), c("ts", "zoo"))) ) obs <- as.numeric(obs)
 
+  # Checking 'epsilon.type'
   epsilon.type <- match.arg(epsilon.type)  
 
   # index of those elements that are present both in 'sim' and 'obs' (NON- NA values)
@@ -112,6 +113,9 @@ cp.matrix <- function(sim, obs, na.rm=TRUE, fun=NULL, ...,
                       epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                       epsilon.value=NA){ 
 
+  # Checking 'epsilon.type'
+  epsilon.type <- match.arg(epsilon.type)  
+
   # Checking that 'sim' and 'obs' have the same dimensions
   if ( all.equal(dim(sim), dim(obs)) != TRUE )
     stop( paste("Invalid argument: dim(sim) != dim(obs) ( [", 
@@ -144,6 +148,9 @@ cp.data.frame <- function(sim, obs, na.rm=TRUE, fun=NULL, ...,
                           epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                           epsilon.value=NA){ 
  
+  # Checking 'epsilon.type'
+  epsilon.type <- match.arg(epsilon.type)  
+
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
    
