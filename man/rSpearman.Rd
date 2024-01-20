@@ -97,7 +97,7 @@ If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with 
 \references{
 \url{https://en.wikipedia.org/wiki/Spearman\%27s_rank_correlation_coefficient}
 
-\cite{Spearman, C. (1961). The Proof and Measurement of Association Between Two Things. In J. J. Jenkins and D. G. Paterson (Eds.), Studies in individual differences: The search for intelligence (pp. 45–58). Appleton-Century-Crofts. doi:10.1037/11491-005}
+\cite{Spearman, C. (1961). The Proof and Measurement of Association Between Two Things. In J. J. Jenkins and D. G. Paterson (Eds.), Studies in individual differences: The search for intelligence (pp. 45-58). Appleton-Century-Crofts. doi:10.1037/11491-005}
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
