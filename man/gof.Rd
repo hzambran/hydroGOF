@@ -191,15 +191,18 @@ Although \code{r} and \code{r2} have been widely used for model evaluation, thes
 \code{\link{pbiasfdc}},
 }
 \examples{
-sim <- 1:10
+##################
+# Example 1: basic ideal case
 obs <- 1:10
+sim <- 1:10
 gof(sim, obs)
 
-sim <- 2:11
 obs <- 1:10
+sim <- 2:11
 gof(sim, obs)
 
 ##################
+# Example 2: 
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
 data(EgaEnEstellaQts)
 obs <- EgaEnEstellaQts
@@ -207,15 +210,91 @@ obs <- EgaEnEstellaQts
 # Generating a simulated daily time series, initially equal to the observed series
 sim <- obs 
 
-# Getting the numeric goodness of fit for the "best" (unattainable) case
+# Computing the 'gof' for the "best" (unattainable) case
 gof(sim=sim, obs=obs)
 
-# Randomly changing the first 2000 elements of 'sim', by using a normal distribution 
+##################
+# Example 3: gof for simulated values equal to observations plus random noise 
+#            on the first half of the observed values. 
+#            This random noise has more relative importance for ow flows than 
+#            for medium and high flows.
+  
+# Randomly changing the first 1826 elements of 'sim', by using a normal distribution 
 # with mean 10 and standard deviation equal to 1 (default of 'rnorm').
-sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
+sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
+ggof(sim, obs)
 
-# Getting the new numeric goodness of fit
 gof(sim=sim, obs=obs)
+
+##################
+# Example 4: gof for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' during computations.
+
+gof(sim=sim, obs=obs, fun=log)
+
+# Verifying the previous value:
+lsim <- log(sim)
+lobs <- log(obs)
+gof(sim=lsim, obs=lobs)
+
+##################
+# Example 5: gof for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' and adding the Pushpalatha2012 constant
+#            during computations
+
+gof(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
+
+# Verifying the previous value, with the epsilon value following Pushpalatha2012
+eps  <- mean(obs, na.rm=TRUE)/100
+lsim <- log(sim+eps)
+lobs <- log(obs+eps)
+gof(sim=lsim, obs=lobs)
+
+##################
+# Example 6: gof for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' and adding a user-defined constant
+#            during computations
+
+eps <- 0.01
+gof(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
+
+# Verifying the previous value:
+lsim <- log(sim+eps)
+lobs <- log(obs+eps)
+gof(sim=lsim, obs=lobs)
+
+##################
+# Example 7: gof for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' and using a user-defined factor
+#            to multiply the mean of the observed values to obtain the constant
+#            to be added to 'sim' and 'obs' during computations
+
+fact <- 1/50
+gof(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
+
+# Verifying the previous value:
+eps  <- fact*mean(obs, na.rm=TRUE)
+lsim <- log(sim+eps)
+lobs <- log(obs+eps)
+gof(sim=lsim, obs=lobs)
+
+##################
+# Example 8: gof for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying a 
+#            user-defined function to 'sim' and 'obs' during computations
+
+fun1 <- function(x) {sqrt(x+1)}
+
+gof(sim=sim, obs=obs, fun=fun1)
+
+# Verifying the previous value, with the epsilon value following Pushpalatha2012
+sim1 <- sqrt(sim+1)
+obs1 <- sqrt(obs+1)
+gof(sim=sim1, obs=obs1)
 
 # Storing a matrix object with all the GoFs:
 g <-  gof(sim, obs)

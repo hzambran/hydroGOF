@@ -111,15 +111,18 @@ If some of the observed values are equal to zero (at least one of them), this in
 \code{\link{NSE}}, \code{\link{mNSE}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
-sim <- 1:10
+##################
+# Example 1: basic ideal case
 obs <- 1:10
+sim <- 1:10
 rNSE(sim, obs)
 
-sim <- 2:11
 obs <- 1:10
+sim <- 2:11
 rNSE(sim, obs)
 
 ##################
+# Example 2: 
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
 data(EgaEnEstellaQts)
 obs <- EgaEnEstellaQts
@@ -130,12 +133,88 @@ sim <- obs
 # Computing the 'rNSE' for the "best" (unattainable) case
 rNSE(sim=sim, obs=obs)
 
-# Randomly changing the first 2000 elements of 'sim', by using a normal distribution 
+##################
+# Example 3: rNSE for simulated values equal to observations plus random noise 
+#            on the first half of the observed values. 
+#            This random noise has more relative importance for ow flows than 
+#            for medium and high flows.
+  
+# Randomly changing the first 1826 elements of 'sim', by using a normal distribution 
 # with mean 10 and standard deviation equal to 1 (default of 'rnorm').
-sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
+sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
+ggof(sim, obs)
 
-# Computing the new 'rNSE'
 rNSE(sim=sim, obs=obs)
+
+##################
+# Example 4: rNSE for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' during computations.
+
+rNSE(sim=sim, obs=obs, fun=log)
+
+# Verifying the previous value:
+lsim <- log(sim)
+lobs <- log(obs)
+rNSE(sim=lsim, obs=lobs)
+
+##################
+# Example 5: rNSE for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' and adding the Pushpalatha2012 constant
+#            during computations
+
+rNSE(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
+
+# Verifying the previous value, with the epsilon value following Pushpalatha2012
+eps  <- mean(obs, na.rm=TRUE)/100
+lsim <- log(sim+eps)
+lobs <- log(obs+eps)
+rNSE(sim=lsim, obs=lobs)
+
+##################
+# Example 6: rNSE for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' and adding a user-defined constant
+#            during computations
+
+eps <- 0.01
+rNSE(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
+
+# Verifying the previous value:
+lsim <- log(sim+eps)
+lobs <- log(obs+eps)
+rNSE(sim=lsim, obs=lobs)
+
+##################
+# Example 7: rNSE for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' and using a user-defined factor
+#            to multiply the mean of the observed values to obtain the constant
+#            to be added to 'sim' and 'obs' during computations
+
+fact <- 1/50
+rNSE(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
+
+# Verifying the previous value:
+eps  <- fact*mean(obs, na.rm=TRUE)
+lsim <- log(sim+eps)
+lobs <- log(obs+eps)
+rNSE(sim=lsim, obs=lobs)
+
+##################
+# Example 8: rNSE for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying a 
+#            user-defined function to 'sim' and 'obs' during computations
+
+fun1 <- function(x) {sqrt(x+1)}
+
+rNSE(sim=sim, obs=obs, fun=fun1)
+
+# Verifying the previous value, with the epsilon value following Pushpalatha2012
+sim1 <- sqrt(sim+1)
+obs1 <- sqrt(obs+1)
+rNSE(sim=sim1, obs=obs1)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

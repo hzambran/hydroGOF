@@ -231,6 +231,76 @@ sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 
 # Computing the new 'KGE'
 KGE(sim=sim, obs=obs)
+
+##################
+# Example 4: KGE for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' during computations.
+
+KGE(sim=sim, obs=obs, fun=log)
+
+# Verifying the previous value:
+lsim <- log(sim)
+lobs <- log(obs)
+KGE(sim=lsim, obs=lobs)
+
+##################
+# Example 5: KGE for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' and adding the Pushpalatha2012 constant
+#            during computations
+
+KGE(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
+
+# Verifying the previous value, with the epsilon value following Pushpalatha2012
+eps  <- mean(obs, na.rm=TRUE)/100
+lsim <- log(sim+eps)
+lobs <- log(obs+eps)
+KGE(sim=lsim, obs=lobs)
+
+##################
+# Example 6: KGE for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' and adding a user-defined constant
+#            during computations
+
+eps <- 0.01
+KGE(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
+
+# Verifying the previous value:
+lsim <- log(sim+eps)
+lobs <- log(obs+eps)
+KGE(sim=lsim, obs=lobs)
+
+##################
+# Example 7: KGE for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' and using a user-defined factor
+#            to multiply the mean of the observed values to obtain the constant
+#            to be added to 'sim' and 'obs' during computations
+
+fact <- 1/50
+KGE(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
+
+# Verifying the previous value:
+eps  <- fact*mean(obs, na.rm=TRUE)
+lsim <- log(sim+eps)
+lobs <- log(obs+eps)
+KGE(sim=lsim, obs=lobs)
+
+##################
+# Example 8: KGE for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying a 
+#            user-defined function to 'sim' and 'obs' during computations
+
+fun1 <- function(x) {sqrt(x+1)}
+
+KGE(sim=sim, obs=obs, fun=fun1)
+
+# Verifying the previous value, with the epsilon value following Pushpalatha2012
+sim1 <- sqrt(sim+1)
+obs1 <- sqrt(obs+1)
+KGE(sim=sim1, obs=obs1)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
