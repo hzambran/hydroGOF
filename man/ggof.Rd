@@ -1,8 +1,9 @@
 %% File ggof.Rd
-%% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
-%%                                 http://cran.r-project.org/web/packages/hydroGOF/
-%% Copyright 2011-2015 Mauricio Zambrano-Bigiarini
-%% Distributed under GPL 2 or lat
+%% Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
+%%                                 https://cran.r-project.org/package=hydroGOF
+%%                                 http://www.rforge.net/hydroGOF/
+%% Copyright 2011-2024 Mauricio Zambrano-Bigiarini
+%% Distributed under GPL 2 or later
 
 \name{ggof}
 \Rdversion{1.1}

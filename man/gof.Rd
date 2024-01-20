@@ -1,6 +1,7 @@
 %% File gof.Rd
-%% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
-%%                                 http://cran.r-project.org/web/packages/hydroGOF/
+%% Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
+%%                                 https://cran.r-project.org/package=hydroGOF
+%%                                 http://www.rforge.net/hydroGOF/
 %% Copyright 2011-2024 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or later
 

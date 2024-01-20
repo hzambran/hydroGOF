@@ -1,4 +1,4 @@
-# File cp.R
+# File ssq.R
 # Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF
 #                                 https://cran.r-project.org/package=hydroGOF
 #                                 http://www.rforge.net/hydroGOF/ ;
