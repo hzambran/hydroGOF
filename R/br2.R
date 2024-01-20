@@ -14,6 +14,7 @@
 # Started: 27-Oct-2009                                                         #
 # Updates: 11-Mar-2020                                                         #
 #          16-Jan-2023 ; 29-Nov-2023                                           #
+#          20-Jan-2024                                                         #
 ################################################################################
 
 # This index allows accounting for the discrepancy in the magnitude of two signals
@@ -41,6 +42,7 @@ br2.default <- function(sim, obs, na.rm=TRUE, use.abs=FALSE, fun=NULL, ...,
   if ( !is.na(match(class(sim), c("ts", "zoo"))) ) sim <- as.numeric(sim)
   if ( !is.na(match(class(obs), c("ts", "zoo"))) ) obs <- as.numeric(obs)
 
+  # Checking 'epsilon.type'
   epsilon.type <- match.arg(epsilon.type)  
 
   # index of those elements that are present both in 'sim' and 'obs' (NON- NA values)
@@ -70,7 +72,7 @@ br2.default <- function(sim, obs, na.rm=TRUE, use.abs=FALSE, fun=NULL, ...,
     # computing the r2
     #r2 <- (.rPearson(sim, obs))^2 # this works only for linear models. 
     # https://github.com/hzambran/hydroGOF/issues/16#issue-1736556320
-    r2 <- .R2(sim=sim, obs=obs)
+    r2 <- R2(sim=sim, obs=obs)
 
     if (!(use.abs)) {
       br2 <- ifelse(b <= 1, r2*abs(b), r2/abs(b))
