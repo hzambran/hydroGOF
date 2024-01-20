@@ -29,7 +29,7 @@ License: \tab GPL >= 2\cr
 LazyLoad: \tab yes\cr
 Packaged: \tab Fri 19 Jan 2024 19:21:57 -03; MZB \cr
 BuiltUnder: \tab R version 4.3.2 (2023-10-31) ;x86_64-pc-linux-gnu (64-bit) \cr
-}
+} 
 
 Quantitative statistics included in this package are: 
 
@@ -39,32 +39,32 @@ Quantitative statistics included in this package are:
     \code{\link{mse}}        Mean Squared Error \cr
     \code{\link{rmse}}       Root Mean Square Error \cr
     \code{\link{ubRMSE}}     Unbiased Root Mean Square Error \cr
-    \code{\link{nrmse}}      Normalized Root Mean Square Error  ( -100\% <= nrms <= 100\% ) \cr
-    \code{\link{pbias}}      Percent Bias}
-    \code{\link{rsr}}        Ratio of RMSE to the Standard Deviation of the Observations, RSR = rms / sd(obs). ( 0 <= RSR <= +Inf ) \cr
-    \code{\link{rSD}}        Ratio of Standard Deviations, rSD = sd(sim) / sd(obs) \cr
-    \code{\link{NSE}}        Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 ) \cr
+    \code{\link{nrmse}}      Normalized Root Mean Square Error \cr
+    \code{\link{pbias}}      Percent Bias \cr
+    \code{\link{rsr}}        Ratio of RMSE to the Standard Deviation of the Observations \cr
+    \code{\link{rSD}}        Ratio of Standard Deviations \cr
+    \code{\link{NSE}}        Nash-Sutcliffe Efficiency \cr
     \code{\link{mNSE}}       Modified Nash-Sutcliffe Efficiency \cr
     \code{\link{rNSE}}       Relative Nash-Sutcliffe Efficiency \cr
     \code{\link{wNSE}}       Weighted Nash-Sutcliffe Efficiency \cr
-    \code{\link{d}}          Index of Agreement ( 0 <= d <= 1 ) \cr
-    \code{\link{dr}}         Refined Index of Agreement ( -1 <= dr <= 1 ) \cr
-    \code{\link{md}}         Modified Index of Agreement ( 0 <= md <= 1 ) \cr
-    \code{\link{rd}}         Relative Index of Agreement ( 0 <= rd <= 1 ) \cr
-    \code{\link{cp}}         Persistence Index ( 0 <= PI <= 1 ) \cr
-    \code{\link{rPearson}}   Pearson correlation coefficient ( -1 <= r <= 1 ) \cr
-    \code{\link{R2}}         Coefficient of determination ( 0 <= R2 <= 1 ) \cr
-    \code{\link{br2}}        R2 multiplied by the coefficient of the regression line between \code{sim} and \code{obs} \cr ( 0 <= bR2 <= 1 ) \cr
-    \code{\link{KGE}}        Kling-Gupta efficiency between \code{sim} and \code{obs} \cr ( -Inf <= KGE <= 1 ) \cr
-    \code{\link{KGElf}}      Kling-Gupta Efficiency for low values between \code{sim} and \code{obs} \cr ( -Inf <= KGElf <= 1 ) \cr
-    \code{\link{KGEnp}}      Non-parametric version of the Kling-Gupta Efficiency between \code{sim} and \code{obs} \cr ( -Inf <= KGEnp <= 1 ) \cr
-    \code{\link{sKGE}}       Split Kling-Gupta Efficiency between \code{sim} and \code{obs} \cr ( -Inf <= sKGE <= 1 ). Only computed when both \code{sim} and \code{obs} are zoo objects \cr
-    \code{\link{VE}}         Volumetric efficiency between \code{sim} and \code{obs} \cr ( -Inf <= VE <= 1) \cr
-    \code{\link{rSpearman}}  Spearman's rank correlation coefficient ( -1 <= rho <= 1 ) \cr
-    \code{\link{pbiasfdc}}   PBIAS in the slope of the midsegment of the Flow Duration Curve \cr
---------------------------------------------------------------------------------------------------------------------------- \cr
+    \code{\link{d}}          Index of Agreement \cr
+    \code{\link{dr}}         Refined Index of Agreement \cr
+    \code{\link{md}}         Modified Index of Agreement  \cr
+    \code{\link{rd}}         Relative Index of Agreement \cr
+    \code{\link{cp}}         Persistence Index \cr
+    \code{\link{rPearson}}   Pearson correlation coefficient  \cr
+    \code{\link{R2}}         Coefficient of determination \cr
+    \code{\link{br2}}        R2 multiplied by the coefficient of the regression line between \code{sim} and \code{obs} \cr
+    \code{\link{KGE}}        Kling-Gupta efficiency \cr
+    \code{\link{KGElf}}      Kling-Gupta Efficiency for low values \cr
+    \code{\link{KGEnp}}      Non-parametric version of the Kling-Gupta Efficiency \cr
+    \code{\link{sKGE}}       Split Kling-Gupta Efficiency \cr
+    \code{\link{VE}}         Volumetric efficiency  \cr
+    \code{\link{rSpearman}}  Spearman's rank correlation coefficient  \cr
+    \code{\link{pbiasfdc}}   PBIAS in the slope of the midsegment of the flow duration curve \cr
+----------------------------------------------------------------------------------------------------------\cr
 }
-
+}
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 
@@ -89,6 +89,8 @@ Maintainer: Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 \cite{Gupta, Hoshin V., Harald Kling, Koray K. Yilmaz, Guillermo F. Martinez. Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological modelling. (2009). Journal of Hydrology, Volume 377, Issues 1-2, 20, Pages 80-91. doi:10.1016/j.jhydrol.2009.08.003} \cr
 
 \cite{Harmel, R.D.; Smith, P.K.; Migliaccio, K.W.; Chaubey, I.; Douglas-Mankin, K.R.; Benham, B.; Shukla, S.; Munoz-Carpena, R.; Robson, B.J., 2014. Evaluating, interpreting, and communicating performance of hydrologic/water quality models considering intended use: A review and recommendations. Environmental modelling and software, 57, 40-51. doi:10.1016/j.envsoft.2014.02.013} \cr
+
+\cite{Krstic, G., Krstic, N.S., Zambrano-Bigiarini, M. (2016). The br2-weighting Method for Estimating the Effects of Air Pollution on Population Health. Journal of Modern Applied Statistical Methods, 15(2), 42. doi:10.22237/jmasm/1478004000} \cr
 
 \cite{Kitanidis, P. K., and R. L. Bras (1980), Real-Time Forecasting With a Conceptual Hydrologic Model 2. Applications and Results, Water Resour. Res., 16(6), 1034-1044} \cr
 
@@ -122,7 +124,7 @@ Maintainer: Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 
 \cite{Willmott, C.J., Robeson, S.M., Matsuura, K. and Ficklin, D.L. (2015). Assessment of three dimensionless measures of model performance. Environmental Modelling and Software, 73, pp.167-174. doi:10.1016/j.envsoft.2015.08.012} \cr
 
-\cite{Willmott, C. J. (1981). On the validation of models. Physical Geography, 2, 184--194} \cr
+\cite{Willmott, C. J. (1981). On the validation of models. Physical Geography, 2, 184-194} \cr
 
 \cite{Willmott, C. J. (1984). On the evaluation of model performance in physical geography. Spatial Statistics and Models, G. L. Gaile and C. J. Willmott, eds., 443-460} \cr
 

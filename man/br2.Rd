@@ -87,8 +87,8 @@ Valid values of \code{epsilon.type} are:
 \deqn{ br2 = |b| R2 , b <= 1  ; br2 = \frac{R2}{|b|}, b > 1  }{%
 br2 = abs(b)*R2, b <= 1; br2= R2/abs(b), b > 1 } 
 
-A model that systematically over or under-predicts all the time will still result in "good" \code{r2} (close to 1), even if all predictions were wrong (Krause et al., 2005).
-The \code{br2} coefficient allows accounting for the discrepancy in the magnitude of two signals (depicted by 'b') as well as their dynamics (depicted by \code{r2})
+A model that systematically over or under-predicts all the time will still result in "good" \code{R2} (close to 1), even if all predictions were wrong (Krause et al., 2005).
+The \code{br2} coefficient allows accounting for the discrepancy in the magnitude of two signals (depicted by 'b') as well as their dynamics (depicted by \code{R2})
 }
 \value{
 br2 between \code{sim} and \code{obs}. \cr
@@ -97,6 +97,8 @@ If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with 
 }
 \references{
 \cite{Krause, P., Boyle, D. P., and Base, F.: Comparison of different efficiency criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005}
+
+\cite{Krstic, G., Krstic, N.S., Zambrano-Bigiarini, M. (2016). The br2-weighting Method for Estimating the Effects of Air Pollution on Population Health. Journal of Modern Applied Statistical Methods, 15(2), 42. doi:10.22237/jmasm/1478004000}
 
 }
 \author{

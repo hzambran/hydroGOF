@@ -23,6 +23,11 @@
 # Krause, P., Boyle, D. P., and Base, F.: Comparison of different efficiency 
 # criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005
 
+# Krstic, G., Krstic, N. S., Zambrano-Bigiarini, M. (2016). 
+# The br2-weighting Method for Estimating the Effects of Air Pollution on 
+# Population Health. Journal of Modern Applied Statistical Methods, 15(2), 42. 
+# doi:10.22237/jmasm/1478004000}
+
 br2 <-function(sim, obs, ...) UseMethod("br2")
  
 # 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values
