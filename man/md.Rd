@@ -118,7 +118,7 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{d}}, \code{\link{rd}}, \code{\link{gof}}, \code{\link{ggof}}
+\code{\link{d}}, \code{\link{dr}}, \code{\link{rd}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 obs <- 1:10

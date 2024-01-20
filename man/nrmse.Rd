@@ -112,9 +112,8 @@ Missing values in \code{obs} and \code{sim} are removed before the computation p
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{rmse}}, \code{\link{ssq}}, \code{\link{gof}}, \code{\link{ggof}}
+\code{\link{pbias}}, \code{\link{pbiasfdc}}, \code{\link{mae}}, \code{\link{mse}}, \code{\link{rmse}}, \code{\link{ubRMSE}}, \code{\link{ssq}}, \code{\link{gof}}, \code{\link{ggof}}
 }
-
 \examples{
 ##################
 # Example 1: basic ideal case

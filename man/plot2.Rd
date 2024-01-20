@@ -148,7 +148,7 @@ It requires the package \pkg{hydroTSM}.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{ggof}}
+\code{\link{ggof}}, \code{\link[hydroTSM]{plot_pq}}
 }
 \examples{
 sim <- 2:11

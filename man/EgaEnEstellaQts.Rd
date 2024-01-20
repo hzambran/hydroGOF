@@ -24,7 +24,7 @@ data(EgaEnEstellaQts)
 zoo object.
 }
 \source{
-Downloaded from: \url{http://www.chebro.es}. Last accessed [March 2010]. \cr
+Downloaded from: \url{https://www.chebro.es}. Last accessed [March 2010]. \cr
 These data are intended to be used for research purposes only, being distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY.
 }
 

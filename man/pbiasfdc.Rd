@@ -117,7 +117,7 @@ It requires the \pkg{hydroTSM} package.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\link[hydroTSM]{fdc}, \code{\link{gof}}
+\link[hydroTSM]{fdc}, \code{\link{pbias}}, \code{\link{mae}}, \code{\link{mse}}, \code{\link{rmse}}, \code{\link{ubRMSE}}, \code{\link{nrmse}}, \code{\link{ssq}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 \dontrun{

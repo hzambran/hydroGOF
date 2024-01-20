@@ -93,25 +93,16 @@ Garcia et al. (2017) tested different objective functions and found that the mea
 
 The robustness of their findings depends more on the climate variability rather than the objective function, and they are insensitive to the hydrological model used in the evaluation.
 
-\deqn{KGElf = 1 - ED}
-\deqn{ ED =  \sqrt{ (s[1]*(r-1))^2 +(s[2]*(vr-1))^2 + (s[3]*(\beta-1))^2 } }
-\deqn{r=\textrm{Pearson product-moment correlation coefficient}}
-\deqn{\beta=\mu_s/\mu_o}
-\deqn{vr=  \left\{
-  \begin{array}{cc}
-    \alpha & , \: \textrm{method="2009"} \\
-    \gamma & , \: \textrm{method="2012"}
-  \end{array}
-  \right.}  
-\deqn{\alpha=\sigma_s/\sigma_o}
-\deqn{\gamma=\frac{CV_s}{CV_o}= \frac{\sigma_s/\mu_s}{\sigma_o/\mu_o}}{%
+\deqn{KGE_{lf} =  \frac{KGE(Q) + KGE(1/Q)}{2} }{%
 KGElf = 1 - sqrt[ (s[1]*(r-1))^2 + (s[2]*(vr-1))^2 + (s[3]*(Beta-1))^2] ; r=Pearson product-moment correlation coefficient ; alpha=sigma_s/sigma_o ; beta=mu_s/mu_o ; gamma=CV_s/CV_o}
 
-Traditional Kling-Gupta efficiencies (Gupta et al., 2009; Kling et al., 2012) range from -Inf to 1. Essentially, the closer to 1, the more accurate the model is. \cr
+Traditional Kling-Gupta efficiencies (Gupta et al., 2009; Kling et al., 2012) range from -Inf to 1 and, therefore, KGElf should also range from -Inf to 1. Essentially, the closer to 1, the more similar \code{sim} and \code{obs} are. \cr
+
 Knoben et al. (2019) showed that traditional Kling-Gupta (Gupta et al., 2009; Kling et al., 2012) values greater than -0.41 indicate that a model improves upon the mean flow benchmark, even if the model's KGE value is negative.
 }
 \value{
-numeric with the Kling-Gupta efficiency between \code{sim} and \code{obs}. \cr
+numeric with the Kling-Gupta efficiency for low flows between \code{sim} and \code{obs}. \cr
+
 If \code{sim} and \code{obs} are matrices, the output value is a vector, with the Kling-Gupta efficiency between each column of \code{sim} and \code{obs}
 }
 \references{
@@ -126,9 +117,9 @@ If \code{sim} and \code{obs} are matrices, the output value is a vector, with th
 
 \cite{Kling, H.; Fuchs, M.; Paulin, M. (2012). Runoff conditions in the upper Danube basin under an ensemble of climate change scenarios. Journal of Hydrology, 424, 264-277, doi:10.1016/j.jhydrol.2012.01.011} \cr
 
-\cite{Santos, L.; Thirel, G.; Perrin, C. (2018). Pitfalls in using log-transformed flows within the KGElf criterion. doi:10.5194/hess-22-4583-2018} \cr
+\cite{Santos, L.; Thirel, G.; Perrin, C. (2018). Pitfalls in using log-transformed flows within the KGE criterion. doi:10.5194/hess-22-4583-2018} \cr
 
-\cite{Knoben, W. J.; Freer, J. E.; Woods, R. A. (2019). Inherent benchmark or not? Comparing Nash-Sutcliffe and Kling-Gupta efficiency scores. Hydrology and Earth System Sciences, 23(10), 4323-4331. doi:10.5194/hess-23-4323-2019} \cr
+\cite{Knoben, W. J.; Freer, J. E.; Woods, R. A. (2019). Inherent benchmark or not? Comparing Nash-Sutcliffe and Kling-Gupta efficiency scores. Hydrology and Earth System Sciences, 23(10), 4323-4331. doi:10.5194/hess-23-4323-2019}
 }
 \author{
 Mauricio Zambrano-Bigiarini <mzb.devel@gmail.com>

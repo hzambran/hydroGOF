@@ -77,9 +77,9 @@ Valid values of \code{epsilon.type} are:
  -) when \code{epsilon.type="otherFactor"} it represents the numeric factor used to multiply the mean of the observed values, instead of the one hundredth (1/100) described in Pushpalatha et al. (2012). The resulting value is then added to both \code{sim} and \code{obs} before applying \code{fun}.
 }
 }
-%%\details{
-%%  ~~ If necessary, more details than the description above ~~
-%%}
+\details{
+\deqn{ r_{SD} = \frac {sd_{sim}} {sd_{obs}}  }{%
+rSD = sd(sim) / sd(obs) }}
 \value{
 Ratio of standard deviations between \code{sim} and \code{obs}. \cr
 

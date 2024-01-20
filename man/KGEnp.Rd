@@ -89,18 +89,20 @@ Valid values of \code{epsilon.type} are:
 }
 \details{
 
-This non-paramettric verison of the Kling-Gupta efficiency keeps the bias term Alpha (mean(sim) / mean(obs)), but for correlation uses the Spearman rank coefficient instead of the Pearson product-moment coefficient; and for varaibility it uses the normalized flow-duration curve instead of the standard deviation (or coefficient of variation).
+This non-paramettric verison of the Kling-Gupta efficiency keeps the bias term Alpha (mean(sim) / mean(obs)), but for correlation uses the Spearman rank coefficient instead of the Pearson product-moment coefficient; and for variability it uses the normalized flow-duration curve instead of the standard deviation (or coefficient of variation).
 
 The proposed non-parametric based multi-objective function can be seen as a useful alternative to existing performance measures when aiming at acceptable simulations of multiple hydrograph aspects (Pool et al., 2018).
 
-\deqn{KGEnp = 1 - ED}
-\deqn{ ED =  \sqrt{ ((r-1)^2 +(alpha-1)^2 + (\beta-1)^2 } }
-\deqn{rS=\textrm{Spearman rank correlation coefficient}}
-\deqn{\beta=\mu_s/\mu_o}
-\deqn{\alpha= 1 - 0.5*sum( sim(I(k)) / (n*\mu_s) - obs(J(k)) / (n*\mu_o) )}{%
-KGEnp = 1 - sqrt[ ((r-1)^2 + (Alpha-1)^2 + (Beta-1)^2] ; rS=Spearman rank correlation coefficient ; alpha=1-0.5*sum(abs(fdc.sim - fdc.obs)) ; beta=mu_s/mu_o }
+\deqn{KGE_{np} = 1 - ED}
+\deqn{ ED =  \sqrt{ ((\rho-1)^2 + (\alpha-1)^2 + (\beta-1)^2 } }
+\deqn{\rho = \textrm{Spearman rank correlation coefficient}}
+\deqn{\alpha = 1 - 0.5*sum( sim(I(k)) / (n*\mu_s) - obs(J(k)) / (n*\mu_o) )}
+\deqn{\beta = \mu_s/\mu_o}{%
 
-Traditional Kling-Gupta efficiencies (Gupta et al., 2009; Kling et al., 2012) range from -Inf to 1. Essentially, the closer to 1, the more accurate the model is. \cr
+KGEnp = 1 - sqrt[ ((rS-1)^2 + (Alpha-1)^2 + (Beta-1)^2] ; rS=Spearman rank correlation coefficient ; alpha=1-0.5*sum(abs(fdc.sim - fdc.obs)) ; beta=mu_s/mu_o }
+
+Traditional Kling-Gupta efficiencies (Gupta et al., 2009; Kling et al., 2012) range from -Inf to 1, and therefore KGEnp should do so. Essentially, the closer to 1, the more similar \code{sim} and \code{obs} are. \cr
+
 Knoben et al. (2019) showed that traditional Kling-Gupta (Gupta et al., 2009; Kling et al., 2012) values greater than -0.41 indicate that a model improves upon the mean flow benchmark, even if the model's KGE value is negative.
 }
 \value{

@@ -209,9 +209,11 @@ Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 
 \seealso{
 \code{\link{gof}}, \code{\link{plot2}}, 
-\code{\link{me}}, \code{\link{mae}}, \code{\link{rmse}}, \code{\link{nrmse}}, \code{\link{pbias}},
-\code{\link{pbiasfdc}}, \code{\link{rSD}}, \code{\link{NSE}}, \code{\link{mNSE}}, \code{\link{rNSE}}, 
-\code{\link{d}}, \code{\link{md}}, \code{\link{rd}}, \code{\link{cp}}, \code{\link{br2}}, \code{\link{KGE}}, \code{\link{VE}}
+\code{\link{ggof}}, \code{\link{me}}, \code{\link{mae}}, \code{\link{mse}}, \code{\link{rmse}}, \code{\link{ubRMSE}}, 
+\code{\link{nrmse}}, \code{\link{pbias}}, \code{\link{rsr}}, \code{\link{rSD}}, \code{\link{NSE}}, \code{\link{mNSE}}, 
+\code{\link{rNSE}}, \code{\link{wNSE}}, \code{\link{d}}, \code{\link{dr}}, \code{\link{md}}, \code{\link{rd}}, 
+\code{\link{cp}}, \code{\link{rPearson}}, \code{\link{R2}}, \code{\link{br2}}, \code{\link{KGE}}, \code{\link{KGElf}},
+ \code{\link{KGEnp}}, \code{\link{sKGE}}, \code{\link{VE}}, \code{\link{rSpearman}}, \code{\link{pbiasfdc}}
 }
 \examples{
 obs <- 1:10

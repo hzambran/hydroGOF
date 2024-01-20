@@ -16,9 +16,7 @@
 Index of Agreement
 }
 \description{
-This function computes the Index of Agreement between \code{sim} and \code{obs}, with treatment of missing values.
-
-If \code{x} is a matrix or a data frame, a vector of the Index of Agreement of the columns is returned.
+Index of Agreement between \code{sim} and \code{obs}, with treatment of missing values.
 }
 \usage{
 d(sim, obs, ...)
@@ -95,14 +93,13 @@ Index of agreement between \code{sim} and \code{obs}. \cr
 If \code{sim} and \code{obs} are matrixes or data.frames, the returned value is a vector, with the index of agreement between each column of \code{sim} and \code{obs}.
 }
 \references{
-\cite{Willmott, C. J. 1981. On the validation of models. Physical Geography, 2, 184--194}
+\cite{Willmott, C. J. 1981. On the validation of models. Physical Geography, 2, 184--194} \cr
 
-\cite{Willmott, C. J. (1984). On the evaluation of model performance in physical geography. Spatial Statistics and Models, G. L. Gaile and C. J. Willmott, eds., 443-460}
+\cite{Willmott, C. J. (1984). On the evaluation of model performance in physical geography. Spatial Statistics and Models, G. L. Gaile and C. J. Willmott, eds., 443-460} \cr
 
-\cite{Willmott, C. J., S. G. Ackleson, R. E. Davis, J. J. Feddema, K. M. Klink, D. R. Legates, J. O'Donnell, and C. M. Rowe (1985), Statistics for the Evaluation and Comparison of Models, J. Geophys. Res., 90(C5), 8995-9005}
+\cite{Willmott, C. J., S. G. Ackleson, R. E. Davis, J. J. Feddema, K. M. Klink, D. R. Legates, J. O'Donnell, and C. M. Rowe (1985), Statistics for the Evaluation and Comparison of Models, J. Geophys. Res., 90(C5), 8995-9005} \cr
 
 \cite{Legates, D. R. and G. J. McCabe Jr. (1999), Evaluating the Use of "Goodness-of-Fit" Measures in Hydrologic and Hydroclimatic Model Validation, Water Resources Research, 35(1), 233-241. doi:10.1029/1998WR900018}
-
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
@@ -116,7 +113,7 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{md}}, \code{\link{rd}}, \code{\link{gof}}, \code{\link{ggof}}
+\code{\link{md}}, \code{\link{rd}}, \code{\link{dr}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 ##################

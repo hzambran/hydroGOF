@@ -110,7 +110,7 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{NSE}}, \code{\link{rNSE}}, \code{\link{gof}}, \code{\link{ggof}}
+\code{\link{NSE}}, \code{\link{rNSE}}, \code{\link{wNSE}}, \code{\link{KGE}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 ##################

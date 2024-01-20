@@ -76,9 +76,10 @@ Valid values of \code{epsilon.type} are:
  -) when \code{epsilon.type="otherFactor"} it represents the numeric factor used to multiply the mean of the observed values, instead of the one hundredth (1/100) described in Pushpalatha et al. (2012). The resulting value is then added to both \code{sim} and \code{obs} before applying \code{fun}.
 }
 }
-%%\details{
-%%  ~~ If necessary, more details than the description above ~~
-%%}
+\details{
+\deqn{ ssr = \sum_{i=1}^N { (S_i - O_i )^2 } } {%
+ssr = sum[ (sim - obs)^2 ] } 
+}
 \value{
 Sum of the squared residuals between \code{sim} and \code{obs}. \cr
 
@@ -98,9 +99,9 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-%%\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-%%}
+\seealso{
+\code{\link{pbias}}, \code{\link{pbiasfdc}}, \code{\link{mae}}, \code{\link{mse}}, \code{\link{rmse}}, \code{\link{ubRMSE}}, \code{\link{nrmse}}, \code{\link{gof}}, \code{\link{ggof}}
+}
 \examples{
 obs <- 1:10
 sim <- 1:10
