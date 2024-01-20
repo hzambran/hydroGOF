@@ -24,7 +24,7 @@ Missing values in observed and/or simulated values can be removed before computa
 Package: \tab hydroGOF\cr
 Type: \tab Package\cr
 Version: \tab 0.5-0\cr
-Date: \tab 2024-01-19\cr
+Date: \tab 2024-01-20\cr
 License: \tab GPL >= 2\cr
 LazyLoad: \tab yes\cr
 Packaged: \tab Fri 19 Jan 2024 19:21:57 -03; MZB \cr
@@ -46,18 +46,21 @@ Quantitative statistics included in this package are:
     \code{\link{NSE}}        Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 ) \cr
     \code{\link{mNSE}}       Modified Nash-Sutcliffe Efficiency \cr
     \code{\link{rNSE}}       Relative Nash-Sutcliffe Efficiency \cr
+    \code{\link{wNSE}}       Weighted Nash-Sutcliffe Efficiency \cr
     \code{\link{d}}          Index of Agreement ( 0 <= d <= 1 ) \cr
     \code{\link{dr}}         Refined Index of Agreement ( -1 <= dr <= 1 ) \cr
     \code{\link{md}}         Modified Index of Agreement ( 0 <= md <= 1 ) \cr
     \code{\link{rd}}         Relative Index of Agreement ( 0 <= rd <= 1 ) \cr
     \code{\link{cp}}         Persistence Index ( 0 <= PI <= 1 ) \cr
-    \code{\link{rPearson}}   Pearson Correlation coefficient ( -1 <= r <= 1 ) \cr
+    \code{\link{rPearson}}   Pearson correlation coefficient ( -1 <= r <= 1 ) \cr
+    \code{\link{R2}}         Coefficient of determination ( 0 <= R2 <= 1 ) \cr
     \code{\link{br2}}        R2 multiplied by the coefficient of the regression line between \code{sim} and \code{obs} \cr ( 0 <= bR2 <= 1 ) \cr
     \code{\link{KGE}}        Kling-Gupta efficiency between \code{sim} and \code{obs} \cr ( -Inf <= KGE <= 1 ) \cr
     \code{\link{KGElf}}      Kling-Gupta Efficiency for low values between \code{sim} and \code{obs} \cr ( -Inf <= KGElf <= 1 ) \cr
     \code{\link{KGEnp}}      Non-parametric version of the Kling-Gupta Efficiency between \code{sim} and \code{obs} \cr ( -Inf <= KGEnp <= 1 ) \cr
     \code{\link{sKGE}}       Split Kling-Gupta Efficiency between \code{sim} and \code{obs} \cr ( -Inf <= sKGE <= 1 ). Only computed when both \code{sim} and \code{obs} are zoo objects \cr
     \code{\link{VE}}         Volumetric efficiency between \code{sim} and \code{obs} \cr ( -Inf <= VE <= 1) \cr
+    \code{\link{rSpearman}}  Spearman's rank correlation coefficient ( -1 <= rho <= 1 ) \cr
     \code{\link{pbiasfdc}}   PBIAS in the slope of the midsegment of the Flow Duration Curve \cr
 --------------------------------------------------------------------------------------------------------------------------- \cr
 }
