@@ -98,7 +98,7 @@ If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with 
 
 \cite{Hundecha, Y., B\'{a}rdossy, A. (2004). Modeling of the effect of land use changes on the runoff generation of a river basin through parameter regionalization of a watershed model. Journal of hydrology, 292(1-4), 281-295. doi:10.1016/j.jhydrol.2004.01.002} \cr
 
-\cite{Hundecha, Y., Ouarda, T. B., B\'{a}rdossy, A. (2008). Regional estimation of parameters of a rainfall‐runoff model at ungauged watersheds using the 'spatial' structures of the parameters within a canonical physiographic‐climatic space. Water Resources Research, 44(1). doi:10.1029/2006WR005439} \cr
+\cite{Hundecha, Y., Ouarda, T. B., B\'{a}rdossy, A. (2008). Regional estimation of parameters of a rainfall-runoff model at ungauged watersheds using the 'spatial' structures of the parameters within a canonical physiographic-climatic space. Water Resources Research, 44(1). doi:10.1029/2006WR005439} \cr
 
 \cite{Hundecha, Y. and Merz, B. (2012), Exploring the Relationship between Changes in Climate and Floods Using a Model-Based Analysis, Water Resour. Res., 48(4), 1-21, doi:10.1029/2011WR010527}. 
 }

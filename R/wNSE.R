@@ -12,7 +12,7 @@
 # References:
 
 #\cite{Nash, J. E. and J. V. Sutcliffe (1970), 
-#      River flow forecasting through conceptual models part I -A discussion of principles, 
+#      River flow forecasting through conceptual models part I - A discussion of principles, 
 #      Journal of Hydrology, 10 (3), 282-290} \cr
 
 #\cite{Hundecha, Y., B\'{a}rdossy, A. (2004). 
@@ -22,9 +22,9 @@
 #      doi:10.1016/j.jhydrol.2004.01.002} \cr
 
 #\cite{Hundecha, Y., Ouarda, T. B., B\'{a}rdossy, A. (2008). 
-#      Regional estimation of parameters of a rainfall‐runoff model at ungauged 
+#      Regional estimation of parameters of a rainfall-runoff model at ungauged 
 #      watersheds using the 'spatial' structures of the parameters within a canonical 
-#      physiographic‐climatic space. Water Resources Research, 44(1). 
+#      physiographic-climatic space. Water Resources Research, 44(1). 
 #      doi:10.1029/2006WR005439} \cr
 
 #\cite{Hundecha, Y. and Merz, B. (2012), 
