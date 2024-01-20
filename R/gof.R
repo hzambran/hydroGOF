@@ -14,7 +14,7 @@
 #          21-Jan-2011                                                         #
 #          08-May-2012                                                         #
 #          14-Jan-2023 ; 15-Jan-2023 ; 16-Jan-2023                             #
-#          19-Jan-2024                                                         #
+#          19-Jan-2024 ; 20-Jan-2024                                           #
 ################################################################################
 
 # It computes:
@@ -31,21 +31,22 @@
 # 10) 'NSE'       : Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 )
 # 11) 'mNSE'      : Modified Nash-Sutcliffe Efficiency
 # 12) 'rNSE'      : Relative Nash-Sutcliffe Efficiency
-# 13) 'd'         : Index of Agreement( 0 <= d <= 1 )
-# 14) 'dr'        : Refined Index of Agreement( -1 <= dr <= 1 )
-# 15) 'md'        : Modified Index of Agreement( 0 <= md <= 1 )
-# 16) 'rd'        : Relative Index of Agreement( 0 <= rd <= 1 )
-# 17) 'cp'        : Coefficient of Persistence ( 0 <= cp <= 1 ) 
-# 18) 'r'         : Pearson Correlation coefficient ( -1 <= r <= 1 )
-# 19) 'R2'        : Coefficient of Determination ( 0 <= R2 <= 1 )
-# 20) 'bR2'       : weighted coefficient of determination
-# 21) 'KGE'       : Kling-Gupta efficiency (-Inf < KGE <= 1)
-# 22) 'KGElf'     : Kling-Gupta efficiency with focus on low values (-Inf < KGElf <= 1)
-# 23) 'KGEnp'     : Non-parametric Kling-Gupta efficiency (-Inf < KGEnp <= 1)
-# 24) 'sKGE'      : Split Kling-Gupta efficiency (-Inf < sKGE <= 1)
-# 25) 'VE'        : Volumetric efficiency
-# 26) 'r.Spearman': Spearman Correlation coefficient ( -1 <= r <= 1 ) 
-# 27) 'pbiasFDC'  : PBIAS in the slope of the midsegment of the Flow Duration Curve  ( 0 <= pbiasFDC ) 
+# 13) 'wNSE'      : Weighted Nash-Sutcliffe Efficiency
+# 14) 'd'         : Index of Agreement( 0 <= d <= 1 )
+# 15) 'dr'        : Refined Index of Agreement( -1 <= dr <= 1 )
+# 16) 'md'        : Modified Index of Agreement( 0 <= md <= 1 )
+# 17) 'rd'        : Relative Index of Agreement( 0 <= rd <= 1 )
+# 18) 'cp'        : Coefficient of Persistence ( 0 <= cp <= 1 ) 
+# 19) 'r'         : Pearson Correlation coefficient ( -1 <= r <= 1 )
+# 20) 'R2'        : Coefficient of Determination ( 0 <= R2 <= 1 )
+# 21) 'bR2'       : Weighted coefficient of determination
+# 22) 'KGE'       : Kling-Gupta efficiency (-Inf < KGE <= 1)
+# 23) 'KGElf'     : Kling-Gupta efficiency with focus on low values (-Inf < KGElf <= 1)
+# 24) 'KGEnp'     : Non-parametric Kling-Gupta efficiency (-Inf < KGEnp <= 1)
+# 25) 'sKGE'      : Split Kling-Gupta efficiency (-Inf < sKGE <= 1)
+# 26) 'VE'        : Volumetric efficiency
+# 27) 'rSpearman' : Spearman correlation coefficient ( -1 <= r <= 1 ) 
+# 28) 'pbiasFDC'  : PBIAS in the slope of the midsegment of the Flow Duration Curve  ( 0 <= pbiasFDC ) 
 
 gof <-function(sim, obs, ...) UseMethod("gof")
 
@@ -83,6 +84,8 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
                     epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      rNSE   <- rNSE(sim, obs, na.rm=na.rm, fun=fun, ..., 
                     epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     wNSE   <- wNSE(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                    epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      d      <- d(sim, obs, na.rm=na.rm, fun=fun, ..., 
                  epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      dr     <- dr(sim, obs, na.rm=na.rm, fun=fun, ..., 
@@ -95,6 +98,8 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      r      <- .rPearson(sim, obs, fun=fun, ..., 
                          epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     R2     <- R2(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                  epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
      bR2    <- br2(sim, obs, na.rm=na.rm, fun=fun, ..., 
                    epsilon.type=epsilon.type, epsilon.value=epsilon.value)     
      KGE    <- KGE(sim, obs, na.rm=na.rm, s=s, method=method, out.type="single", 
@@ -116,55 +121,13 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
                      epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
      VE     <- VE(sim, obs, na.rm=na.rm, fun=fun, ..., 
                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)     
-     
-     # 'R2' is the Coefficient of Determination
-     # The coefficient of determination, R2, is useful because it gives the proportion of
-     # the variance (fluctuation) of one variable that is predictable from the other variable.
-     # It is a measure that allows us to determine how certain one can be in making
-     # predictions from a certain model/graph.
-     # The coefficient of determination is the ratio of the explained variation to the total
-     # variation.
-     # The coefficient of determination is such that 0 <  R2 < 1,  and denotes the strength
-     # of the linear association between x and y. 
-     R2 <- .R2(sim, obs, na.rm=na.rm, fun=fun, ..., 
-               epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
 
-     if (do.spearman) {
-       # index of those elements that are present both in 'sim' and 'obs' (NON- NA values)
-       vi <- valindex(sim, obs)
-   
-       if (length(vi) > 0) {	 
-         # Filtering 'obs' and 'sim', selecting only those pairs of elements 
-         # that are present both in 'x' and 'y' (NON- NA values)
-         obs <- obs[vi]
-         sim <- sim[vi]
-
-         if (!is.null(fun)) {
-           fun1 <- match.fun(fun)
-           new  <- preproc(sim=sim, obs=obs, fun=fun1, ..., 
-                           epsilon.type=epsilon.type, epsilon.value=epsilon.value)
-           sim  <- new[["sim"]]
-           obs  <- new[["obs"]]
-         } # IF end     
-
-         r.Spearman <- cor(sim, obs, method="spearman", use="pairwise.complete.obs") 
+     # Creating the basic output object
+     gof <- rbind(ME,    MAE ,   MSE, RMSE, ubRMSE, NRMSE, PBIAS, RSR, rSD, NSE, 
+                  mNSE,  rNSE,  wNSE,    d,     dr,    md,    rd,  cp,   r,  R2, 
+                   bR2,  KGE , KGElf, KGEnp)   
      
-         # if 'sim' and 'obs' were matrixs or data.frame, then the correlation
-         # between observed and simulated values for each variable is given by the diagonal of 'r.Pearson' 
-         if ( is.matrix(r.Spearman) | is.data.frame(r.Spearman) )
-           r.Spearman <- diag(r.Spearman)
-
-       } else {
-           r.Spearman <- NA
-           warning("There are no pairs of 'sim' and 'obs' without missing values !")
-         } # ELSE end
-        
-     } # IF 'do.spearman' end
-     
-     gof <- rbind(ME,  MAE ,   MSE, RMSE, ubRMSE, NRMSE, PBIAS, RSR, rSD, NSE, 
-                  mNSE,  rNSE,     d,   dr,     md,    rd,    cp,   r,  R2, bR2, 
-                  KGE , KGElf, KGEnp)   
-     
+     # Changing names to NRMSE and PBIAS
      rownames(gof)[6] <- "NRMSE %"
      rownames(gof)[7] <- "PBIAS %"   
      
@@ -176,10 +139,15 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
 
      # Adding Volumetric Efficiency
      gof <- rbind(gof, VE)
+     rownames(gof)[length(rownames(gof))] <- "VE"
 
      # Adding r.Spearman
-     if (do.spearman) 
+     if (do.spearman) {
+       r.Spearman <- rSpearman(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                               epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
        gof <- rbind(gof, r.Spearman) 
+       rownames(gof)[length(rownames(gof))] <- "rSpearman"
+     } # IF end
      
      # Adding pbiasfdc
      if (do.pbfdc) { 
