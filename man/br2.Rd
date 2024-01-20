@@ -58,10 +58,10 @@ This argument was introduced in hydroGOF 0.4-0, following a comment by E. White.
   \item{fun}{
 function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing this goodness-of-fit index.
 
-The first two arguments of \code{fun} MUST BE NAMED \kbd{sim} and \kbd{obs} (in that specific order), and additional arguments are passed using \code{\dots}.
+The first argument MUST BE a numeric vector with any name (e.g., \code{x}), and additional arguments are passed using \code{\dots}.
 }
   \item{\dots}{
-arguments passed to \code{fun}, in addition to the mandatory \kbd{sim} and \kbd{obs}.
+arguments passed to \code{fun}, in addition to the mandatory first numeric vector.
 }
   \item{epsilon.type}{
 argument used to define a numeric value to be added to both \code{sim} and \code{obs} before applying \code{fun}. 
