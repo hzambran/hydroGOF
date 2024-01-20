@@ -82,11 +82,11 @@ It is a wrapper to the \code{\link[stats]{cor}} function.
 
 The Pearson correlation coefficient (PCC) is a correlation coefficient that measures linear correlation between two sets of data. \cr
 
-It is the ratio between the covariance of two variables and the product of their standard deviations; thus, it is essentially a normalized measurement of the covariance, such that the result always has a value between −1 and 1. 
+It is the ratio between the covariance of two variables and the product of their standard deviations; thus, it is essentially a normalized measurement of the covariance, such that the result always has a value between -1 and 1. 
 As with covariance itself, the measure can only reflect a linear correlation of variables, and ignores many other types of relationships or correlations. \cr
 
-The correlation coefficient ranges from −1 to 1. An absolute value of exactly 1 implies that a linear equation describes the relationship between \code{sim} and \code{obs} perfectly, with all data points lying on a line. 
-The correlation sign is determined by the regression slope: a value of +1 implies that all data points lie on a line for which \code{sim}  increases as \code{obs}  increases, and vice versa for −1.
+The correlation coefficient ranges from -1 to 1. An absolute value of exactly 1 implies that a linear equation describes the relationship between \code{sim} and \code{obs} perfectly, with all data points lying on a line. 
+The correlation sign is determined by the regression slope: a value of +1 implies that all data points lie on a line for which \code{sim}  increases as \code{obs}  increases, and vice versa for -1.
 A value of 0 implies that there is no linear dependency between the variables.
 }
 \value{
