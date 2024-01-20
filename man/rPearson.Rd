@@ -1,7 +1,7 @@
 % File rPearson.Rd
 %% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 %%                                 http://cran.r-project.org/web/packages/hydroGOF/
-%% Copyright 2011-2023 Mauricio Zambrano-Bigiarini
+%% Copyright 2011-2024 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or later
 
 \name{rPearson}
@@ -13,7 +13,7 @@
 \alias{rPearson.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Mean Squared Error
+Pearson correlation coefficient
 }
 \description{
 Pearson correlation coefficient between \code{sim} and \code{obs}, with treatment of missing values.

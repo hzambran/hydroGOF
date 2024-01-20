@@ -1,7 +1,7 @@
 % File rSpearman.Rd
 %% Part of the hydroGOF R package, http://www.rforge.net/hydroGOF/ ; 
 %%                                 http://cran.r-project.org/web/packages/hydroGOF/
-%% Copyright 2011-2023 Mauricio Zambrano-Bigiarini
+%% Copyright 2024-2024 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or later
 
 \name{rSpearman}
@@ -13,7 +13,7 @@
 \alias{rSpearman.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Mean Squared Error
+Spearman's rank correlation coefficient
 }
 \description{
 Spearman's rank correlation coefficient between \code{sim} and \code{obs}, with treatment of missing values.
