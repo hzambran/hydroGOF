@@ -72,14 +72,12 @@ R2.default <- function(sim, obs, fun=NULL, ...,
       sim  <- new[["sim"]]
       obs  <- new[["obs"]]
     } # IF end 
-  } # IF end    
 
-  Om    <- mean(obs)
-  SSres <- sum( (obs - sim)^2 )
-  SStot <- sum( (obs - Om)^2 )
-  R2    <- 1 - SSres/SStot
-  return(R2) 
-
+    Om    <- mean(obs)
+    SSres <- sum( (obs - sim)^2 )
+    SStot <- sum( (obs - Om)^2 )
+    R2    <- 1 - SSres/SStot
+  
   } else {
            R2 <- NA
            warning("There are no pairs of 'sim' and 'obs' without missing values !")
