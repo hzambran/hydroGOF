@@ -17,6 +17,16 @@
 # A value of 0 shows that a linear model is not needed, i.e., that there 
 # is no linear relationship between the variables.
 
+# References:
+# 1) \url{https://en.wikipedia.org/wiki/Pearson_correlation_coefficient}
+
+# 2) Pearson, K. (1920). Notes on the history of correlation. 
+#    Biometrika, 13(1), 25-45. doi:10.2307/2331722
+
+# 3) Schober, P., Boer, C., Schwarte, L. A. (2018). Correlation coefficients: appropriate 
+#   use and interpretation. Anesthesia & analgesia, 126(5), 1763-1768. 
+#   doi:10.1213/ANE.0000000000002864
+
 ################################################################################
 # Author: Mauricio Zambrano-Bigiarini                                          #
 ################################################################################
