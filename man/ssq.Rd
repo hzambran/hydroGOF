@@ -31,7 +31,7 @@ ssq(sim, obs, ...)
 \method{ssq}{matrix}(sim, obs, na.rm=TRUE, fun=NULL, ..., 
             epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
             epsilon.value=NA)
-\method{sq}{zoo}(sim, obs, na.rm=TRUE, fun=NULL, ..., 
+\method{ssq}{zoo}(sim, obs, na.rm=TRUE, fun=NULL, ..., 
             epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
             epsilon.value=NA)
 }
