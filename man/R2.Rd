@@ -98,7 +98,7 @@ If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with 
 
 \cite{Hahn, G. J. (1973). The coefficient of determination exposed. Chemtech, 3(10), 609-612. Aailable online at: \url{https://www2.hawaii.edu/~cbaajwe/Ph.D.Seminar/Hahn1973.pdf}.}
 
-\cite{Barrett, J. P. (1974). The coefficient of determination—some limitations. The American Statistician, 28(1), 19-20. doi:10.1080/00031305.1974.10479056}.
+\cite{Barrett, J. P. (1974). The coefficient of determination-some limitations. The American Statistician, 28(1), 19-20. doi:10.1080/00031305.1974.10479056}.
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
