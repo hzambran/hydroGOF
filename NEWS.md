@@ -5,12 +5,14 @@ NEWS/ChangeLog for hydroTSM
 
 ## New functions
 
-        o 'KGElf'   : to compute the Kling-Gupta efficiency focused on low flows proposed by García et al. (2017).
-        o 'sKGE'    : to compute the Split Kling-Gupta efficiency, which was proposed by Fowler et al. (2018) for calibration in a drying climate.
-        o 'KGEnp'   : to compute the non-parametric Kling-Gupta efficiency proposed by Pool et al. (2018).
-        o 'dr'      : to compute the Refined Index of Agreement proposed by Willmott et al. (2012).
-        o 'ubRMSE'  : to compute the unbiased Root mean Squared Error proposed by Entekhabi et al. (2010).
-        o 'wNSE'    : to compute the weighted Nash-Sutcliffe eficiency proposed by Hundecha and Bardossy (2004) to put special focus on high values.
+        o 'KGElf'    : to compute the Kling-Gupta efficiency focused on low flows proposed by García et al. (2017).
+        o 'sKGE'     : to compute the Split Kling-Gupta efficiency, which was proposed by Fowler et al. (2018) for calibration in a drying climate.
+        o 'KGEnp'    : to compute the non-parametric Kling-Gupta efficiency proposed by Pool et al. (2018).
+        o 'dr'       : to compute the Refined Index of Agreement proposed by Willmott et al. (2012).
+        o 'ubRMSE'   : to compute the unbiased Root mean Squared Error proposed by Entekhabi et al. (2010).
+        o 'wNSE'     : to compute the weighted Nash-Sutcliffe eficiency proposed by Hundecha and Bardossy (2004) to put special focus on high values.
+        o 'rSpearman': to compute the Spearman's rank correlation coefficient (previously it was part of the 'gof' function only).
+
 
 ## New features    
         o 'KGE'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)   
