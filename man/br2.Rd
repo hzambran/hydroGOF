@@ -115,7 +115,7 @@ The slope \code{b} is computed as the coefficient of the linear regression betwe
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link[stats]{cor}}, \code{\link[stats]{lm}}, \code{\link{gof}}, \code{\link{ggof}}
+\code{\link[stats]{R2}}, \code{\link[stats]{rPearson}}, \code{\link[stats]{rSpearman}}, \code{\link[stats]{cor}}, \code{\link[stats]{lm}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 ##################
