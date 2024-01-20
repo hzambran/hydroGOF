@@ -1,7 +1,7 @@
-NEWS/ChangeLog for hydroTSM
+NEWS/ChangeLog for hydroGOF
 
 --------------------------
-# Changes in version 0.5-0  19-Jan-2024
+# Changes in version 0.5-0  20-Jan-2024
 
 ## New functions
 
@@ -12,7 +12,7 @@ NEWS/ChangeLog for hydroTSM
         o 'ubRMSE'   : to compute the unbiased Root mean Squared Error proposed by Entekhabi et al. (2010).
         o 'wNSE'     : to compute the weighted Nash-Sutcliffe eficiency proposed by Hundecha and Bardossy (2004) to put special focus on high values.
         o 'rSpearman': to compute the Spearman's rank correlation coefficient (previously it was part of the 'gof' function only).
-
+        o 'R2'       : to compute the coefficient of determination (previously it was part of the 'gof' function only).
 
 ## New features    
         o 'KGE'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of KGE (e.g., log, sqrt, 1/x)   
@@ -32,6 +32,7 @@ NEWS/ChangeLog for hydroTSM
         o 'rSD'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of rSD (e.g., log, sqrt, 1/x)  
         o 'rsr'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of rsr (e.g., log, sqrt, 1/x)  
         o 'br2'     : three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of br2 (e.g., log, sqrt, 1/x)  
+        o 'rPearson': three new arguments (fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of br2 (e.g., log, sqrt, 1/x)  
         o 'br2'     : new argument 'dec' to allow the user to specify the number of decimals shown in the output object. Default value set to 1 for compatibility with previous versions. Thanks to Ken Newman !
         o 'gof'     : four new arguments (start.month, fun, epsilon, epsilon.value), added to allow pre-processing simulated and observed values before computation of all goodness-of-fit.                                                                                                                                                                      
         o 'NSE'     : possible values of 'epsilon' argument were changed to c('Pushpalatha2012', 'otherFactor', 'otherValue'), to give the user more flexibility in the computation of the constant value added to 'sim' and 'obs' when using transformed values to compute the NSE (e.g., when focusing on low flows)
