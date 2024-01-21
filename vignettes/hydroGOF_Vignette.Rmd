@@ -3,10 +3,9 @@ title: Goodness-of-fit measures to compare observed and simulated time series wi
 author:
 - Mauricio Zambrano-Bigiarini^[mauricio.zambrano@ufrontera.cl]
 date: "version 0.3, 20-Jan-2024"
-output:
-  html_document:
-    df_print: paged
-    number_sections: yes
+output: 
+  rmarkdown::
+    html_vignette
   pdf_document:
     number_sections: yes
 vignette: |
@@ -97,7 +96,7 @@ This random noise has more relative importance for low flows than for medium and
   
 Randomly changing the first 1826 elements of 'sim', by using a normal distribution with mean 10 and standard deviation equal to 1 (default of 'rnorm').
 
-```{r Example3-1}
+```{r Example3-1, fig.width=8, fig.height=5}
 sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
 ggof(sim, obs)
 
@@ -106,7 +105,7 @@ NSE(sim=sim, obs=obs)
 
 Let's have a look at other goodness-of-fit measures:
 
-```{r Example3-2}
+```{r Example3-2, fig.width=8, fig.height=5}
 mNSE(sim=sim, obs=obs)               # modified NSE
 rNSE(sim=sim, obs=obs)               # relative NSE
 
@@ -143,8 +142,8 @@ NSE for simulated values equal to observations plus random noise on the first ha
 NSE(sim=sim, obs=obs, fun=log)
 ```
 
-
 Verifying the previous value:
+
 ```{r Example4-2}
 lsim <- log(sim)
 lobs <- log(obs)
@@ -153,7 +152,7 @@ NSE(sim=lsim, obs=lobs)
 
 Let's have a look at other goodness-of-fit measures:
 
-```{r Example4-3}
+```{r Example4-3, fig.width=8, fig.height=5}
 mNSE(sim=sim, obs=obs, fun=log)               # modified NSE
 rNSE(sim=sim, obs=obs, fun=log)               # relative NSE
 
@@ -305,7 +304,7 @@ sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
 
 Plotting the graphical comparison of 'obs' against 'sim', along with the numeric goodness-of-fit measures for the daily and monthly time series 
 
-```{r fig=TRUE, pdf=TRUE, eps=FALSE, fig.width=12, fig.height=8}
+```{r fig=TRUE, pdf=TRUE, eps=FALSE, fig.width=10, fig.height=7}
 ggof(sim=sim, obs=obs, ftype="dm", FUN=mean)
 ```
 
@@ -315,7 +314,7 @@ ggof(sim=sim, obs=obs, ftype="dm", FUN=mean)
 ## Removing warm-up period
 
 Using the first two years (1961-1962) as warm-up period, and removing the corresponding observed and simulated values from the computation of the goodness-of-fit measures:
-```{r fig=TRUE, pdf=TRUE, eps=FALSE, fig.width=12, fig.height=8}
+```{r fig=TRUE, pdf=TRUE, eps=FALSE, fig.width=10, fig.height=7}
 ggof(sim=sim, obs=obs, ftype="dm", FUN=mean, cal.ini="1963-01-01")
 ```
 
@@ -332,7 +331,7 @@ gof(sim, obs)
 
 Generating fictitious lower and upper uncertainty bounds:
 
-```{r ubands1}
+```{r ubands1, fig.width=8, fig.height=5}
 lband <- obs - 5
 uband <- obs + 5
 plotbands(obs, lband, uband)
@@ -340,7 +339,7 @@ plotbands(obs, lband, uband)
 
 Plotting the previously generated uncertainty bands:
 
-```{r ubands2}
+```{r ubands2, fig.width=8, fig.height=5}
 plotbands(obs, lband, uband)
 ```
 
@@ -352,7 +351,7 @@ sim <- obs + rnorm(length(obs), mean=3)
 
 Plotting the previously generated simualted time series along the obsertations and the uncertainty bounds:
 
-```{r ubands4}
+```{r ubands4, fig.width=8, fig.height=5}
 plotbands(obs, lband, uband, sim)
 ```
 
@@ -374,14 +373,14 @@ library(hydroTSM)
 smry(r) 
 ```
 
-```{r fig=TRUE, pdf=TRUE, fig.width=12, fig.height=14}
+```{r fig=TRUE, pdf=TRUE, fig.width=10, fig.height=12}
 # daily, monthly and annual plots, boxplots and histograms
 hydroplot(r, FUN=mean)
 ```
 
 
 Seasonal plots and boxplots
-```{r fig=TRUE, eval=TRUE, pdf=TRUE, eps=FALSE, fig.width=12, fig.height=10}
+```{r fig=TRUE, eval=TRUE, pdf=TRUE, eps=FALSE, fig.width=8, fig.height=8}
 # daily, monthly and annual plots, boxplots and histograms
 hydroplot(r, FUN=mean, pfreq="seasonal")
 ```
