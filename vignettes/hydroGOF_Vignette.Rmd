@@ -4,10 +4,10 @@ author:
 - Mauricio Zambrano-Bigiarini^[mauricio.zambrano@ufrontera.cl]
 date: "version 0.3, 20-Jan-2024"
 output: 
-  rmarkdown::
-    html_vignette
   pdf_document:
     number_sections: yes
+  rmarkdown::
+    html_vignette
 vignette: |
   %\VignetteIndexEntry{Goodness-of-fit measures to compare observed and simulated time series with hydroGOF}
   %\VignetteKeyword{hydrology}
