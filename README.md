@@ -39,22 +39,23 @@ citation("hydroGOF")
 
 To cite hydroGOF in publications use:
 
->  Mauricio Zambrano-Bigiarini. hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series. R package version 0.4-0. URL https://github.com/hzambran/hydroGOF. DOI:10.5281/zenodo.839854.
+> Zambrano-Bigiarini, Mauricio (2024). hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series. R package version 0.5-4. URL:https://cran.r-project.org/package=hydroGOF. doi:10.5281/zenodo.839854.
 
 
 A BibTeX entry for LaTeX users is
 
 >  @Manual{hydroGOF,  
 >    title = {hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series},  
->    author = {{Mauricio Zambrano-Bigiarini}},  
->    note = {R package version 0.4-0},  
->    url = {https://github.com/hzambran/hydroGOF},  
->    doi = {DOI:10.5281/zenodo.839854},  
+>    author = {Zambrano-Bigiarini, Mauricio},  
+>    note = {R package version 0.5-4},  
+>    year = {2024},
+>    url = {https://cran.r-project.org/package=hydroGOF},  
+>    doi = {doi:10.5281/zenodo.839854},  
 >  }
 
 
 ## Vignette 
-[Here](https://cran.r-project.org/web/packages/hydroGOF/vignettes/hydroGOF_Vignette.pdf) you can find an introductory vignette showing the use of several hydroGOF functions.
+[Here](https://cran.r-project.org/package=hydroGOF/vignettes/hydroGOF_Vignette.pdf) you can find an introductory vignette illustrating the use of several hydroGOF functions.
 
 
 ## Related Material 
@@ -69,8 +70,8 @@ A BibTeX entry for LaTeX users is
 
 ## See Also 
 
-* [hydroTSM: Time series management, analysis and interpolation for hydrological modelling](https://github.com/hzambran/hydroTSM).
+* [hydroTSM: Time series management, analysis and interpolation for hydrological modelling](https://cran.r-project.org/package=hydroTSM).
 
-* [hydroPSO: Model-independent Particle Swarm Optimisation (PSO) for environmental/hydrological models](https://github.com/hzambran/hydroPSO).
+* [hydroPSO: Model-independent Particle Swarm Optimisation (PSO) for environmental/hydrological models](https://cran.r-project.org/package=hydroPSO).
 
-
+* [RFmerge: Merging of Satellite Datasets with Ground Observations using Random Forests](https://cran.r-project.org/package=RFmerge).
