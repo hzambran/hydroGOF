@@ -15,6 +15,7 @@
 #          15-Apr-2013                                                         #
 #          06-Aug-2017                                                         #
 #          28-Dec-2022                                                         #
+#          20-Jan-2024                                                         #
 ################################################################################
 plotbands <- function(x, lband, uband, sim,
                       
@@ -206,7 +207,7 @@ plotbands <- function(x, lband, uband, sim,
 
     # Draws custom ticks and labels on the X axis
     if ( zoo::is.zoo(x) | xts::is.xts(x) ) {
-      drawTimeAxis(x, tick.tstep=tick.tstep, lab.tstep=lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis) # hydroTSM::drawTimeAxis
+      hydroTSM::drawTimeAxis(x, tick.tstep=tick.tstep, lab.tstep=lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis) # hydroTSM::drawTimeAxis
     } else axis(side = 1, labels = TRUE)
 
     # Plotting the OBSERVED time series, over the polygons
@@ -218,7 +219,7 @@ plotbands <- function(x, lband, uband, sim,
       
     # Plotting the SIMULATED time series, over the polygons
     if ( !missing(sim) ) {
-        if ( (zoo::is.zoo(x)) & (!xts::is.xts(sim)) ) sim <- xts::as.xts(sim)
+        if ( (zoo::is.zoo(x)) & (!is.zoo(sim)) ) sim <- zoo::as.zoo(sim)
         # Plotting the SIMULATED time series, over the polygons
         if (type[2] == "lines") {
           lines(sim, cex= cex[2], col=col[2], lty=lty[2], lwd=lwd[2], pch=pch[2], ... )
