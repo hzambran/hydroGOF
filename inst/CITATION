@@ -3,7 +3,7 @@ citHeader("To cite hydroGOF in publications use:")
 year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
 vers <- paste("R package version", meta$Version)
 
-citEntry(entry = "manual",
+bibentry(bibtype = "Manual",
 	title = "{hydroGOF}: Goodness-of-fit functions for comparison of simulated and observed hydrological time series",
 	author = c(person("Zambrano-Bigiarini, Mauricio", email = "mzb.devel@gmail.com", role=c("aut", "cre", "cph"), comment=c(ORCID = "0000-0002-9536-643X"))),
 	year = "2024",
@@ -16,7 +16,8 @@ citEntry(entry = "manual",
         vers,
         ". URL: https://cran.r-project.org/package=hydroGOF",
         ". doi:10.5281/zenodo.839854",
-        ".", sep = ""))
+        ".", sep = "")
+    )
 
 citFooter("I have invested an important amount of time and effort in creating hydroGOF, please cite it if you use it !")
 
