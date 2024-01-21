@@ -82,7 +82,7 @@ Valid values of \code{epsilon.type} are:
 }
 }
 \details{
-\deqn{ wNSE = 1 -\frac { \sum_{i=1}^N  O_i * ( S_i - O_i )^2 } { \sum_{i=1}^N  O_i * (  O_i - \bar{O}  )^2 } } {%
+\deqn{ wNSE = 1 -\frac { \sum_{i=1}^N  O_i * ( S_i - O_i )^2 } { \sum_{i=1}^N  O_i * (  O_i - \bar{O}  )^2 } }{%
 wNSE = 1 - ( sum( obs * ( obs - sim )^2 ) / sum( obs * ( obs - mean(obs) ) ^2 ) ) } 
 }
 \value{

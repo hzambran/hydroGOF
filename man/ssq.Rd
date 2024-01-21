@@ -78,8 +78,8 @@ Valid values of \code{epsilon.type} are:
 }
 }
 \details{
-\deqn{ ssr = \sum_{i=1}^N { (S_i - O_i )^2 } } {%
-ssr = sum[ (sim - obs)^2 ] } 
+\deqn{ ssr = \sum_{i=1}^N { (S_i - O_i )^2 } }{%
+ ssr = sum[ (sim - obs)^2 ]} 
 }
 \value{
 Sum of the squared residuals between \code{sim} and \code{obs}. \cr
