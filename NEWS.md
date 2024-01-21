@@ -10,7 +10,7 @@ NEWS/ChangeLog for hydroGOF
         o 'KGEnp'    : to compute the non-parametric Kling-Gupta efficiency proposed by Pool et al. (2018).
         o 'dr'       : to compute the Refined Index of Agreement proposed by Willmott et al. (2012).
         o 'ubRMSE'   : to compute the unbiased Root mean Squared Error proposed by Entekhabi et al. (2010).
-        o 'wNSE'     : to compute the weighted Nash-Sutcliffe efficiency proposed by Hundecha and Bardossy (2004) to put special focus on high values.
+        o 'wNSE'     : to compute the weighted Nash-Sutcliffe efficiency proposed by Hundecha and Bardossy (2004) to put special focus on high values (Thanks to 'sluedtke' for the pull request !)
         o 'rSpearman': to compute the Spearman's rank correlation coefficient (previously it was part of the 'gof' function only).
         o 'R2'       : to compute the coefficient of determination (previously it was part of the 'gof' function only).
 
