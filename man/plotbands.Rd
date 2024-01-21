@@ -131,7 +131,7 @@ See \code{\link[graphics]{plot.default}}. The line type, see 'par'.
 numeric, with the type of symbol for \code{x} and \code{y}. (e.g.: 1: white circle; 9: white rhombus with a cross inside)
 }
   \item{\dots}{
-further arguments passed to the code{\link[graphics]{points}} function for plotting \code{x}, or from other methods
+further arguments passed to the \code{\link[graphics]{points}} function for plotting \code{x}, or from other methods
 }
 }
 %%\details{

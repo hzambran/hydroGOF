@@ -83,10 +83,8 @@ Valid values of \code{epsilon.type} are:
 }
 \details{
 \deqn{
-    wNSE = 1 -\frac { \sum_{i=1}^N  O_i * ( S_i - O_i )^2 } { \sum_{i=1}^N  O_i * (  O_i - \bar{O}  )^2 } }
-    {
-    wNSE = 1 - ( sum( obs * ( obs - sim )^2 ) / sum( obs * ( obs - mean(obs) ) ^2 ) )
-    }
+    wNSE = 1 -\frac { \sum_{i=1}^N  O_i * ( S_i - O_i )^2 } { \sum_{i=1}^N  O_i * (  O_i - \bar{O}  )^2 } } {%
+    wNSE = 1 - ( sum( obs * ( obs - sim )^2 ) / sum( obs * ( obs - mean(obs) ) ^2 ) ) }
 }
 
 \value{
@@ -95,11 +93,11 @@ Weighted Nash-Sutcliffe efficiency between \code{sim} and \code{obs}. \cr
 If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the relative Nash-Sutcliffe efficiency between each column of \code{sim} and \code{obs}.
 }
 \references{
-\cite{Nash, J. E. and J. V. Sutcliffe (1970), River flow forecasting through conceptual models part I -A discussion of principles, Journal of Hydrology, 10 (3), 282-290} \cr
+\cite{Nash, J.E. and J.V. Sutcliffe, River flow forecasting through conceptual models. Part 1: A discussion of principles, J. Hydrol. 10 (1970), pp. 282-290. doi:10.1016/0022-1694(70)90255-6} \cr
 
-\cite{Hundecha, Y., B\'{a}rdossy, A. (2004). Modeling of the effect of land use changes on the runoff generation of a river basin through parameter regionalization of a watershed model. Journal of hydrology, 292(1-4), 281-295. doi:10.1016/j.jhydrol.2004.01.002} \cr
+\cite{Hundecha, Y., Bardossy, A. (2004). Modeling of the effect of land use changes on the runoff generation of a river basin through parameter regionalization of a watershed model. Journal of hydrology, 292(1-4), 281-295. doi:10.1016/j.jhydrol.2004.01.002} \cr
 
-\cite{Hundecha, Y., Ouarda, T. B., B\'{a}rdossy, A. (2008). Regional estimation of parameters of a rainfall-runoff model at ungauged watersheds using the 'spatial' structures of the parameters within a canonical physiographic-climatic space. Water Resources Research, 44(1). doi:10.1029/2006WR005439} \cr
+\cite{Hundecha, Y., Ouarda, T. B., Bardossy, A. (2008). Regional estimation of parameters of a rainfall-runoff model at ungauged watersheds using the 'spatial' structures of the parameters within a canonical physiographic-climatic space. Water Resources Research, 44(1). doi:10.1029/2006WR005439} \cr
 
 \cite{Hundecha, Y. and Merz, B. (2012), Exploring the Relationship between Changes in Climate and Floods Using a Model-Based Analysis, Water Resour. Res., 48(4), 1-21, doi:10.1029/2011WR010527}. 
 }
