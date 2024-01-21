@@ -65,7 +65,7 @@ d.default <- function(sim, obs, na.rm=TRUE,
       
        denominator <- sum( ( abs(sim - Om) + abs(obs - Om)  )^2 )
      
-       if (denominator != 0) {      
+       if ( (denominator != 0) & (!is.na(denominator)) ) {      
          d <- 1 - ( sum( (obs - sim)^2 ) / denominator )     
        } else {      
            d <- NA   

@@ -63,7 +63,7 @@ rNSE.default <- function(sim, obs, na.rm=TRUE, fun=NULL, ...,
 	 
      denominator <- sum( ( ( obs - mean(obs) ) / mean(obs) )^2 )
 	 
-     if (denominator != 0) {
+     if ( (denominator != 0) & (!is.na(denominator)) ) {      
 	     rNSE <- 1 - ( sum( ( (obs - sim) / obs )^2 ) / denominator )
 	   } else {
          rNSE <- NA

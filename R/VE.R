@@ -12,6 +12,7 @@
 # Started: 26-Aug-2011                                                         #
 # Updates: 26-Aug-2011                                                         #
 #          16-Jan-2023                                                         #
+#          20-Jan-2024                                                         #
 ################################################################################
 # Reference: Criss, R. E. and Winston, W. E. (2008),                           #
 #            Do Nash values have value? Discussion and alternate proposals.    #
@@ -53,20 +54,20 @@ VE.default <- function(sim, obs, na.rm=TRUE, fun=NULL, ...,
       obs  <- new[["obs"]]
     } # IF end  
   
-  denominator <- sum(obs, na.rm=na.rm)
+    denominator <- sum(obs, na.rm=na.rm)
   
-  if (denominator != 0) {      
-     ve <- 1 - ( sum( abs(sim-obs) ) / denominator )     
-   } else {
+    if ( (denominator != 0) & (!is.na(denominator)) ) {      
+      ve <- 1 - ( sum( abs(sim-obs) ) / denominator )     
+    } else {
        ve <- NA
        warning("'sum((obs)=0' => it is not possible to compute 'VE' !")  
-     } 
-   } else {
+      } 
+  } else {
        ve <- NA
        warning("There are no pairs of 'sim' and 'obs' without missing values !")
-     } # ELSE end
+    } # ELSE end
      
-   return(ve)      
+  return(ve)      
      
 } # 'VE.default' end
   

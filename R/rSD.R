@@ -2,7 +2,7 @@
 # Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF
 #                                 https://cran.r-project.org/package=hydroGOF
 #                                 http://www.rforge.net/hydroGOF/ ;
-# Copyright 2008-2023 Mauricio Zambrano-Bigiarini
+# Copyright 2008-2024 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -14,6 +14,7 @@
 # Updates: 06-Sep-2009;                                                        #
 #          03-Jul-2017                                                         #
 #          16-Jan-2023                                                         #
+#          20-Jan-2024                                                         #
 ################################################################################
 
 # SD(sim) / SD(obs)  
@@ -53,7 +54,7 @@ rSD.default <- function(sim, obs, na.rm=TRUE, fun=NULL, ...,
 
     denominator <- sd(obs, na.rm = na.rm)
      
-    if (denominator != 0) {     
+    if ( (denominator != 0) & (!is.na(denominator)) ) {      
      rSD <- sd(sim, na.rm= na.rm) / sd(obs, na.rm= na.rm)     
     } else {
        rSD <- NA

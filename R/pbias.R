@@ -2,7 +2,7 @@
 # Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF
 #                                 https://cran.r-project.org/package=hydroGOF
 #                                 http://www.rforge.net/hydroGOF/ ;
-# Copyright 2009-2023 Mauricio Zambrano-Bigiarini
+# Copyright 2009-2024 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -14,6 +14,7 @@
 # Updates: 06-Sep-2009                                                         #
 #          27-Apr-2020; 01-May-2020                                            #
 #          16-Jan-2023                                                         #
+#          20-Jan-2024                                                         #
 ################################################################################
 
 # 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values
@@ -58,7 +59,7 @@ pbias.default <- function(sim, obs, na.rm=TRUE, dec=1, fun=NULL, ...,
       
     denominator <- sum( obs )
      
-    if (denominator != 0) {      
+    if ( (denominator != 0) & (!is.na(denominator)) ) {      
       pbias <- 100 * ( sum( sim - obs ) / denominator )
       pbias <- round(pbias, dec)     
     } else {

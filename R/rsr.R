@@ -71,12 +71,12 @@ rsr.default <- function(sim, obs, na.rm=TRUE, fun=NULL, ...,
          rsr <- NA
          warning("'sd(obs)=0' -> it is not possible to compute 'RSR' !")  
        } 
-   } else {
+  } else {
          rsr <- NA
          warning("There are no pairs of 'sim' and 'obs' without missing values !")
-     } # ELSE end
+    } # ELSE end
      
-   return( rsr )
+  return( rsr )
      
 } # 'rsr.default' end
   

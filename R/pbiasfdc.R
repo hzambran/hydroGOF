@@ -78,7 +78,7 @@ pbiasfdc.default <- function(sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE,
      
     denominator <- ( log(obs.hQ) -  log(obs.lQ) )
      
-    if ( denominator > 0 ) {
+    if ( (denominator > 0) & (!is.na(denominator)) ) {      
       pbiasfdc <- 100 * ( ( ( log(sim.hQ) -  log(sim.lQ) ) / denominator ) - 1 )
     } else {
          pbiasfdc <- NA 

@@ -59,21 +59,21 @@ mNSE.default <- function(sim, obs, j=1, na.rm=TRUE,
          obs  <- new[["obs"]]
        } # IF end
 	  
-	   denominator <- sum( abs(obs - mean(obs, na.rm=na.rm))^j )
+	     denominator <- sum( abs(obs - mean(obs, na.rm=na.rm))^j )
 	 
-	   if (denominator != 0) {	  
-	     NS1 <- 1 - ( sum( abs(obs - sim)^j ) / denominator )	 
-	   } else {
-	       NS1 <- NA
-	       warning("'sum(abs(obs - mean(obs))^j)=0', it is not possible to compute 'mNSE'")  
-	     } # ELSE end
+       if ( (denominator != 0) & (!is.na(denominator)) ) {      
+	       NS1 <- 1 - ( sum( abs(obs - sim)^j ) / denominator )	 
+	     } else {
+	         NS1 <- NA
+	         warning("'sum(abs(obs - mean(obs))^j)=0', it is not possible to compute 'mNSE'")  
+	       } # ELSE end
 
      } else {
          NS1 <- NA
          warning("There are no pairs of 'sim' and 'obs' without missing values !")
        } # ELSE end
 	 
-	 return(NS1)
+	return(NS1)
      
 } # 'mNSE.default' end
 

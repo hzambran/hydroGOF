@@ -11,6 +11,7 @@
 # Started: April 15th, 2010            #
 # Updates: 01-Jun-2011                 #
 #          20-Jul-2022 ; 29-Jul-2022   #
+#          20-Jan-2024                 #
 ########################################
 # Ref
 # 1) Krause, P., Boyle, D. P., and Base, F.: 
@@ -79,20 +80,19 @@ rd.default <- function (sim, obs, na.rm=TRUE,
      
     denominator <- sum( ( ( abs(sim - Om) + abs(obs - Om) ) / Om )^2 )
      
-    if (denominator != 0) {      
+    if ( (denominator != 0) & (!is.na(denominator)) ) {      
       rd <- 1 - ( sum( ( (obs - sim) / obs)^2 ) / denominator )     
     } else {
         rd <- NA
         warning("'sum( ( ( abs(sim-Om) + abs(obs-Om) ) / Om )^2 ) = 0', it is not possible to compute 'rd'")  
       } # ELSE end
-     
-    return(rd) 
 
   } else {
       rd <- NA
       warning("There are no pairs of 'sim' and 'obs' without missing values !")
     } # ELSE end
      
+  return(rd) 
 } # 'rd.default' end
 
 

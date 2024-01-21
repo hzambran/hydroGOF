@@ -6,11 +6,12 @@
 # Distributed under GPL 2 or later
 
 ################################################################################
-# 'NSE': Nash-sutcliffe Efficiency                                             #
+# 'NSE': Nash-Sutcliffe Efficiency                                             #
 ################################################################################
 # 15-Dic-2008   ; 06-Sep-09                                                    #
 # 29-Jun-2017                                                                  #
 # 11-Jul-2022 ; 12-Jul-2022 ; 13-Jul-2022                                      #
+# 20-Jan-2024                                                                  #
 ################################################################################
 # Nash-Sutcliffe efficiencies (Nash and Sutcliffe, 1970) range from -Inf to 1. 
 # An efficiency of 1 (NSE = 1) corresponds to a perfect match of modeled to the observed data. 
@@ -55,7 +56,7 @@ NSE.default <- function (sim, obs, na.rm=TRUE, fun=NULL, ...,
      
     denominator <- sum( (obs - mean(obs))^2 )
      
-    if (denominator != 0) {      
+    if ( (denominator != 0) & (!is.na(denominator)) ) {      
       NS <- 1 - ( sum( (obs - sim)^2 ) / denominator )     
     } else {
         NS <- NA
@@ -66,7 +67,7 @@ NSE.default <- function (sim, obs, na.rm=TRUE, fun=NULL, ...,
        warning("There are no pairs of 'sim' and 'obs' without missing values !")
     } # ELSE end
      
-   return(NS)
+  return(NS)
      
 } # 'NSE' end
 

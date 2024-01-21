@@ -10,6 +10,7 @@
 ########################################
 # Started: 07-Apr-2010                 #
 # Updates: 14-Jan-2023                 #
+#          20-Jan-2024                 #
 ########################################
 # Ref
 # 1) Krause, P., Boyle, D. P., and Base, F.: Comparison of different efficiency criteria for hydrological model assessment, Adv. Geosci., 5, 89-97, 2005 
@@ -67,7 +68,7 @@ md.default <- function(sim, obs, j=1, na.rm=TRUE,
       
        denominator <- sum( ( abs(sim - Om) + abs(obs - Om)  )^j )
      
-       if (denominator != 0) {
+       if ( (denominator != 0) & (!is.na(denominator)) ) {      
          d1 <- 1 - ( sum( ( abs(obs - sim) )^j ) / denominator )
        } else {
            d1 <- NA

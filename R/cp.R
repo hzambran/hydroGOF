@@ -13,6 +13,7 @@
 # Started: 18-Dec-2008;                                                        #
 # Updates: 06-Sep-2009;                                                        #
 #          16-Jan-2023                                                         #
+#          20-Jan-2024                                                         #
 ################################################################################
 
 # Persistence Index (Kitadinis and Bras, 1980; Corradini et al., 1986) 
@@ -86,14 +87,14 @@ cp.default <- function(sim, obs, na.rm=TRUE, fun=NULL, ...,
       
      denominator <- sum( ( obs[2:n] - obs[1:(n-1)] )^2 )
      
-     if (denominator != 0) {      
+    if ( (denominator != 0) & (!is.na(denominator)) ) {      
        cp <- ( 1 - ( sum( (obs[2:n] - sim[2:n])^2 ) / denominator ) )     
      } else {
          cp <- NA
          warning("'sum((obs[2:n]-obs[1:(n-1))^2)=0' -> it is not possible to compute 'cp' !")  
        }
    } else {
-         rSD <- NA
+         cp <- NA
          warning("There are no pairs of 'sim' and 'obs' without missing values !")
      } # ELSE end
      
