@@ -27,7 +27,7 @@ Version: \tab 0.5-0\cr
 Date: \tab 2024-01-20\cr
 License: \tab GPL >= 2\cr
 LazyLoad: \tab yes\cr
-Packaged: \tab Fri 19 Jan 2024 19:21:57 -03; MZB \cr
+Packaged: \tab Sat Jan 23:59:11 -03 2024 ; MZB \cr
 BuiltUnder: \tab R version 4.3.2 (2023-10-31) ;x86_64-pc-linux-gnu (64-bit) \cr
 } 
 
