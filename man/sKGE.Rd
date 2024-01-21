@@ -120,7 +120,7 @@ If \code{out.PerYear=FALSE}: a list of two elements:
 numeric with the Split Kling-Gupta efficiency. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the Split Kling-Gupta efficiency between each column of \code{sim} and \code{obs}
 }
 \item{KGE.PerYear}{
-numeric with the Kling-Gupta efficincies obtained for the individual years in \{code{sim} and \code{obs}.
+numeric with the Kling-Gupta efficincies obtained for the individual years in \code{sim} and \code{obs}.
 }
 }
 \references{
@@ -130,7 +130,7 @@ numeric with the Kling-Gupta efficincies obtained for the individual years in \{
 
 \cite{Kling, H.; Fuchs, M.; Paulin, M. (2012). Runoff conditions in the upper Danube basin under an ensemble of climate change scenarios. Journal of Hydrology, 424, 264-277, doi:10.1016/j.jhydrol.2012.01.011.}
 
-\cite{Pushpalatha, R., Perrin, C., Le Moine, N. and Andr\'{e}assian, V. (2012). A review of efficiency criteria suitable for evaluating low-flow simulations. Journal of Hydrology, 420, 171-182. doi:10.1016/j.jhydrol.2011.11.055.}
+\cite{Pushpalatha, R., Perrin, C., Le Moine, N. and Andreassian, V. (2012). A review of efficiency criteria suitable for evaluating low-flow simulations. Journal of Hydrology, 420, 171-182. doi:10.1016/j.jhydrol.2011.11.055.}
 
 \cite{Pfannerstill, M.; Guse, B.; Fohrer, N. (2014). Smart low flow signature metrics for an improved overall performance evaluation of hydrological models. Journal of Hydrology, 510, 447-458. doi:10.1016/j.jhydrol.2013.12.044.} 
 

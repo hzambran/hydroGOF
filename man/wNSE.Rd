@@ -20,7 +20,7 @@ Weighted Nash-Sutcliffe efficiency
 \description{
 Weighted Nash-Sutcliffe efficiency between \code{sim} and \code{obs}, with treatment of missing values. \cr
 
-This goodness-of-fit measure was proposed by Hundecha and B\'{a}rdossy (2004) to put special focus on high values.
+This goodness-of-fit measure was proposed by Hundecha and Bardossy (2004) to put special focus on high values.
 }
 \usage{
 wNSE(sim, obs, ...)
@@ -82,11 +82,9 @@ Valid values of \code{epsilon.type} are:
 }
 }
 \details{
-\deqn{
-    wNSE = 1 -\frac { \sum_{i=1}^N  O_i * ( S_i - O_i )^2 } { \sum_{i=1}^N  O_i * (  O_i - \bar{O}  )^2 } } {%
-    wNSE = 1 - ( sum( obs * ( obs - sim )^2 ) / sum( obs * ( obs - mean(obs) ) ^2 ) ) }
+\deqn{ wNSE = 1 -\frac { \sum_{i=1}^N  O_i * ( S_i - O_i )^2 } { \sum_{i=1}^N  O_i * (  O_i - \bar{O}  )^2 } } {%
+wNSE = 1 - ( sum( obs * ( obs - sim )^2 ) / sum( obs * ( obs - mean(obs) ) ^2 ) ) } 
 }
-
 \value{
 Weighted Nash-Sutcliffe efficiency between \code{sim} and \code{obs}. \cr
 
