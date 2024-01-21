@@ -55,6 +55,10 @@ NEWS/ChangeLog for hydroGOF
         o 'br2'     : R2 is now correctly computed as 1 - SSres/SStot. Before it was computed as rPearson^2, which was only correct for linear models. Thanks to eugenioLR (https://github.com/hzambran/hydroGOF/issues/16#issue-1736556320)
 
 
+## Package files
+        o Github Actions are used now to test the source code against stable and development R versions on Windows, Ubuntu and MacOS.
+
+        
 # Changes in version 0.4-0  11-Mar-2020
         o Package tested against R Under development (unstable) (2020-03-10 r77920) -- "Unsuffered Consequences", following an imperative request made by CRAN.
         o Citation file changed, following CRAN comments.
