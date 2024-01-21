@@ -15,6 +15,7 @@
 #            17-Apr-2011                                                       # 
 #            15-Oct-2012                                                       #
 #            15-Apr-2013 ; 15-May-2013                                         #
+#            20-Jan-2024                                                       #
 ################################################################################     
                                           
       
@@ -179,8 +180,8 @@ ggof <- function (sim, obs,
         stop("Invalid argument: 'sim' has to have a 'daily' sampling frequency")       
       } else {
           # Generating a Monthly time series
-          obs.monthly <- daily2monthly(obs, FUN, na.rm) # hydroTSM::daily2monthly
-          sim.monthly <- daily2monthly(sim, FUN, na.rm) # hydroTSM::daily2monthly
+          obs.monthly <- hydroTSM::daily2monthly(obs, FUN, na.rm) 
+          sim.monthly <- hydroTSM::daily2monthly(sim, FUN, na.rm)
           
           def.par <- par(no.readonly = TRUE) # save default, for resetting... 
           on.exit(par(def.par)) 
@@ -287,8 +288,7 @@ ggof <- function (sim, obs,
   else if (ftype=="dma") {
         
     if (sim.freq != "daily") {      
-      stop("Invalid argument: 'sim' has to have a 'daily' sampling frequency")  
-           
+      stop("Invalid argument: 'sim' has to have a 'daily' sampling frequency")      
     } else {       
           # Generating Monthly time series 
           obs.monthly <- daily2monthly(obs, FUN, na.rm) # hydroTSM::daily2monthly
@@ -394,16 +394,16 @@ ggof <- function (sim, obs,
           obs.summer <- dm2seasonal(obs, season=seasons.lab[3], FUN=FUN, out.fmt="%Y-%m-%d")
           obs.autumm <- dm2seasonal(obs, season=seasons.lab[4], FUN=FUN, out.fmt="%Y-%m-%d")
 
-          # Transforming the seasonal values into xts objects
-          sim.winter <- as.xts(sim.winter)
-          sim.spring <- as.xts(sim.spring)
-          sim.summer <- as.xts(sim.summer)
-          sim.autumm <- as.xts(sim.autumm)
+          # Transforming the seasonal values into zoo objects
+          sim.winter <- as.zoo(sim.winter)
+          sim.spring <- as.zoo(sim.spring)
+          sim.summer <- as.zoo(sim.summer)
+          sim.autumm <- as.zoo(sim.autumm)
           
-          obs.winter <- as.xts(obs.winter)
-          obs.spring <- as.xts(obs.spring)
-          obs.summer <- as.xts(obs.summer)
-          obs.autumm <- as.xts(obs.autumm)
+          obs.winter <- as.zoo(obs.winter)
+          obs.spring <- as.zoo(obs.spring)
+          obs.summer <- as.zoo(obs.summer)
+          obs.autumm <- as.zoo(obs.autumm)
     
           def.par <- par(no.readonly = TRUE) # save default, for resetting... 
           on.exit(par(def.par)) 
