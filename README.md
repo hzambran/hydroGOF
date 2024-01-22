@@ -50,7 +50,7 @@ A BibTeX entry for LaTeX users is
 >    note = {R package version 0.5-4},  
 >    year = {2024},
 >    url = {https://cran.r-project.org/package=hydroGOF},  
->    doi = {doi:10.5281/zenodo.839854},  
+>    doi = {10.5281/zenodo.839854},  
 >  }
 
 
