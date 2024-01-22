@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 If you use *[hydroGOF](https://cran.r-project.org/package=hydroGOF)*, please cite it as Zambrano-Bigiarini (2024):
 
-Zambrano-Bigiarini, M. (2024) hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series R package version 0.5-3. URL: https://cran.r-project.org/package=hydroGOF. doi:10.5281/zenodo.839854.
+Zambrano-Bigiarini, M. (2024) hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series R package version 0.5-4. URL: https://cran.r-project.org/package=hydroGOF. doi:10.5281/zenodo.839854.
 
 
 # Installation
