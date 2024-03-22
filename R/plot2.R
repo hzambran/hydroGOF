@@ -20,6 +20,7 @@
 #          15-Apr-2013 ; 15-May-2013                                           #
 #          06-Aug-2017                                                         #
 #          28-Dec-2022                                                         #
+#          22-Mar-2024                                                         #
 ################################################################################
                 
 plot2 <- function (x, y, 
@@ -60,7 +61,7 @@ plot2 <- function (x, y,
                    add=FALSE,                   
                    
                     ...) {
-                   
+                 
   # Checking that the user provided 'x'
   if ( missing(x) ) stop("Missing argument: 'x'")
          
@@ -68,8 +69,13 @@ plot2 <- function (x, y,
   if ( missing(y) ) stop("Missing argument: 'y'")
 
   # Checking 'gofs'
-  gofs.all=c("ME", "MAE", "MSE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", 
-             "mNSE", "rNSE", "d", "md", "rd", "cp", "r", "R2", "bR2", "KGE", "VE")  
+  gofs.all=c(   "ME",   "MAE",   "MSE",  "RMSE", "ubRMSE", 
+             "NRMSE", "PBIAS",   "RSR",   "rSD",    "NSE", 
+             "mNSE" ,  "rNSE",  "wNSE",     "d",     "dr", 
+                "md",    "rd",    "cp",     "r",     "R2", 
+               "bR2",   "KGE", "KGElf", "KGEnp",   "sKGE",
+                "VE")  # 'rSpearman' and 'pbiasFDC' are not computed
+  
   if (length(noNms <- gofs[!gofs %in% gofs.all])) 
     warning("[Unknown names in 'gofs': ", paste(noNms, collapse = ", "), " (not used) !]")		   
 
