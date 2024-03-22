@@ -16,6 +16,7 @@
 #            15-Oct-2012                                                       #
 #            15-Apr-2013 ; 15-May-2013                                         #
 #            20-Jan-2024                                                       #
+#            22-Mar-2024                                                       #
 ################################################################################     
                                           
       
@@ -62,6 +63,11 @@ ggof <- function (sim, obs,
                   pch= c(1,9),                
                    
                    ...) {
+
+  # Saving the current graphical parameter settings,
+  # and restoring them on exit
+  old.par <- par(no.readonly = TRUE)
+  on.exit(par(old.par))
 
   # Checking class 'sim' &'obs'   
   valid.class <- c("xts", "zoo", "numeric", "integer")    
