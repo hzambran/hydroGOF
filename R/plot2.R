@@ -62,6 +62,11 @@ plot2 <- function (x, y,
                    
                     ...) {
                  
+  # Saving the current graphical parameter settings,
+  # and restoring them on exit
+  old.par <- par(no.readonly = TRUE)
+  on.exit(par(old.par))
+  
   # Checking that the user provided 'x'
   if ( missing(x) ) stop("Missing argument: 'x'")
          
