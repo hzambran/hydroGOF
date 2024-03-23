@@ -15,8 +15,7 @@
 #            17-Apr-2011                                                       # 
 #            15-Oct-2012                                                       #
 #            15-Apr-2013 ; 15-May-2013                                         #
-#            20-Jan-2024                                                       #
-#            22-Mar-2024                                                       #
+#            20-Jan-2024 ; 22-Mar-2024 ; 23-Mar-2024                           #                            #
 ################################################################################     
                                           
       
@@ -34,9 +33,9 @@ ggof <- function (sim, obs,
                   
                   gof.leg = TRUE, 
                   digits=2, 
-                  gofs=c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", 
-                          "NSE", "mNSE", "rNSE", "d", "md", "rd", "r", "R2", 
-                          "bR2", "KGE", "VE"),
+                  gofs=c("ME" , "MAE" , "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", 
+                         "NSE", "mNSE", "rNSE",     "d",    "md",  "rd",   "r", 
+                         "R2",   "bR2", "KGE" ,    "VE"),
                   
                   legend,
                   leg.cex=1,
@@ -80,6 +79,27 @@ ggof <- function (sim, obs,
   if ( length(sim) != length(obs) )  
      stop("Invalid argument: 'obs' and 'sim' must have the same length ! (", 
           length(obs), " vs ", length(sim), ")")
+
+  # Checking 'gofs'
+  gofs.all=c(   "ME",   "MAE",   "MSE",  "RMSE", "ubRMSE", 
+             "NRMSE", "PBIAS",   "RSR",   "rSD",    "NSE", 
+             "mNSE" ,  "rNSE",  "wNSE",     "d",     "dr", 
+                "md",    "rd",    "cp",     "r",     "R2", 
+               "bR2",    "VE",   "KGE", "KGElf",  "KGEnp",   
+              "sKGE")  # 'rSpearman' and 'pbiasFDC' are not computed
+
+  # Removing 'sKGE' when 'sim' and 'obs' are not zoo objects
+  if ( !( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) )
+    gofs.all <- gofs.all[-26]
+
+  # Checking 'gofs' 
+  noNms.index <- which( !(gofs %in% gofs.all) )
+  if (length(noNms.index) > 0) {
+    noNms <- gofs[noNms.index]
+    warning("[Unknown names in 'gofs': ", paste(noNms, collapse = ", "), " (not used) !]")
+  } # IF end     
+  gofs.index  <- which( (gofs %in% gofs.all) )
+  gofs        <- gofs[gofs.index]
                 
   # 'xname' and 'yname' values
   sim.name <- deparse(substitute(sim))
@@ -361,14 +381,16 @@ ggof <- function (sim, obs,
             
   } else if (ftype=="seasonal") {
 
-     gofs.all     <- c("ME", "RMSE", "PBIAS", "RSR", "NSE", "d", "R2", "KGE", "VE") 
-     gofs.default <- c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", "rNSE", "d", "md", "rd", "r", "R2", "bR2", "KGE", "VE")
-     if (all.equal(gofs, gofs.default)) gofs <- gofs.all
-
-     # Checking 'gofs'       
-     if (length(noNms <- gofs[!gofs %in% gofs.all])) 
-       warning("[ftype=='seasonal': Unknown names in 'gofs': ", paste(noNms, collapse = ", "), " (not used) !]")
-
+     # For seasonal plot a maximum of 9 GoFs are allowed.
+     # If the user does not provide gofs, a defualt set is used
+     # If the user provides more than 9 GoFs, only the first 9 are used 
+     fn.gofs <- match.call()$gofs
+     if (is.null(fn.gofs)) {
+       gofs.default <- c("ME", "RMSE", "PBIAS", "RSR", "NSE", "d", "R2", "KGE", "VE") 
+     } else if (length(gofs) > 9) {
+         gofs <- gofs[1:9]
+       } # ELSE end
+     
      gof.index <- pmatch(gofs, gofs.all)
      gof.index <- gof.index[!is.na(gof.index)]  
      gofs      <- gofs.all[gof.index] 

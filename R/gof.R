@@ -14,7 +14,7 @@
 #          21-Jan-2011                                                         #
 #          08-May-2012                                                         #
 #          14-Jan-2023 ; 15-Jan-2023 ; 16-Jan-2023                             #
-#          19-Jan-2024 ; 20-Jan-2024                                           #
+#          19-Jan-2024 ; 20-Jan-2024 ; 23-Mar-2024                             #            #
 ################################################################################
 
 # It computes:
@@ -40,11 +40,11 @@
 # 19) 'r'         : Pearson Correlation coefficient ( -1 <= r <= 1 )
 # 20) 'R2'        : Coefficient of Determination ( 0 <= R2 <= 1 )
 # 21) 'bR2'       : Weighted coefficient of determination
-# 22) 'KGE'       : Kling-Gupta efficiency (-Inf < KGE <= 1)
-# 23) 'KGElf'     : Kling-Gupta efficiency with focus on low values (-Inf < KGElf <= 1)
-# 24) 'KGEnp'     : Non-parametric Kling-Gupta efficiency (-Inf < KGEnp <= 1)
-# 25) 'sKGE'      : Split Kling-Gupta efficiency (-Inf < sKGE <= 1)
-# 26) 'VE'        : Volumetric efficiency
+# 22) 'VE'        : Volumetric efficiency
+# 23) 'KGE'       : Kling-Gupta efficiency (-Inf < KGE <= 1)
+# 24) 'KGElf'     : Kling-Gupta efficiency with focus on low values (-Inf < KGElf <= 1)
+# 25) 'KGEnp'     : Non-parametric Kling-Gupta efficiency (-Inf < KGEnp <= 1)
+# 26) 'sKGE'      : Split Kling-Gupta efficiency (-Inf < sKGE <= 1)
 # 27) 'rSpearman' : Spearman correlation coefficient ( -1 <= r <= 1 ) 
 # 28) 'pbiasFDC'  : PBIAS in the slope of the midsegment of the Flow Duration Curve  ( 0 <= pbiasFDC ) 
 
@@ -102,10 +102,14 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
                   epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
      bR2    <- br2(sim, obs, na.rm=na.rm, fun=fun, ..., 
                    epsilon.type=epsilon.type, epsilon.value=epsilon.value)     
+     VE     <- VE(sim, obs, na.rm=na.rm, fun=fun, ..., 
+                  epsilon.type=epsilon.type, epsilon.value=epsilon.value)     
      KGE    <- KGE(sim, obs, na.rm=na.rm, s=s, method=method, out.type="single", 
                     fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
      KGElf  <- KGElf(sim, obs, na.rm=na.rm, s=s, method=method, 
                      epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     KGEnp  <- KGEnp(sim, obs, na.rm=na.rm, out.type="single", fun=fun, ..., 
+                     epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
                      
      if ( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) {
        do.sKGE <- TRUE
@@ -117,15 +121,12 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
          sKGE <- NA
        } # ELSE end
        
-     KGEnp  <- KGEnp(sim, obs, na.rm=na.rm, out.type="single", fun=fun, ..., 
-                     epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
-     VE     <- VE(sim, obs, na.rm=na.rm, fun=fun, ..., 
-                  epsilon.type=epsilon.type, epsilon.value=epsilon.value)     
-
      # Creating the basic output object
-     gof <- rbind(ME,    MAE ,   MSE, RMSE, ubRMSE, NRMSE, PBIAS, RSR, rSD, NSE, 
-                  mNSE,  rNSE,  wNSE,    d,     dr,    md,    rd,  cp,   r,  R2, 
-                   bR2,  KGE , KGElf, KGEnp)   
+     gof <- rbind(  ME,   MAE,   MSE,  RMSE, ubRMSE, 
+                 NRMSE, PBIAS,   RSR,   rSD,    NSE, 
+                  mNSE,  rNSE,  wNSE,     d,     dr,    
+                    md,    rd,    cp,     r,     R2, 
+                   bR2,    VE,   KGE, KGElf,  KGEnp)   
      
      # Changing names to NRMSE and PBIAS
      rownames(gof)[6] <- "NRMSE %"
@@ -136,10 +137,6 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
        gof <- rbind(gof, sKGE) 
        rownames(gof)[length(rownames(gof))] <- "sKGE"
      } # IF end
-
-     # Adding Volumetric Efficiency
-     gof <- rbind(gof, VE)
-     rownames(gof)[length(rownames(gof))] <- "VE"
 
      # Adding r.Spearman
      if (do.spearman) {

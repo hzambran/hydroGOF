@@ -20,7 +20,7 @@
 #          15-Apr-2013 ; 15-May-2013                                           #
 #          06-Aug-2017                                                         #
 #          28-Dec-2022                                                         #
-#          22-Mar-2024                                                         #
+#          22-Mar-2024 ; 23-Mar-204                                            #
 ################################################################################
                 
 plot2 <- function (x, y, 
@@ -68,16 +68,26 @@ plot2 <- function (x, y,
   # Checking that the user provided 'y'
   if ( missing(y) ) stop("Missing argument: 'y'")
 
-  # Checking 'gofs'
+   # Checking 'gofs'
   gofs.all=c(   "ME",   "MAE",   "MSE",  "RMSE", "ubRMSE", 
              "NRMSE", "PBIAS",   "RSR",   "rSD",    "NSE", 
              "mNSE" ,  "rNSE",  "wNSE",     "d",     "dr", 
                 "md",    "rd",    "cp",     "r",     "R2", 
-               "bR2",   "KGE", "KGElf", "KGEnp",   "sKGE",
-                "VE")  # 'rSpearman' and 'pbiasFDC' are not computed
-  
-  if (length(noNms <- gofs[!gofs %in% gofs.all])) 
-    warning("[Unknown names in 'gofs': ", paste(noNms, collapse = ", "), " (not used) !]")		   
+               "bR2",    "VE",   "KGE", "KGElf",  "KGEnp",   
+              "sKGE")  # 'rSpearman' and 'pbiasFDC' are not computed
+
+  # Removing 'sKGE' when 'x' and 'y' are not zoo objects
+  if ( !( zoo::is.zoo(x) & zoo::is.zoo(y) ) )
+    gofs.all <- gofs.all[-26]
+
+  # Checking 'gofs' 
+  noNms.index <- which( !(gofs %in% gofs.all) )
+  if (length(noNms.index) > 0) {
+    noNms <- gofs[noNms.index]
+    warning("[Unknown names in 'gofs': ", paste(noNms, collapse = ", "), " (not used) !]")
+  } # IF end	   
+  gofs.index <- which( (gofs %in% gofs.all) )
+  gofs       <- gofs[gofs.index]
 
   # 'xname' and 'yname' values
   xname <- deparse(substitute(x))
@@ -150,9 +160,8 @@ plot2 <- function (x, y,
   } # ELSE end    
   
   # If the legend will not be plotted, the marginns are set to 'almost' the default values
-  if (!gof.leg) {  
-        par(mar=c(5, 4, 4, 2) + 0.1) # default values are par(mar=c(5, 4, 4, 4) + 0.1)
-  } # ELSE end      
+  if (!gof.leg)
+    par(mar=c(5, 4, 4, 2) + 0.1) # default values are par(mar=c(5, 4, 4, 4) + 0.1)
   
   # If the plot type is "time series"
   if (pt.style=="ts") {
@@ -292,8 +301,9 @@ plot2 <- function (x, y,
 
    gof.index <- pmatch(gofs, gofs.all)
    gof.index <- gof.index[!is.na(gof.index)]  
-    
-   gof.xy <- gof(sim=as.numeric(x), obs=as.numeric(y), do.spearman=FALSE, do.pbfdc=FALSE, digits=gof.digits, ...)
+   
+   #gof.xy <- gof(sim=as.numeric(x), obs=as.numeric(y), do.spearman=FALSE, do.pbfdc=FALSE, digits=gof.digits, ...)
+   gof.xy <- gof(sim=x, obs=y, do.spearman=FALSE, do.pbfdc=FALSE, digits=gof.digits, ...)
 
    gofs.stg  <- gofs.all[gof.index] 
    gofs.num  <- gof.xy[gof.index, 1] 
