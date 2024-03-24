@@ -65,8 +65,8 @@ ggof <- function (sim, obs,
 
   # Saving the current graphical parameter settings,
   # and restoring them on exit
-  old.par <- par(no.readonly = TRUE)
-  on.exit(par(old.par))
+  #old.par <- par(no.readonly = TRUE)
+  #on.exit(par(old.par))
 
   # Checking class 'sim' &'obs'   
   valid.class <- c("xts", "zoo", "numeric", "integer")    
