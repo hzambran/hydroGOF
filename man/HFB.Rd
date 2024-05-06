@@ -122,12 +122,14 @@ If \code{out.PerYear=TRUE}: a list of two elements:
 \item{HFB.value}{
 numeric with the median annual high flow bias between \code{sim} and \code{obs}. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the median annual high flow bias between each column of \code{sim} and \code{obs}.
 }
-\item{hbf.PerYear}{
-numeric with the median annual high flow bias obtained for the individual years between \code{sim} and \code{obs}. If \code{sim} and \code{obs} are matrices, this output is a data.frame numeric with the median annual high flow bias obtained for the individual years between each column of \code{sim} and \code{obs}.
+\item{HFB.PerYear}{
+-) If \code{sim} and \code{obs} are not data.frame/matrix, the output is numeric, with the median high flow bias obtained for the individual years between \code{sim} and \code{obs}. 
+
+-) If \code{sim} and \code{obs} are data.frame/matrix, this output is a data.frame, with the median high flow bias obtained for the individual years between \code{sim} and \code{obs}. 
 }
 }
 \references{
-\cite{Mizukami, N., Rakovec, O., Newman, A. J., Clark, M. P., Wood, A. W., Gupta, H. V., and Kumar, R.: (2019). On the choice of calibration metrics for "high-flow" estimation using hydrologic models, Hydrology Earth System Sciences 23, 2601–2614, doi:10.5194/hess-23-2601-2019.}
+\cite{Mizukami, N., Rakovec, O., Newman, A. J., Clark, M. P., Wood, A. W., Gupta, H. V., and Kumar, R.: (2019). On the choice of calibration metrics for "high-flow" estimation using hydrologic models, Hydrology Earth System Sciences 23, 2601-2614, doi:10.5194/hess-23-2601-2019.}
 }
 \author{
 Mauricio Zambrano-Bigiarini <mzb.devel@gmail.com>
@@ -141,7 +143,7 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{apfb}}, \code{\link{NSE}}, \code{\link{wNSE}}, , \code{\link{wsNSE}}, \code{\link{gof}}, \code{\link{ggof}}
+\code{\link{APFB}}, \code{\link{NSE}}, \code{\link{wNSE}}, , \code{\link{wsNSE}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 ##################
