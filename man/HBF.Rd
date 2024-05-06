@@ -60,7 +60,7 @@ numeric, zoo, matrix or data.frame with observed values
 a logical value indicating whether 'NA' should be stripped before the computation proceeds. \cr
 When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{sim}, the i-th value of \code{obs} \bold{AND} \code{sim} are removed before the computation.
 }
-  \item{prob{
+  \item{prob}{
 numeric, representing the non-exceedence probabiliy used to identify high flows in \code{obs}. All values in \code{obs} that are equal or higher than \code{quantile(obs, probs=prob)} are considered as high flows.\cr
 On the other hand, the high values in \code{sim} are those located at the same i-th position than the i-th value of \code{obs} deemed as high flows. 
 }
