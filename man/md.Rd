@@ -14,11 +14,10 @@
 \alias{md.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Modified index of agreement
+Modified Index of Agreement
 }
 \description{
 This function computes the modified Index of Agreement between \code{sim} and \code{obs}, with treatment of missing values. \cr
-If 'x' is a matrix or a data frame, a vector of the modified index of agreement among the columns is returned.
 }
 \usage{
 md(sim, obs, ...)
@@ -91,7 +90,7 @@ A value of 1 indicates a perfect match, and 0 indicates no agreement at all (Wil
 The index of agreement can detect additive and proportional differences in the observed and simulated means and variances; however, it is overly sensitive to extreme values due to the squared differences (Legates and McCabe, 1999).
 }
 \value{
-Modified index of agreement between \code{sim} and \code{obs}. \cr
+Modified index of agreement between \code{sim} and \code{obs}.
 
 If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the modified index of agreement between each column of \code{sim} and \code{obs}.
 }
