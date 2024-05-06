@@ -9,8 +9,11 @@ NEWS/ChangeLog for hydroGOF
         o 'wSNSE': to compute the weighted seasonal Nash-Sutcliffe Efficiency focused on high or low flows (depending an an argument value), proposed by Zambrano-Bigiarini and Bellin (2012).
 
 ## Bug fixes
-        o 'ggof' : the GoF values are now correctly shown in the legend ('VE' position was changed before KGEs)
-        o 'plot2': the GoF values are now correctly shown in the legend
+        o 'ggof' : the GoF values are now correctly shown in the legend ('VE' position was changed before KGEs).
+        o 'plot2': the GoF values are now correctly shown in the legend.
+        o 'sKGE' : -) output values are correctly shown when 'sim' and 'obs' are matrix/data.frame and out.PerYear=TRUE.
+        o          -) the argument 'start-month' now is working. It fix the error "Error in .shiftyears(dates.obs, start.month) : object 'syears' not found".
+
 
 
 
