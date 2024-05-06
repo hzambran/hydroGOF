@@ -1,17 +1,17 @@
-%% File HBF.Rd
+%% File HFB.Rd
 %% Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 %%                                 https://cran.r-project.org/package=hydroGOF
 %%                                 http://www.rforge.net/hydroGOF/
 %% Copyright 2024-2024 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or late
 
-\name{HBF}
+\name{HFB}
 \Rdversion{1.1}
-\alias{HBF}
-\alias{HBF.default}
-\alias{HBF.matrix}
-\alias{HBF.data.frame}
-\alias{HBF.zoo}
+\alias{HFB}
+\alias{HFB.default}
+\alias{HFB.matrix}
+\alias{HFB.data.frame}
+\alias{HFB.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 High-flows bias
@@ -22,27 +22,27 @@ High flow bias between \code{sim} and \code{obs}.
 This function is designed to identify differences in high values. See Details.
 }
 \usage{
-HBF(sim, obs, ...)
+HFB(sim, obs, ...)
 
-\method{HBF}{default}(sim, obs, na.rm=TRUE, 
+\method{HFB}{default}(sim, obs, na.rm=TRUE, 
              prob=0.9, start.month=1, out.PerYear=FALSE,
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
 
-\method{HBF}{data.frame}(sim, obs, na.rm=TRUE, 
+\method{HFB}{data.frame}(sim, obs, na.rm=TRUE, 
              prob=0.9, start.month=1, out.PerYear=FALSE,
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
 
-\method{HBF}{matrix}(sim, obs, na.rm=TRUE, 
+\method{HFB}{matrix}(sim, obs, na.rm=TRUE, 
              prob=0.9, start.month=1, out.PerYear=FALSE,
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
              
-\method{HBF}{zoo}(sim, obs, na.rm=TRUE, 
+\method{HFB}{zoo}(sim, obs, na.rm=TRUE, 
              prob=0.9, start.month=1, out.PerYear=FALSE,
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
@@ -119,7 +119,7 @@ The high flow bias (HFB) ranges from 0 to Inf, with an optimal value of 0. Highe
 If \code{out.PerYear=FALSE}: numeric with the median high flow bias between \code{sim} and \code{obs}. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the high flow bias between each column of \code{sim} and \code{obs}.
 
 If \code{out.PerYear=TRUE}: a list of two elements:
-\item{HBF.value}{
+\item{HFB.value}{
 numeric with the median annual high flow bias between \code{sim} and \code{obs}. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the median annual high flow bias between each column of \code{sim} and \code{obs}.
 }
 \item{hbf.PerYear}{
@@ -165,8 +165,8 @@ NSE(sim=sim, obs=obs)
 # Weighted Nash-Sutcliffe efficiency (Hundecha and Bardossy, 2004)
 wNSE(sim=sim, obs=obs)
 
-# HBF (Garcia et al., 2017):
-HBF(sim=sim, obs=obs)
+# HFB (Garcia et al., 2017):
+HFB(sim=sim, obs=obs)
 
 ##################
 # Example 2: 
@@ -177,11 +177,11 @@ obs <- EgaEnEstellaQts
 # Generating a simulated daily time series, initially equal to the observed series
 sim <- obs 
 
-# Computing the 'HBF' for the "best" (unattainable) case
-HBF(sim=sim, obs=obs)
+# Computing the 'HFB' for the "best" (unattainable) case
+HFB(sim=sim, obs=obs)
 
 ##################
-# Example 3: HBF for simulated values created equal to the observed values and then 
+# Example 3: HFB for simulated values created equal to the observed values and then 
 #            random noise is added only to high flows, i.e., those equal or higher than 
 #            the quantile 0.9 of the observed values.
 
@@ -192,36 +192,36 @@ hQ.n          <- length(hQ.index)
 sim[hQ.index] <- sim[hQ.index] + rnorm(hQ.n, mean=mean(sim[hQ.index], na.rm=TRUE))
 ggof(sim, obs)
 
-HBF(sim=sim, obs=obs)
+HFB(sim=sim, obs=obs)
 
 ##################
-# Example 4: HBF for simulated values created equal to the observed values and then 
+# Example 4: HFB for simulated values created equal to the observed values and then 
 #            random noise is added only to high flows, i.e., those equal or higher than 
 #            the quantile 0.9 of the observed values and applying (natural) 
 #            logarithm to 'sim' and 'obs' during computations.
 
-HBF(sim=sim, obs=obs, fun=log)
+HFB(sim=sim, obs=obs, fun=log)
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
-HBF(sim=lsim, obs=lobs)
+HFB(sim=lsim, obs=lobs)
 
 
 ##################
-# Example 5: HBF for simulated values created equal to the observed values and then 
+# Example 5: HFB for simulated values created equal to the observed values and then 
 #            random noise is added only to high flows, i.e., those equal or higher than 
 #            the quantile 0.9 of the observed values and applying a 
 #            user-defined function to 'sim' and 'obs' during computations
 
 fun1 <- function(x) {sqrt(x+1)}
 
-HBF(sim=sim, obs=obs, fun=fun1)
+HFB(sim=sim, obs=obs, fun=fun1)
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
-HBF(sim=sim1, obs=obs1)
+HFB(sim=sim1, obs=obs1)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
