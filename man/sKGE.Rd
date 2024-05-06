@@ -73,7 +73,7 @@ character, indicating the formula used to compute the variability ratio in the K
 numeric in [1:12] indicating the starting month of the (hydrological) year. Numeric values in [1, 12] represent months in [January, December]. By default \code{start.month=1}.
 }
   \item{out.PerYear}{
-logical, indicating the whether the output of the function has to include the Kling-Gupta efficiencies obtained for the individual years in \code{sim} and \code{obs} or not.
+logical, indicating whether the output of this function has to include the Kling-Gupta efficiencies obtained for the individual years in \code{sim} and \code{obs} or not.
 }
   \item{fun}{
 function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing this goodness-of-fit index.
