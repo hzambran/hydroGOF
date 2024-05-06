@@ -1,4 +1,4 @@
-# File hfb.R
+# File HBF.R
 # Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 #                                 https://cran.r-project.org/package=hydroGOF
 #                                 http://www.rforge.net/hydroGOF/
@@ -6,25 +6,30 @@
 # Distributed under GPL 2 or later
 
 ################################################################################
-# 'hfb': Median Annual high-flows bias                                         #
+# 'HBF': Median Annual high flow bias                                          #
 ################################################################################
 # Author : Mauricio Zambrano-Bigiarini                                         #
 ################################################################################
 # Started: 04-May-2024                                                         #
 # Updates: 05-May-2024                                                         #
 ################################################################################
-# The optimal value of hfb is 0
 
-# This function is designed to drive the calibration of hydrological models 
-# focused in the reproduction of high-flow events.
+# The high flow bias (HBF) ranges from 0 to Inf, with an optimal value of 0. 
+# Higher values of HFB indicate stronger differences between the high values 
+# of \code{sim} and \code{obs}, Essentially, the closer to 0, the more similar 
+# the high values of \code{sim} and \code{obs} are. 
+
+# The median annual high-flows bias (HFB) is designed to drive the calibration of 
+# hydrological models focused in the reproduction of high-flow events.
 
 # It is inspired in the annual peak-flow bias (APFB) objective function 
 # proposed by Mizukami et al. (2019).
 # However, it has four important diferences:
 # 1) instead of considering only the observed annual peak flow in each year,
 #    it considers all the high flows in each year, where "high flows" are all 
-#    the values above a user-defined quantile value, by default 0.9.
-# 2) insted of considering only the simulated annual peak flows for each 
+#    the values above a user-defined quantile of the observed values, 
+#    by default 0.9 (\code{prob=0.9}).
+# 2) insted of considering only the simulated high flows for each 
 #    year, which might occur in a date/time different from the date in which  
 #    occurs the observed annual peak flow, it considers as many high simulated 
 #    flows as the number of high observed flows for each year, each one in the 
@@ -36,16 +41,32 @@
 #    the annual values, it uses the median, in order to take a stronger 
 #    representation of the bias when its distribution is not symetric.
 
+# 'prob'       : numeric, representing the non-exceedence probabiliy used to identify 
+#                high flows in \code{obs}. All values in \code{obs} that are equal or 
+#                higher than \code{quantile(obs, probs=prob)} are considered as 
+#                high flows.\cr
+#                On the other hand, the high values in \code{sim} are those located at 
+#                the same i-th position than the i-th value of \code{obs} deemed as 
+#                high flows. 
+# 'start.month': [OPTIONAL]. Only used when the (hydrological) year of interest is 
+#                different from the calendar year.
+#                numeric in [1:12] indicating the starting month of the (hydrological) 
+#                year. Numeric values in [1, 12] represent months in [January, December]. 
+#                By default \code{start.month=1}.
+# 'out.PerYear': logical, indicating whether the output of this function has to include 
+#                the median annual high-flows bias obtained for the individual years in 
+#                \code{sim} and \code{obs} or not.
+
 # Ref:
 # Mizukami, N., Rakovec, O., Newman, A. J., Clark, M. P., Wood, A. W., 
 # Gupta, H. V., and Kumar, R.: (2019). On the choice of calibration metrics for 
 # "high-flow" estimation using hydrologic models, Hydrology Earth System 
 # Sciences 23, 2601–2614, doi:10.5194/hess-23-2601-2019.
 
-hfb <- function(sim, obs, ...) UseMethod("hfb")
+HBF <- function(sim, obs, ...) UseMethod("HBF")
 
 # epsilon: By default it is set at one hundredth of the mean flow. See Pushpalatha et al. (2012)
-hfb.default <- function(sim, obs, na.rm=TRUE, 
+HBF.default <- function(sim, obs, na.rm=TRUE, 
                         prob=0.9,
                         start.month=1, out.PerYear=FALSE,
                         fun=NULL,
@@ -54,7 +75,7 @@ hfb.default <- function(sim, obs, na.rm=TRUE,
                         epsilon.value=NA
                         ) { 
 
-  lhfb <- function(i, lsim, lobs, lprob, lna.rm=TRUE) {
+  lHBF <- function(i, lsim, lobs, lprob, lna.rm=TRUE) {
 
     llobs            <- lobs[[i]]
     llsim            <- lsim[[i]]
@@ -65,7 +86,7 @@ hfb.default <- function(sim, obs, na.rm=TRUE,
 
     out <- median( sqrt((llsim.high/llobs.high - 1)^2), na.rm=lna.rm)
     return(out)
-  } #'lhfb' END
+  } #'lHBF' END
 
 
   # Function for shifting a time vector by 'nmonths' number of months.
@@ -131,19 +152,19 @@ hfb.default <- function(sim, obs, na.rm=TRUE,
   obs.PerYear <- split(coredata(obs), years.obs) # years.sim == years.obs
 
 
-  # Computing annual hfb values
-  hfb.yr <- sapply(1:nyears, FUN=lhfb, lsim=sim.PerYear, lobs=obs.PerYear, 
+  # Computing annual HBF values
+  HBF.yr <- sapply(1:nyears, FUN=lHBF, lsim=sim.PerYear, lobs=obs.PerYear, 
                    lprob=prob, lna.rm= na.rm)
-  names(hfb.yr) <- years.unique
+  names(HBF.yr) <- years.unique
 
-  hfb <- median(hfb.yr, na.rm=na.rm)
+  HBF <- median(HBF.yr, na.rm=na.rm)
 
   if (out.PerYear) {
-    out <- list(hfb.value=hfb, hfb.PerYear=hfb.yr)
-  } else out <- hfb
+    out <- list(HBF.value=HBF, HBF.PerYear=HBF.yr)
+  } else out <- HBF
     
   return(out)
-} # 'hfb.default' END
+} # 'HBF.default' END
 
 
 ################################################################################
@@ -153,7 +174,7 @@ hfb.default <- function(sim, obs, na.rm=TRUE,
 # Updates:                                                                     #
 ################################################################################
 
-hfb.matrix <- function(sim, obs, na.rm=TRUE, 
+HBF.matrix <- function(sim, obs, na.rm=TRUE, 
                        prob=0.9,
                        start.month=1, out.PerYear=FALSE, 
                        fun=NULL,
@@ -179,14 +200,14 @@ hfb.matrix <- function(sim, obs, na.rm=TRUE,
   nyears <- length(unique(years.obs))
 
 
-  hfb              <- rep(NA, ncol(obs))       
+  HBF              <- rep(NA, ncol(obs))       
   elements           <- matrix(NA, nrow=nyears, ncol=ncol(obs))
   rownames(elements) <- unique(years.obs)
   colnames(elements) <- colnames(obs)
 
 
   out.single <- sapply(1:ncol(obs), function(i,x,y) { 
-                  hfb[i] <- hfb.default( x[,i], y[,i], na.rm=na.rm, 
+                  HBF[i] <- HBF.default( x[,i], y[,i], na.rm=na.rm, 
                                          prob=prob,  
                                          start.month=start.month, 
                                          out.PerYear=out.PerYear, 
@@ -199,7 +220,7 @@ hfb.matrix <- function(sim, obs, na.rm=TRUE,
 
   if (out.PerYear) {        
     out.yr <- sapply(1:ncol(obs), function(i,x,y) { 
-                    elements[,i] <- hfb.default( x[,i], y[,i], na.rm=na.rm, 
+                    elements[,i] <- HBF.default( x[,i], y[,i], na.rm=na.rm, 
                                                  prob=prob,  
                                                  start.month=start.month, 
                                                  out.PerYear=out.PerYear, 
@@ -212,12 +233,12 @@ hfb.matrix <- function(sim, obs, na.rm=TRUE,
   } # IF end
 
   if (out.PerYear) {
-    out <- list(hfb.value=out.single, hfb.PerYear=out.yr)
+    out <- list(HBF.value=out.single, HBF.PerYear=out.yr)
   } else out <- out.single
   
   return(out)
      
-} # 'hfb.matrix' end
+} # 'HBF.matrix' end
 
 
 ################################################################################
@@ -226,7 +247,7 @@ hfb.matrix <- function(sim, obs, na.rm=TRUE,
 # Started: 04-May-2024                                                         #
 # Updates: 05-May-2024                                                         #
 ################################################################################
-hfb.data.frame <- function(sim, obs, na.rm=TRUE, 
+HBF.data.frame <- function(sim, obs, na.rm=TRUE, 
                            prob=0.9,
                            start.month=1, out.PerYear=FALSE, 
                            fun=NULL,
@@ -238,11 +259,11 @@ hfb.data.frame <- function(sim, obs, na.rm=TRUE,
   obs <- as.matrix(obs)
   
    
-  hfb.matrix(sim, obs, na.rm=na.rm, prob=prob, 
+  HBF.matrix(sim, obs, na.rm=na.rm, prob=prob, 
              start.month=start.month, out.PerYear=out.PerYear, fun=fun, ...,  
              epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
-} # 'hfb.data.frame' end
+} # 'HBF.data.frame' end
 
 
 ################################################################################
@@ -251,7 +272,7 @@ hfb.data.frame <- function(sim, obs, na.rm=TRUE,
 # Started: 04-May-2024                                                         #
 # Updates:                                                                     #
 ################################################################################
-hfb.zoo <- function(sim, obs, na.rm=TRUE, 
+HBF.zoo <- function(sim, obs, na.rm=TRUE, 
                     prob=0.9,
                     start.month=1, out.PerYear=FALSE, 
                     fun=NULL,
@@ -263,11 +284,11 @@ hfb.zoo <- function(sim, obs, na.rm=TRUE,
   #if (is.zoo(obs)) obs <- zoo::coredata(obs)    
 
   if (is.matrix(sim) | is.data.frame(sim)) {
-    hfb.matrix(sim, obs, na.rm=na.rm, prob=prob, 
+    HBF.matrix(sim, obs, na.rm=na.rm, prob=prob, 
                  start.month=start.month, out.PerYear=out.PerYear, fun=fun, ...,  
                  epsilon.type=epsilon.type, epsilon.value=epsilon.value)
   } else NextMethod(sim, obs, na.rm=na.rm, prob=prob, 
                     start.month=start.month, out.PerYear=out.PerYear, fun=fun, ...,  
                     epsilon.type=epsilon.type, epsilon.value=epsilon.value)  
      
-} # 'hfb.zoo' end
+} # 'HBF.zoo' end
