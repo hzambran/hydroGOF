@@ -167,7 +167,7 @@ KGElf(sim=sim, obs=obs, method="2012")
 ##################
 # Example3: KGElf for simulated values equal to observations plus random noise 
 #           on the first half of the observed values. 
-#           This random noise has more relative importance for ow flows than 
+#           This random noise has more relative importance for low flows than 
 #           for medium and high flows.
   
 # Randomly changing the first 1826 elements of 'sim', by using a normal distribution 
