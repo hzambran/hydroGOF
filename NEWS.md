@@ -1,5 +1,20 @@
 NEWS/ChangeLog for hydroGOF
 
+# Changes in version 0.6-0  (under development)
+
+## New functions
+
+        o 'apfb' : to compute the annual peak flow bias focused on high flows, proposed by Mizukami et al. (2017).
+        o 'hfb'  : to compute the median annual high-flows bias focused on high flows, proposed by Zambrano-Bigiarini (2024).
+        o 'wSNSE': to compute the weighted seasonal Nash-Sutcliffe Efficiency focused on high or low flows (depending an an argument value), proposed by Zambrano-Bigiarini and Bellin (2012).
+
+## Bug fixes
+        o 'ggof' : the GoF values are now correctly shown in the legend ('VE' position was changed before KGEs)
+        o 'plot2': the GoF values are now correctly shown in the legend
+
+
+
+
 --------------------------
 # Changes in version 0.5-4  21-Jan-2024
 
