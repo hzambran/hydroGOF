@@ -115,7 +115,7 @@ Knoben et al. (2019) showed that traditional Kling-Gupta (Gupta et al., 2009; Kl
 \value{
 If \code{out.PerYear=FALSE}: numeric with the Split Kling-Gupta efficiency between \code{sim} and \code{obs}. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the Split Kling-Gupta efficiency between each column of \code{sim} and \code{obs}
 
-If \code{out.PerYear=FALSE}: a list of two elements:
+If \code{out.PerYear=TRUE}: a list of two elements:
 \item{sKGE.value}{
 numeric with the Split Kling-Gupta efficiency. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the Split Kling-Gupta efficiency between each column of \code{sim} and \code{obs}
 }
@@ -168,7 +168,7 @@ KGE(sim=sim, obs=obs, method="2009", out.type="full")
 # KGE 2012
 KGE(sim=sim, obs=obs, method="2012", out.type="full")
 
-# sKGE (Garcia et al., 2017):
+# sKGE (Fowler et al., 2018):
 sKGE(sim=sim, obs=obs, method="2012")
 
 ##################
@@ -265,6 +265,23 @@ sKGE(sim=sim, obs=obs, fun=fun1)
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 sKGE(sim=sim1, obs=obs1)
+
+##################
+# Example 9: sKGE for a two-column data frame where simulated values are equal to 
+#            observations plus random noise on the first half of the observed values 
+
+SIM <- cbind(sim, sim)
+OBS <- cbind(obs, obs)
+
+sKGE(sim=SIM, obs=OBS)
+
+##################
+# Example 10: sKGE for each year, where simulated values are given in a two-column data 
+#             frame equal to the observations plus random noise on the first half of the 
+#             observed values 
+SIM <- cbind(sim, sim)
+OBS <- cbind(obs, obs)
+sKGE(sim=SIM, obs=OBS, out.PerYear=TRUE)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
