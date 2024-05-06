@@ -105,7 +105,7 @@ HFB.default <- function(sim, obs, na.rm=TRUE,
 	     syears[m.index] <- m.year
      } # FOR end
      return(syears)
-  } # '.shift' END
+  } # '.shiftyears' END
    
 
   if ( !inherits(sim, "zoo") | !inherits(obs, "zoo"))
@@ -200,7 +200,7 @@ HFB.matrix <- function(sim, obs, na.rm=TRUE,
   nyears <- length(unique(years.obs))
 
 
-  HFB              <- rep(NA, ncol(obs))       
+  HFB                <- rep(NA, ncol(obs))       
   elements           <- matrix(NA, nrow=nyears, ncol=ncol(obs))
   rownames(elements) <- unique(years.obs)
   colnames(elements) <- colnames(obs)
