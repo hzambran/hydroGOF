@@ -14,10 +14,10 @@
 \alias{APFB.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-High-flows bias
+Annual Peak Flow Bias
 }
 \description{
-Annual peak flow bias between \code{sim} and \code{obs}, with treatment of missing values. \cr
+Annual peak flow bias between \code{sim} and \code{obs}, with treatment of missing values. 
 
 This function was prposed by Mizukami et al. (2019) to identify differences in high (streamflow) values. See Details.
 }
@@ -94,10 +94,10 @@ Valid values of \code{epsilon.type} are:
 }
 \details{
 The annual peak flow bias (APFB; Mizukami et al., 2019) is designed to drive the calibration of hydrological models focused in the reproduction of high-flow events.
+
+The high flow bias (APFB) ranges from 0 to Inf, with an optimal value of 0. Higher values of APFB indicate stronger differences between the high values of \code{sim} and \code{obs}. Essentially, the closer to 0, the more similar the high values of \code{sim} and \code{obs} are. \cr
 }
 \value{
-The high flow bias (APFB) ranges from 0 to Inf, with an optimal value of 0. Higher values of APFB indicate stronger differences between the high values of \code{sim} and \code{obs}. Essentially, the closer to 0, the more similar the high values of \code{sim} and \code{obs} are. \cr
-
 If \code{out.PerYear=FALSE}: numeric with the mean annual peak flow bias between \code{sim} and \code{obs}. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the  mean annual peak flow bias between each column of \code{sim} and \code{obs}.
 
 If \code{out.PerYear=TRUE}: a list of two elements:
