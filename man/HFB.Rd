@@ -17,7 +17,7 @@
 High-flows bias
 }
 \description{
-High flow bias between \code{sim} and \code{obs}.
+High flow bias between \code{sim} and \code{obs}, with treatment of missing values.
 
 This function is designed to identify differences in high values. See Details.
 }
@@ -62,7 +62,7 @@ When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{s
 }
   \item{hQ.thr}{
 numeric, representing the exceedence probabiliy used to identify high flows in \code{obs}. All values in \code{obs} that are equal or higher than \code{quantile(obs, probs=(1-hQ.thr))} are considered as high flows. By default \code{hQ.thr=0.1}. \cr
-On the other hand, the high values in \code{sim} are those located at the same i-th position than the i-th value of \code{obs} deemed as high flows. 
+On the other hand, the high values in \code{sim} are those located at the same i-th position than the i-th value of the \code{obs} deemed as high flows. 
 }
   \item{start.month}{
 [OPTIONAL]. Only used when the (hydrological) year of interest is different from the calendar year.
@@ -101,7 +101,9 @@ Valid values of \code{epsilon.type} are:
 }
 }
 \details{
-The median annual high flow bias (HFB) is designed to drive the calibration of hydrological models focused in the reproduction of high-flow events.
+The median annual high flow bias (HFB) is designed to drive the calibration of hydrological models focused in the reproduction of high-flow events. 
+
+The high flow bias (HFB) ranges from 0 to Inf, with an optimal value of 0. Higher values of HFB indicate stronger differences between the high values of \code{sim} and \code{obs}. Essentially, the closer to 0, the more similar the high values of \code{sim} and \code{obs} are. 
 
 The HFB function is inspired in the annual peak-flow bias (APFB) objective function proposed by Mizukami et al. (2019). However, it has four important diferences:
 
@@ -114,8 +116,6 @@ The HFB function is inspired in the annual peak-flow bias (APFB) objective funct
 4) when computing the final value of this metric, instead o using the mean of the annual values, it uses the median, in order to take a stronger representation of the bias when its distribution is not symetric.
 }
 \value{
-The high flow bias (HFB) ranges from 0 to Inf, with an optimal value of 0. Higher values of HFB indicate stronger differences between the high values of \code{sim} and \code{obs}. Essentially, the closer to 0, the more similar the high values of \code{sim} and \code{obs} are. \cr
-
 If \code{out.PerYear=FALSE}: numeric with the median high flow bias between \code{sim} and \code{obs}. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the high flow bias between each column of \code{sim} and \code{obs}.
 
 If \code{out.PerYear=TRUE}: a list of two elements:
