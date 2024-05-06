@@ -79,12 +79,12 @@ HBF.default <- function(sim, obs, na.rm=TRUE,
 
     llobs            <- lobs[[i]]
     llsim            <- lsim[[i]]
-    lquant           <- quantile(llobs, probs=lprob)
+    lquant           <- stats::quantile(llobs, probs=lprob)
     llobs.high.index <- which(llobs >= lquant)
     llobs.high       <- llobs[llobs.high.index]
     llsim.high       <- llsim[llobs.high.index]
 
-    out <- median( sqrt((llsim.high/llobs.high - 1)^2), na.rm=lna.rm)
+    out <- stats::median( sqrt((llsim.high/llobs.high - 1)^2), na.rm=lna.rm)
     return(out)
   } #'lHBF' END
 
@@ -157,7 +157,7 @@ HBF.default <- function(sim, obs, na.rm=TRUE,
                    lprob=prob, lna.rm= na.rm)
   names(HBF.yr) <- years.unique
 
-  HBF <- median(HBF.yr, na.rm=na.rm)
+  HBF <- stats::median(HBF.yr, na.rm=na.rm)
 
   if (out.PerYear) {
     out <- list(HBF.value=HBF, HBF.PerYear=HBF.yr)

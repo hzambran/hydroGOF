@@ -83,7 +83,7 @@ wsNSE.default <- function (sim, obs, na.rm=TRUE,
 
     w <- ifelse(x >= lhQ, lambda, 
                 ifelse(x  <= llQ, 1 - llambda, 
-                (1 - llambda) + (2*llambda - 1) * (x[i] - llQ) / (lhQ - llQ) ) 
+                (1 - llambda) + (2*llambda - 1) * (x - llQ) / (lhQ - llQ) ) 
                 )
         
     return(w)
@@ -118,8 +118,8 @@ wsNSE.default <- function (sim, obs, na.rm=TRUE,
     n <- length(obs) 
 
     # Low and high-flow threshold values
-    hQ <- quantile(obs, probs=1-hQ.thr, na.rm=na.rm)
-    lQ <- quantile(obs, probs=1-lQ.thr, na.rm=na.rm)
+    hQ <- stats::quantile(obs, probs=1-hQ.thr, na.rm=na.rm)
+    lQ <- stats::quantile(obs, probs=1-lQ.thr, na.rm=na.rm)
 
     # Computing annual hfb values
     w <-  lweight(x=obs, llambda=lambda, llQ=lQ, lhQ=hQ, lna.rm=na.rm)
