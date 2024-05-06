@@ -28,7 +28,7 @@
 # 1) instead of considering only the observed annual peak flow in each year,
 #    it considers all the high flows in each year, where "high flows" are all 
 #    the values above a user-defined quantile of the observed values, 
-#    by default 0.9 (\code{prob=0.9}).
+#    by default 0.1 (\code{hQ.thr=0.1}).
 # 2) insted of considering only the simulated high flows for each 
 #    year, which might occur in a date/time different from the date in which  
 #    occurs the observed annual peak flow, it considers as many high simulated 
@@ -41,9 +41,9 @@
 #    the annual values, it uses the median, in order to take a stronger 
 #    representation of the bias when its distribution is not symetric.
 
-# 'prob'       : numeric, representing the non-exceedence probabiliy used to identify 
+# 'hQ.thr'     : numeric, representing the exceedence probabiliy used to identify 
 #                high flows in \code{obs}. All values in \code{obs} that are equal or 
-#                higher than \code{quantile(obs, probs=prob)} are considered as 
+#                higher than \code{quantile(obs, hQ.thrs=hQ.thr)} are considered as 
 #                high flows.\cr
 #                On the other hand, the high values in \code{sim} are those located at 
 #                the same i-th position than the i-th value of \code{obs} deemed as 
@@ -67,7 +67,7 @@ HFB <- function(sim, obs, ...) UseMethod("HFB")
 
 # epsilon: By default it is set at one hundredth of the mean flow. See Pushpalatha et al. (2012)
 HFB.default <- function(sim, obs, na.rm=TRUE, 
-                        prob=0.9,
+                        hQ.thr=0.1,
                         start.month=1, out.PerYear=FALSE,
                         fun=NULL,
                         ...,
@@ -75,11 +75,11 @@ HFB.default <- function(sim, obs, na.rm=TRUE,
                         epsilon.value=NA
                         ) { 
 
-  lHFB <- function(i, lsim, lobs, lprob, lna.rm=TRUE) {
+  lHFB <- function(i, lsim, lobs, lhQ.thr, lna.rm=TRUE) {
 
     llobs            <- lobs[[i]]
     llsim            <- lsim[[i]]
-    lquant           <- stats::quantile(llobs, probs=lprob)
+    lquant           <- stats::quantile(llobs, probs=(1-lhQ.thr))
     llobs.high.index <- which(llobs >= lquant)
     llobs.high       <- llobs[llobs.high.index]
     llsim.high       <- llsim[llobs.high.index]
@@ -111,9 +111,9 @@ HFB.default <- function(sim, obs, na.rm=TRUE,
   if ( !inherits(sim, "zoo") | !inherits(obs, "zoo"))
     stop("Invalid argument: 'sim' and 'obs' must be 'zoo' objects !")
 
-  if ( (prob < 0) | (prob > 1) | 
-       (length(prob) > 1) | (length(prob) == 0) )
-    stop("Invalid argument: 'prob' must be a single number in [0, 1] !")
+  if ( (hQ.thr < 0) | (hQ.thr > 1) | 
+       (length(hQ.thr) > 1) | (length(hQ.thr) == 0) )
+    stop("Invalid argument: 'hQ.thr' must be a single number in [0, 1] !")
 
   # Selecting only valid paris of values
   vi <- valindex(sim, obs)     
@@ -154,7 +154,7 @@ HFB.default <- function(sim, obs, na.rm=TRUE,
 
   # Computing annual HFB values
   HFB.yr <- sapply(1:nyears, FUN=lHFB, lsim=sim.PerYear, lobs=obs.PerYear, 
-                   lprob=prob, lna.rm= na.rm)
+                   lhQ.thr=hQ.thr, lna.rm= na.rm)
   names(HFB.yr) <- years.unique
 
   HFB <- stats::median(HFB.yr, na.rm=na.rm)
@@ -175,7 +175,7 @@ HFB.default <- function(sim, obs, na.rm=TRUE,
 ################################################################################
 
 HFB.matrix <- function(sim, obs, na.rm=TRUE, 
-                       prob=0.9,
+                       hQ.thr=0.1,
                        start.month=1, out.PerYear=FALSE, 
                        fun=NULL,
                        ...,
@@ -208,7 +208,7 @@ HFB.matrix <- function(sim, obs, na.rm=TRUE,
 
   out.single <- sapply(1:ncol(obs), function(i,x,y) { 
                   HFB[i] <- HFB.default( x[,i], y[,i], na.rm=na.rm, 
-                                         prob=prob,  
+                                         hQ.thr=hQ.thr,  
                                          start.month=start.month, 
                                          out.PerYear=out.PerYear, 
                                          fun=fun, 
@@ -221,7 +221,7 @@ HFB.matrix <- function(sim, obs, na.rm=TRUE,
   if (out.PerYear) {        
     out.yr <- sapply(1:ncol(obs), function(i,x,y) { 
                     elements[,i] <- HFB.default( x[,i], y[,i], na.rm=na.rm, 
-                                                 prob=prob,  
+                                                 hQ.thr=hQ.thr,  
                                                  start.month=start.month, 
                                                  out.PerYear=out.PerYear, 
                                                  fun=fun, 
@@ -248,7 +248,7 @@ HFB.matrix <- function(sim, obs, na.rm=TRUE,
 # Updates: 05-May-2024                                                         #
 ################################################################################
 HFB.data.frame <- function(sim, obs, na.rm=TRUE, 
-                           prob=0.9,
+                           hQ.thr=0.1,
                            start.month=1, out.PerYear=FALSE, 
                            fun=NULL,
                            ...,
@@ -259,7 +259,7 @@ HFB.data.frame <- function(sim, obs, na.rm=TRUE,
   obs <- as.matrix(obs)
   
    
-  HFB.matrix(sim, obs, na.rm=na.rm, prob=prob, 
+  HFB.matrix(sim, obs, na.rm=na.rm, hQ.thr=hQ.thr, 
              start.month=start.month, out.PerYear=out.PerYear, fun=fun, ...,  
              epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
@@ -273,7 +273,7 @@ HFB.data.frame <- function(sim, obs, na.rm=TRUE,
 # Updates:                                                                     #
 ################################################################################
 HFB.zoo <- function(sim, obs, na.rm=TRUE, 
-                    prob=0.9,
+                    hQ.thr=0.1,
                     start.month=1, out.PerYear=FALSE, 
                     fun=NULL,
                     ...,
@@ -284,10 +284,10 @@ HFB.zoo <- function(sim, obs, na.rm=TRUE,
   #if (is.zoo(obs)) obs <- zoo::coredata(obs)    
 
   if (is.matrix(sim) | is.data.frame(sim)) {
-    HFB.matrix(sim, obs, na.rm=na.rm, prob=prob, 
+    HFB.matrix(sim, obs, na.rm=na.rm, hQ.thr=hQ.thr, 
                  start.month=start.month, out.PerYear=out.PerYear, fun=fun, ...,  
                  epsilon.type=epsilon.type, epsilon.value=epsilon.value)
-  } else NextMethod(sim, obs, na.rm=na.rm, prob=prob, 
+  } else NextMethod(sim, obs, na.rm=na.rm, hQ.thr=hQ.thr, 
                     start.month=start.month, out.PerYear=out.PerYear, fun=fun, ...,  
                     epsilon.type=epsilon.type, epsilon.value=epsilon.value)  
      

@@ -25,25 +25,25 @@ This function is designed to identify differences in high values. See Details.
 HFB(sim, obs, ...)
 
 \method{HFB}{default}(sim, obs, na.rm=TRUE, 
-             prob=0.9, start.month=1, out.PerYear=FALSE,
+             hQ.thr=0.1, start.month=1, out.PerYear=FALSE,
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
 
 \method{HFB}{data.frame}(sim, obs, na.rm=TRUE, 
-             prob=0.9, start.month=1, out.PerYear=FALSE,
+             hQ.thr=0.1, start.month=1, out.PerYear=FALSE,
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
 
 \method{HFB}{matrix}(sim, obs, na.rm=TRUE, 
-             prob=0.9, start.month=1, out.PerYear=FALSE,
+             hQ.thr=0.1, start.month=1, out.PerYear=FALSE,
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
              
 \method{HFB}{zoo}(sim, obs, na.rm=TRUE, 
-             prob=0.9, start.month=1, out.PerYear=FALSE,
+             hQ.thr=0.1, start.month=1, out.PerYear=FALSE,
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
@@ -60,8 +60,8 @@ numeric, zoo, matrix or data.frame with observed values
 a logical value indicating whether 'NA' should be stripped before the computation proceeds. \cr
 When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{sim}, the i-th value of \code{obs} \bold{AND} \code{sim} are removed before the computation.
 }
-  \item{prob}{
-numeric, representing the non-exceedence probabiliy used to identify high flows in \code{obs}. All values in \code{obs} that are equal or higher than \code{quantile(obs, probs=prob)} are considered as high flows.\cr
+  \item{hQ.thr}{
+numeric, representing the exceedence probabiliy used to identify high flows in \code{obs}. All values in \code{obs} that are equal or higher than \code{quantile(obs, probs=(1-hQ.thr))} are considered as high flows. By default \code{hQ.thr=0.1}. \cr
 On the other hand, the high values in \code{sim} are those located at the same i-th position than the i-th value of \code{obs} deemed as high flows. 
 }
   \item{start.month}{
@@ -105,7 +105,7 @@ The median annual high flow bias (HFB) is designed to drive the calibration of h
 
 The HFB function is inspired in the annual peak-flow bias (APFB) objective function proposed by Mizukami et al. (2019). However, it has four important diferences:
 
-1) instead of considering only the observed annual peak flow in each year, it considers all the high flows in each year, where "high flows" are all the values above a user-defined quantile of the observed values, by default 0.9 (\code{prob=0.9}).
+1) instead of considering only the observed annual peak flow in each year, it considers all the high flows in each year, where "high flows" are all the values above a user-defined quantile of the observed values, by default 0.9 (\code{hQ.thr=0.1}).
 
 2) insted of considering only the simulated high flows for each year, which might occur in a date/time different from the date in which occurs the observed annual peak flow, it considers as many high simulated flows as the number of high observed flows for each year, each one in the exact same date/time in which the corresponding observed high flow occurred.
 
@@ -188,7 +188,7 @@ HFB(sim=sim, obs=obs)
 #            the quantile 0.9 of the observed values.
 
 sim           <- obs
-hQ.thr        <- quantile(obs, probs=0.9, na.rm=TRUE)
+hQ.thr        <- quantile(obs, hQ.thr=0.9, na.rm=TRUE)
 hQ.index      <- which(obs >= hQ.thr)
 hQ.n          <- length(hQ.index)
 sim[hQ.index] <- sim[hQ.index] + rnorm(hQ.n, mean=mean(sim[hQ.index], na.rm=TRUE))
