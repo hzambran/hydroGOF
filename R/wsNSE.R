@@ -13,23 +13,34 @@
 # Started: 04-May-2024                                                         #
 # Updates: 05-May-2024                                                         #
 ################################################################################
-# Following the traditional Nash-Sutcliffe efficiency, wsNSE ranges from 
-# -Inf to 0, with an optimal value of 1
 
-# This function is designed to drive the calibration of hydrological models 
-# focused in the reproduction of high- or -low-flow events.
+# Following the traditional Nash-Sutcliffe efficiency, the weighted seasonal 
+# Nash-Sutcliffe Efficiency (wsNSE) ranges from -Inf to 1, with an optimal value 
+# of 1. Higher values of wsNSE indicate lower differences between \code{sim} and 
+# \code{obs}. Essentially, the closer to 1, the more similar\code{sim} and 
+# \code{obs} are. 
 
-# It was proposed by Zambrano-Bigiarini and Bellin (2012), inspired by the well  
-# known Nash-Sutcliffe efficiency (NSE, Nash and Sutcliffe, 1970), and the  
-# commentaries made by Schaefli and Gupta (2007) and Criss and Winston (2008).
+# This function is designed to identify differences in high or low values, 
+# depending on the user-defined value given to the \code{lambda} argument.
+
+# The weighted seasonal Nash-Sutcliffe Efficiency was proposed by 
+# Zambrano-Bigiarini and Bellin (2012), inspired by the well-known Nash-Sutcliffe 
+# efficiency (NSE, Nash and Sutcliffe, 1970), and the  commentaries made by 
+# Schaefli and Gupta (2007) and Criss and Winston (2008).
+# 
+# This function gives different weights to the high/low values in the 
+# (obs_i - sim_i) terms used in the Nash-Sutcliffe formula, using high weights 
+# for high or low flows, depending on how close the user-defined 'lambda' value 
+# is to 1 or zero, respectively. Between  high and low values there is a linear 
+# transition from \code{lambda} to \code{1-lambda}, respectively.
 
 # Refs:
-# 1) Nash, J.E.; J.V. Sutcliffe. (1970). River flow forecasting through 
-#    conceptual models. Part 1: a discussion of principles, Journal of Hydrology
-#    10, pp. 282-290. doi:10.1016/0022-1694(70)90255-6
-# 2) Zambrano-Bigiarini, M.; Bellin, A. (2012). Comparing goodness-of-fit 
+# 1) Zambrano-Bigiarini, M.; Bellin, A. (2012). Comparing goodness-of-fit 
 #    measures for calibration of models focused on extreme events. 
 #    EGU General Assembly 2012, Vienna, Austria, 22-27 Apr 2012, EGU2012-11549-1.
+# 2) Nash, J.E.; J.V. Sutcliffe. (1970). River flow forecasting through 
+#    conceptual models. Part 1: a discussion of principles, Journal of Hydrology
+#    10, pp. 282-290. doi:10.1016/0022-1694(70)90255-6
 # 3) Schaefli, B.; Gupta, H. (2007). Do Nash values have value?. 
 #    Hydrological Processes 21, 2075-2080. doi:10.1002/hyp.6825
 # 4) Criss, R. E.; Winston, W. E. (2008), Do Nash values have value? 
@@ -37,10 +48,10 @@
 #    doi:10.1002/hyp.7072
 # 5) Yilmaz, K. K.; Gupta, H. V.; Wagener, T. (2008), A process-based
 #    diagnostic approach to model evaluation: Application to the NWS
-#    distributed hydrologic model, Water Resour. Res., 44, W09417,
+#    distributed hydrologic model, Water Resources Research, 44, W09417,
 #    doi:10.1029/2007WR006716.
 # 6) Krause, P.; Boyle, D. P.; Base, F. (2005). Comparison of different 
-#    efficiency criteria for hydrological model assessment, 
+#    efficiency criteria for hydrological model assessment. 
 #    Adv. Geosci., 5, 89-97. doi:10.5194/adgeo-5-89-2005.
 # 7) Legates, D. R.; G. J. McCabe Jr. (1999), Evaluating the Use of 
 #    "Goodness-of-Fit" Measures in Hydrologic and Hydroclimatic Model Validation, 
@@ -50,15 +61,20 @@
 
 
 # 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values
-#         : numeric, representing an arbitrary value used to power the 
+# 'j'     : numeric, representing an arbitrary value used to power the 
 #           differences between observations and simulations. By default j=2,
 #           which mimics the traditional Nash-Sutcliffe function, mainly focused 
 #           on thr representation of high flows. For low flows, suggested values 
 #           for 'j' are 1, 1/2 or 1/3. See Legates and McCabe, (1999) and 
-#           Krausse et al. (2005) for a discussion of suggested vbalues of 'j'.
-# 'lambda': number in [0, 1] representing the weight given to the high-flow part 
-#           of the signal, with 'lambda' close to 1 when focusing on high-flow
-#           events, and 'lambda' close to zero when focusing in low-flow events
+#           Krausse et al. (2005) for a discussion of suggested values of 'j'.
+# 'lambda': numeric in [0, 1] representing the weight given to the high observed 
+#           values. The closer the \code{lambda=1} value is to 1, the higher the 
+#           weight given to high values. On the contrary, the closer the 
+#           \code{lambda=1} value is to 0, the higher the weight given to low 
+#           values.
+#           Low values get a weight equal to \code{1-lambda}. Between high and 
+#           low values there is a linear transition from \code{lambda} to 
+#           \code{1-lambda}, respectively.
 # 'lQ.thr': numeric, representing the exceedence probability used to identify 
 #           low-flows in the flow duration curve. See Yilmaz et al., (2008).
 #           All the values to the right of it are deemed as low flows. 
@@ -72,10 +88,10 @@
 
 wsNSE <-function(sim, obs, ...) UseMethod("wsNSE")
 
-wsNSE.default <- function (sim, obs, na.rm=TRUE, 
-                           j=2, lambda=0.95, lQ.thr=0.6, hQ.thr=0.1, fun=NULL, ..., 
-                           epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                           epsilon.value=NA){ 
+wsNSE.default <- function(sim, obs, na.rm=TRUE, 
+                          j=2, lambda=0.95, lQ.thr=0.6, hQ.thr=0.1, fun=NULL, ..., 
+                          epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                          epsilon.value=NA){ 
 
 
 
