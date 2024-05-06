@@ -20,7 +20,7 @@
 # focused in the reproduction of high- or -low-flow events.
 
 # It was proposed by Zambrano-Bigiarini and Bellin (2012), inspired by the well  
-# known Nash-Sutcliffe efficiency (wsNSE, Nash and Sutcliffe, 1970), and the  
+# known Nash-Sutcliffe efficiency (NSE, Nash and Sutcliffe, 1970), and the  
 # commentaries made by Schaefli and Gupta (2007) and Criss and Winston (2008).
 
 # Refs:
