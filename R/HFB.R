@@ -61,7 +61,7 @@
 # Mizukami, N., Rakovec, O., Newman, A. J., Clark, M. P., Wood, A. W., 
 # Gupta, H. V., and Kumar, R.: (2019). On the choice of calibration metrics for 
 # "high-flow" estimation using hydrologic models, Hydrology Earth System 
-# Sciences 23, 2601–2614, doi:10.5194/hess-23-2601-2019.
+# Sciences 23, 2601-2614, doi:10.5194/hess-23-2601-2019.
 
 HFB <- function(sim, obs, ...) UseMethod("HFB")
 
