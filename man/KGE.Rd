@@ -23,7 +23,7 @@ This goodness-of-fit measure was developed by Gupta et al. (2009) to provide a d
 
 Kling et al. (2012) proposed a revised version of this index (KGE') to ensure that the bias and variability ratios are not cross-correlated.
 
-Tang et al. (2021) proposed a revised version of this index to avoid the anomalously negative KGE' or KGE values when the mean value is close to zero.
+Tang et al. (2021) proposed a revised version of this index (KGE'') to avoid the anomalously negative KGE' or KGE values when the mean value is close to zero.
 
 For a short description of its three components and the numeric range of varios, pleae see Details.
 }
@@ -213,11 +213,14 @@ obs <- EgaEnEstellaQts
 # Simulated daily time series, initially equal to twice the observed values
 sim <- 2*obs 
 
-# KGE 2009
+# Traditional Kling-Gupta eficiency (Gupta and Kling, 2009)
 KGE(sim=sim, obs=obs, method="2009", out.type="full")
 
-# KGE 2012
+# KGE': Kling-Gupta eficiency 2012 (Kling et al.,2012) 
 KGE(sim=sim, obs=obs, method="2012", out.type="full")
+
+# KGE'': Kling-Gupta eficiency 2021 (Tang et al.,2021) 
+KGE(sim=sim, obs=obs, method="2021", out.type="full")
 
 ##################
 # Example3: KGE for simulated values equal to observations plus random noise 
@@ -234,8 +237,14 @@ KGE(sim=sim, obs=obs)
 # with mean 10 and standard deviation equal to 1 (default of 'rnorm').
 sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 
-# Computing the new 'KGE'
-KGE(sim=sim, obs=obs)
+# Traditional Kling-Gupta eficiency (Gupta and Kling, 2009)
+KGE(sim=sim, obs=obs, method="2009", out.type="full")
+
+# KGE': Kling-Gupta eficiency 2012 (Kling et al.,2012) 
+KGE(sim=sim, obs=obs, method="2012", out.type="full")
+
+# KGE'': Kling-Gupta eficiency 2021 (Tang et al.,2021) 
+KGE(sim=sim, obs=obs, method="2021", out.type="full")
 
 ##################
 # Example 4: KGE for simulated values equal to observations plus random noise 
