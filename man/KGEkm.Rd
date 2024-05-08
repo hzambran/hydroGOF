@@ -290,7 +290,7 @@ KGE(sim=sim, obs=obs, method="2021")
 NSE(sim=sim, obs=obs)
 
 # Weighted seasonal Nash-Sutcliffe efficiency (Zambrano-Bigiarini and Bellin, 2012):
-wsNSE(sim=sim, obs=obs)
+wsNSE(sim=sim, obs=obs, lambda=0.05, j=1/2)
 
 # Refined Index of Agreement (Willmott et al., 2012):
 dr(sim=sim, obs=obs)

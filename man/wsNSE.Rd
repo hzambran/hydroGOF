@@ -174,9 +174,6 @@ wsNSE(sim=sim, obs=obs)
 # APFB (Mizukami et al., 2019):
 APFB(sim=sim, obs=obs)
 
-# KGElf (Garcia et al., 2017):
-KGElf(sim=sim, obs=obs)
-
 
 ##################
 # Example 2: Looking at the difference between 'KGE', 'NSE', 'wsNSE',
@@ -202,7 +199,7 @@ KGE(sim=sim, obs=obs)
 NSE(sim=sim, obs=obs)
 
 # Weighted seasonal Nash-Sutcliffe efficiency (Zambrano-Bigiarini and Bellin, 2012):
-wsNSE(sim=sim, obs=obs)
+wsNSE(sim=sim, obs=obs, lambda=0.05, j=1/2)
 
 # Refined Index of Agreement (Willmott et al., 2012):
 dr(sim=sim, obs=obs)
@@ -212,9 +209,6 @@ rd(sim=sim, obs=obs)
 
 # Modified Index of Agreement (Krause et al., 2005):
 md(sim=sim, obs=obs)
-
-# Annual Peak Flow Bias (Mizukami et al., 2019):
-APFB(sim=sim, obs=obs)
 
 # KGElf (Garcia et al., 2017):
 KGElf(sim=sim, obs=obs)
