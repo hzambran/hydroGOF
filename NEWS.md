@@ -15,10 +15,9 @@ NEWS/ChangeLog for hydroGOF
                    -) the argument 'start-month' now is working. It fix the error "Error in .shiftyears(dates.obs, start.month) : object 'syears' not found".
 
 ## Other minor changes
+        o 'ggof'     : default values for 'lQ.thr' and 'hQ.thr' arguments were changed from 0.7 and 0.2, respectively  to 'lQ.thr=0.6' and 'hQ.thr==0.1'
+        o 'pbiasfdc' : default values for 'lQ.thr' and 'hQ.thr' arguments were changed from 0.7 and 0.2, respectively  to 'lQ.thr=0.6' and 'hQ.thr==0.1'
         o References in most functions have been revised and improved.
-
-
-
 
 
 --------------------------
