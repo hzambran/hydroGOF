@@ -111,6 +111,26 @@ Valid values of \code{epsilon.type} are:
 }
 }
 \details{
+In the computation of this index, there are three main components involved: 
+
+1) \kbd{r}    : the Pearson product-moment correlation coefficient. Ideal value is r=1.
+
+2) \kbd{Beta} : the ratio between the mean of the simulated values and the mean of the observed ones. Ideal value is Beta=1.
+
+3) \kbd{vr}   : variability ratio, which could be computed using the standard deviation (\kbd{Alpha}) or the coefficient of variation (\kbd{Gamma}) of \code{sim} and \code{obs}, depending on the value of \code{method}:
+
+
+  3.1) \kbd{Alpha}: the ratio between the standard deviation of the simulated values and the standard deviation of the observed ones. Its ideal value is \kbd{Alpha=1}.
+
+  3.2) \kbd{Gamma}: the ratio between the coefficient of variation (\kbd{CV}) of the simulated values to the coefficient of variation of the observed ones. Its ideal value is \kbd{Gamma=1}.
+
+For a full discussion of the Kling-Gupta index, and its advantages over the Nash-Sutcliffe efficiency (\code{\link{NSE}}) see Gupta et al. (2009).
+
+
+Kling-Gupta efficiencies range from -Inf to 1. Essentially, the closer to 1, the more similar \code{sim} and \code{obs} are. 
+
+Knoben et al. (2019) showed that KGE values greater than -0.41 indicate that a model improves upon the mean flow benchmark, even if the model's KGE value is negative.
+
 \deqn{KGE = 1 - ED}
 \deqn{ ED =  \sqrt{ (s[1]*(r-1))^2 +(s[2]*(vr-1))^2 + (s[3]*(\beta-1))^2 } }{%
 KGE = 1 - sqrt[ (s[1]*(r-1))^2 + (s[2]*(vr-1))^2 + (s[3]*(Beta-1))^2] 
@@ -143,33 +163,6 @@ numeric with the Kling-Gupta efficiency. If \code{sim} and \code{obs} are matric
 \item{KGE.elements}{
 numeric with 3 elements: the Pearson product-moment correlation coefficient (\sQuote{r}), the ratio between the mean of the simulated values to the mean of observations (\sQuote{Beta}), and the variability measure (\sQuote{Gamma} or \sQuote{Alpha}, depending on the value of \code{method}). If \code{sim} and \code{obs} are matrices, the output value is a matrix, with the previous three elements computed for each column of \code{sim} and \code{obs}\cr  
 }
-}
-
-\details{
-In the computation of this index, there are three main components involved: 
-
-1) \kbd{r}    : the Pearson product-moment correlation coefficient. Ideal value is r=1.
-
-2) \kbd{Beta} : the ratio between the mean of the simulated values and the mean of the observed ones. Ideal value is Beta=1.
-
-3) \kbd{vr}   : variability ratio, which could be computed using the standard deviation (\kbd{Alpha}) or the coefficient of variation (\kbd{Gamma}) of \code{sim} and \code{obs}, depending on the value of \code{method}:
-
-
-  3.1) \kbd{Alpha}: the ratio between the standard deviation of the simulated values and the standard deviation of the observed ones. Its ideal value is \kbd{Alpha=1}.
-
-  3.2) \kbd{Gamma}: the ratio between the coefficient of variation (\kbd{CV}) of the simulated values to the coefficient of variation of the observed ones. Its ideal value is \kbd{Gamma=1}.
-
-For a full discussion of the Kling-Gupta index, and its advantages over the Nash-Sutcliffe efficiency (\code{\link{NSE}}) see Gupta et al. (2009).
-
-
-Kling-Gupta efficiencies range from -Inf to 1. Essentially, the closer to 1, the more similar \code{sim} and \code{obs} are. 
-
-Knoben et al. (2019) showed that KGE values greater than -0.41 indicate that a model improves upon the mean flow benchmark, even if the model's KGE value is negative.
-}
-\value{
-numeric with the Kling-Gupta efficiency for low flows between \code{sim} and \code{obs}. 
-
-If \code{sim} and \code{obs} are matrices, the output value is a vector, with the Kling-Gupta efficiency between each column of \code{sim} and \code{obs}
 }
 \references{
 \cite{Gupta, H.V.; Kling, H.; Yilmaz, K.K.; Martinez, G.F. (2009). Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological modelling. Journal of hydrology, 377(1-2), 80-91. doi:10.1016/j.jhydrol.2009.08.003. ISSN 0022-1694.}

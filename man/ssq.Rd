@@ -90,7 +90,7 @@ Sum of the squared residuals between \code{sim} and \code{obs}. \cr
 If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the SSR between each column of \code{sim} and \code{obs}.
 }
 \references{
-\cite{Willmott, C.J.; Matsuura, K.; Robeson, S.M. (2009). Ambiguities inherent in sums-of-squares-based error statistics, Atmospheric Environment, 43, 749–752, doi:10.1016/j.atmosenv.2008.10.005.}
+\cite{Willmott, C.J.; Matsuura, K.; Robeson, S.M. (2009). Ambiguities inherent in sums-of-squares-based error statistics, Atmospheric Environment, 43, 749-752, doi:10.1016/j.atmosenv.2008.10.005.}
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
