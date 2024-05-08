@@ -182,7 +182,7 @@ Quantitative statistics included in this package are:
 
 * Willmott, C.J.; Ackleson, S.G. Davis, R.E.; Feddema, J.J.; Klink, K.M.; Legates, D.R.; O'Donnell, J.; Rowe, C.M. (1985), [Statistics for the Evaluation and Comparison of Models](https://doi.org/10.1029/JC090iC05p08995), J. Geophys. Res., 90(C5), 8995-9005. doi:10.1029/JC090iC05p08995. 
 
-* Willmott, C.J.; Matsuura, K. (2005). [(https://doi.org/)Advantages of the mean absolute error (MAE) over the root mean square error (RMSE) in assessing average model performance](https://doi.org/10.3354/cr030079), Climate Research, 30, 79-82, doi:10.3354/cr030079. 
+* Willmott, C.J.; Matsuura, K. (2005). [Advantages of the mean absolute error (MAE) over the root mean square error (RMSE) in assessing average model performance](https://doi.org/10.3354/cr030079), Climate Research, 30, 79-82, doi:10.3354/cr030079. 
 
 * Willmott, C.J.; Matsuura, K.; Robeson, S.M. (2009). [Ambiguities inherent in sums-of-squares-based error statistics](https://doi.org/10.1016/j.atmosenv.2008.10.005), Atmospheric Environment, 43, 749-752, doi:10.1016/j.atmosenv.2008.10.005. 
 
