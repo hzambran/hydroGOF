@@ -24,25 +24,25 @@ gof(sim, obs, ...)
 
 \method{gof}{default}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
         j=1, lambda=0.95, norm="sd", s=c(1,1,1), method=c("2009", "2012", "2021"), 
-        lQ.thr=0.7, hQ.thr=0.2, start.month=1, digits=2, fun=NULL, ...,
+        lQ.thr=0.6, hQ.thr=0.1, start.month=1, digits=2, fun=NULL, ...,
         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
         epsilon.value=NA)
 
 \method{gof}{matrix}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
         j=1, lambda=0.95, norm="sd", s=c(1,1,1), method=c("2009", "2012", "2021"),
-        lQ.thr=0.7, hQ.thr=0.2, start.month=1, digits=2, fun=NULL, ...,
+        lQ.thr=0.6, hQ.thr=0.1, start.month=1, digits=2, fun=NULL, ...,
         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
         epsilon.value=NA)
 
 \method{gof}{data.frame}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
         j=1, lambda=0.95, norm="sd", s=c(1,1,1), method=c("2009", "2012", "2021"),
-        lQ.thr=0.7, hQ.thr=0.2, start.month=1, digits=2, fun=NULL, ...,
+        lQ.thr=0.6, hQ.thr=0.1, start.month=1, digits=2, fun=NULL, ...,
         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
         epsilon.value=NA)
 
 \method{gof}{zoo}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
         j=1, lambda=0.95, norm="sd", s=c(1,1,1), method=c("2009", "2012", "2021"),
-        lQ.thr=0.7, hQ.thr=0.2, start.month=1, digits=2, fun=NULL, ...,
+        lQ.thr=0.6, hQ.thr=0.1, start.month=1, digits=2, fun=NULL, ...,
         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
         epsilon.value=NA)
 }

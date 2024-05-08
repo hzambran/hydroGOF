@@ -22,22 +22,22 @@ Percent Bias in the slope of the midsegment of the flow duration curve (FDC) [\%
 \usage{
 pbiasfdc(sim, obs, ...)
 
-\method{pbiasfdc}{default}(sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE, 
+\method{pbiasfdc}{default}(sim, obs, lQ.thr=0.6, hQ.thr=0.1, na.rm=TRUE, 
        plot=TRUE, verbose=FALSE, fun=NULL, ..., 
        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
        epsilon.value=NA)
 
-\method{pbiasfdc}{data.frame}(sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE, 
+\method{pbiasfdc}{data.frame}(sim, obs, lQ.thr=0.6, hQ.thr=0.1, na.rm=TRUE, 
         plot=TRUE, verbose=FALSE, fun=NULL, ..., 
         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
         epsilon.value=NA)
 
-\method{pbiasfdc}{matrix}(sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE, 
+\method{pbiasfdc}{matrix}(sim, obs, lQ.thr=0.6, hQ.thr=0.1, na.rm=TRUE, 
         plot=TRUE, verbose=FALSE, fun=NULL, ..., 
         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
         epsilon.value=NA)
        
-\method{pbiasfdc}{zoo}(sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE, 
+\method{pbiasfdc}{zoo}(sim, obs, lQ.thr=0.6, hQ.thr=0.1, na.rm=TRUE, 
         plot=TRUE, verbose=FALSE, fun=NULL, ..., 
         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
         epsilon.value=NA)
