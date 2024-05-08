@@ -17,7 +17,9 @@
 Sum of the Squared Residuals
 }
 \description{
-Sum of the Squared Residuals between \code{sim} and \code{obs}, with treatment of missing values. Its units are the squared measurement units of \code{sim} and \code{obs}.
+Sum of the Squared Residuals between \code{sim} and \code{obs}, with treatment of missing values. 
+
+Its units are the squared measurement units of \code{sim} and \code{obs}.
 }
 \usage{
 ssq(sim, obs, ...)
@@ -33,6 +35,7 @@ ssq(sim, obs, ...)
 \method{ssq}{matrix}(sim, obs, na.rm=TRUE, fun=NULL, ..., 
             epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
             epsilon.value=NA)
+
 \method{ssq}{zoo}(sim, obs, na.rm=TRUE, fun=NULL, ..., 
             epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
             epsilon.value=NA)
@@ -86,9 +89,9 @@ Sum of the squared residuals between \code{sim} and \code{obs}. \cr
 
 If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the SSR between each column of \code{sim} and \code{obs}.
 }
-%%\references{
-%% ~put references to the literature/web site here ~
-%%}
+\references{
+\cite{Willmott, C.J.; Matsuura, K.; Robeson, S.M. (2009). Ambiguities inherent in sums-of-squares-based error statistics, Atmospheric Environment, 43, 749–752, doi:10.1016/j.atmosenv.2008.10.005.}
+}
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 }

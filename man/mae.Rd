@@ -89,6 +89,12 @@ If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with 
 }
 \references{
 \url{https://en.wikipedia.org/wiki/Mean_absolute_error}
+
+\cite{Willmott, C.J.; Matsuura, K. (2005). Advantages of the mean absolute error (MAE) over the root mean square error (RMSE) in assessing average model performance, Climate Research, 30, 79-82, doi:10.3354/cr030079.}
+
+\cite{Chai, T.; Draxler, R.R. (2014). Root mean square error (RMSE) or mean absolute error (MAE)? - Arguments against avoiding RMSE in the literature, Geoscientific Model Development, 7, 1247–1250. doi:10.5194/gmd-7-1247-2014.}
+
+\cite{Hodson, T.O. (2022). Root-mean-square error (RMSE) or mean absolute error (MAE): when to use them or not, Geoscientific Model Development, 15, 5481–5487, doi:10.5194/gmd-15-5481-2022.}
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
