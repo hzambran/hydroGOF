@@ -14,46 +14,51 @@
 #          21-Jan-2011                                                         #
 #          08-May-2012                                                         #
 #          14-Jan-2023 ; 15-Jan-2023 ; 16-Jan-2023                             #
-#          19-Jan-2024 ; 20-Jan-2024 ; 23-Mar-2024                             #            #
+#          19-Jan-2024 ; 20-Jan-2024 ; 23-Mar-2024 ; 08-May-2024               #
 ################################################################################
 
 # It computes:
 
-# 1) 'me'         : Mean Error
-# 2) 'mae'        : Mean Absolute Error
-# 3) 'mse'        : Mean Square Error
-# 4) 'rmse'       : Root Mean Square Error
-# 5) 'ubRMSE'     : unbiased Root Mean Square Error
-# 6) 'nrms'       : Normalized Root Mean Square Error
-# 7) 'PBIAS'      : Percent Bias ( -1 <= PBIAS <= 1 )
-# 8) 'RSR'        : Ratio of the RMSE to the standard deviation of the observations
-# 9) 'rSD'        : Ratio of Standard Deviations, rSD = SD(sim) / SD(obs)
+#  1) 'me'        : Mean Error
+#  2) 'mae'       : Mean Absolute Error
+#  3) 'mse'       : Mean Square Error
+#  4) 'rmse'      : Root Mean Square Error
+#  5) 'ubRMSE     : unbiased Root Mean Square Error
+#  6) 'nrms'      : Normalized Root Mean Square Error
+#  7) 'PBIAS'     : Percent Bias ( -1 <= PBIAS <= 1 )
+#  8) 'RSR'       : Ratio of the RMSE to the standard deviation of the observations
+#  9) 'rSD'       : Ratio of Standard Deviations, rSD = SD(sim) / SD(obs)
 # 10) 'NSE'       : Nash-Sutcliffe Efficiency ( -Inf <= NSE <= 1 )
 # 11) 'mNSE'      : Modified Nash-Sutcliffe Efficiency
 # 12) 'rNSE'      : Relative Nash-Sutcliffe Efficiency
 # 13) 'wNSE'      : Weighted Nash-Sutcliffe Efficiency
-# 14) 'd'         : Index of Agreement( 0 <= d <= 1 )
-# 15) 'dr'        : Refined Index of Agreement( -1 <= dr <= 1 )
-# 16) 'md'        : Modified Index of Agreement( 0 <= md <= 1 )
-# 17) 'rd'        : Relative Index of Agreement( 0 <= rd <= 1 )
-# 18) 'cp'        : Coefficient of Persistence ( 0 <= cp <= 1 ) 
-# 19) 'r'         : Pearson Correlation coefficient ( -1 <= r <= 1 )
-# 20) 'R2'        : Coefficient of Determination ( 0 <= R2 <= 1 )
-# 21) 'bR2'       : Weighted coefficient of determination
-# 22) 'VE'        : Volumetric efficiency
-# 23) 'KGE'       : Kling-Gupta efficiency (-Inf < KGE <= 1)
-# 24) 'KGElf'     : Kling-Gupta efficiency with focus on low values (-Inf < KGElf <= 1)
-# 25) 'KGEnp'     : Non-parametric Kling-Gupta efficiency (-Inf < KGEnp <= 1)
-# 26) 'sKGE'      : Split Kling-Gupta efficiency (-Inf < sKGE <= 1)
-# 27) 'rSpearman' : Spearman correlation coefficient ( -1 <= r <= 1 ) 
-# 28) 'pbiasFDC'  : PBIAS in the slope of the midsegment of the Flow Duration Curve  ( 0 <= pbiasFDC ) 
+# 14) 'wsNSE'     : Weighted Seasonal Nash-Sutcliffe Efficiency ( -Inf <= wsNSE <= 1 )
+# 15) 'd'         : Index of Agreement( 0 <= d <= 1 )
+# 16) 'dr'        : Refined Index of Agreement( -1 <= dr <= 1 )
+# 17) 'md'        : Modified Index of Agreement( 0 <= md <= 1 )
+# 18) 'rd'        : Relative Index of Agreement( 0 <= rd <= 1 )
+# 29) 'cp'        : Coefficient of Persistence ( 0 <= cp <= 1 ) 
+# 20) 'r'         : Pearson Correlation coefficient ( -1 <= r <= 1 )
+# 21) 'R2'        : Coefficient of Determination ( 0 <= R2 <= 1 )
+# 22) 'bR2'       : Weighted coefficient of determination
+# 23) 'VE'        : Volumetric efficiency
+# 24) 'KGE'       : Kling-Gupta efficiency (-Inf < KGE <= 1)
+# 25) 'KGElf'     : Kling-Gupta efficiency with focus on low values (-Inf < KGElf <= 1)
+# 26) 'KGEnp'     : Non-parametric Kling-Gupta efficiency (-Inf < KGEnp <= 1)
+# 27) 'KGEkm'     : Knowable Moments Kling-Gupta efficiency (-Inf < KGEkm <= 1) 
+
+# 28) 'APFB'      : Annual Peak Flow Bias ( 0 <= APFB <= Inf )
+# 29) 'HFB'       : High Flow Bias ( 0 <= HFB <= Inf )
+# 30) 'sKGE'      : Split Kling-Gupta efficiency (-Inf < sKGE <= 1)
+# 31) 'rSpearman' : Spearman correlation coefficient ( -1 <= r <= 1 ) 
+# 32) 'pbiasFDC'  : PBIAS in the slope of the midsegment of the Flow Duration Curve  ( 0 <= pbiasFDC ) 
 
 gof <-function(sim, obs, ...) UseMethod("gof")
 
 gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
-                        j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), 
-                        lQ.thr=0.7, hQ.thr=0.2, start.month=1, 
-                        digits=2, fun=NULL, ...,
+                        j=1, lambda=0.95, norm="sd", s=c(1,1,1), 
+                        method=c("2009", "2012", "2021"), lQ.thr=0.7, hQ.thr=0.2, 
+                        start.month=1, digits=2, fun=NULL, ...,
                         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                         epsilon.value=NA){
 
@@ -86,6 +91,9 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
                     epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      wNSE   <- wNSE(sim, obs, na.rm=na.rm, fun=fun, ..., 
                     epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     wsNSE  <- wsNSE(sim, obs, na.rm=na.rm, j=j, lambda=lambda, 
+                     lQ.thr=lQ.thr, hQ.thr=hQ.thr, fun=fun, ..., 
+                     epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      d      <- d(sim, obs, na.rm=na.rm, fun=fun, ..., 
                  epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      dr     <- dr(sim, obs, na.rm=na.rm, fun=fun, ..., 
@@ -110,32 +118,62 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
                      epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      KGEnp  <- KGEnp(sim, obs, na.rm=na.rm, out.type="single", fun=fun, ..., 
                      epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
-                     
+     KGEkm  <- KGEkm(sim, obs, na.rm=na.rm, s=s, method=method, out.type="single", 
+                     fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+
+
      if ( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) {
        do.sKGE <- TRUE
        sKGE    <- sKGE(sim, obs, s=s, na.rm=na.rm, method=method, 
                        start.month=start.month, out.PerYear=FALSE, fun=fun, ..., 
                        epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
+
+       do.HFB <- TRUE
+       HFB    <- HFB(sim, obs, na.rm=na.rm, hQ.thr=hQ.thr, start.month=start.month, 
+                     out.PerYear=FALSE, fun=fun, ..., 
+                     epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+
+       do.APFB <- TRUE
+       APFB    <- APFB(sim, obs, na.rm=na.rm, start.month=start.month, 
+                       out.PerYear=FALSE, fun=fun, ..., 
+                       epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
      } else {
          do.sKGE <- FALSE
-         sKGE <- NA
+         do.HFB  <- FALSE
+         do.APFB <- FALSE
+         sKGE    <- NA
+         HFB     <- NA
+         APFB    <- NA
        } # ELSE end
        
      # Creating the basic output object
-     gof <- rbind(  ME,   MAE,   MSE,  RMSE, ubRMSE, 
-                 NRMSE, PBIAS,   RSR,   rSD,    NSE, 
-                  mNSE,  rNSE,  wNSE,     d,     dr,    
-                    md,    rd,    cp,     r,     R2, 
-                   bR2,    VE,   KGE, KGElf,  KGEnp)   
+     gof <- rbind(    ME,   MAE,   MSE,  RMSE, ubRMSE,  
+                   NRMSE, PBIAS,   RSR,   rSD,    NSE,   
+                    mNSE,  rNSE,  wNSE, wsNSE,      d,
+                      dr,    md,    rd,    cp,      r,    
+                      R2,   bR2,    VE,   KGE,  KGElf, 
+                   KGEnp, KGEkm)   
      
      # Changing names to NRMSE and PBIAS
      rownames(gof)[6] <- "NRMSE %"
      rownames(gof)[7] <- "PBIAS %"   
      
      # Adding Split KGE
-     if (do.sKGE) { # 'sKGE' is presented after 'KGElf'
+     if (do.sKGE) { # 'sKGE' is presented after 'KGEkm'
        gof <- rbind(gof, sKGE) 
        rownames(gof)[length(rownames(gof))] <- "sKGE"
+     } # IF end
+
+     # Adding APFB
+     if (do.APFB) { # 'APFB' is presented after 'sKGE'
+       gof <- rbind(gof, APFB) 
+       rownames(gof)[length(rownames(gof))] <- "APFB"
+     } # IF end
+
+     # Adding HFB
+     if (do.HFB) { # 'HFB' is presented after 'APFB'
+       gof <- rbind(gof, HFB) 
+       rownames(gof)[length(rownames(gof))] <- "HFB"
      } # IF end
 
      # Adding r.Spearman
@@ -172,12 +210,12 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
 #          21-Jan-2011                                                         #
 #          08-May-2012                                                         #
 #          15-Jan-2023                                                         #
-#          19-Jan-2024                                                         #
+#          19-Jan-2024 ; 08-May-2024                                           #
 ################################################################################
 gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
-                       j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), 
-                       lQ.thr=0.7, hQ.thr=0.2, start.month=1, 
-                       digits=2, fun=NULL, ...,
+                       j=1, lambda=0.95, norm="sd", s=c(1,1,1), 
+                       method=c("2009", "2012", "2021"), lQ.thr=0.7, hQ.thr=0.2, 
+                       start.month=1, digits=2, fun=NULL, ...,
                        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                        epsilon.value=NA){
     
@@ -196,12 +234,12 @@ gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
     # Computing the goodness-of-fit measures for each column of 'sim' and 'obs'      
     gof <- sapply(1:ncol(obs), function(i,x,y) { 
                  gof[, i] <- gof.default( x[,i], y[,i], na.rm=na.rm, 
-                                        do.spearman=do.spearman, do.pbfdc=do.pbfdc, 
-                                        j=j, norm=norm, s=s, method=method, 
-                                        lQ.thr=lQ.thr, hQ.thr=hQ.thr, 
-                                        digits=digits, fun=fun, ...,  
-                                        epsilon.type=epsilon.type, 
-                                        epsilon.value=epsilon.value)
+                                          do.spearman=do.spearman, do.pbfdc=do.pbfdc, 
+                                          j=j, lambda=lambda, norm=norm, s=s, 
+                                          method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr, 
+                                          start.month=start.month, digits=digits, fun=fun, ...,  
+                                          epsilon.type=epsilon.type, 
+                                          epsilon.value=epsilon.value)
             }, x=sim, y=obs )            
      
     rownames(gof) <- gofnames
@@ -221,12 +259,12 @@ gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
 #          21-Jan-2011                                                         #
 #          08-May-2012 ;                                                       #
 #          15-Jan-2023                                                         #
-#          19-Jan-2024                                                         #
+#          19-Jan-2024 ; 08-May-2024                                           #
 ################################################################################
 gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
-                           j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), 
-                           lQ.thr=0.7, hQ.thr=0.2, start.month=1, 
-                           digits=2, fun=NULL, ...,
+                           j=1, lambda=0.95, norm="sd", s=c(1,1,1), 
+                           method=c("2009", "2012", "2021"), lQ.thr=0.7, hQ.thr=0.2, 
+                           start.month=1, digits=2, fun=NULL, ...,
                            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                            epsilon.value=NA){ 
  
@@ -234,9 +272,11 @@ gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FAL
   obs <- as.matrix(obs)
    
   gof.matrix(sim, obs, na.rm=na.rm, do.spearman=do.spearman, do.pbfdc=do.pbfdc, 
-             j=j, norm=norm, s=s, method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr,
-             digits=digits, fun=fun, ...,  
-             epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+             j=j, lambda=lambda, norm=norm, s=s, 
+             method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr, 
+             start.month=start.month, digits=digits, fun=fun, ...,  
+             epsilon.type=epsilon.type, 
+             epsilon.value=epsilon.value)
      
 } # 'gof.data.frame' end 
 
@@ -247,12 +287,12 @@ gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FAL
 # Started: 05-Nov-2012                                                         #
 # Updates: 22-Mar-2013                                                         #
 #          15-Jan-2023                                                         #
-#          19-Jan-2024                                                         #
+#          19-Jan-2024 ; 08-May-2024                                           #
 ################################################################################
 gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
-                    j=1, norm="sd", s=c(1,1,1), method=c("2009", "2012"), 
-                    lQ.thr=0.7, hQ.thr=0.2, start.month=1, 
-                    digits=2, fun=NULL, ...,
+                    j=1, lambda=0.95, norm="sd", s=c(1,1,1), 
+                    method=c("2009", "2012", "2021"), lQ.thr=0.7, hQ.thr=0.2, 
+                    start.month=1, digits=2, fun=NULL, ...,
                     epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                     epsilon.value=NA){
     
@@ -260,15 +300,21 @@ gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
     #if (is.zoo(obs)) obs <- zoo::coredata(obs)
     
     if (is.matrix(sim) | is.data.frame(sim)) {
-       gof.matrix(sim, obs, na.rm=na.rm, do.spearman=do.spearman, do.pbfdc=do.pbfdc, 
-                  j=j, norm=norm, s=s, method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr,
-                  digits=digits, fun=fun, ...,  
-                  epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+       gof.matrix(sim, obs, na.rm=na.rm, 
+                  do.spearman=do.spearman, do.pbfdc=do.pbfdc, 
+                  j=j, lambda=lambda, norm=norm, s=s, 
+                  method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr, 
+                  start.month=start.month, digits=digits, fun=fun, ...,  
+                  epsilon.type=epsilon.type, 
+                  epsilon.value=epsilon.value)
     } else
-        NextMethod(sim, obs, na.rm=na.rm, do.spearman=do.spearman, do.pbfdc=do.pbfdc, 
-                   j=j, norm=norm, s=s, method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr,
-                   digits=digits, fun=fun, ...,  
-                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+        NextMethod(sim, obs, na.rm=na.rm, 
+                   do.spearman=do.spearman, do.pbfdc=do.pbfdc, 
+                   j=j, lambda=lambda, norm=norm, s=s, 
+                   method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr, 
+                   start.month=start.month, digits=digits, fun=fun, ...,  
+                   epsilon.type=epsilon.type, 
+                   epsilon.value=epsilon.value)
      
   } # 'gof.zoo' end
   

@@ -15,7 +15,7 @@
 #            17-Apr-2011                                                       # 
 #            15-Oct-2012                                                       #
 #            15-Apr-2013 ; 15-May-2013                                         #
-#            20-Jan-2024 ; 22-Mar-2024 ; 23-Mar-2024                           #                            #
+#            20-Jan-2024 ; 22-Mar-2024 ; 23-Mar-2024 ; 08-May-2024             #                            #
 ################################################################################     
                                           
       
@@ -80,17 +80,17 @@ ggof <- function (sim, obs,
      stop("Invalid argument: 'obs' and 'sim' must have the same length ! (", 
           length(obs), " vs ", length(sim), ")")
 
-  # Checking 'gofs'
-  gofs.all=c(   "ME",   "MAE",   "MSE",  "RMSE", "ubRMSE", 
-             "NRMSE", "PBIAS",   "RSR",   "rSD",    "NSE", 
-             "mNSE" ,  "rNSE",  "wNSE",     "d",     "dr", 
-                "md",    "rd",    "cp",     "r",     "R2", 
-               "bR2",    "VE",   "KGE", "KGElf",  "KGEnp",   
-              "sKGE")  # 'rSpearman' and 'pbiasFDC' are not computed
+  # Checking 'gofs'.  'rSpearman' and 'pbiasFDC' are not computed
+  gofs.all=c(   "ME",    "MAE",    "MSE",  "RMSE", "ubRMSE", 
+             "NRMSE",  "PBIAS",   "RSR",    "rSD",    "NSE",  
+             "mNSE" ,   "rNSE",  "wNSE",  "wsNSE",      "d",     
+                "dr",     "md",    "rd",     "cp",      "r",     
+                "R2",    "bR2",    "VE",    "KGE",  "KGElf",  
+             "KGEnp",  "KGEkm",  "sKGE",   "APFB",    "HFB")  
 
-  # Removing 'sKGE' when 'sim' and 'obs' are not zoo objects
+  # Removing 'sKGE', 'APFB' and 'HFB' when 'sim' and 'obs' are not zoo objects
   if ( !( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) )
-    gofs.all <- gofs.all[-26]
+    gofs.all <- gofs.all[ -c( (length(gofs.all)-2):(length(gofs.all)) ) ]
 
   # Checking 'gofs' 
   noNms.index <- which( !(gofs %in% gofs.all) )

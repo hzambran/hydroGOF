@@ -20,7 +20,7 @@
 #          15-Apr-2013 ; 15-May-2013                                           #
 #          06-Aug-2017                                                         #
 #          28-Dec-2022                                                         #
-#          22-Mar-2024 ; 23-Mar-204                                            #
+#          22-Mar-2024 ; 23-Mar-204 ; 08-May-2024                              #
 ################################################################################
                 
 plot2 <- function (x, y, 
@@ -40,9 +40,9 @@ plot2 <- function (x, y,
                    
                    gof.leg= FALSE, 
                    gof.digits=2, 
-                   gofs=c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", 
-                          "NSE", "mNSE", "rNSE", "d", "md", "rd", "r", "R2", 
-                          "bR2", "KGE", "VE"),
+                   gofs=c("ME" , "MAE" , "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", 
+                         "NSE", "mNSE", "rNSE",     "d",    "md",  "rd",   "r", 
+                         "R2",   "bR2", "KGE" ,    "VE"),
                    
                    legend,
                    leg.cex=1,                       
@@ -73,17 +73,17 @@ plot2 <- function (x, y,
   # Checking that the user provided 'y'
   if ( missing(y) ) stop("Missing argument: 'y'")
 
-   # Checking 'gofs'
-  gofs.all=c(   "ME",   "MAE",   "MSE",  "RMSE", "ubRMSE", 
-             "NRMSE", "PBIAS",   "RSR",   "rSD",    "NSE", 
-             "mNSE" ,  "rNSE",  "wNSE",     "d",     "dr", 
-                "md",    "rd",    "cp",     "r",     "R2", 
-               "bR2",    "VE",   "KGE", "KGElf",  "KGEnp",   
-              "sKGE")  # 'rSpearman' and 'pbiasFDC' are not computed
+  # Checking 'gofs'.  'rSpearman' and 'pbiasFDC' are not computed
+  gofs.all=c(   "ME",    "MAE",    "MSE",  "RMSE", "ubRMSE", 
+             "NRMSE",  "PBIAS",   "RSR",    "rSD",    "NSE",  
+             "mNSE" ,   "rNSE",  "wNSE",  "wsNSE",      "d",     
+                "dr",     "md",    "rd",     "cp",      "r",     
+                "R2",    "bR2",    "VE",    "KGE",  "KGElf",  
+             "KGEnp",  "KGEkm",  "sKGE",   "APFB",    "HFB")  
 
-  # Removing 'sKGE' when 'x' and 'y' are not zoo objects
+  # Removing 'sKGE', 'APFB' and 'HFB' when 'x' and 'y' are not zoo objects
   if ( !( zoo::is.zoo(x) & zoo::is.zoo(y) ) )
-    gofs.all <- gofs.all[-26]
+    gofs.all <- gofs.all[ -c( (length(gofs.all)-2):(length(gofs.all)) ) ]
 
   # Checking 'gofs' 
   noNms.index <- which( !(gofs %in% gofs.all) )
