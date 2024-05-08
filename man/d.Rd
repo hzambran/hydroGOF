@@ -94,13 +94,13 @@ Index of agreement between \code{sim} and \code{obs}. \cr
 If \code{sim} and \code{obs} are matrixes or data.frames, the returned value is a vector, with the index of agreement between each column of \code{sim} and \code{obs}.
 }
 \references{
-\cite{Willmott, C. J. 1981. On the validation of models. Physical Geography, 2, 184--194} \cr
+\cite{Willmott, C.J. (1981). On the validation of models. Physical Geography, 2, 184--194. doi:10.1080/02723646.1981.10642213.}
 
-\cite{Willmott, C. J. (1984). On the evaluation of model performance in physical geography. Spatial Statistics and Models, G. L. Gaile and C. J. Willmott, eds., 443-460} \cr
+\cite{Willmott, C.J. (1984). On the evaluation of model performance in physical geography. Spatial Statistics and Models, G. L. Gaile and C. J. Willmott, eds., 443-460. doi:10.1007/978-94-017-3048-8_23.}
 
-\cite{Willmott, C. J., S. G. Ackleson, R. E. Davis, J. J. Feddema, K. M. Klink, D. R. Legates, J. O'Donnell, and C. M. Rowe (1985), Statistics for the Evaluation and Comparison of Models, J. Geophys. Res., 90(C5), 8995-9005} \cr
+\cite{Willmott, C.J.; Ackleson, S.G. Davis, R.E.; Feddema, J.J.; Klink, K.M.; Legates, D.R.; O'Donnell, J.; Rowe, C.M. (1985), Statistics for the Evaluation and Comparison of Models, J. Geophys. Res., 90(C5), 8995-9005. doi:10.1029/JC090iC05p08995.}
 
-\cite{Legates, D. R. and G. J. McCabe Jr. (1999), Evaluating the Use of "Goodness-of-Fit" Measures in Hydrologic and Hydroclimatic Model Validation, Water Resources Research, 35(1), 233-241. doi:10.1029/1998WR900018}
+\cite{Legates, D.R.; McCabe, G. J. Jr. (1999), Evaluating the Use of "Goodness-of-Fit" Measures in Hydrologic and Hydroclimatic Model Validation, Water Resour. Res., 35(1), 233-241. doi:10.1029/1998WR900018.} 
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>

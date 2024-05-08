@@ -24,19 +24,19 @@ This goodness-of-fit measure was developed by Garcia et al. (2017), as a modific
 \usage{
 KGElf(sim, obs, ...)
 
-\method{KGElf}{default}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
+\method{KGElf}{default}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012", "2021"), 
                epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
                epsilon.value=NA, ...)
 
-\method{KGElf}{data.frame}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
+\method{KGElf}{data.frame}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012", "2021"), 
                epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
                epsilon.value=NA, ...)
 
-\method{KGElf}{matrix}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
+\method{KGElf}{matrix}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012", "2021"), 
                epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
                epsilon.value=NA, ...)
              
-\method{KGElf}{zoo}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"), 
+\method{KGElf}{zoo}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012", "2021"), 
                epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
                epsilon.value=NA, ...)
 }
@@ -62,6 +62,8 @@ character, indicating the formula used to compute the variability ratio in the K
 -) \kbd{2009}: the variability is defined as \sQuote{Alpha}, the ratio of the standard deviation of \code{sim} values to the standard deviation of \code{obs}. This is the default option. See Gupta et al. (2009).
 
 -) \kbd{2012}: the variability is defined as \sQuote{Gamma}, the ratio of the coefficient of variation of \code{sim} values to the coefficient of variation of \code{obs}. See Kling et al. (2012). 
+
+-) \kbd{2021}: the bias is defined as \sQuote{Beta}, the ratio of \code{mean(sim)} minus \code{mean(obs)} to the standard deviation of \code{obs}. The variability is defined as \sQuote{Alpha}, the ratio of the standard deviation of \code{sim} values to the standard deviation of \code{obs}. See Tang et al. (2021). 
 }
   \item{epsilon.type}{
 argument used to define a numeric value to be added to both \code{sim} and \code{obs} before applying \code{fun}. 

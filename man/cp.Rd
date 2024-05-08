@@ -96,9 +96,9 @@ Coefficient of persistence between \code{sim} and \code{obs}. \cr
 If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the coefficient of persistence between each column of \code{sim} and \code{obs}.
 }
 \references{
-\cite{Kitanidis, P.K., and Bras, R.L. 1980. Real-time forecasting with a conceptual hydrologic model. 2. Applications and results. Water Resources Research, Vol. 16, No. 6, pp. 1034:1044} \cr
+\cite{Kitanidis, P.K.; Bras, R.L. (1980). Real-time forecasting with a conceptual hydrologic model. 2. Applications and results. Water Resources Research, Vol. 16, No. 6, pp. 1034:1044. doi:10.1029/WR016i006p01034.} \cr
 
-\cite{Moriasi, D. N. et al. (2007). Model Evaluation Guidelines for Systematic Quantification of Accuracy in Watershed Simulations. Transactions of the ASABE, 50:(3), 885-900}
+\cite{Moriasi, D.N.; Arnold, J.G.; van Liew, M.W.; Bingner, R.L.; Harmel, R.D.; Veith, T.L. (2007). Model evaluation guidelines for systematic quantification of accuracy in watershed simulations. Transactions of the ASABE. 50(3):885-900.}
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>

@@ -24,22 +24,22 @@ This goodness-of-fit measure was developed by Fowler et al. (2018), as a modific
 \usage{
 sKGE(sim, obs, ...)
 
-\method{sKGE}{default}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"),
+\method{sKGE}{default}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012", "2021"),
               start.month=1, out.PerYear=FALSE, fun=NULL, ...,
               epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
               epsilon.value=NA)
 
-\method{sKGE}{data.frame}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"),
+\method{sKGE}{data.frame}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012", "2021"),
               start.month=1, out.PerYear=FALSE, fun=NULL, ...,
               epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
               epsilon.value=NA)
 
-\method{sKGE}{matrix}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"),
+\method{sKGE}{matrix}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012", "2021"),
               start.month=1, out.PerYear=FALSE, fun=NULL, ...,
               epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
               epsilon.value=NA)
              
-\method{sKGE}{zoo}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012"),
+\method{sKGE}{zoo}(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012", "2021"),
               start.month=1, out.PerYear=FALSE, fun=NULL, ...,
               epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
               epsilon.value=NA)
@@ -66,6 +66,8 @@ character, indicating the formula used to compute the variability ratio in the K
 -) \kbd{2009}: the variability is defined as \sQuote{Alpha}, the ratio of the standard deviation of \code{sim} values to the standard deviation of \code{obs}. This is the default option. See Gupta et al. (2009).
 
 -) \kbd{2012}: the variability is defined as \sQuote{Gamma}, the ratio of the coefficient of variation of \code{sim} values to the coefficient of variation of \code{obs}. See Kling et al. (2012). 
+
+-) \kbd{2021}: the bias is defined as \sQuote{Beta}, the ratio of \code{mean(sim)} minus \code{mean(obs)} to the standard deviation of \code{obs}. The variability is defined as \sQuote{Alpha}, the ratio of the standard deviation of \code{sim} values to the standard deviation of \code{obs}. See Tang et al. (2021). 
 }
   \item{start.month}{
 [OPTIONAL]. Only used when the (hydrological) year of interest is different from the calendar year.
@@ -136,7 +138,7 @@ numeric with the Kling-Gupta efficincies obtained for the individual years in \c
 
 \cite{Santos, L.; Thirel, G.; Perrin, C. (2018). Pitfalls in using log-transformed flows within the sKGE criterion. doi:10.5194/hess-22-4583-2018}
 
-\cite{Knoben, W. J.; Freer, J. E.; Woods, R. A. (2019). Inherent benchmark or not? Comparing Nash-Sutcliffe and Kling-Gupta efficiency scores. Hydrology and Earth System Sciences, 23(10), 4323-4331. doi:10.5194/hess-23-4323-2019.}
+\cite{Knoben, W.J.; Freer, J.E.; Woods, R.A. (2019). Inherent benchmark or not? Comparing Nash-Sutcliffe and Kling-Gupta efficiency scores. Hydrology and Earth System Sciences, 23(10), 4323-4331. doi:10.5194/hess-23-4323-2019.}
 }
 \author{
 Mauricio Zambrano-Bigiarini <mzb.devel@gmail.com>

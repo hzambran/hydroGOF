@@ -63,6 +63,8 @@ numeric, representing an arbitrary value used to power the differences between o
 numeric in [0, 1] representing the weight given to the high observed values. The closer the \code{lambda=1} value is to 1, the higher the weight given to high values. On the contrary, the closer the \code{lambda=1} value is to 0, the higher the weight given to low values.
 
 Low values get a weight equal to \code{1-lambda}. Between high and low values there is a linear transition from \code{lambda} to \code{1-lambda}, respectively.
+
+Suggested values for lambda are \code{lambda=0.95} when focusing in high (streamflow) values and \code{lambda=0.05} when focusing in low (streamflow) values.
 }
   \item{lQ.thr}{
 numeric, representing the non-exceedence probabiliy used to identify low flows in \code{obs}. All values in \code{obs} that are equal or lower than \code{quantile(obs, probs=(1-lQ.thr))} are considered as low values. By default \code{lQ.thr=0.6}. 
@@ -123,9 +125,9 @@ numeric with the the weighted seasonal Nash-Sutcliffe Efficiency (wsNSE) between
 
 \cite{Yilmaz, K. K.; Gupta, H. V.; Wagener, T. (2008), A process-based diagnostic approach to model evaluation: Application to the NWS distributed hydrologic model, Water Resources Research, 44, W09417, doi:10.1029/2007WR006716.}
 
-\cite{Krause, P.; Boyle, D. P.; Base, F. (2005). Comparison of different efficiency criteria for hydrological model assessment. Adv. Geosci., 5, 89-97. doi:10.5194/adgeo-5-89-2005.}
+\cite{Krause, P.; Boyle, D.P.; Base, F. (2005). Comparison of different efficiency criteria for hydrological model assessment, Advances in Geosciences, 5, 89-97. doi:10.5194/adgeo-5-89-2005.} \cr
 
-\cite{Legates, D. R.; G. J. McCabe Jr. (1999), Evaluating the Use of "Goodness-of-Fit" Measures in Hydrologic and Hydroclimatic Model Validation. Water Resources Research, 35(1), 233-241. doi:10.1029/1998WR900018.}
+\cite{Legates, D.R.; McCabe, G. J. Jr. (1999), Evaluating the Use of "Goodness-of-Fit" Measures in Hydrologic and Hydroclimatic Model Validation, Water Resour. Res., 35(1), 233-241. doi:10.1029/1998WR900018.} 
 }
 \author{
 Mauricio Zambrano-Bigiarini <mzb.devel@gmail.com>

@@ -96,9 +96,9 @@ Unbiased Root mean square error (ubRMSE) between \code{sim} and \code{obs}. \cr
 If \code{sim} and \code{obs} are matrixes or data.frames, the returned value is a vector, with the ubRMSE between each column of \code{sim} and \code{obs}.
 }
 \references{
-\cite{Entekhabi, D., Reichle, R. H., Koster, R. D., & Crow, W. T. (2010). Performance metrics for soil moisture retrievals and application requirements. Journal of Hydrometeorology, 11(3), 832-840. doi: 10.1175/2010JHM1223.1} \cr
+\cite{Entekhabi, D.; Reichle, R.H.; Koster, R.D.; Crow, W.T. (2010). Performance metrics for soil moisture retrievals and application requirements. Journal of Hydrometeorology, 11(3), 832-840. doi: 10.1175/2010JHM1223.1.}
 
-\cite{Ling, X., Huang, Y., Guo, W., Wang, Y., Chen, C., Qiu, B., Ge, J., Qin, K., Xue, Y., Peng, J. (2021). Comprehensive evaluation of satellite-based and reanalysis soil moisture products using in situ observations over China. Hydrology and Earth System Sciences, 25(7), 4209-4229. doi:10.5194/hess-25-4209-2021} \cr
+\cite{Ling, X.; Huang, Y.; Guo, W.; Wang, Y.; Chen, C.; Qiu, B.; Ge, J.; Qin, K.; Xue, Y.; Peng, J. (2021). Comprehensive evaluation of satellite-based and reanalysis soil moisture products using in situ observations over China. Hydrology and Earth System Sciences, 25(7), 4209-4229. doi:10.5194/hess-25-4209-2021.}
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>

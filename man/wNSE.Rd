@@ -91,13 +91,13 @@ Weighted Nash-Sutcliffe efficiency between \code{sim} and \code{obs}. \cr
 If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the relative Nash-Sutcliffe efficiency between each column of \code{sim} and \code{obs}.
 }
 \references{
-\cite{Nash, J.E. and J.V. Sutcliffe, River flow forecasting through conceptual models. Part 1: A discussion of principles, J. Hydrol. 10 (1970), pp. 282-290. doi:10.1016/0022-1694(70)90255-6} \cr
+\cite{Nash, J.E. and J.V. Sutcliffe, River flow forecasting through conceptual models. Part 1: A discussion of principles, J. Hydrol. 10 (1970), pp. 282-290. doi:10.1016/0022-1694(70)90255-6.} \cr
 
-\cite{Hundecha, Y., Bardossy, A. (2004). Modeling of the effect of land use changes on the runoff generation of a river basin through parameter regionalization of a watershed model. Journal of hydrology, 292(1-4), 281-295. doi:10.1016/j.jhydrol.2004.01.002} \cr
+\cite{Hundecha, Y., Bardossy, A. (2004). Modeling of the effect of land use changes on the runoff generation of a river basin through parameter regionalization of a watershed model. Journal of hydrology, 292(1-4), 281-295. doi:10.1016/j.jhydrol.2004.01.002.}
 
-\cite{Hundecha, Y., Ouarda, T. B., Bardossy, A. (2008). Regional estimation of parameters of a rainfall-runoff model at ungauged watersheds using the 'spatial' structures of the parameters within a canonical physiographic-climatic space. Water Resources Research, 44(1). doi:10.1029/2006WR005439} \cr
+\cite{Hundecha, Y., Ouarda, T. B., Bardossy, A. (2008). Regional estimation of parameters of a rainfall-runoff model at ungauged watersheds using the 'spatial' structures of the parameters within a canonical physiographic-climatic space. Water Resources Research, 44(1). doi:10.1029/2006WR005439.}
 
-\cite{Hundecha, Y. and Merz, B. (2012), Exploring the Relationship between Changes in Climate and Floods Using a Model-Based Analysis, Water Resour. Res., 48(4), 1-21, doi:10.1029/2011WR010527}. 
+\cite{Hundecha, Y. and Merz, B. (2012), Exploring the Relationship between Changes in Climate and Floods Using a Model-Based Analysis, Water Resour. Res., 48(4), 1-21, doi:10.1029/2011WR010527.}.
 }
 \author{
 sluedtke (github user)

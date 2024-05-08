@@ -91,8 +91,7 @@ Volumetric efficiency between \code{sim} and \code{obs}. \cr
 If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the Volumetric efficiency between each column of \code{sim} and \code{obs}.
 }
 \references{
-\cite{Criss, R. E. and Winston, W. E. (2008), Do Nash values have value? Discussion and alternate proposals. Hydrological Processes, 22: 2723-2725. doi: 10.1002/hyp.7072}
-
+\cite{Criss, R.E.; Winston, W.E. (2008), Do Nash values have value? Discussion and alternate proposals. Hydrological Processes, 22: 2723-2725. doi:10.1002/hyp.7072. }
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>

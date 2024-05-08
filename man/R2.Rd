@@ -95,11 +95,11 @@ If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with 
 \references{
 \url{https://en.wikipedia.org/wiki/Coefficient_of_determination}
 
-\cite{Box, G. E. (1966). Use and abuse of regression. Technometrics, 8(4), 625-629. doi:10.1080/00401706.1966.10490407}
+\cite{Box, G.E. (1966). Use and abuse of regression. Technometrics, 8(4), 625-629. doi:10.1080/00401706.1966.10490407.}
 
-\cite{Hahn, G. J. (1973). The coefficient of determination exposed. Chemtech, 3(10), 609-612. Aailable online at: \url{https://www2.hawaii.edu/~cbaajwe/Ph.D.Seminar/Hahn1973.pdf}.}
+\cite{Hahn, G.J. (1973). The coefficient of determination exposed. Chemtech, 3(10), 609-612. Aailable online at: \url{https://www2.hawaii.edu/~cbaajwe/Ph.D.Seminar/Hahn1973.pdf}.}
 
-\cite{Barrett, J. P. (1974). The coefficient of determination-some limitations. The American Statistician, 28(1), 19-20. doi:10.1080/00031305.1974.10479056}.
+\cite{Barrett, J.P. (1974). The coefficient of determination-some limitations. The American Statistician, 28(1), 19-20. doi:10.1080/00031305.1974.10479056.}
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>

@@ -17,7 +17,7 @@
 Kling-Gupta Efficiency with knowable-moments
 }
 \description{
-Kling-Gupta efficiency between \code{sim} and \code{obs}, with use of knowable-moments and treatment of missing values.
+Kling-Gupta efficiency between \code{sim} and \code{obs}, with use of knowable moments and treatment of missing values.
 
 This goodness-of-fit measure was developed by Pizarro and Jorquera (2024), as a modification to the original Kling-Gupta efficiency (KGE) proposed by Gupta et al. (2009). See Details.
 }
@@ -168,7 +168,7 @@ numeric with 3 elements: the Pearson product-moment correlation coefficient (\sQ
 
 \cite{Santos, L.; Thirel, G.; Perrin, C. (2018). Pitfalls in using log-transformed flows within the KGEkm criterion. doi:10.5194/hess-22-4583-2018.}
 
-\cite{Knoben, W. J.; Freer, J. E.; Woods, R. A. (2019). Inherent benchmark or not? Comparing Nash-Sutcliffe and Kling-Gupta efficiency scores. Hydrology and Earth System Sciences, 23(10), 4323-4331. doi:10.5194/hess-23-4323-2019.}
+\cite{Knoben, W.J.; Freer, J.E.; Woods, R.A. (2019). Inherent benchmark or not? Comparing Nash-Sutcliffe and Kling-Gupta efficiency scores. Hydrology and Earth System Sciences, 23(10), 4323-4331. doi:10.5194/hess-23-4323-2019.}
 
 \cite{Cinkus, G., Mazzilli, N., Jourde, H., Wunsch, A., Liesch, T., Ravbar, N., Chen, Z., and Goldscheider, N. (2023). When best is the enemy of good - critical evaluation of performance criteria in hydrological models. Hydrology and Earth System Sciences 27, 2397-2411, doi:10.5194/hess-27-2397-2023}
 }

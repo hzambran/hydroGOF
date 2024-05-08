@@ -98,9 +98,9 @@ If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with 
 \references{
 \url{https://en.wikipedia.org/wiki/Pearson_correlation_coefficient}
 
-\cite{Pearson, K. (1920). Notes on the history of correlation. Biometrika, 13(1), 25-45. doi:10.2307/2331722}
+\cite{Pearson, K. (1920). Notes on the history of correlation. Biometrika, 13(1), 25-45. doi:10.2307/2331722.}
 
-\cite{Schober, P., Boer, C., Schwarte, L. A. (2018). Correlation coefficients: appropriate use and interpretation. Anesthesia and Analgesia, 126(5), 1763-1768. doi:10.1213/ANE.0000000000002864}
+\cite{Schober, P.; Boer, C.; Schwarte, L.A. (2018). Correlation coefficients: appropriate use and interpretation. Anesthesia and Analgesia, 126(5), 1763-1768. doi:10.1213/ANE.0000000000002864.}
 }
 \author{
 Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
