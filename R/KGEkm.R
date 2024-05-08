@@ -6,7 +6,7 @@
 # Distributed under GPL 2 or later
 
 ################################################################################
-# 'KGEkm': Kling-Gupta Efficiency with Knowable-moments                        #
+# 'KGEkm': Kling-Gupta Efficiency with knowable-moments                        #
 ################################################################################
 # Author : Mauricio Zambrano-Bigiarini                                         #
 ################################################################################
@@ -21,19 +21,19 @@
 # accuracy. Journal of Hydrology, 634, 131071. doi:10.1016/j.jhydrol.2024.131071
 
 # Ref2:
+# Kling, H., M. Fuchs, and M. Paulin (2012), Runoff conditions in the upper
+# Danube basin under an ensemble of climate change scenarios, 
+# Journal of Hydrology, Volumes 424-425, 6 March 2012, Pages 264-277, 
+# DOI:10.1016/j.jhydrol.2012.01.011.
+
+# Ref3:
 # Hoshin V. Gupta, Harald Kling, Koray K. Yilmaz, Guillermo F. Martinez, 
 # Decomposition of the mean squared error and NSE performance criteria: 
 # Implications for improving hydrological modelling, 
 # Journal of Hydrology, Volume 377, Issues 1-2, 20 October 2009, Pages 80-91, 
 # DOI: 10.1016/j.jhydrol.2009.08.003. ISSN 0022-1694, 
 
-# Ref3:
-# Kling, H., M. Fuchs, and M. Paulin (2012), Runoff conditions in the upper
-# Danube basin under an ensemble of climate change scenarios, 
-# Journal of Hydrology, Volumes 424-425, 6 March 2012, Pages 264-277, 
-# DOI:10.1016/j.jhydrol.2012.01.011.
-
-# Ref4: Tang, G., Clark, M. P., & Papalexiou, S. M. (2021).  
+# Ref4: Tang, G.; Clark, M. P.; Papalexiou, S. M. (2021).  
 # SC-earth: a station-based serially complete earth dataset from 1950 to 2019. 
 # Journal of Climate, 34(16), 6493-6511.
 # DOI: 10.1175/JCLI-D-21-0067.1.
