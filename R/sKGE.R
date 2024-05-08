@@ -13,7 +13,7 @@
 # Started: 12-Jul-2022                                                         #
 # Updates: 13-Jul-2022 ; 14-Jul-2022                                           #
 #          16-Jan-2023                                                         #
-#          06-May-2024                                                         # 
+#          06-May-2024 ; 08-May-2024                                           # 
 ################################################################################
 # The optimal value of sKGE is 1
 
@@ -27,7 +27,7 @@ sKGE <- function(sim, obs, ...) UseMethod("sKGE")
 
 # epsilon: By default it is set at one hundredth of the mean flow. See Pushpalatha et al. (2012)
 sKGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, 
-                         method=c("2009", "2012"),
+                         method=c("2009", "2012", "2021"),
                          start.month=1, out.PerYear=FALSE,
                          fun=NULL,
                          ...,
@@ -36,7 +36,7 @@ sKGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
                          ) { 
 
   lKGE <- function(i, lsim, lobs, s=c(1,1,1), na.rm=TRUE, 
-                   method=c("2009", "2012"), out.type="single",
+                   method=c("2009", "2012", "2021"), out.type="single",
                    fun1=NULL,
                    ...,
                    epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
@@ -137,10 +137,10 @@ sKGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
 # Started: 12-Jul-2022                                                         #
 # Updates: 14-Jul-2022                                                         #
 #          16-Jan-2023                                                         #
-#          06-May-2024                                                         #
+#          06-May-2024 ; 08-May-2024                                           # 
 ################################################################################
 sKGE.matrix <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, 
-                         method=c("2009", "2012"),
+                         method=c("2009", "2012", "2021"),
                          start.month=1, out.PerYear=FALSE, 
                          fun=NULL,
                          ...,
@@ -219,9 +219,10 @@ sKGE.matrix <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
 # Started: 12-Jul-2022                                                         #
 # Updates: 14-Jul-2022                                                         #
 #          16-Jan-2023                                                         #
+#          08-May-2024                                                         # 
 ################################################################################
 sKGE.data.frame <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, 
-                            method=c("2009", "2012"),
+                            method=c("2009", "2012", "2021"),
                             start.month=1, out.PerYear=FALSE,  
                             fun=NULL,
                             ...,
@@ -247,9 +248,10 @@ sKGE.data.frame <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
 # Started: 12-Jul-2022                                                         #
 # Updates: 14-Jul-2022                                                         #
 #          16-Jan-2023                                                         #
+#          08-May-2024                                                         # 
 ################################################################################
 sKGE.zoo <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, 
-                     method=c("2009", "2012"),
+                     method=c("2009", "2012", "2021"),
                      start.month=1, out.PerYear=FALSE,   
                      fun=NULL,
                      ...,

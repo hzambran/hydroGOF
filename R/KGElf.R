@@ -12,7 +12,8 @@
 ################################################################################
 # Started: 2017                                                                #
 # Updates: 07-Jul-2022 ; 11-Jul-2022 ;12-Jul-2022                              #
-# Updates: 15-Jan-2023 ; 16-Jan-2023                                           #              
+# Updates: 15-Jan-2023 ; 16-Jan-2023                                           #  
+#          08-May-2024                                                         #
 ################################################################################
 # The optimal value of KGElf is 1
 
@@ -30,7 +31,7 @@ KGElf <- function(sim, obs, ...) UseMethod("KGElf")
 
 # epsilon: By default it is set at one hundredth of the mean flow. See Pushpalatha et al. (2012)
 KGElf.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, 
-                          method=c("2009", "2012"), 
+                          method=c("2009", "2012", "2021"), 
                           epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
                           epsilon.value=NA, ...) { 
   
@@ -61,9 +62,10 @@ KGElf.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
 ################################################################################
 # Started: 12-Jul-2022                                                         #
 # Updates: 15-Jan-2023 ; 16-Jan-2023                                           #
+#          08-May-2024                                                         #
 ################################################################################
 KGElf.matrix <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, 
-                         method=c("2009", "2012"), 
+                         method=c("2009", "2012", "2021"), 
                          epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
                          epsilon.value=NA, ...) { 
 
@@ -107,9 +109,10 @@ KGElf.matrix <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
 ################################################################################
 # Started: 12-Jul-2022                                                         #
 # Updates: 15-Jan-2023 ; 16-Jan-2023                                           # 
+#          08-May-2024                                                         #
 ################################################################################
 KGElf.data.frame <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, 
-                             method=c("2009", "2012"), 
+                             method=c("2009", "2012", "2021"), 
                              epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
                              epsilon.value=NA, ...) { 
  
@@ -130,9 +133,10 @@ KGElf.data.frame <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
 ################################################################################
 # Started: 12-Jul-2022                                                         #
 # Updates: 15-Jan-2023 ; 16-Jan-2023                                           # 
+#          08-May-2024                                                         #
 ################################################################################
 KGElf.zoo <- function(sim, obs, s=c(1,1,1), na.rm=TRUE, 
-                      method=c("2009", "2012"), 
+                      method=c("2009", "2012", "2021"), 
                       epsilon.type=c("Pushpalatha2012", "otherFactor", "otherValue", "none"), 
                       epsilon.value=NA, ...) { 
     
