@@ -1,19 +1,21 @@
 NEWS/ChangeLog for hydroGOF
 
-# Changes in version 0.6-0  (under development)
+# Changes in version 0.6-0  08-May-2024
 
 ## New functions
-
         o 'APFB' : to compute the mean annual peak flow bias focused on high flows, proposed by Mizukami et al. (2017).
         o 'HFB'  : to compute the median annual high-flows bias focused on high flows, proposed by Zambrano-Bigiarini (2024).
         o 'wsNSE': to compute the weighted seasonal Nash-Sutcliffe Efficiency focused on high or low flows (depending an an argument value), proposed by Zambrano-Bigiarini and Bellin (2012).
         o 'KGEkm': to compute the knowable moments KGE, proposed by Pizarro and Jorquera (2024).
 
 ## Bug fixes
-        o 'ggof' : the GoF values are now correctly shown in the legend ('VE' position was changed before KGEs).
+        o 'ggof' : the GoF values are now correctly shown in the legend ('VE' position was changed before KGEs). Thanks to  @seyounger (#23)
         o 'plot2': the GoF values are now correctly shown in the legend.
         o 'sKGE' : -) output values are correctly shown when 'sim' and 'obs' are matrix/data.frame and out.PerYear=TRUE.
                    -) the argument 'start-month' now is working. It fix the error "Error in .shiftyears(dates.obs, start.month) : object 'syears' not found".
+
+## Other minor changes
+        o References in most functions have been revised and improved.
 
 
 
