@@ -14,6 +14,7 @@
 ################################################################################
 # Updates: 15-Apr-2013                                                         #
 #          16-Jan-2023                                                         #
+#          08-May-2024                                                         #
 ################################################################################
 # 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values
 # 'sim'   : numeric 'data.frame', 'matrix' or 'vector' with simulated values
@@ -32,7 +33,7 @@
 
 pbiasfdc <-function(sim, obs, ...) UseMethod("pbiasfdc")
 
-pbiasfdc.default <- function(sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE, 
+pbiasfdc.default <- function(sim, obs, lQ.thr=0.6, hQ.thr=0.1, na.rm=TRUE, 
                              plot=TRUE, verbose=FALSE, fun=NULL, ...,
                              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                              epsilon.value=NA){
@@ -110,8 +111,9 @@ pbiasfdc.default <- function(sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE,
 ################################################################################
 # Updates: 15-Apr-2013                                                         #
 #          16-Jan-2023                                                         #
+#          08-May-2024                                                         #
 ################################################################################
-pbiasfdc.matrix <- function(sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE, 
+pbiasfdc.matrix <- function(sim, obs, lQ.thr=0.6, hQ.thr=0.1, na.rm=TRUE, 
                             plot=TRUE, verbose=FALSE, fun=NULL, ...,
                             epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                             epsilon.value=NA){
@@ -147,8 +149,9 @@ pbiasfdc.matrix <- function(sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE,
 ################################################################################
 # Updates: 15-Apr-2013                                                         #
 #          16-Jan-2023                                                         #
+#          08-May-2024                                                         #
 ################################################################################
-pbiasfdc.data.frame <- function(sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE, 
+pbiasfdc.data.frame <- function(sim, obs, lQ.thr=0.6, hQ.thr=0.1, na.rm=TRUE, 
                                 plot=TRUE, verbose=FALSE, fun=NULL, ...,
                                 epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                                 epsilon.value=NA){ 
@@ -178,9 +181,9 @@ pbiasfdc.data.frame <- function(sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE,
 # Author: Mauricio Zambrano-Bigiarini                                          #
 ################################################################################
 # Started: 22-Mar-2013                                                         #
-# Updates:                                                                     #
+# Updates: 08-May-2024                                                         #
 ################################################################################
-pbiasfdc.zoo <- function(sim, obs, lQ.thr=0.7, hQ.thr=0.2, na.rm=TRUE, 
+pbiasfdc.zoo <- function(sim, obs, lQ.thr=0.6, hQ.thr=0.1, na.rm=TRUE, 
                          plot=TRUE, verbose=FALSE, fun=NULL, ...,
                          epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                          epsilon.value=NA){

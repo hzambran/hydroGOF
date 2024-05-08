@@ -57,7 +57,7 @@ gof <-function(sim, obs, ...) UseMethod("gof")
 
 gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
                         j=1, lambda=0.95, norm="sd", s=c(1,1,1), 
-                        method=c("2009", "2012", "2021"), lQ.thr=0.7, hQ.thr=0.2, 
+                        method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, 
                         start.month=1, digits=2, fun=NULL, ...,
                         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                         epsilon.value=NA){
@@ -214,7 +214,7 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
 ################################################################################
 gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
                        j=1, lambda=0.95, norm="sd", s=c(1,1,1), 
-                       method=c("2009", "2012", "2021"), lQ.thr=0.7, hQ.thr=0.2, 
+                       method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, 
                        start.month=1, digits=2, fun=NULL, ...,
                        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                        epsilon.value=NA){
@@ -263,7 +263,7 @@ gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
 ################################################################################
 gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
                            j=1, lambda=0.95, norm="sd", s=c(1,1,1), 
-                           method=c("2009", "2012", "2021"), lQ.thr=0.7, hQ.thr=0.2, 
+                           method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, 
                            start.month=1, digits=2, fun=NULL, ...,
                            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                            epsilon.value=NA){ 
@@ -291,7 +291,7 @@ gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FAL
 ################################################################################
 gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
                     j=1, lambda=0.95, norm="sd", s=c(1,1,1), 
-                    method=c("2009", "2012", "2021"), lQ.thr=0.7, hQ.thr=0.2, 
+                    method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, 
                     start.month=1, digits=2, fun=NULL, ...,
                     epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                     epsilon.value=NA){
