@@ -21,23 +21,33 @@
 ################################################################################
 # The optimal value of KGE is 1
 
+# This goodness-of-fit measure was developed by Gupta et al. (2009) to provide a 
+# diagnostically interesting decomposition of the Nash-Sutcliffe efficiency 
+# (and hence MSE), which facilitates the analysis of the relative importance of  
+# its different components (correlation, bias and variability) in the context of 
+# hydrological modelling. 
+
+# Kling et al. (2012) proposed a revised version of this index (KGE') to 
+# ensure that the bias and variability ratios are not cross-correlated.
+
+# Tang et al. (2021) proposed a revised version of this index to avoid the 
+# anomalously negative KGE' or KGE values when the mean value is close to zero.
+
 # Ref1:
-# Hoshin V. Gupta, Harald Kling, Koray K. Yilmaz, Guillermo F. Martinez, 
+# Gupta, H.V.; Kling, H.; Yilmaz, K.K.; Martinez, G.F. (2009).
 # Decomposition of the mean squared error and NSE performance criteria: 
 # Implications for improving hydrological modelling, 
 # Journal of Hydrology, Volume 377, Issues 1-2, 20 October 2009, Pages 80-91, 
 # DOI: 10.1016/j.jhydrol.2009.08.003. ISSN 0022-1694, 
 
 # Ref2:
-# Kling, H., M. Fuchs, and M. Paulin (2012), Runoff conditions in the upper
-# Danube basin under an ensemble of climate change scenarios, 
-# Journal of Hydrology, Volumes 424-425, 6 March 2012, Pages 264-277, 
-# DOI:10.1016/j.jhydrol.2012.01.011.
+# Kling, H.; Fuchs, M.; Paulin, M. (2012). Runoff conditions in the upper 
+# Danube basin under an ensemble of climate change scenarios. 
+# Journal of Hydrology, 424, 264-277. DOI:10.1016/j.jhydrol.2012.01.011.
 
 # Ref3: Tang, G., Clark, M. P., & Papalexiou, S. M. (2021).  
 # SC-earth: a station-based serially complete earth dataset from 1950 to 2019. 
-# Journal of Climate, 34(16), 6493-6511.
-# DOI: 10.1175/JCLI-D-21-0067.1.
+# Journal of Climate, 34(16), 6493-6511. DOI: 10.1175/JCLI-D-21-0067.1.
 
 
 # 'obs' : numeric 'data.frame', 'matrix' or 'vector' with observed values
