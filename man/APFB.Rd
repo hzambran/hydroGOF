@@ -146,7 +146,7 @@ NSE(sim=sim, obs=obs)
 # Weighted Nash-Sutcliffe efficiency (Hundecha and Bardossy, 2004)
 wNSE(sim=sim, obs=obs)
 
-# APFB (Garcia et al., 2017):
+# APFB (Mizukami et al., 2019):
 APFB(sim=sim, obs=obs)
 
 ##################
@@ -163,8 +163,8 @@ APFB(sim=sim, obs=obs)
 
 ##################
 # Example 3: APFB for simulated values created equal to the observed values and then 
-#            random noise is added only to high flows, i.e., those equal or higher than 
-#            the quantile 0.9 of the observed values.
+#            random noise is added only to high flows, i.e., those equal or higher 
+#            than the quantile 0.9 of the observed values.
 
 sim           <- obs
 hQ.thr        <- quantile(obs, probs=0.9, na.rm=TRUE)
@@ -177,8 +177,8 @@ APFB(sim=sim, obs=obs)
 
 ##################
 # Example 4: APFB for simulated values created equal to the observed values and then 
-#            random noise is added only to high flows, i.e., those equal or higher than 
-#            the quantile 0.9 of the observed values and applying (natural) 
+#            random noise is added only to high flows, i.e., those equal or higher  
+#            than the quantile 0.9 of the observed values and applying (natural) 
 #            logarithm to 'sim' and 'obs' during computations.
 
 APFB(sim=sim, obs=obs, fun=log)
@@ -191,8 +191,8 @@ APFB(sim=lsim, obs=lobs)
 
 ##################
 # Example 5: APFB for simulated values created equal to the observed values and then 
-#            random noise is added only to high flows, i.e., those equal or higher than 
-#            the quantile 0.9 of the observed values and applying a 
+#            random noise is added only to high flows, i.e., those equal or higher  
+#            than the quantile 0.9 of the observed values and applying a 
 #            user-defined function to 'sim' and 'obs' during computations
 
 fun1 <- function(x) {sqrt(x+1)}
