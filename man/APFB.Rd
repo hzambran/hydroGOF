@@ -2,7 +2,7 @@
 %% Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 %%                                 https://cran.r-project.org/package=hydroGOF
 %%                                 http://www.rforge.net/hydroGOF/
-%% Copyright 2024-2024 Mauricio Zambrano-Bigiarini
+%% Copyright 2024-2025 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or late
 
 \name{APFB}
@@ -24,22 +24,22 @@ This function was prposed by Mizukami et al. (2019) to identify differences in h
 \usage{
 APFB(sim, obs, ...)
 
-\method{APFB}{default}(sim, obs, na.rm=TRUE, start.month=1, out.PerYear=FALSE,
+\method{APFB}{default}(sim, obs, na.rm=TRUE, start.month=1, 
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
 
-\method{APFB}{data.frame}(sim, obs, na.rm=TRUE, start.month=1, out.PerYear=FALSE,
+\method{APFB}{data.frame}(sim, obs, na.rm=TRUE, start.month=1, 
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
 
-\method{APFB}{matrix}(sim, obs, na.rm=TRUE, start.month=1, out.PerYear=FALSE,
+\method{APFB}{matrix}(sim, obs, na.rm=TRUE, start.month=1,
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
              
-\method{APFB}{zoo}(sim, obs, na.rm=TRUE, start.month=1, out.PerYear=FALSE,
+\method{APFB}{zoo}(sim, obs, na.rm=TRUE, start.month=1, 
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
@@ -60,9 +60,6 @@ When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{s
 [OPTIONAL]. Only used when the (hydrological) year of interest is different from the calendar year.
 
 numeric in [1:12] indicating the starting month of the (hydrological) year. Numeric values in [1, 12] represent months in [January, December]. By default \code{start.month=1}.
-}
-  \item{out.PerYear}{
-logical, indicating whether the output of this function has to include the annual peak flow bias obtained for the individual years or not.
 }
   \item{fun}{
 function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing this goodness-of-fit index.
