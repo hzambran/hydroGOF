@@ -284,7 +284,7 @@ gof(sim=sim, obs=obs, fun=fun1, do.spearman=TRUE, do.pbfdc=TRUE)
 
 Loading observed streamflows of the Ega River (Spain), with daily data from 1961-Jan-01 up to 1970-Dec-31
 
-```{r }
+```{r LoadingEgaEnEstellaQts}
 require(zoo)
 data(EgaEnEstellaQts)
 obs <- EgaEnEstellaQts
@@ -292,25 +292,25 @@ obs <- EgaEnEstellaQts
 
 Generating a simulated daily time series, initially equal to the observed values (simulated values are usually read from the output files of the hydrological model)
 
-```{r }
+```{r SettingSim}
 sim <- obs 
 ```
 
 Computing the numeric goodness-of-fit measures for the "best" (unattainable) case
 
-```{r }
+```{r ComputingGOFs}
 gof(sim=sim, obs=obs)
 ```
 
 -  Randomly changing the first 1826 elements of 'sim' (half of the ts), by using a normal distribution with mean 10 and standard deviation equal to 1 (default of 'rnorm').
 
-```{r }
+```{r AddingNoiseToSim}
 sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
 ```
 
 Plotting the graphical comparison of 'obs' against 'sim', along with the numeric goodness-of-fit measures for the daily and monthly time series 
 
-```{r fig=TRUE, pdf=TRUE, eps=FALSE, fig.width=10, fig.height=7}
+```{r ComputingGGOF, fig=TRUE, pdf=TRUE, eps=FALSE, fig.width=10, fig.height=7}
 ggof(sim=sim, obs=obs, ftype="dm", FUN=mean)
 ```
 
@@ -320,13 +320,13 @@ ggof(sim=sim, obs=obs, ftype="dm", FUN=mean)
 ## Removing warm-up period
 
 Using the first two years (1961-1962) as warm-up period, and removing the corresponding observed and simulated values from the computation of the goodness-of-fit measures:
-```{r fig=TRUE, pdf=TRUE, eps=FALSE, fig.width=10, fig.height=7}
+```{r ggof2, fig=TRUE, pdf=TRUE, eps=FALSE, fig.width=10, fig.height=7}
 ggof(sim=sim, obs=obs, ftype="dm", FUN=mean, cal.ini="1963-01-01")
 ```
 
 
 Verification of the goodness-of-fit measures for the daily values after removing the warm-up period:
-```{r }
+```{r ComputingGOF}
 sim <- window(sim, start="1963-01-01")
 obs <- window(obs, start="1963-01-01")
 
@@ -368,25 +368,25 @@ plotbands(obs, lband, uband, sim)
 
 Computing the daily residuals (even if this is a dummy example, it is enough for illustrating the capability)
 
-```{r }
+```{r Computing_r1}
 r <- sim-obs
 ```
 
 Summarizing and plotting the residuals (it requires the hydroTSM package):
 
-```{r }
+```{r Computing_r2}
 library(hydroTSM)
 smry(r) 
 ```
 
-```{r fig=TRUE, pdf=TRUE, fig.width=10, fig.height=12}
+```{r hydroplot2, fig=TRUE, pdf=TRUE, fig.width=10, fig.height=12}
 # daily, monthly and annual plots, boxplots and histograms
 hydroplot(r, FUN=mean)
 ```
 
 
 Seasonal plots and boxplots
-```{r fig=TRUE, eval=TRUE, pdf=TRUE, eps=FALSE, fig.width=8, fig.height=8}
+```{r hydroplo3, fig=TRUE, eval=TRUE, pdf=TRUE, eps=FALSE, fig.width=8, fig.height=8}
 # daily, monthly and annual plots, boxplots and histograms
 hydroplot(r, FUN=mean, pfreq="seasonal")
 ```
