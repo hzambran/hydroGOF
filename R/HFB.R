@@ -2,7 +2,7 @@
 # Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 #                                 https://cran.r-project.org/package=hydroGOF
 #                                 http://www.rforge.net/hydroGOF/
-# Copyright 2024-2024 Mauricio Zambrano-Bigiarini
+# Copyright 2024-2025 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -23,20 +23,19 @@
 # hydrological models focused in the reproduction of high-flow events.
 
 # It is inspired in the annual peak-flow bias (APFB) objective function 
-# proposed by Mizukami et al. (2019).
-# However, it has four important diferences:
+# proposed by Mizukami et al. (2019). However, it has four important diferences:
 # 1) instead of considering only the observed annual peak flow in each year,
 #    it considers all the high flows in each year, where "high flows" are all 
-#    the values above a user-defined quantile of the observed values, 
-#    by default 0.1 (\code{hQ.thr=0.1}).
+#    the values above a user-defined probability of exceedence of the observed 
+#    values, by default 0.1 (\code{hQ.thr=0.1}).
 # 2) insted of considering only the simulated high flows for each 
 #    year, which might occur in a date/time different from the date in which  
 #    occurs the observed annual peak flow, it considers as many high simulated 
 #    flows as the number of high observed flows for each year, each one in the 
 #    exact same date/time in which the corresponding observed high flow occurred.
 # 3) for each year, instead of using a single bias value (i.e., the bias in the 
-#    single annual peak flow), it uses the median of all the bias in the 
-#    user-defined high flows 
+#    annual peak flow), it uses the median of all the bias in the user-defined 
+#    high flows 
 # 4) when computing the final value of this metric, instead o using the mean of 
 #    the annual values, it uses the median, in order to take a stronger 
 #    representation of the bias when its distribution is not symetric.
@@ -75,52 +74,50 @@ HFB.default <- function(sim, obs, na.rm=TRUE,
                         epsilon.value=NA
                         ) { 
 
-  lHFB <- function(i, lsim, lobs, lhQ.thr, lna.rm=TRUE) {
+  # Function to compute the high flow bias in a single year
+  lHFB.year <- function(i,          # index corresponding to the position of the unique year being analised (i in [1, nyears])
+                        lsim,       # list where each element has all the individual simulated values during year 'i'
+                        lobs,       # list where each element has all the individual observed values during year 'i'
+                        lhQ.val,    # numeric, representing the streamflow value (in m3/s) used to identify high flows in \code{obs}
+                        lna.rm=TRUE
+                        ) {
 
-    llobs            <- lobs[[i]]
-    llsim            <- lsim[[i]]
-    lquant           <- stats::quantile(llobs, probs=(1-lhQ.thr))
-    llobs.high.index <- which(llobs >= lquant)
-    llobs.high       <- llobs[llobs.high.index]
-    llsim.high       <- llsim[llobs.high.index]
+    # Selecting all the individual simulated and observed values during year 'i'
+    llsim          <- lsim[[i]]
+    llobs          <- lobs[[i]]
 
-    out <- stats::median( sqrt((llsim.high/llobs.high - 1)^2), na.rm=lna.rm)
-    return(out)
-  } #'lHFB' END
+    # Selecting only high values in 'obs'
+    llobs.high.pos <- which(llobs >= lhQ.val)
+    llobs.high     <- llobs[llobs.high.pos]
 
+    # Selecting values in 'sim' that have the same temporal location than the high values in 'obs'
+    llsim.high     <- llsim[llobs.high.pos]
 
-  # Function for shifting a time vector by 'nmonths' number of months.
-  .shiftyears <- function(ltime,       # Date/POSIX* object. It MUST contat MONTH and YEAR
-                          lstart.month # numeric in [2,..,12], representing the months. 2:Feb, 12:Dec
-                          ) {
-     syears.bak        <- as.numeric(format( ltime, "%Y" ))
-     syears            <- syears.bak
-     smonths           <- as.numeric(format( ltime, "%m"))
-     months2moveback   <- 1:(lstart.month-1)
-     N                 <- length(months2moveback)
-     for (i in 1:N) {
-       m.index         <- which(smonths == months2moveback[i])
-       m.year          <- unique(na.omit(syears.bak[m.index]))
-	     m.year          <- m.year - 1
-	     syears[m.index] <- m.year
-     } # FOR end
-     return(syears)
-  } # '.shiftyears' END
+    # Getting the HFB for the year 'i'. Its ideal value is 1
+    #lHFB  <- 1 - sqrt( stats::median( abs(llsim.high / llobs.high - 1), na.rm=na.rm )^2 )
+    lHFB  <- 1 - sqrt( (stats::median( llsim.high / llobs.high, na.rm=na.rm ) - 1)^2 )
+
+    return(lHFB)
+  } #'lHFB.year' END
    
 
   if ( !inherits(sim, "zoo") | !inherits(obs, "zoo"))
     stop("Invalid argument: 'sim' and 'obs' must be 'zoo' objects !")
 
   if ( (hQ.thr < 0) | (hQ.thr > 1) | 
-       (length(hQ.thr) > 1) | (length(hQ.thr) == 0) )
+       (length(hQ.thr) > 1) | (length(hQ.thr) == 0) ) {
+    hQ.val <- NA
     stop("Invalid argument: 'hQ.thr' must be a single number in [0, 1] !")
+  } # IF end 
 
+  
   # Selecting only valid paris of values
   vi <- valindex(sim, obs)     
   if (length(vi) > 0) {	 
     obs <- obs[vi]
     sim <- sim[vi]
 
+    # Applying 'fun' to each value in 'obs' and 'sim'
     if (!is.null(fun)) {
       fun <- match.fun(fun)
       new <- preproc(sim=sim, obs=obs, fun=fun, ..., 
@@ -130,34 +127,45 @@ HFB.default <- function(sim, obs, na.rm=TRUE,
     } # IF end
   } else stop("There are no points with simultaneous values of 'sim' and 'obs' !!")
 
-  # Annual index for 'x'
-  dates.sim  <- time(sim)
-  dates.obs  <- time(obs)
-  years.sim  <- format( dates.sim, "%Y")
-  years.obs  <- format( dates.obs, "%Y")
-  if (!all.equal(years.sim, years.obs)) {
-    stop("Invalid argument: 'sim' and 'obs' must have the same dates !")
-  } else {
+  hQ.val <- stats::quantile(obs, probs=(1-hQ.thr)) # To use 'lhQ.thr' as pbb of exceedence instead of as a quantile  
+  #message("hQ.val= ", round(hQ.val,3) )
 
-      if (start.month !=1) 
-        years.obs <- .shiftyears(dates.obs, start.month)
+  # Checking that time of sim' and 'obs' are the same
+  sim.ltime <- time(sim)
+  obs.ltime <- time(obs)
+  if ( !all.equal(sim.ltime, obs.ltime ) ) 
+    stop("Invalid argument: 'sim' and 'obs' must have the same time attribute !")
 
-      years.unique <- unique(years.obs)
-      nyears       <- length(years.unique)
-    } # ELSE end
 
+  # Getting annual values of 'sim' and 'obs'
+  years  <- format(obs.ltime, "%Y") # or 'ltimes <- sim.ltime', because 'sim.ltime' is the same as 'obs.ltime'
+
+  # Shifting backwards the year each element in 'x', 
+  # only when start.month != 1
+  ltimes <- obs.ltime # or 'ltimes <- sim.ltime', because 'sim.ltime' is the same as 'obs.ltime'
+  if ( start.month != 1 )
+    years <- .shiftyears(ltime=ltimes, lstart.month=start.month)
+
+  # Getting a numeric vector with the unique years in 'sim' and 'obs'
+  years.unique <- unique(years)
+
+  # Getting the number of years in 'sim' and 'obs'
+  nyears <- length(years.unique)
 
   # Getting a list of 'sim' and 'obs' values for each year
-  sim.PerYear <- split(coredata(sim), years.obs)
-  obs.PerYear <- split(coredata(obs), years.obs) # years.sim == years.obs
-
+  sim.PerYear <- split(coredata(sim), years)
+  obs.PerYear <- split(coredata(obs), years) # years.sim == years.obs
 
   # Computing annual HFB values
-  HFB.yr <- sapply(1:nyears, FUN=lHFB, lsim=sim.PerYear, lobs=obs.PerYear, 
-                   lhQ.thr=hQ.thr, lna.rm= na.rm)
+  HFB.yr        <- sapply(1:nyears, FUN=lHFB.year, lsim=sim.PerYear, lobs=obs.PerYear, 
+                          lhQ.val=hQ.val, lna.rm= na.rm)
   names(HFB.yr) <- years.unique
 
-  HFB <- stats::median(HFB.yr, na.rm=na.rm)
+  # ideal value of beta is 1
+  beta <- stats::median(HFB.yr, na.rm=na.rm)
+
+  # ideal value of HFB is 1
+  HFB <- 1 - sqrt( (beta - 1)^2 ) 
 
   if (out.PerYear) {
     out <- list(HFB.value=HFB, HFB.PerYear=HFB.yr)
@@ -165,6 +173,11 @@ HFB.default <- function(sim, obs, na.rm=TRUE,
     
   return(out)
 } # 'HFB.default' END
+#HFB.default(sim,sim, hQ.thr=0.1)
+#HFB.default(sim,obs, hQ.thr=0.20)
+#HFB.default(sim,obs, hQ.thr=0.10)
+#HFB.default(sim,obs, hQ.thr=0.05)
+#HFB.default(sim,obs, hQ.thr=0.01)
 
 
 ################################################################################
