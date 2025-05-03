@@ -2,7 +2,7 @@
 # Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF
 #                                 https://cran.r-project.org/package=hydroGOF
 #                                 http://www.rforge.net/hydroGOF/ ;
-# Copyright 2008-2024 Mauricio Zambrano-Bigiarini
+# Copyright 2008-2025 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -15,6 +15,7 @@
 #          08-May-2012                                                         #
 #          14-Jan-2023 ; 15-Jan-2023 ; 16-Jan-2023                             #
 #          19-Jan-2024 ; 20-Jan-2024 ; 23-Mar-2024 ; 08-May-2024               #
+#          03-May-2025                                                         #
 ################################################################################
 
 # It computes:
@@ -135,7 +136,7 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
 
        do.APFB <- TRUE
        APFB    <- APFB(sim, obs, na.rm=na.rm, start.month=start.month, 
-                       out.PerYear=FALSE, fun=fun, ..., 
+                       fun=fun, ..., 
                        epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
      } else {
          do.sKGE <- FALSE
