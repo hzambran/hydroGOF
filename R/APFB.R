@@ -2,7 +2,7 @@
 # Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 #                                 https://cran.r-project.org/package=hydroGOF
 #                                 http://www.rforge.net/hydroGOF/
-# Copyright 2024-2024 Mauricio Zambrano-Bigiarini
+# Copyright 2024-2025 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -12,6 +12,7 @@
 ################################################################################
 # Started: 04-May-2024                                                         #
 # Updates: 05-May-2024                                                         #
+#          02-May-2025 (EGU 2025) ; 03-May-2025                                #
 ################################################################################
 # The optimal value of APFB is 0
 
@@ -29,42 +30,15 @@ APFB <- function(sim, obs, ...) UseMethod("APFB")
 
 # epsilon: By default it is set at one hundredth of the mean flow. See Pushpalatha et al. (2012)
 APFB.default <- function(sim, obs, na.rm=TRUE, 
-                         start.month=1, out.PerYear=FALSE,
+                         start.month=1,
                          fun=NULL,
                          ...,
                          epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                          epsilon.value=NA
                          ) { 
 
-  lAPFB <- function(i, lsim, lobs, lna.rm=TRUE) {
 
-    llobs            <- lobs[[i]]
-    llsim            <- lsim[[i]]
-    llobs.peak       <- max(llobs, na.rm=lna.rm)
-    llsim.peak       <- max(llsim, na.rm=lna.rm)
-
-    out <- sqrt((llsim.peak/llobs.peak - 1)^2)
-    return(out)
-  } #'lAPFB' END
-
-
-  # Function for shifting a time vector by 'nmonths' number of months.
-  .shiftyears <- function(ltime,       # Date/POSIX* object. It MUST contat MONTH and YEAR
-                          lstart.month # numeric in [2,..,12], representing the months. 2:Feb, 12:Dec
-                          ) {
-     syears.bak        <- as.numeric(format( ltime, "%Y" ))
-     syears            <- syears.bak
-     smonths           <- as.numeric(format( ltime, "%m"))
-     months2moveback   <- 1:(lstart.month-1)
-     N                 <- length(months2moveback)
-     for (i in 1:N) {
-       m.index         <- which(smonths == months2moveback[i])
-       m.year          <- unique(na.omit(syears.bak[m.index]))
-	     m.year          <- m.year - 1
-	     syears[m.index] <- m.year
-     } # FOR end
-     return(syears)
-  } # '.shift' END
+  
    
 
   if ( !inherits(sim, "zoo") | !inherits(obs, "zoo"))
@@ -76,6 +50,7 @@ APFB.default <- function(sim, obs, na.rm=TRUE,
     obs <- obs[vi]
     sim <- sim[vi]
 
+    # Applying 'fun' to each value in 'obs' and 'sim'
     if (!is.null(fun)) {
       fun <- match.fun(fun)
       new <- preproc(sim=sim, obs=obs, fun=fun, ..., 
@@ -85,40 +60,19 @@ APFB.default <- function(sim, obs, na.rm=TRUE,
     } # IF end
   } else stop("There are no points with simultaneous values of 'sim' and 'obs' !!")
 
-  # Annual index for 'x'
-  dates.sim  <- time(sim)
-  dates.obs  <- time(obs)
-  years.sim  <- format( dates.sim, "%Y")
-  years.obs  <- format( dates.obs, "%Y")
-  if (!all.equal(years.sim, years.obs)) {
-    stop("Invalid argument: 'sim' and 'obs' must have the same dates !")
-  } else {
 
-      if (start.month !=1) 
-        years.obs <- .shiftyears(dates.obs, start.month)
+  # Getting the observed and simulated annual maximum for each year
+  obs.annual.max <- hydroTSM::daily2annual(obs, FUN=max, na.rm=na.rm, start.month=start.month)
+  sim.annual.max <- hydroTSM::daily2annual(sim, FUN=max, na.rm=na.rm, start.month=start.month)
 
-      years.unique <- unique(years.obs)
-      nyears       <- length(years.unique)
-    } # ELSE end
+  # Getting the mean of the observed annual maximum and simulated annual maximum, respectively 
+  mu.obs.annual.max <- mean(obs.annual.max, na.rm=na.rm)
+  mu.sim.annual.max <- mean(sim.annual.max, na.rm=na.rm)
 
-
-  # Getting a list of 'sim' and 'obs' values for each year
-  sim.PerYear <- split(coredata(sim), years.obs)
-  obs.PerYear <- split(coredata(obs), years.obs) # years.sim == years.obs
-
-
-  # Computing annual APFB values
-  APFB.yr <- sapply(1:nyears, FUN=lAPFB, lsim=sim.PerYear, lobs=obs.PerYear, 
-                    lna.rm= na.rm)
-  names(APFB.yr) <- years.unique
-
-  APFB <- mean(APFB.yr, na.rm=na.rm)
-
-  if (out.PerYear) {
-    out <- list(APFB.value=APFB, APFB.PerYear=APFB.yr)
-  } else out <- APFB
+  # Computing the APFB value
+  APFB <- sqrt( ( mu.obs.annual.max / mu.sim.annual.max - 1)^2 )
     
-  return(out)
+  return(APFB)
 } # 'APFB.default' END
 
 
@@ -126,11 +80,11 @@ APFB.default <- function(sim, obs, na.rm=TRUE,
 # Author : Mauricio Zambrano-Bigiarini                                         #
 ################################################################################
 # Started: 04-May-2024                                                         #
-# Updates:                                                                     #
+# Updates: 03-May-2025                                                         #
 ################################################################################
 
 APFB.matrix <- function(sim, obs, na.rm=TRUE, 
-                        start.month=1, out.PerYear=FALSE, 
+                        start.month=1, 
                         fun=NULL,
                         ...,
                         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
@@ -163,32 +117,14 @@ APFB.matrix <- function(sim, obs, na.rm=TRUE,
   out.single <- sapply(1:ncol(obs), function(i,x,y) { 
                        APFB[i] <- APFB.default( x[,i], y[,i], na.rm=na.rm, 
                                                 start.month=start.month, 
-                                                out.PerYear=out.PerYear, 
                                                 fun=fun, 
                                                 epsilon.type=epsilon.type, 
                                                 epsilon.value=epsilon.value )[[1]]
                  }, x=sim, y=obs ) 
   names(out.single) <- names(obs)
-
-
-  if (out.PerYear) {        
-    out.yr <- sapply(1:ncol(obs), function(i,x,y) { 
-                    elements[,i] <- APFB.default( x[,i], y[,i], na.rm=na.rm, 
-                                                 start.month=start.month, 
-                                                 out.PerYear=out.PerYear, 
-                                                 fun=fun, 
-                                                 epsilon.type=epsilon.type, 
-                                                 epsilon.value=epsilon.value )[[2]]
-                   }, x=sim, y=obs ) 
  
-    colnames(out.yr) <- names(obs)                     
-  } # IF end
-
-  if (out.PerYear) {
-    out <- list(APFB.value=out.single, APFB.PerYear=out.yr)
-  } else out <- out.single
   
-  return(out)
+  return(out.single)
      
 } # 'APFB.matrix' end
 
@@ -198,9 +134,10 @@ APFB.matrix <- function(sim, obs, na.rm=TRUE,
 ################################################################################
 # Started: 04-May-2024                                                         #
 # Updates: 05-May-2024                                                         #
+#          03-May-2025                                                         #
 ################################################################################
 APFB.data.frame <- function(sim, obs, na.rm=TRUE, 
-                           start.month=1, out.PerYear=FALSE, 
+                           start.month=1, 
                            fun=NULL,
                            ...,
                            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
@@ -211,7 +148,7 @@ APFB.data.frame <- function(sim, obs, na.rm=TRUE,
   
    
   APFB.matrix(sim, obs, na.rm=na.rm, 
-             start.month=start.month, out.PerYear=out.PerYear, fun=fun, ...,  
+             start.month=start.month, fun=fun, ...,  
              epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
 } # 'APFB.data.frame' end
@@ -221,10 +158,10 @@ APFB.data.frame <- function(sim, obs, na.rm=TRUE,
 # Author : Mauricio Zambrano-Bigiarini                                         #
 ################################################################################
 # Started: 04-May-2024                                                         #
-# Updates:                                                                     #
+# Updates: 03-May-2025                                                         #
 ################################################################################
 APFB.zoo <- function(sim, obs, na.rm=TRUE, 
-                    start.month=1, out.PerYear=FALSE, 
+                    start.month=1, 
                     fun=NULL,
                     ...,
                     epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
@@ -235,10 +172,10 @@ APFB.zoo <- function(sim, obs, na.rm=TRUE,
 
   if (is.matrix(sim) | is.data.frame(sim)) {
     APFB.matrix(sim, obs, na.rm=na.rm, 
-                 start.month=start.month, out.PerYear=out.PerYear, fun=fun, ...,  
+                 start.month=start.month, fun=fun, ...,  
                  epsilon.type=epsilon.type, epsilon.value=epsilon.value)
   } else NextMethod(sim, obs, na.rm=na.rm,
-                    start.month=start.month, out.PerYear=out.PerYear, fun=fun, ...,  
+                    start.month=start.month, fun=fun, ...,  
                     epsilon.type=epsilon.type, epsilon.value=epsilon.value)  
      
 } # 'APFB.zoo' end
