@@ -1,5 +1,12 @@
 NEWS/ChangeLog for hydroGOF
 
+# Changes in version 0.7-0 ongoing
+
+## Bug fixes
+        o 'APFB' : Its value is now correctly computed, previously it was not Thanks to Rodrigo Mariano and Héctor Garcés
+
+
+
 # Changes in version 0.6-0  08-May-2024
 
 ## New functions
