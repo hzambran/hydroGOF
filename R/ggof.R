@@ -2,7 +2,7 @@
 # Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 #                                 https://cran.r-project.org/package=hydroGOF
 #                                 http://www.rforge.net/hydroGOF/
-# Copyright 2009-2024 Mauricio Zambrano-Bigiarini
+# Copyright 2009-2025 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -16,6 +16,7 @@
 #            15-Oct-2012                                                       #
 #            15-Apr-2013 ; 15-May-2013                                         #
 #            20-Jan-2024 ; 22-Mar-2024 ; 23-Mar-2024 ; 08-May-2024             #
+#            01-Nov-2025                                                       #
 ################################################################################     
                                           
       
@@ -79,6 +80,15 @@ ggof <- function (sim, obs,
   if ( length(sim) != length(obs) )  
      stop("Invalid argument: 'obs' and 'sim' must have the same length ! (", 
           length(obs), " vs ", length(sim), ")")
+
+  # Checking the sampling frequency of 'x' and 'y'
+  if ( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) {
+    sim.sfreq <- hydroTSM::sfreq(sim)
+    obs.sfreq <- hydroTSM::sfreq(obs)
+    if ( sim.sfreq != obs.sfreq)
+      stop("Invalid arguments: sampling frequency of 'sim' and 'obs' is not the same ! (", 
+           sim.sfreq, " != ", obs.sfreq, ")")
+  } # IF end
 
   # Checking 'gofs'.  'rSpearman' and 'pbiasFDC' are not computed
   gofs.all=c(   "ME",    "MAE",    "MSE",  "RMSE", "ubRMSE", 
@@ -201,6 +211,15 @@ ggof <- function (sim, obs,
          cal.ini=cal.ini, val.ini=val.ini, date.fmt=date.fmt, ...)
          
   } else if (ftype=="dm") {
+
+      # if 'sim' and 'obs' are subdaily ts
+      if (sim.sfreq %in% c("minute", "hourly") ) {
+        sim <- hydroTSM::subdaily2daily(sim, FUN=FUN, na.rm=na.rm)
+        obs <- hydroTSM::subdaily2daily(obs, FUN=FUN, na.rm=na.rm)
+
+        sim.freq <- "daily"
+      } # END IF
+
     
       if (sim.freq != "daily") {      
         stop("Invalid argument: 'sim' has to have a 'daily' sampling frequency")       
@@ -255,19 +274,27 @@ ggof <- function (sim, obs,
   } # ELSE if (ftype=="dm") END
   
   else if (ftype=="ma") {
+
+    # if 'sim' and 'obs' are subdaily ts
+    if (sim.sfreq %in% c("minute", "hourly") ) {
+      sim <- hydroTSM::subdaily2daily(sim, FUN=FUN, na.rm=na.rm)
+      obs <- hydroTSM::subdaily2daily(obs, FUN=FUN, na.rm=na.rm)
+
+      sim.freq <- "daily"
+    } # END IF
   
     if  ( is.na( match( sim.freq, c("daily", "monthly") ) ) ) {      
       stop("Invalid argument: the sampling frequency of 'sim' has to be in c('daily', 'monthly'")       
     } else {
         if ( sim.freq == "daily" ) {
            # Generating a Monthly time series 
-           obs <- daily2monthly(obs, FUN, na.rm) # hydroTSM::daily2monthly
-           sim <- daily2monthly(sim, FUN, na.rm) # hydroTSM::daily2monthly
+           obs <- hydroTSM::daily2monthly(obs, FUN, na.rm) # hydroTSM::daily2monthly
+           sim <- hydroTSM::daily2monthly(sim, FUN, na.rm) # hydroTSM::daily2monthly
         } # IF end
         
         # Generating Annual time series
-        obs.annual <- monthly2annual(obs, FUN, na.rm, out.fmt="%Y-%m-%d") # hydroTSM::monthly2annual
-        sim.annual <- monthly2annual(sim, FUN, na.rm, out.fmt="%Y-%m-%d") # hydroTSM::monthly2annual
+        obs.annual <- hydroTSM::monthly2annual(obs, FUN, na.rm, out.fmt="%Y-%m-%d") # hydroTSM::monthly2annual
+        sim.annual <- hydroTSM::monthly2annual(sim, FUN, na.rm, out.fmt="%Y-%m-%d") # hydroTSM::monthly2annual
         
         def.par <- par(no.readonly = TRUE) # save default, for resetting... 
         on.exit(par(def.par)) 
@@ -312,6 +339,14 @@ ggof <- function (sim, obs,
   } # ELSE if (ftype=="ma") END
   
   else if (ftype=="dma") {
+
+    # if 'sim' and 'obs' are subdaily ts
+    if (sim.sfreq %in% c("minute", "hourly") ) {
+      sim <- hydroTSM::subdaily2daily(sim, FUN=FUN, na.rm=na.rm)
+      obs <- hydroTSM::subdaily2daily(obs, FUN=FUN, na.rm=na.rm)
+
+      sim.freq <- "daily"
+    } # END IF
         
     if (sim.freq != "daily") {      
       stop("Invalid argument: 'sim' has to have a 'daily' sampling frequency")      

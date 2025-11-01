@@ -2,7 +2,7 @@
 # Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 #                                 https://cran.r-project.org/package=hydroGOF
 #                                 http://www.rforge.net/hydroGOF/
-# Copyright 2010-2024 Mauricio Zambrano-Bigiarini
+# Copyright 2010-2025 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -21,6 +21,7 @@
 #          06-Aug-2017                                                         #
 #          28-Dec-2022                                                         #
 #          22-Mar-2024 ; 23-Mar-204 ; 08-May-2024                              #
+#          01-Nov-2025                                                         #                            
 ################################################################################
                 
 plot2 <- function (x, y, 
@@ -73,6 +74,15 @@ plot2 <- function (x, y,
   # Checking that the user provided 'y'
   if ( missing(y) ) stop("Missing argument: 'y'")
 
+  # Checking the sampling frequency of 'x' and 'y'
+  if ( zoo::is.zoo(x) & zoo::is.zoo(y) ) {
+    x.sfreq <- hydroTSM::sfreq(x)
+    y.sfreq <- hydroTSM::sfreq(y)
+    if ( x.sfreq != y.sfreq)
+      stop("Invalid arguments: sampling frequency of 'x' and 'y' is not the same ! (", 
+           x.sfreq, " != ", y.sfreq, ")")
+  } # IF end
+
   # Checking 'gofs'.  'rSpearman' and 'pbiasFDC' are not computed
   gofs.all=c(   "ME",    "MAE",    "MSE",  "RMSE", "ubRMSE", 
              "NRMSE",  "PBIAS",   "RSR",    "rSD",    "NSE",  
@@ -84,6 +94,12 @@ plot2 <- function (x, y,
   # Removing 'sKGE', 'APFB' and 'HFB' when 'x' and 'y' are not zoo objects
   if ( !( zoo::is.zoo(x) & zoo::is.zoo(y) ) )
     gofs.all <- gofs.all[ -c( (length(gofs.all)-2):(length(gofs.all)) ) ]
+
+  # Removing 'sKGE', 'APFB' and 'HFB' when 'x' and 'y' are annual zoo objects
+  if ( x.sfreq == "annual" ) {
+    index    <- pmatch( c("sKGE", "APFB", "HFB"), gofs.all )
+    gofs.all <- gofs.all[-index]
+  } # IF end
 
   # Checking 'gofs' 
   noNms.index <- which( !(gofs %in% gofs.all) )
@@ -217,13 +233,30 @@ plot2 <- function (x, y,
         if ( (length(which(!is.na(match(class(x), c("ts", "zoo", "xts") )))) > 0) ) { 
           z <- x
         } else z <- y
-    
+
+        # if 'x' and 'y' are subdaily ts
+        if (x.sfreq %in% c("minute", "hourly") ) {
+          nmonths <- hydroTSM::mip(from=start(x), to=end(x), out.type="nmbr")
+
+          if (nmonths <= 40) { # 40 months or less
+            if (tick.tstep=="auto") tick.tstep <- "days"
+            if (lab.tstep=="auto") lab.tstep <- "months"
+            if ( is.null(lab.fmt) ) lab.fmt <- "%Y-%b"
+          } else {
+              if (tick.tstep=="auto") tick.tstep <- "months"
+              if (lab.tstep=="auto") lab.tstep <- "years"
+              if ( is.null(lab.fmt) ) lab.fmt <- "%Y"
+            } # ELSE end     
+
+        } # IF end
+
         # Draws ticks in the X axis, but labels only in years
-        drawTimeAxis(z, tick.tstep=tick.tstep, lab.tstep= lab.tstep, lab.fmt=lab.fmt, cex.axis=cex.axis, cex.lab=cex.lab) # hydroTSM::drawTimeAxis
+        hydroTSM::drawTimeAxis(z, tick.tstep=tick.tstep, lab.tstep= lab.tstep, 
+                               lab.fmt=lab.fmt, cex.axis=cex.axis, cex.lab=cex.lab) 
 
         # manually adding a grid
         grid(nx=NA, ny=NULL)
-        abline(v=time(x)[axTicksByTime(x)], col = "lightgray", lty = "dotted")
+        abline(v=time(x)[xts::axTicksByTime(x)], col = "lightgray", lty = "dotted")
       
       } else { # When 'numeric' or 'integer' values (not 'zoo' or 'xts') are plotted
              Axis(side = 1, labels = TRUE, cex.axis=cex.axis, cex.lab=cex.lab)
