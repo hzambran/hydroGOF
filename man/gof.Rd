@@ -2,7 +2,7 @@
 %% Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 %%                                 https://cran.r-project.org/package=hydroGOF
 %%                                 http://www.rforge.net/hydroGOF/
-%% Copyright 2011-2024 Mauricio Zambrano-Bigiarini
+%% Copyright 2011-2025 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or later
 
 \name{gof}
@@ -154,13 +154,16 @@ The output of the \code{gof} function is a matrix with one column only, and the 
 \item{KGEnp}{Non-parametric version of the Kling-Gupta Efficiency between \code{sim} and \code{obs} \cr ( -Inf <= KGEnp <= 1 )}
 \item{KGEkm}{Knowable Moments Kling-Gupta Efficiency between \code{sim} and \code{obs} \cr ( -Inf <= KGEnp <= 1 )}
 
-The following outputs are only produced when both \code{sim} and \code{obs} are zoo objects: 
+The following outputs are only produced when both \code{sim} and \code{obs} are zoo objects with sub-annual temporal frequency: 
 
-\item{sKGE}{Split Kling-Gupta Efficiency between \code{sim} and \code{obs} \cr ( -Inf <= sKGE <= 1 ). Only computed when both \code{sim} and \code{obs} are zoo objects}
+\item{sKGE}{Split Kling-Gupta Efficiency between \code{sim} and \code{obs} \cr ( -Inf <= sKGE <= 1 )}
 \item{APFB}{Annual Peak Flow Bias ( 0 <= APFB <= Inf )}
 \item{HBF}{High Flow Bias ( 0 <= HFB <= Inf )}
+
+The following outputs are only produced when defaul vlaues of a specific argument is changed by the user: 
+
 \item{r.Spearman}{Spearman Correlation coefficient ( -1 <= r.Spearman <= 1 ). Only computed when \code{do.spearman=TRUE}}
-\item{pbiasfdc}{PBIAS in the slope of the midsegment of the Flow Duration Curve}
+\item{pbiasfdc}{PBIAS in the slope of the midsegment of the Flow Duration Curve. Only computed when \code{do.pbfdc=FALSE}}
 
 %% ...
 }

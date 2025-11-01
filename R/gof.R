@@ -15,7 +15,7 @@
 #          08-May-2012                                                         #
 #          14-Jan-2023 ; 15-Jan-2023 ; 16-Jan-2023                             #
 #          19-Jan-2024 ; 20-Jan-2024 ; 23-Mar-2024 ; 08-May-2024               #
-#          03-May-2025                                                         #
+#          03-May-2025 ; 01-Nov-2025                                           #
 ################################################################################
 
 # It computes:
@@ -65,6 +65,15 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
 
      method        <- match.arg(method)
      epsilon.type  <- match.arg(epsilon.type)
+
+     # Checking the sampling frequency of 'x' and 'y'
+     if ( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) {
+       sim.sfreq <- hydroTSM::sfreq(sim)
+       obs.sfreq <- hydroTSM::sfreq(obs)
+       if ( sim.sfreq != obs.sfreq)
+         stop("Invalid arguments: sampling frequency of 'sim' and 'obs' is not the same ! (", 
+              sim.sfreq, " != ", obs.sfreq, ")")
+     } # IF end
      
      ME     <- me(sim, obs, na.rm=na.rm, fun=fun, ..., 
                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)
@@ -123,7 +132,8 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
                      fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value)
 
 
-     if ( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) {
+     if ( (zoo::is.zoo(sim) & zoo::is.zoo(obs) ) &
+          (sim.sfreq != "annual")  ) {
        do.sKGE <- TRUE
        sKGE    <- sKGE(sim, obs, s=s, na.rm=na.rm, method=method, 
                        start.month=start.month, out.PerYear=FALSE, fun=fun, ..., 
@@ -317,5 +327,5 @@ gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
                    epsilon.type=epsilon.type, 
                    epsilon.value=epsilon.value)
      
-  } # 'gof.zoo' end
+} # 'gof.zoo' end
   
