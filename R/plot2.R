@@ -87,6 +87,8 @@ plot2 <- function (x, y,
     gofs.all <- gofs.all[ -c( (length(gofs.all)-2):(length(gofs.all)) ) ]
 
   # Checking the sampling frequency of 'x' and 'y'
+  x.sfreq <- NULL
+  y.sfreq <- NULL
   if ( zoo::is.zoo(x) & zoo::is.zoo(y) ) {
     x.sfreq <- hydroTSM::sfreq(x)
     y.sfreq <- hydroTSM::sfreq(y)
@@ -227,33 +229,35 @@ plot2 <- function (x, y,
       # Drawing the 'x' axis
       # If the user provided, in some way, valid values for being used as dates, 
       # they will be used, if not, only a numeric index will be used
-      #if ( !( ( class( time(x) ) != "integer" ) | ( class( time(y) ) != "integer" ) ) ) {
-      if ( ( !is.integer( class( time(x) ) ) & !is.integer( class( time(y) ) ) ) ) {
+      if ( !is.null(x.sfreq)  & !is.null(y.sfreq) ) {
 
-        # if 'x' and 'y' are subdaily ts
-        if (x.sfreq %in% c("minute", "hourly") ) {
-          nmonths <- hydroTSM::mip(from=stats::start(x), to=stats::end(x), out.type="nmbr")
+        if ( ( !is.integer( class( time(x) ) ) & !is.integer( class( time(y) ) ) ) ) {
 
-          if (nmonths <= 40) { # 40 months or less
-            if (tick.tstep=="auto") tick.tstep <- "days"
-            if (lab.tstep=="auto") lab.tstep <- "months"
-            if ( is.null(lab.fmt) ) lab.fmt <- "%Y-%b"
-          } else {
-              if (tick.tstep=="auto") tick.tstep <- "months"
-              if (lab.tstep=="auto") lab.tstep <- "years"
-              if ( is.null(lab.fmt) ) lab.fmt <- "%Y"
-            } # ELSE end     
+          # if 'x' and 'y' are subdaily ts
+          if (x.sfreq %in% c("minute", "hourly") ) {
+            nmonths <- hydroTSM::mip(from=stats::start(x), to=stats::end(x), out.type="nmbr")
 
-        } # IF end
+            if (nmonths <= 40) { # 40 months or less
+              if (tick.tstep=="auto") tick.tstep <- "days"
+              if (lab.tstep=="auto") lab.tstep <- "months"
+              if ( is.null(lab.fmt) ) lab.fmt <- "%Y-%b"
+            } else {
+                if (tick.tstep=="auto") tick.tstep <- "months"
+                if (lab.tstep=="auto") lab.tstep <- "years"
+                if ( is.null(lab.fmt) ) lab.fmt <- "%Y"
+              } # ELSE end     
 
-        # Draws ticks in the X axis, but labels only in years
-        hydroTSM::drawTimeAxis(x, tick.tstep=tick.tstep, lab.tstep= lab.tstep, 
+          } # IF end
+
+          # Draws ticks in the X axis, but labels only in years
+          hydroTSM::drawTimeAxis(x, tick.tstep=tick.tstep, lab.tstep= lab.tstep, 
                                lab.fmt=lab.fmt, cex.axis=cex.axis, cex.lab=cex.lab) 
 
-        # manually adding a grid
-        grid(nx=NA, ny=NULL)
-        abline(v=time(x)[xts::axTicksByTime(x)], col = "lightgray", lty = "dotted")
+          # manually adding a grid
+          grid(nx=NA, ny=NULL)
+          abline(v=time(x)[xts::axTicksByTime(x)], col = "lightgray", lty = "dotted")
       
+        } 
       } else { # When 'numeric' or 'integer' values (not 'zoo' or 'xts') are plotted
              Axis(side = 1, labels = TRUE, cex.axis=cex.axis, cex.lab=cex.lab)
              box()

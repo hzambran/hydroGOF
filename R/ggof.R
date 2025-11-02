@@ -93,7 +93,9 @@ ggof <- function (sim, obs,
   if ( !( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) )
     gofs.all <- gofs.all[ -c( (length(gofs.all)-2):(length(gofs.all)) ) ]
 
-  # Checking the sampling frequency of 'x' and 'y'
+  # Checking the sampling frequency of 'sim' and 'obs'
+  sim.sfreq <- NULL
+  obs.sfreq <- NULL
   if ( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) {
     sim.sfreq <- hydroTSM::sfreq(sim)
     obs.sfreq <- hydroTSM::sfreq(obs)
