@@ -12,6 +12,7 @@
 ################################################################################
 # Started: 04-May-2024                                                         #
 # Updates: 05-May-2024                                                         #
+#          01-Nov-2025                                                         #
 ################################################################################
 
 # The high flow bias (HFB) ranges from 0 to Inf, with an optimal value of 0. 
@@ -144,7 +145,7 @@ HFB.default <- function(sim, obs, na.rm=TRUE,
   # only when start.month != 1
   ltimes <- obs.ltime # or 'ltimes <- sim.ltime', because 'sim.ltime' is the same as 'obs.ltime'
   if ( start.month != 1 )
-    years <- .shiftyears(ltime=ltimes, lstart.month=start.month)
+    years <- hydroTSM::shiftyears(ltime=ltimes, lstart.month=start.month)
 
   # Getting a numeric vector with the unique years in 'sim' and 'obs'
   years.unique <- unique(years)
