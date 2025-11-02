@@ -135,6 +135,9 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
      KGEkm  <- KGEkm(sim, obs, na.rm=na.rm, s=s, method=method, out.type="single", 
                      fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value)
 
+     do.sKGE <- FALSE ; sKGE    <- NA
+     do.HFB  <- FALSE ; HFB     <- NA
+     do.APFB <- FALSE ; APFB    <- NA
 
      if ( ( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) & ( !is.null(sim.sfreq)  ) ) {
        if (sim.sfreq != "annual") {
@@ -153,14 +156,7 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
                          fun=fun, ..., 
                          epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
        } # IF end
-     } else {
-         do.sKGE <- FALSE
-         do.HFB  <- FALSE
-         do.APFB <- FALSE
-         sKGE    <- NA
-         HFB     <- NA
-         APFB    <- NA
-       } # ELSE end
+     } # IF end
        
      # Creating the basic output object
      gof <- rbind(    ME,   MAE,   MSE,  RMSE, ubRMSE,  
