@@ -81,15 +81,6 @@ ggof <- function (sim, obs,
      stop("Invalid argument: 'obs' and 'sim' must have the same length ! (", 
           length(obs), " vs ", length(sim), ")")
 
-  # Checking the sampling frequency of 'x' and 'y'
-  if ( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) {
-    sim.sfreq <- hydroTSM::sfreq(sim)
-    obs.sfreq <- hydroTSM::sfreq(obs)
-    if ( sim.sfreq != obs.sfreq)
-      stop("Invalid arguments: sampling frequency of 'sim' and 'obs' is not the same ! (", 
-           sim.sfreq, " != ", obs.sfreq, ")")
-  } # IF end
-
   # Checking 'gofs'.  'rSpearman' and 'pbiasFDC' are not computed
   gofs.all=c(   "ME",    "MAE",    "MSE",  "RMSE", "ubRMSE", 
              "NRMSE",  "PBIAS",   "RSR",    "rSD",    "NSE",  
@@ -101,6 +92,21 @@ ggof <- function (sim, obs,
   # Removing 'sKGE', 'APFB' and 'HFB' when 'sim' and 'obs' are not zoo objects
   if ( !( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) )
     gofs.all <- gofs.all[ -c( (length(gofs.all)-2):(length(gofs.all)) ) ]
+
+  # Checking the sampling frequency of 'x' and 'y'
+  if ( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) {
+    sim.sfreq <- hydroTSM::sfreq(sim)
+    obs.sfreq <- hydroTSM::sfreq(obs)
+    if ( sim.sfreq != obs.sfreq)
+      stop("Invalid arguments: sampling frequency of 'sim' and 'obs' is not the same ! (", 
+           sim.sfreq, " != ", obs.sfreq, ")")
+
+    # Removing 'sKGE', 'APFB' and 'HFB' when 'sim' and 'obs' are annual zoo objects
+    if ( sim.sfreq == "annual" ) {
+      index    <- pmatch( c("sKGE", "APFB", "HFB"), gofs.all )
+      gofs.all <- gofs.all[-index]
+    } # IF end
+  } # IF end
 
   # Checking 'gofs' 
   noNms.index <- which( !(gofs %in% gofs.all) )

@@ -67,13 +67,18 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
      epsilon.type  <- match.arg(epsilon.type)
 
      # Checking the sampling frequency of 'x' and 'y'
-     if ( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) {
+     sim.sfreq <- NULL
+     obs.sfreq <- NULL
+     if ( ( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) & 
+          ( ( ( class( time(sim) ) != "integer" ) & ( class( time(obs) ) != "integer" ) ) ) 
+        ) {
        sim.sfreq <- hydroTSM::sfreq(sim)
        obs.sfreq <- hydroTSM::sfreq(obs)
        if ( sim.sfreq != obs.sfreq)
          stop("Invalid arguments: sampling frequency of 'sim' and 'obs' is not the same ! (", 
               sim.sfreq, " != ", obs.sfreq, ")")
      } # IF end
+     print(sim.sfreq)
      
      ME     <- me(sim, obs, na.rm=na.rm, fun=fun, ..., 
                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)
@@ -132,22 +137,23 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
                      fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value)
 
 
-     if ( (zoo::is.zoo(sim) & zoo::is.zoo(obs) ) &
-          (sim.sfreq != "annual")  ) {
-       do.sKGE <- TRUE
-       sKGE    <- sKGE(sim, obs, s=s, na.rm=na.rm, method=method, 
-                       start.month=start.month, out.PerYear=FALSE, fun=fun, ..., 
-                       epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
+     if ( ( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) & ( !is.null(sim.sfreq)  ) ) {
+       if (sim.sfreq != "annual") {
+         do.sKGE <- TRUE
+         sKGE    <- sKGE(sim, obs, s=s, na.rm=na.rm, method=method, 
+                         start.month=start.month, out.PerYear=FALSE, fun=fun, ..., 
+                         epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
 
-       do.HFB <- TRUE
-       HFB    <- HFB(sim, obs, na.rm=na.rm, hQ.thr=hQ.thr, start.month=start.month, 
-                     out.PerYear=FALSE, fun=fun, ..., 
-                     epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+         do.HFB <- TRUE
+         HFB    <- HFB(sim, obs, na.rm=na.rm, hQ.thr=hQ.thr, start.month=start.month, 
+                       out.PerYear=FALSE, fun=fun, ..., 
+                       epsilon.type=epsilon.type, epsilon.value=epsilon.value)
 
-       do.APFB <- TRUE
-       APFB    <- APFB(sim, obs, na.rm=na.rm, start.month=start.month, 
-                       fun=fun, ..., 
-                       epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
+         do.APFB <- TRUE
+         APFB    <- APFB(sim, obs, na.rm=na.rm, start.month=start.month, 
+                         fun=fun, ..., 
+                         epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
+       } # IF end
      } else {
          do.sKGE <- FALSE
          do.HFB  <- FALSE

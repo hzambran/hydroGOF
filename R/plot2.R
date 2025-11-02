@@ -227,12 +227,19 @@ plot2 <- function (x, y,
       # Drawing the 'x' axis
       # If the user provided, in some way, valid values for being used as dates, 
       # they will be used, if not, only a numeric index will be used
-      if ( (length(which(!is.na(match(class(x), c("ts", "zoo", "xts") )))) > 0) | 
-           (length(which(!is.na(match(class(y), c("ts", "zoo", "xts") )))) > 0) ) {
+      #if ( (length(which(!is.na(match(class(x), c("ts", "zoo", "xts") )))) > 0) | 
+      #     (length(which(!is.na(match(class(y), c("ts", "zoo", "xts") )))) > 0) ) {
+      if ( !( ( class( time(x) ) != "integer" ) | ( class( time(y) ) != "integer" ) ) ) {
     
-        if ( (length(which(!is.na(match(class(x), c("ts", "zoo", "xts") )))) > 0) ) { 
-          z <- x
-        } else z <- y
+        #if ( (length(which(!is.na(match(class(x), c("ts", "zoo", "xts") )))) > 0) ) { 
+        #  z <- x
+        #} else z <- y
+
+        print(summary(x))
+        print(!is.integer( class(time(x)) ) )
+        print(summary(y))
+        print(!is.integer( class(time(y)) ) )
+        print( ( ( !is.integer( class(time(x)) ) ) & ( !is.integer( class(time(y)) ) ) ) )
 
         # if 'x' and 'y' are subdaily ts
         if (x.sfreq %in% c("minute", "hourly") ) {
@@ -251,7 +258,7 @@ plot2 <- function (x, y,
         } # IF end
 
         # Draws ticks in the X axis, but labels only in years
-        hydroTSM::drawTimeAxis(z, tick.tstep=tick.tstep, lab.tstep= lab.tstep, 
+        hydroTSM::drawTimeAxis(x, tick.tstep=tick.tstep, lab.tstep= lab.tstep, 
                                lab.fmt=lab.fmt, cex.axis=cex.axis, cex.lab=cex.lab) 
 
         # manually adding a grid
