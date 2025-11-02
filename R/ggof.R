@@ -102,8 +102,10 @@ ggof <- function (sim, obs,
     if ( sim.sfreq != obs.sfreq)
       stop("Invalid arguments: sampling frequency of 'sim' and 'obs' is not the same ! (", 
            sim.sfreq, " != ", obs.sfreq, ")")
+  } # IF end
 
-    # Removing 'sKGE', 'APFB' and 'HFB' when 'sim' and 'obs' are annual zoo objects
+  # Removing 'sKGE', 'APFB' and 'HFB' when 'sim' and 'obs' are annual zoo objects
+  if ( !is.null(sim.sfreq) ) {
     if ( sim.sfreq == "annual" ) {
       index    <- pmatch( c("sKGE", "APFB", "HFB"), gofs.all )
       gofs.all <- gofs.all[-index]
