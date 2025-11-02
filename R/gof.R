@@ -69,16 +69,15 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
      # Checking the sampling frequency of 'x' and 'y'
      sim.sfreq <- NULL
      obs.sfreq <- NULL
-     if ( ( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) & 
-          ( ( ( class( time(sim) ) != "integer" ) & ( class( time(obs) ) != "integer" ) ) ) 
-        ) {
-       sim.sfreq <- hydroTSM::sfreq(sim)
-       obs.sfreq <- hydroTSM::sfreq(obs)
-       if ( sim.sfreq != obs.sfreq)
-         stop("Invalid arguments: sampling frequency of 'sim' and 'obs' is not the same ! (", 
-              sim.sfreq, " != ", obs.sfreq, ")")
+     if ( ( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) ) {
+       if (  !is.integer( class( time(sim) ) ) & !is.integer( class( time(obs) ) ) ) {
+         sim.sfreq <- hydroTSM::sfreq(sim)
+         obs.sfreq <- hydroTSM::sfreq(obs)
+         if ( sim.sfreq != obs.sfreq)
+           stop("Invalid arguments: sampling frequency of 'sim' and 'obs' is not the same ! (", 
+             sim.sfreq, " != ", obs.sfreq, ")")
+       } # IF end
      } # IF end
-     print(sim.sfreq)
      
      ME     <- me(sim, obs, na.rm=na.rm, fun=fun, ..., 
                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)

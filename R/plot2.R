@@ -227,7 +227,8 @@ plot2 <- function (x, y,
       # Drawing the 'x' axis
       # If the user provided, in some way, valid values for being used as dates, 
       # they will be used, if not, only a numeric index will be used
-      if ( !( ( class( time(x) ) != "integer" ) | ( class( time(y) ) != "integer" ) ) ) {
+      #if ( !( ( class( time(x) ) != "integer" ) | ( class( time(y) ) != "integer" ) ) ) {
+      if ( ( !is.integer( class( time(x) ) ) & !is.integer( class( time(y) ) ) ) ) {
 
         # if 'x' and 'y' are subdaily ts
         if (x.sfreq %in% c("minute", "hourly") ) {
