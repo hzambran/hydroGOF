@@ -74,15 +74,6 @@ plot2 <- function (x, y,
   # Checking that the user provided 'y'
   if ( missing(y) ) stop("Missing argument: 'y'")
 
-  # Checking the sampling frequency of 'x' and 'y'
-  if ( zoo::is.zoo(x) & zoo::is.zoo(y) ) {
-    x.sfreq <- hydroTSM::sfreq(x)
-    y.sfreq <- hydroTSM::sfreq(y)
-    if ( x.sfreq != y.sfreq)
-      stop("Invalid arguments: sampling frequency of 'x' and 'y' is not the same ! (", 
-           x.sfreq, " != ", y.sfreq, ")")
-  } # IF end
-
   # Checking 'gofs'.  'rSpearman' and 'pbiasFDC' are not computed
   gofs.all=c(   "ME",    "MAE",    "MSE",  "RMSE", "ubRMSE", 
              "NRMSE",  "PBIAS",   "RSR",    "rSD",    "NSE",  
@@ -95,10 +86,19 @@ plot2 <- function (x, y,
   if ( !( zoo::is.zoo(x) & zoo::is.zoo(y) ) )
     gofs.all <- gofs.all[ -c( (length(gofs.all)-2):(length(gofs.all)) ) ]
 
-  # Removing 'sKGE', 'APFB' and 'HFB' when 'x' and 'y' are annual zoo objects
-  if ( x.sfreq == "annual" ) {
-    index    <- pmatch( c("sKGE", "APFB", "HFB"), gofs.all )
-    gofs.all <- gofs.all[-index]
+  # Checking the sampling frequency of 'x' and 'y'
+  if ( zoo::is.zoo(x) & zoo::is.zoo(y) ) {
+    x.sfreq <- hydroTSM::sfreq(x)
+    y.sfreq <- hydroTSM::sfreq(y)
+    if ( x.sfreq != y.sfreq)
+      stop("Invalid arguments: sampling frequency of 'x' and 'y' is not the same ! (", 
+           x.sfreq, " != ", y.sfreq, ")")
+
+    # Removing 'sKGE', 'APFB' and 'HFB' when 'x' and 'y' are annual zoo objects
+    if ( x.sfreq == "annual" ) {
+      index    <- pmatch( c("sKGE", "APFB", "HFB"), gofs.all )
+      gofs.all <- gofs.all[-index]
+    } # IF end
   } # IF end
 
   # Checking 'gofs' 
@@ -236,7 +236,7 @@ plot2 <- function (x, y,
 
         # if 'x' and 'y' are subdaily ts
         if (x.sfreq %in% c("minute", "hourly") ) {
-          nmonths <- hydroTSM::mip(from=start(x), to=end(x), out.type="nmbr")
+          nmonths <- hydroTSM::mip(from=stats::start(x), to=stats::end(x), out.type="nmbr")
 
           if (nmonths <= 40) { # 40 months or less
             if (tick.tstep=="auto") tick.tstep <- "days"
