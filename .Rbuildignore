@@ -6,4 +6,3 @@ _config.yml
 ^docs$
 ^pkgdown$
 ^_pkgdown\.yml$
-^vignettes\.pdf$
