@@ -12,7 +12,7 @@
 ################################################################################
 # Started: 04-May-2024                                                         #
 # Updates: 05-May-2024                                                         #
-#          01-Nov-2025                                                         #
+#          01-Nov-2025 ; 20-Nov-2025                                           #
 ################################################################################
 
 # The high flow bias (HFB) ranges from 0 to Inf, with an optimal value of 0. 
@@ -113,7 +113,8 @@ HFB.default <- function(sim, obs, na.rm=TRUE,
 
   
   # Selecting only valid paris of values
-  vi <- valindex(sim, obs)     
+  vi <- valindex(sim, obs)    
+ 
   if (length(vi) > 0) {	 
     obs <- obs[vi]
     sim <- sim[vi]
@@ -126,47 +127,52 @@ HFB.default <- function(sim, obs, na.rm=TRUE,
       sim <- new[["sim"]]
       obs <- new[["obs"]]
     } # IF end
-  } else stop("There are no points with simultaneous values of 'sim' and 'obs' !!")
+ 
 
-  hQ.val <- stats::quantile(obs, probs=(1-hQ.thr)) # To use 'lhQ.thr' as pbb of exceedence instead of as a quantile  
-  #message("hQ.val= ", round(hQ.val,3) )
+    hQ.val <- stats::quantile(obs, probs=(1-hQ.thr)) # To use 'lhQ.thr' as pbb of exceedence instead of as a quantile  
+    #message("hQ.val= ", round(hQ.val,3) )
 
-  # Checking that time of sim' and 'obs' are the same
-  sim.ltime <- time(sim)
-  obs.ltime <- time(obs)
-  if ( !all.equal(sim.ltime, obs.ltime ) ) 
-    stop("Invalid argument: 'sim' and 'obs' must have the same time attribute !")
+    # Checking that time of sim' and 'obs' are the same
+    sim.ltime <- time(sim)
+    obs.ltime <- time(obs)
+    if ( !all.equal(sim.ltime, obs.ltime ) ) 
+      stop("Invalid argument: 'sim' and 'obs' must have the same time attribute !")
 
 
-  # Getting annual values of 'sim' and 'obs'
-  years  <- format(obs.ltime, "%Y") # or 'ltimes <- sim.ltime', because 'sim.ltime' is the same as 'obs.ltime'
+    # Getting annual values of 'sim' and 'obs'
+    years  <- format(obs.ltime, "%Y") # or 'ltimes <- sim.ltime', because 'sim.ltime' is the same as 'obs.ltime'
 
-  # Shifting backwards the year each element in 'x', 
-  # only when start.month != 1
-  ltimes <- obs.ltime # or 'ltimes <- sim.ltime', because 'sim.ltime' is the same as 'obs.ltime'
-  if ( start.month != 1 )
-    years <- hydroTSM::shiftyears(ltime=ltimes, lstart.month=start.month)
+    # Shifting backwards the year each element in 'x', 
+    # only when start.month != 1
+    ltimes <- obs.ltime # or 'ltimes <- sim.ltime', because 'sim.ltime' is the same as 'obs.ltime'
+    if ( start.month != 1 )
+      years <- hydroTSM::shiftyears(ltime=ltimes, lstart.month=start.month)
 
-  # Getting a numeric vector with the unique years in 'sim' and 'obs'
-  years.unique <- unique(years)
+    # Getting a numeric vector with the unique years in 'sim' and 'obs'
+    years.unique <- unique(years)
 
-  # Getting the number of years in 'sim' and 'obs'
-  nyears <- length(years.unique)
+    # Getting the number of years in 'sim' and 'obs'
+    nyears <- length(years.unique)
 
-  # Getting a list of 'sim' and 'obs' values for each year
-  sim.PerYear <- split(coredata(sim), years)
-  obs.PerYear <- split(coredata(obs), years) # years.sim == years.obs
+    # Getting a list of 'sim' and 'obs' values for each year
+    sim.PerYear <- split(coredata(sim), years)
+    obs.PerYear <- split(coredata(obs), years) # years.sim == years.obs
 
-  # Computing annual HFB values
-  HFB.yr        <- sapply(1:nyears, FUN=lHFB.year, lsim=sim.PerYear, lobs=obs.PerYear, 
-                          lhQ.val=hQ.val, lna.rm= na.rm)
-  names(HFB.yr) <- years.unique
+    # Computing annual HFB values
+    HFB.yr        <- sapply(1:nyears, FUN=lHFB.year, lsim=sim.PerYear, lobs=obs.PerYear, 
+                            lhQ.val=hQ.val, lna.rm= na.rm)
+    names(HFB.yr) <- years.unique
 
-  # ideal value of beta is 1
-  beta <- stats::median(HFB.yr, na.rm=na.rm)
+    # ideal value of beta is 1
+    beta <- stats::median(HFB.yr, na.rm=na.rm)
 
-  # ideal value of HFB is 1
-  HFB <- 1 - sqrt( (beta - 1)^2 ) 
+    # ideal value of HFB is 1
+    HFB <- 1 - sqrt( (beta - 1)^2 ) 
+
+  } else {
+      HFB    <- NA
+      HFB.yr <- NA
+    } # ELSE end
 
   if (out.PerYear) {
     out <- list(HFB.value=HFB, HFB.PerYear=HFB.yr)
