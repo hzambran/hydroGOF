@@ -22,19 +22,23 @@ Normalized root mean square error (NRMSE) between \code{sim} and \code{obs}, wit
 \usage{
 nrmse(sim, obs, ...)
 
-\method{nrmse}{default}(sim, obs, na.rm=TRUE, norm="sd", fun=NULL, ..., 
+\method{nrmse}{default}(sim, obs, na.rm=TRUE, norm=c("sd", "maxmin", "mean", "IQR"), 
+               fun=NULL, ..., 
                epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                epsilon.value=NA)
 
-\method{nrmse}{data.frame}(sim, obs, na.rm=TRUE, norm="sd", fun=NULL, ..., 
+\method{nrmse}{data.frame}(sim, obs, na.rm=TRUE, norm=c("sd", "maxmin", "mean", "IQR"), 
+               fun=NULL, ..., 
                epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                epsilon.value=NA)
 
-\method{nrmse}{matrix}(sim, obs, na.rm=TRUE, norm="sd", fun=NULL, ..., 
+\method{nrmse}{matrix}(sim, obs, na.rm=TRUE, norm=c("sd", "maxmin", "mean", "IQR"), 
+               fun=NULL, ..., 
                epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                epsilon.value=NA)
 
-\method{nrmse}{zoo}(sim, obs, na.rm=TRUE, norm="sd", fun=NULL, ..., 
+\method{nrmse}{zoo}(sim, obs, na.rm=TRUE, norm=c("sd", "maxmin", "mean", "IQR"), 
+               fun=NULL, ..., 
                epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                epsilon.value=NA)
 }
@@ -54,6 +58,8 @@ When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{s
 character, indicating the value to be used for normalising the root mean square error (RMSE). Valid values are: \cr
 -) \kbd{sd}    : standard deviation of observations (default). \cr
 -) \kbd{maxmin}: difference between the maximum and minimum observed values
+-) \kbd{mean}  : arithmetic mean of observed values
+-) \kbd{IQR}   : interquantile range of observed values, computed using the \code{stats::IQR} function with \code{type=7}.
 }
   \item{fun}{
 function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing this goodness-of-fit index.

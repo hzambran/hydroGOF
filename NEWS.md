@@ -9,6 +9,8 @@ NEWS/ChangeLog for hydroGOF
         o 'plot2': now it shows and adaptive time axis for sub-daily zoo objects.
         o 'ggof' : now it shows and adaptive time axis for sub-daily zoo objects.
         o 'gof'  : now it does not compute sKGE, APFB and HFB when sim and obs are annual zoo objects.
+        o 'NRMSE': in addition to the standard deviation and the range of observations, now it is possible to normlise the RMSE by the mean and IQRT of observations.
+
 
 # Changes in version 0.6-0  08-May-2024
 
