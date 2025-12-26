@@ -2,7 +2,7 @@
 # Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 #                                 https://cran.r-project.org/package=hydroGOF
 #                                 http://www.rforge.net/hydroGOF/
-# Copyright 2022-2024 Mauricio Zambrano-Bigiarini
+# Copyright 2022-2025 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -14,6 +14,7 @@
 # Updates: 13-Jul-2022 ; 14-Jul-2022                                           #
 #          16-Jan-2023                                                         #
 #          06-May-2024 ; 08-May-2024                                           # 
+#          26-Dec-2025                                                         #
 ################################################################################
 # The optimal value of sKGE is 1
 
@@ -51,22 +52,25 @@ sKGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
 
 
   # Function for shifting a time vector by 'nmonths' number of months.
-  .shiftyears <- function(ltime,       # Date/POSIX* object. It MUST contat MONTH and YEAR
-                          lstart.month # numeric in [2,..,12], representing the months. 2:Feb, 12:Dec
-                          ) {
-     syears.bak        <- as.numeric(format( ltime, "%Y" ))
-     syears            <- syears.bak
-     smonths           <- as.numeric(format( ltime, "%m"))
-     months2moveback   <- 1:(lstart.month-1)
-     N                 <- length(months2moveback)
-     for (i in 1:N) {
-       m.index         <- which(smonths == months2moveback[i])
-       m.year          <- unique(na.omit(syears.bak[m.index]))
-	     m.year          <- m.year - 1
-	     syears[m.index] <- m.year
-     } # FOR end
-     return(syears)
-  } # '.shiftyears' END
+  # This function is taken from the hydroTSM R package (internal function)
+  shiftyears <- function(ltime,       # vector with the date/times of each element 
+                                    # of a zoo object
+                       lstart.month # numeric in [2,..,12], 2:Feb, 12:Dec, 
+                                    # It represents the starting month to be 
+                                    # used in the computation of annual values.
+                       ) {
+  syears.bak        <- as.numeric(format( ltime, "%Y" ))
+  syears            <- syears.bak
+  smonths           <- as.numeric(format( ltime, "%m"))
+  months2moveback   <- 1:(lstart.month-1)
+  N                 <- length(months2moveback)
+  for (i in 1:N) {
+    m.index          <- which(smonths == months2moveback[i])
+    syears[m.index]  <- syears[m.index] - 1
+  } # FOR end
+
+  return(syears)
+} # 'shiftyears' END
    
     
   # Checking 'method' and 'epsilon.type'
@@ -101,7 +105,7 @@ sKGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
   } else {
 
       if (start.month !=1) 
-        years.obs <- .shiftyears(dates.obs, start.month)
+        years.obs <- shiftyears(dates.obs, start.month)
 
       years.unique <- unique(years.obs)
       nyears       <- length(years.unique)
