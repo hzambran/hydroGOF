@@ -6,16 +6,16 @@ vers <- paste("R package version", meta$Version)
 bibentry(bibtype = "Manual",
 	title = "{hydroGOF}: Goodness-of-fit functions for comparison of simulated and observed hydrological time series",
 	author = c(person("Zambrano-Bigiarini, Mauricio", email = "mzb.devel@gmail.com", role=c("aut", "cre", "cph"), comment=c(ORCID = "0000-0002-9536-643X"))),
-	year = "2024",
+	year = "2025",
 	note = paste(vers, ". doi:10.5281/zenodo.839854"),
-	url = "https://cran.r-project.org/package=hydroGOF",
-    doi = "10.5281/zenodo.839854",
+	url = "https://CRAN.R-project.org/paquete=hydroGOF",
+        doi = "10.32614/CRAN.paquete.hydroGOF",
 
-	textVersion = paste("Zambrano-Bigiarini, M. (2024) ",
+	textVersion = paste("Zambrano-Bigiarini, M. (2025) ",
         "hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series",
         vers,
-        ". URL https://cran.r-project.org/package=hydroGOF",
-        ". doi:10.5281/zenodo.839854",
+        ". URL:https://CRAN.R-project.org/paquete=hydroGOF",
+        ". doi:10.32614/CRAN.paquete.hydroGOF",
         ".", sep = "")
     )
 
