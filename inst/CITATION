@@ -7,15 +7,15 @@ bibentry(bibtype = "Manual",
 	title = "{hydroGOF}: Goodness-of-fit functions for comparison of simulated and observed hydrological time series",
 	author = c(person("Zambrano-Bigiarini, Mauricio", email = "mzb.devel@gmail.com", role=c("aut", "cre", "cph"), comment=c(ORCID = "0000-0002-9536-643X"))),
 	year = "2025",
-	note = paste(vers, ". doi:10.5281/zenodo.839854"),
-	url = "https://CRAN.R-project.org/paquete=hydroGOF",
-        doi = "10.32614/CRAN.paquete.hydroGOF",
+	note = paste(vers, ". doi:10.32614/CRAN.package.hydroGOF"),
+	url = "https://CRAN.R-project.org/package=hydroGOF",
+        doi = "10.32614/CRAN.package.hydroGOF",
 
 	textVersion = paste("Zambrano-Bigiarini, M. (2025) ",
         "hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series",
         vers,
-        ". URL:https://CRAN.R-project.org/paquete=hydroGOF",
-        ". doi:10.32614/CRAN.paquete.hydroGOF",
+        ". URL:https://CRAN.R-project.org/package=hydroGOF",
+        ". doi:10.32614/CRAN.package.hydroGOF",
         ".", sep = "")
     )
 
