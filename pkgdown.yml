@@ -1,0 +1,9 @@
+pandoc: 3.1.11
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  hydroGOF_Vignette: hydroGOF_Vignette.html
+last_built: 2026-04-27T20:39Z
+urls:
+  reference: https://hzambran.github.io/hydroGOF/reference
+  article: https://hzambran.github.io/hydroGOF/articles
