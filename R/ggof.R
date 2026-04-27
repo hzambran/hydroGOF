@@ -17,6 +17,7 @@
 #            15-Apr-2013 ; 15-May-2013                                         #
 #            20-Jan-2024 ; 22-Mar-2024 ; 23-Mar-2024 ; 08-May-2024             #
 #            01-Nov-2025                                                       #
+#            26-Apr-2026                                                       #
 ################################################################################     
                                           
       
@@ -66,8 +67,12 @@ ggof <- function (sim, obs,
 
   # Saving the current graphical parameter settings,
   # and restoring them on exit
-  #old.par <- par(no.readonly = TRUE)
-  #on.exit(par(old.par))
+  oldpars <- par(no.readonly=TRUE)
+
+  on.exit({
+    par(oldpars)
+    layout(1)
+  })
 
   # Checking class 'sim' &'obs'   
   valid.class <- c("xts", "zoo", "numeric", "integer")    
@@ -306,8 +311,8 @@ ggof <- function (sim, obs,
         obs.annual <- hydroTSM::monthly2annual(obs, FUN, na.rm, out.fmt="%Y-%m-%d") # hydroTSM::monthly2annual
         sim.annual <- hydroTSM::monthly2annual(sim, FUN, na.rm, out.fmt="%Y-%m-%d") # hydroTSM::monthly2annual
         
-        def.par <- par(no.readonly = TRUE) # save default, for resetting... 
-        on.exit(par(def.par)) 
+        #def.par <- par(no.readonly = TRUE) # save default, for resetting... 
+        #on.exit(par(def.par)) 
         
         # If the user wants a legend, the screen is split into 2 rows and 2 columns, 
         # where the proportion of width of the 1st column to the 2nd one is 9:2
@@ -369,8 +374,8 @@ ggof <- function (sim, obs,
           obs.annual <- daily2annual(obs, FUN, na.rm, out.fmt = "%Y-%m-%d") # hydroTSM::daily2annual
           sim.annual <- daily2annual(sim, FUN, na.rm, out.fmt = "%Y-%m-%d") # hydroTSM::daily2annual
           
-          def.par <- par(no.readonly = TRUE) # save default, for resetting... 
-          on.exit(par(def.par)) 
+          #def.par <- par(no.readonly = TRUE) # save default, for resetting... 
+          #on.exit(par(def.par)) 
           
           # If the user wants a legend, the screen is split into 2 rows and 2 columns, 
           # where the proportion of width of the 1st column to the 2nd one is 9:2
@@ -478,8 +483,8 @@ ggof <- function (sim, obs,
           obs.summer <- as.zoo(obs.summer)
           obs.autumm <- as.zoo(obs.autumm)
     
-          def.par <- par(no.readonly = TRUE) # save default, for resetting... 
-          on.exit(par(def.par)) 
+          #def.par <- par(no.readonly = TRUE) # save default, for resetting... 
+          #on.exit(par(def.par)) 
           
           # If the user wants a legend, the screen is split into 2 rows and 2 columns, 
           # where the proportion of width of the 1st column to the 2nd one is 9:2
