@@ -24,8 +24,8 @@ The package is designed with practical modelling workflows in mind. Its function
 
 [**hydroGOF**](https://cran.r-project.org/package=hydroGOF) is widely used in research, teaching, and professional practice, which makes it particularly suitable for users who require dependable, well-documented tools to quantify model accuracy and communicate results with clarity. It provides a technically robust foundation for evidence-based model development, benchmarking, and decision support in hydrology and related environmental sciences.
 
-Bugs / comments / questions / collaboration of any kind are very welcomed. 
 
+![](./man/figures/logo.png)
 
 
 ## Installation
