@@ -7,9 +7,16 @@ NEWS/ChangeLog for hydroGOF
 
 ## Enhancements
         o 'plot2': now it shows and adaptive time axis for sub-daily zoo objects.
-        o 'ggof' : now it shows and adaptive time axis for sub-daily zoo objects.
+        o 'ggof' : -) now it shows and adaptive time axis for sub-daily zoo objects.
+                   -) now it returns the graphical device to its status before calling this function.
         o 'gof'  : now it does not compute sKGE, APFB and HFB when sim and obs are annual zoo objects.
         o 'NRMSE': in addition to the standard deviation and the range of observations, now it is possible to normlise the RMSE by the mean and IQRT of observations.
+
+## Package files
+        o hydroGOF now has a graphical logo.  
+        o hydroGOF now has a webpage (https://hzambran.github.io/hydroGOF/), created by pkgdown.  
+        o CITATION file: The DOI was changed form the one given by Zotero to the new DOI given by CRAN (10.32614/CRAN.package.hydroGOF) since June 2024.
+
 
 
 # Changes in version 0.6-0  08-May-2024
