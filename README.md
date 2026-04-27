@@ -1,26 +1,44 @@
 # hydroGOF
-[![Research software impact](http://depsy.org/api/package/cran/hydroGOF/badge.svg)](http://depsy.org/package/r/hydroGOF) [![CRAN](http://www.r-pkg.org/badges/version/hydroGOF)](https://cran.r-project.org/package=hydroGOF) [![License](https://img.shields.io/badge/license-GPL%20%28%3E=%203%29-lightgrey.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html) [![monthly](http://cranlogs.r-pkg.org/badges/hydroGOF)](https://www.rpackages.io/package/hydroGOF) [![total](http://cranlogs.r-pkg.org/badges/grand-total/hydroGOF)](https://www.rpackages.io/package/hydroGOF) [![Build Status](https://travis-ci.org/hzambran/hydroGOF.svg?branch=master)](https://travis-ci.org/hzambran/hydroGOF) [![dependencies](https://tinyverse.netlify.com/badge/hydroGOF)](https://CRAN.R-project.org/package=hydroGOF)
 
-<!-- badges: start -->
-  [![R-CMD-check](https://github.com/hzambran/hydroGOF/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hzambran/hydroGOF/actions/workflows/R-CMD-check.yaml)
-<!-- badges: end -->
+<!-- README badge block -->
 
-hydroGOF is an R package that provides S3 functions implementing both statistical and graphical goodness-of-fit measures between observed and simulated values, mainly oriented to be used during the calibration, validation, and application of hydrological models.
+[![DOI](https://img.shields.io/badge/DOI-10.32614%2FCRAN.package.hydroGOF-blue)](https://doi.org/CRAN.package.hydroGOF)
 
-Missing values in observed and/or simulated values can be automatically removed before the computations.
+[![License: GPL (>= 2)](https://img.shields.io/badge/License-GPL%20v2%2B-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![Dependencies](https://tinyverse.netlify.app/badge/hydroGOF)](https://CRAN.R-project.org/package=hydroGOF)
+[![Documentation](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://hzambran.github.io/hydroGOF/)
+
+[![GitHub package version (development)](https://img.shields.io/github/r-package/v/hzambran/hydroGOF/master)](https://github.com/hzambran/hydroGOF)
+[![CRAN status](https://www.r-pkg.org/badges/version/hydroGOF)](https://CRAN.R-project.org/package=hydroGOF)
+[![R-CMD-check](https://github.com/hzambran/hydroGOF/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hzambran/hydroGOF/actions/workflows/R-CMD-check.yaml)
+[![CRAN downloads (monthly)](https://cranlogs.r-pkg.org/badges/last-month/hydroGOF)](https://cran.r-project.org/package=hydroGOF)
+[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/hydroGOF)](https://cran.r-project.org/package=hydroGOF)
+
+
+## Description
+
+[**hydroGOF**](https://cran.r-project.org/package=hydroGOF) is an R package developed to provide a rigorous and consistent framework for evaluating the performance of hydrological and environmental models. It implements a broad suite of widely used statistical and graphical goodness-of-fit metrics to compare simulatd values agains iits observed counterparts; such as the coefficient of determination (R²), Nash–Sutcliffe efficiency (NSE), Kling–Gupta efficiency (KGE), and percent bias (PBIAS); that support objective assessment of model behaviour during calibration, validation, and operational application.
+
+The package is designed with practical modelling workflows in mind. Its functions facilitate transparent comparison between observed and simulated time series, enable systematic performance diagnostics, and handle common data challenges such as missing values in a controlled and reproducible manner. By standardising the computation of performance indicators, [**hydroGOF**](https://cran.r-project.org/package=hydroGOF) helps ensure that model evaluation remains methodologically consistent across studies and applications.
+
+[**hydroGOF**](https://cran.r-project.org/package=hydroGOF) is widely used in research, teaching, and professional practice, which makes it particularly suitable for users who require dependable, well-documented tools to quantify model accuracy and communicate results with clarity. It provides a technically robust foundation for evidence-based model development, benchmarking, and decision support in hydrology and related environmental sciences.
 
 Bugs / comments / questions / collaboration of any kind are very welcomed. 
 
 
 
 ## Installation
+
 Installing the latest stable version from [CRAN](https://CRAN.R-project.org/package=hydroGOF):
-```{r}
+
+```
 install.packages("hydroGOF")
 ```
 
 Alternatively, you can also try the under-development version from [Github](https://github.com/hzambran/hydroGOF):
-```{r}
+
+```
 if (!require(devtools)) install.packages("devtools")
 library(devtools)
 install_github("hzambran/hydroGOF")
@@ -33,13 +51,14 @@ If you find an error in some function, or want to report a typo in the documenta
 
 
 ## Citation 
-```{r}
+
+```
 citation("hydroGOF")
 ```
 
 To cite hydroGOF in publications use:
 
-> Zambrano-Bigiarini, Mauricio (2024). hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series. R package version 0.6-0. URL:https://cran.r-project.org/package=hydroGOF. doi:10.5281/zenodo.839854.
+> Zambrano-Bigiarini, Mauricio (2026). hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series. R package version 0.7-0. URL:https://cran.r-project.org/package=hydroGOF. doi:10.32614/CRAN.package.hydroGOF.
 
 
 A BibTeX entry for LaTeX users is
@@ -47,10 +66,10 @@ A BibTeX entry for LaTeX users is
 >  @Manual{hydroGOF,  
 >    title = {hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series},  
 >    author = {Zambrano-Bigiarini, Mauricio},  
->    note = {R package version 0.6-0},  
->    year = {2024},
+>    note = {R package version 0.7-0},  
+>    year = {2026},
 >    url = {https://cran.r-project.org/package=hydroGOF},  
->    doi = {10.5281/zenodo.839854},  
+>    doi = {10.32614/CRAN.package.hydroGOF},  
 >  }
 
 ## Goodness-of-fit measures
@@ -209,7 +228,7 @@ Quantitative statistics included in this package are:
 
 ## See Also 
 
-* [hydroTSM: Time series management, analysis and interpolation for hydrological modelling](https://cran.r-project.org/package=hydroTSM).
+* [hydroGOF: Time series management, analysis and interpolation for hydrological modelling](https://cran.r-project.org/package=hydroGOF).
 
 * [hydroPSO: Model-independent Particle Swarm Optimisation (PSO) for environmental/hydrological models](https://cran.r-project.org/package=hydroPSO).
 
