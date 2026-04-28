@@ -61,6 +61,15 @@ When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{s
 
 numeric in [1:12] indicating the starting month of the (hydrological) year. Numeric values in [1, 12] represent months in [January, December]. By default \code{start.month=1}.
 }
+\item{out.PerYear}{
+logical value indicating whether the output should include the annual peak flow bias computed for each individual year.\cr
+
+Valid values are:
+
+-) \kbd{FALSE}: the output is a numeric with the mean annual peak flow bias.
+
+-) \kbd{TRUE}: the output is a list including both the overall APFB value and the individual yearly values.
+}
   \item{fun}{
 function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing this goodness-of-fit index.
 
