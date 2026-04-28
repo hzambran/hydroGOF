@@ -1,4 +1,4 @@
-%% File KGE.Rd
+%% File JDKGE.Rd
 %% Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 %%                                 https://cran.r-project.org/package=hydroGOF
 %%                                 http://www.rforge.net/hydroGOF/
@@ -214,9 +214,7 @@ numeric with 4 elements: the Pearson product-moment correlation coefficient (\sQ
 \references{
 
 \cite{
-Joint Divergence Kling-Gupta Efficiency performance metric for hydrological model evaluation.
-EGUsphere preprint.
-doi:10.5194/egusphere-2026-43
+Ficchi, A.; Bavera, D.; Grimaldi, S.; Moschini, F.; Pistocchi, A.; Russo, C.; Salamon, P.; Toreti, A. (2026). Improving low and high flow simulations at once: An enhanced metric for hydrological model calibrations. EGUsphere [preprint], https://doi.org/10.5194/egusphere-2026-43. 
 }
 
 }
@@ -264,8 +262,7 @@ JDKGE(sim=sim, obs=obs, fun=log)
 ##################
 # Example 4: using kernel density estimation
 
-JDKGE(sim=sim, obs=obs,
-      density.method="kde")
+JDKGE(sim=sim, obs=obs, density.method="kde")
 
 }
 
