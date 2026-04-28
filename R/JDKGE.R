@@ -251,37 +251,43 @@ JDKGE.default <- function(sim, obs,
         sigma.sim <- sd(sim, na.rm=na.rm)
         sigma.obs <- sd(obs, na.rm=na.rm)
 
-        if ( (sigma.obs == 0) &  ( (method == "2009") | (method == "2021") ) )
+        if ( (sigma.obs == 0) & ( (method == "2009") | (method == "2021") ) )
           warning("Warning: 'sd(obs)==0'. Variability ratio is undefined !")
 
         if (method == "2009") {
 
           # Variability: standard deviation ratio
-          Gamma <- sigma.sim / sigma.obs
+          vr     <- sigma.sim / sigma.obs
+          vr.stg <- "Alpha"
 
           # Bias: mean ratio
-          Beta <- mean.sim / mean.obs
+          br     <- mean.sim / mean.obs
+          br.stg <- "Beta"
 
         } else if (method == "2012") {
 
-          # Coefficient of variation ratio
-          CV.sim <- sigma.sim / mean.sim
-          CV.obs <- sigma.obs / mean.obs
+            # Coefficient of variation ratio
+            CV.sim <- sigma.sim / mean.sim
+            CV.obs <- sigma.obs / mean.obs
 
-          Gamma <- CV.sim / CV.obs
+            vr     <- CV.sim / CV.obs
+            vr.stg <- "Gamma"
 
-          # Bias unchanged
-          Beta <- mean.sim / mean.obs
+            # Bias unchanged
+            br     <- mean.sim / mean.obs
+            br.stg <- "Beta"
 
-        } else if (method == "2021") {
+          } else if (method == "2021") {
 
-            # Variability: standard deviation ratio
-            Gamma <- sigma.sim / sigma.obs
+              # Variability: standard deviation ratio
+              vr     <- sigma.sim / sigma.obs
+              vr.stg <- "Alpha"
 
-            # Standardized bias
-            Beta <- (mean.sim - mean.obs) / sigma.obs
+              # Standardized bias
+              br     <- (mean.sim - mean.obs) / sigma.obs
+              br.stg <- "Beta.2021"
 
-          } # ELSE end
+            } # END
 
         # Distribution component (log flows)
         log.sim <- log(sim)
@@ -295,8 +301,8 @@ JDKGE.default <- function(sim, obs,
 
         if ( (mean.obs != 0) & (sigma.obs != 0) & !is.na(jsd) ) {
 
-          JDK <- 1 - sqrt( (s[1]*(r-1))^2    + (s[2]*(Gamma-1))^2 +
-                           (s[3]*(Beta-1))^2 + (s[4]*(Delta-1))^2 )
+          JDK <- 1 - sqrt( (s[1]*(r-1))^2  + (s[2]*(vr-1))^2  +
+                           (s[3]*(br-1))^2 + (s[4]*(Delta-1))^2 )
 
         } else {
 
@@ -327,9 +333,9 @@ JDKGE.default <- function(sim, obs,
 
   } else {
 
-      elements <- c(r, Beta, Gamma, Delta)
+      elements <- c(r, br, vr, Delta)
 
-      names(elements) <- c("r", "Beta", "Gamma", "Delta")
+      names(elements) <- c("r", br.stg, vr.stg, "Delta")
 
       out <- list( JDKGE.value = JDK, JDKGE.elements = elements )
 
@@ -370,7 +376,18 @@ JDKGE.matrix <- function(sim, obs,
 
   elements <- matrix( NA, nrow=4, ncol=ncol(obs) )
 
-  rownames(elements) <- c( "r", "Beta", "Gamma", "Delta" )
+  if (method == "2012") {
+    vr.stg <- "Gamma"
+    br.stg <- "Beta"
+  } else if (method == "2009") {
+      vr.stg <- "Alpha"
+      br.stg <- "Beta"
+    } else {
+        vr.stg <- "Alpha"
+        br.stg <- "Beta.2021"
+      } # ELSE end
+
+  rownames(elements) <- c("r", br.stg, vr.stg, "Delta")
   colnames(elements) <- colnames(obs)
 
   if (out.type == "single") {

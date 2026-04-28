@@ -133,6 +133,8 @@ character, indicating the method used to estimate the empirical probability dens
 -) \kbd{"hist"}: probability densities are estimated using histograms. This is the default option.
 
 -) \kbd{"kde"}: probability densities are estimated using kernel density estimation.
+
+See 'Details' section for additional information.
 }
 
 \item{nbins}{
@@ -143,40 +145,70 @@ numeric or character, indicating the number of bins or the method used to determ
 
 \details{
 
-In the computation of this index, there are four main components involved:
+In the computation of this index, four diagnostic components are considered:
 
-1) \kbd{r} : the Pearson product-moment correlation coefficient. Ideal value is r=1.
+1) \kbd{r} : the Pearson product-moment correlation coefficient computed from the raw (unsorted) simulated and observed values. The ideal value is r=1.
 
-2) \kbd{Alpha} : the variability ratio, defined as the ratio between the standard deviation of the simulated values and the standard deviation of the observed ones. Ideal value is Alpha=1.
+2) \kbd{vr}: the variability component, whose definition depends on the selected \code{method}:
 
-3) \kbd{Beta} : the bias ratio, defined as the ratio between the mean of the simulated values and the mean of the observed ones. Ideal value is Beta=1.
+\itemize{
 
-4) \kbd{Delta} : the distribution divergence component, derived from the Jensen-Shannon divergence (JSD) computed from the logarithm of simulated and observed values. Ideal value is Delta=1.
+\item For \kbd{method="2009"} (Gupta et al., 2009), variability is defined as \sQuote{Alpha}, the ratio between the standard deviation of the simulated values and the standard deviation of the observed ones:
 
-Joint Divergence Kling-Gupta efficiencies range from -Inf to 1. Essentially, the closer to 1, the more similar \code{sim} and \code{obs} are across correlation, variability, bias, and distributional characteristics. Values close to zero indicate substantial deviations from the ideal agreement, while increasingly negative values reflect progressively poorer model performance relative to the observed dynamics.
+\deqn{\alpha = \sigma_s / \sigma_o}
 
-\deqn{JDKGE = 1 - ED}
+\item For \kbd{method="2012"} (Kling et al., 2012), variability is defined as \sQuote{Gamma}, the ratio between the coefficients of variation of simulated and observed values:
+
+\deqn{\gamma = (\sigma_s / \mu_s) / (\sigma_o / \mu_o)}
+
+\item For \kbd{method="2021"} (Tang et al., 2021), variability is again defined as \sQuote{Alpha}, the ratio between the standard deviation of the simulated values and the standard deviation of the observed ones:
+
+\deqn{\alpha = \sigma_s / \sigma_o}
+
+}
+
+The ideal value of the variability component is 1.
+
+3) \kbd{br} : the bias component, whose definition also depends on the selected \code{method}:
+
+\itemize{
+
+\item For \kbd{method="2009"} and \kbd{method="2012"}, bias is defined as \sQuote{Beta}, the ratio between the mean of the simulated values and the mean of the observed ones:
+
+\deqn{\beta = \mu_s / \mu_o}
+
+\item For \kbd{method="2021"}, bias is defined as a standardized difference between means, denoted here as \sQuote{Beta.2021}:
+
+\deqn{\beta_{2021} = (\mu_s - \mu_o) / \sigma_o}
+
+}
+
+The ideal value of the bias component is 1 for ratio-based definitions and 0 for the standardized bias formulation; however, within the unified JDKGE formulation the optimal point in the criteria space remains (1, 1, 1, 1).
+
+4) \kbd{Delta} : the distribution similarity component, derived from the Jensen-Shannon divergence (JSD) computed from the logarithm of simulated and observed values:
+
+\deqn{\Delta = 1 - JSD}
+
+The Jensen-Shannon divergence quantifies the difference between the empirical probability distributions of log-transformed simulated and observed values, allowing the metric to explicitly evaluate discrepancies in distributional shape, including differences in low-flow and high-flow regimes that may not be fully captured by moment-based statistics alone.
+
+The Joint Divergence Kling-Gupta Efficiency is defined as:
 
 \deqn{
-ED = \sqrt{ (s[1]*(r-1))^2 + (s[2]*(\alpha-1))^2 + (s[3]*(\beta-1))^2 + (s[4]*(\Delta-1))^2
+JDKGE = 1 - ED
+}
+
+where the Euclidean distance in the criteria space is:
+
+\deqn{
+ED =
+\sqrt{ (s[1] (r-1))^2 + (s[2] (vr-1))^2 + (s[3] (br-1))^2 + (s[4] (\Delta-1))^2
 }
 }
 
-\deqn{r=Pearson product-moment correlation coefficient}
+Joint Divergence Kling-Gupta efficiencies range from -Inf to 1. Values closer to 1 indicate stronger agreement between simulated and observed values across correlation, variability, bias, and distributional similarity. Values close to zero indicate substantial deviations from ideal agreement, while increasingly negative values reflect progressively poorer model performance relative to the observed hydrological dynamics.
 
-\deqn{\alpha=\sigma_s/\sigma_o}
-
-\deqn{\beta=\mu_s/\mu_o}
-
-\deqn{\Delta=1 - JSD}
-
-where:
-
-JSD = Jensen-Shannon divergence between the empirical probability distributions of log-transformed simulated and observed values.
-
-The distribution divergence component allows the metric to explicitly evaluate differences in the overall distributional behavior of simulated and observed series, including discrepancies in low-flow and high-flow regimes that may not be fully captured by moment-based statistics alone.
-
-Regarding computational aspects, the choice of \code{density.method} influences both numerical cost and smoothness of the estimated distributions. The option \kbd{"hist"} relies on histogram-based density estimation and is computationally efficient, deterministic, and generally suitable for large-scale calibration or Monte Carlo simulations. The option \kbd{"kde"} relies on kernel density estimation, which produces smoother probability density functions and may provide a more stable estimate of distributional divergence, but typically requires greater computational time and memory resources. Consequently, \kbd{"hist"} is recommended for routine model evaluation and calibration workflows, whereas \kbd{"kde"} may be preferable for diagnostic analyses or research applications where detailed characterization of distributional differences is required.
+Regarding computational aspects, the choice of \code{density.method} influences both numerical cost and smoothness of the estimated distributions. 
+The option \kbd{"hist"} relies on histogram-based density estimation and is computationally efficient, deterministic, and generally suitable for large-scale calibration or Monte Carlo simulations. The option \kbd{"kde"} relies on kernel density estimation, which produces smoother probability density functions and may provide a more stable estimate of distributional divergence, but typically requires greater computational time and memory resources. Consequently, \kbd{"hist"} is recommended for routine model calibration workflows, whereas \kbd{"kde"} may be preferable for diagnostic analyses or research applications where detailed characterization of distributional differences is required.
 
 }
 
