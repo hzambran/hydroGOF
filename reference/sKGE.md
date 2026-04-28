@@ -150,27 +150,68 @@ sKGE(sim, obs, s=c(1,1,1), na.rm=TRUE, method=c("2009", "2012", "2021"),
 
 ## Details
 
-Garcia et al. (2017) tested different objective functions and found that
-the mean value of the KGE applied to the streamflows (i.e., KGE(Q)) and
-the KGE applied to the inverse of the streamflows (i.e., KGE(1/Q) is
-able to provide a an aceptable representation of low-flow indices
-important for water management. They also found that KGE applied to a
-transformation of streamflow values (e.g., log) is inadequate to capture
-low-flow indices important for water management.
+The Split Kling-Gupta Efficiency (sKGE) is computed by dividing the time
+series into individual years (or hydrological years when
+`start.month != 1`) and calculating the Kling-Gupta Efficiency (KGE) for
+each year separately. The final sKGE value is defined as the arithmetic
+mean of the annual KGE values:
 
-The robustness of their findings depends more on the climate variability
-rather than the objective function, and they are insensitive to the
-hydrological model used in the evaluation.
+\$\$ sKGE = \frac{1}{N} \sum\_{y=1}^{N} KGE_y \$\$
 
-Traditional Kling-Gupta efficiencies (Gupta et al., 2009; Kling et al.,
-2012) range from -Inf to 1 and, therefore, sKGE should also range from
--Inf to 1. Essentially, the closer to 1, the more similar `sim` and
-`obs` are.
+where \\N\\ is the number of years in the evaluation period and
+\\KGE_y\\ is the Kling-Gupta Efficiency computed using the simulated and
+observed values belonging to year \\y\\.
 
-Knoben et al. (2019) showed that traditional Kling-Gupta (Gupta et al.,
-2009; Kling et al., 2012) values greater than -0.41 indicate that a
-model improves upon the mean flow benchmark, even if the model's KGE
-value is negative.
+The Kling-Gupta Efficiency is defined as:
+
+\$\$ KGE = 1 - \sqrt{(r - 1)^2 + (V - 1)^2 + (B - 1)^2} \$\$
+
+where \\r\\ is the linear correlation coefficient between simulated and
+observed values, \\V\\ represents the variability component, and \\B\\
+represents the bias component.
+
+The definitions of the variability and bias components depend on the
+selected `method` argument:
+
+- **method = "2009"** (Gupta et al., 2009)
+
+  \$\$ \alpha = \frac{\sigma\_{sim}}{\sigma\_{obs}} \$\$
+
+  \$\$ \beta = \frac{\mu\_{sim}}{\mu\_{obs}} \$\$
+
+  where the variability component is \\V=\alpha\\ and the bias component
+  is \\B=\beta\\.
+
+- **method = "2012"** (Kling et al., 2012)
+
+  \$\$ \gamma = \frac{CV\_{sim}}{CV\_{obs}} \$\$
+
+  \$\$ \beta = \frac{\mu\_{sim}}{\mu\_{obs}} \$\$
+
+  where \\CV = \sigma / \mu\\, the variability component is
+  \\V=\gamma\\, and the bias component is \\B=\beta\\.
+
+- **method = "2021"** (Tang et al., 2021)
+
+  \$\$ \alpha = \frac{\sigma\_{sim}}{\sigma\_{obs}} \$\$
+
+  \$\$ \beta = \frac{\mu\_{sim} - \mu\_{obs}}{\sigma\_{obs}} \$\$
+
+  where the variability component is \\V=\alpha\\ and the bias component
+  is a standardized bias term.
+
+The splitting procedure allows model performance to be evaluated at the
+annual scale, providing a measure that summarizes inter-annual
+performance while reducing the influence of temporal aggregation over
+long periods.
+
+When `out.PerYear=TRUE`, the individual annual KGE values are also
+returned.
+
+The optimal value of sKGE is 1. Similar to the traditional Kling-Gupta
+efficiency, sKGE values can range from \\-\infty\\ to 1, where values
+closer to 1 indicate better agreement between simulated and observed
+values.
 
 ## Value
 

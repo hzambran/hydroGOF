@@ -758,7 +758,7 @@ gof(sim=sim, obs=obs)
 #> KGE      0.68
 #> KGElf    0.50
 #> KGEnp    0.63
-#> KGEkm    0.67
+#> KGEkm    0.66
 #> sKGE     0.65
 #> APFB     0.03
 #> HFB      0.92
@@ -796,7 +796,7 @@ gof(sim=sim, obs=obs, fun=log)
 #> KGE      0.72
 #> KGElf    0.50
 #> KGEnp    0.74
-#> KGEkm    0.74
+#> KGEkm    0.73
 #> sKGE     0.46
 #> APFB     0.01
 #> HFB      0.98
@@ -832,7 +832,7 @@ gof(sim=lsim, obs=lobs)
 #> KGE      0.72
 #> KGElf    0.41
 #> KGEnp    0.74
-#> KGEkm    0.74
+#> KGEkm    0.73
 #> sKGE     0.69
 #> APFB     0.01
 #> HFB      0.98
@@ -948,7 +948,7 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
 #> KGE      0.72
 #> KGElf    0.51
 #> KGEnp    0.74
-#> KGEkm    0.74
+#> KGEkm    0.73
 #> sKGE     0.48
 #> APFB     0.01
 #> HFB      0.98
@@ -984,7 +984,7 @@ gof(sim=lsim, obs=lobs)
 #> KGE      0.72
 #> KGElf    0.41
 #> KGEnp    0.74
-#> KGEkm    0.74
+#> KGEkm    0.73
 #> sKGE     0.69
 #> APFB     0.01
 #> HFB      0.98

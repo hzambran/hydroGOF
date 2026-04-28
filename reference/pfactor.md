@@ -56,13 +56,34 @@ pfactor(x, lband, uband, na.rm=TRUE, ...)
 
   further arguments passed to or from other methods.
 
+## Details
+
+The `P-factor` quantifies the percentage of observed values that fall
+within the prediction uncertainty band defined by the lower and upper
+bounds. It is a measure of the coverage of the uncertainty interval.
+
+Mathematically, the P-factor is defined as:
+
+\$\$ P\text{-factor} = \frac{1}{N} \sum\_{i=1}^{N} I \left( lband_i \le
+x_i \le uband_i \right) \$\$
+
+where \\N\\ is the total number of observations, \\x_i\\ is the observed
+value at time step \\i\\, and \\lband_i\\ and \\uband_i\\ are the lower
+and upper uncertainty bounds, respectively. The function \\I(\cdot)\\ is
+an indicator function that takes the value 1 when the observed value
+lies within the uncertainty bounds and 0 otherwise.
+
+The `P-factor` ranges from 0 to 1. A value of 1 indicates that all
+observations are bracketed by the uncertainty bounds, whereas a value of
+0 indicates that none of the observations fall within the bounds.
+
 ## Value
 
 Percent of the `x` observations that are within the given uncertainty
 bounds given by `lband` and `uband`.  
 
-If `sim` and `obs` are matrixes, the returned value is a vector, with
-the `P-factor` between each column of `sim` and `obs`.
+If `x`, `lband`, and `uband` are matrices, the returned value is a
+vector with the `P-factor` computed for each column.
 
 ## References
 

@@ -14,16 +14,21 @@
 ``` R
     o 'APFB' : -) Its value is now correctly computed, previously it was not Thanks to Rodrigo Mariano and Héctor Garcés.      
                -) New argument 'out.PerYear=FALSE' to define the whether the output should include the annual peak flow bias computed for each individual year or not.
+    o 'sKGE' : The content of 'Details' section in the documentation of this function was fixed, because it previously corresponded to the 'KGElf' function. Equations to summarise 'sKGE' were also added to the documentation. No change was made to the R code, only to the documentation.
+    o 'KGEkm': The second knowable moment K2 (dispersion-related quantity) is now correctly computed using ascending sorted values of 'sim' and 'obs' (previously the knowable moment K2 was computed using unsorted values of 'sim' and 'obs'). The other two components of the 'KGEkm' were previously correctly computed and now continue to do so. 
 ```
 
 ### Enhancements
 
 ``` R
-    o 'plot2': now it shows and adaptive time axis for sub-daily zoo objects.
-    o 'ggof' : -) now it shows and adaptive time axis for sub-daily zoo objects.
-               -) now it returns the graphical device to its status before calling this function.
-    o 'gof'  : now it does not compute sKGE, APFB and HFB when sim and obs are annual zoo objects.
-    o 'NRMSE': in addition to the standard deviation and the range of observations, now it is possible to normlise the RMSE by the mean and IQRT of observations.
+    o 'plot2'  : now it shows and adaptive time axis for sub-daily zoo objects.
+    o 'ggof'   : -) now it shows and adaptive time axis for sub-daily zoo objects.
+                 -) now it returns the graphical device to its status before calling this function.
+    o 'gof'    : now it does not compute sKGE, APFB and HFB when sim and obs are annual zoo objects.
+    o 'NRMSE'  : in addition to the standard deviation and the range of observations, now it is possible to normlise the RMSE by the mean and IQRT of observations.
+    o 'pfactor': improved 'Details' section in the documentation, including new equations.
+    o 'rfactor': improved 'Details' section in the documentation, including new equations.
+    o 'HFB'    : improved 'Details' section in the documentation, including new equations.
 ```
 
 ### Package files

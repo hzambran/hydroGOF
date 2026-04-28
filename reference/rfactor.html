@@ -9,7 +9,7 @@ Ideally, i.e., with a combination of model structure and parameter values that p
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-19</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-21</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,6 +76,23 @@ Ideally, i.e., with a combination of model structure and parameter values that p
 <dd><p>further arguments passed to or from other methods.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+
+
+<p>The R-factor quantifies the average width of the prediction uncertainty band relative to the variability of the observed data. It is a measure of the magnitude of predictive uncertainty associated with a model simulation.</p>
+<p>Mathematically, the R-factor is defined as:</p>
+<p>$$
+R\text{-factor} = \frac{\overline{d_x}}{\sigma_x}
+$$</p>
+<p>where \(\sigma_x\) is the standard deviation of the observed variable \(x\), and \(\overline{d_x}\) is the average thickness of the uncertainty band, computed as:</p>
+<p>$$
+\overline{d_x} = \frac{1}{N} \sum_{i=1}^{N} \left( uband_i - lband_i \right)
+$$</p>
+<p>where \(N\) is the total number of observations, and \(lband_i\) and \(uband_i\) are the lower and upper uncertainty bounds, respectively, at time step \(i\).</p>
+<p>The <var>R-factor</var> ranges from 0 to infinity, with an optimal value of 0 indicating perfect agreement between simulated and observed values (i.e., zero prediction uncertainty). In practical applications, the <var>R-factor</var> represents the width of the uncertainty interval and should be as small as possible. Values close to or smaller than 1 are commonly considered indicative of an acceptable level of predictive uncertainty, although acceptable thresholds depend on the quality of observations and the modeling context.</p>
+<p>Because a larger fraction of observations can often be bracketed by widening the uncertainty bounds, the <var>R-factor</var> is typically interpreted jointly with the <var>P-factor</var>. A balance between a high <var>P-factor</var> (good coverage) and a low <var>R-factor</var> (narrow uncertainty bounds) is therefore sought during model calibration and uncertainty analysis.</p>
+    </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Average width of the given uncertainty bounds, given by <code>lband</code> and <code>uband</code>, divided by the standard deviation of the observations <code>x</code> <br></p>

@@ -9,7 +9,7 @@ Ideally, i.e., with a combination of model structure and parameter values that p
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-19</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-21</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,9 +77,21 @@ Ideally, i.e., with a combination of model structure and parameter values that p
 
 </dl></div>
     <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+
+
+<p>The <var>P-factor</var> quantifies the percentage of observed values that fall within the prediction uncertainty band defined by the lower and upper bounds. It is a measure of the coverage of the uncertainty interval.</p>
+<p>Mathematically, the P-factor is defined as:</p>
+<p>$$
+  P\text{-factor} = \frac{1}{N} \sum_{i=1}^{N} I \left( lband_i \le x_i \le uband_i \right)
+$$</p>
+<p>where \(N\) is the total number of observations, \(x_i\) is the observed value at time step \(i\), and \(lband_i\) and \(uband_i\) are the lower and upper uncertainty bounds, respectively. The function \(I(\cdot)\) is an indicator function that takes the value 1 when the observed value lies within the uncertainty bounds and 0 otherwise.</p>
+<p>The <var>P-factor</var> ranges from 0 to 1. A value of 1 indicates that all observations are bracketed by the uncertainty bounds, whereas a value of 0 indicates that none of the observations fall within the bounds.</p>
+    </div>
+    <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Percent of the <code>x</code> observations that are within the given uncertainty bounds given by <code>lband</code> and <code>uband</code>. <br></p>
-<p>If <code>sim</code> and <code>obs</code> are matrixes, the returned value is a vector, with the <var>P-factor</var> between each column of <code>sim</code> and <code>obs</code>.</p>
+<p>If <code>x</code>, <code>lband</code>, and <code>uband</code> are matrices, the returned value is a vector with the <var>P-factor</var> computed for each column.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

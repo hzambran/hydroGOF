@@ -56,6 +56,43 @@ rfactor(x, lband, uband, na.rm=TRUE, ...)
 
   further arguments passed to or from other methods.
 
+## Details
+
+The R-factor quantifies the average width of the prediction uncertainty
+band relative to the variability of the observed data. It is a measure
+of the magnitude of predictive uncertainty associated with a model
+simulation.
+
+Mathematically, the R-factor is defined as:
+
+\$\$ R\text{-factor} = \frac{\overline{d_x}}{\sigma_x} \$\$
+
+where \\\sigma_x\\ is the standard deviation of the observed variable
+\\x\\, and \\\overline{d_x}\\ is the average thickness of the
+uncertainty band, computed as:
+
+\$\$ \overline{d_x} = \frac{1}{N} \sum\_{i=1}^{N} \left( uband_i -
+lband_i \right) \$\$
+
+where \\N\\ is the total number of observations, and \\lband_i\\ and
+\\uband_i\\ are the lower and upper uncertainty bounds, respectively, at
+time step \\i\\.
+
+The `R-factor` ranges from 0 to infinity, with an optimal value of 0
+indicating perfect agreement between simulated and observed values
+(i.e., zero prediction uncertainty). In practical applications, the
+`R-factor` represents the width of the uncertainty interval and should
+be as small as possible. Values close to or smaller than 1 are commonly
+considered indicative of an acceptable level of predictive uncertainty,
+although acceptable thresholds depend on the quality of observations and
+the modeling context.
+
+Because a larger fraction of observations can often be bracketed by
+widening the uncertainty bounds, the `R-factor` is typically interpreted
+jointly with the `P-factor`. A balance between a high `P-factor` (good
+coverage) and a low `R-factor` (narrow uncertainty bounds) is therefore
+sought during model calibration and uncertainty analysis.
+
 ## Value
 
 Average width of the given uncertainty bounds, given by `lband` and

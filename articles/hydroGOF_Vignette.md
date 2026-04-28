@@ -532,7 +532,7 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps, do.
     ## KGE          0.72
     ## KGElf        0.51
     ## KGEnp        0.74
-    ## KGEkm        0.74
+    ## KGEkm        0.73
     ## sKGE         0.48
     ## APFB         0.01
     ## HFB          0.98
@@ -792,7 +792,7 @@ gof(sim, obs)
     ## KGE      0.74
     ## KGElf    0.57
     ## KGEnp    0.69
-    ## KGEkm    0.74
+    ## KGEkm    0.73
     ## sKGE     0.70
     ## APFB     0.03
     ## HFB      1.00
@@ -888,7 +888,7 @@ This tutorial was built under:
 
     ## [1] "R version 4.6.0 (2026-04-24)"
 
-    ## [1] "hydroGOF 0.6-19"
+    ## [1] "hydroGOF 0.6-21"
 
 ## Version history
 

@@ -162,38 +162,70 @@ effective description of high-order statistics from typical hydrological
 samples and, therefore, reducing uncertainty in their estimation and
 computation of the KGE.
 
-In the same line that the traditional Kling-Gupta efficiency, the KGEkm
-ranges from -Inf to 1. Essentially, the closer to 1, the more similar
-`sim` and `obs` are.
+In the \\KGE\_{km}\\, the dispersion is quantified using knowable
+moments (computed over ordered values of the samples in ascending order)
+instead of the standard deviation, while retaining the decomposition
+into correlation, variability, and bias components.
 
-In the computation of this index, there are three main components
-involved:
+The general formulation of Kling–Gupta Efficiency with knowable moments
+(\\KGE\_{km}\\) is:
 
-1\) r : the Pearson product-moment correlation coefficient. Ideal value
-is r=1.
+\$\$ KGE\_{km} = 1 - \sqrt{ \left\[ s_1 (r - 1) \right\]^2 + \left\[ s_2
+(vr - 1) \right\]^2 + \left\[ s_3 (br - 1) \right\]^2 } \$\$
 
-2\) Beta : the ratio between the mean of the simulated values and the
-mean of the observed ones. Ideal value is Beta=1.
+where \\r\\ is the Pearson product–moment correlation coefficient
+between simulated (\\Q^{sim}\_t\\) and observed (\\Q^{obs}\_t\\) values,
+\\vr\\ is the variability ratio, \\br\\ is the bias ratio, and \\s =
+(s_1, s_2, s_3)\\ is a vector of non-negative scaling factors that
+control the relative importance of each component.
 
-3\) vr : variability ratio, which could be computed using the standard
-deviation (Alpha) or the coefficient of variation (Gamma) of `sim` and
-`obs`, depending on the value of `method`:
+Dispersion is computed from the second knowable moment. For a sample
+\\x_1, x_2, \ldots, x_n\\, the second knowable moment is defined as:
 
-3.1) Alpha: the ratio between the standard deviation of the simulated
-values and the standard deviation of the observed ones. Its ideal value
-is Alpha=1.
+\$\$ K_2 = \frac{1}{n(n-1)} \sum\_{i=1}^{n} 2 (i-1) x\_{(i)} \$\$
 
-3.2) Gamma: the ratio between the coefficient of variation (CV) of the
-simulated values to the coefficient of variation of the observed ones.
-Its ideal value is Gamma=1.
+where \\x\_{(i)}\\ denotes the **ordered values of the sample in
+ascending order**. The corresponding dispersion measure is:
 
-\$\$KGEkm = 1 - ED\$\$ \$\$ ED = \sqrt{ (s\[1\]\*(r-1))^2
-+(s\[2\]\*(vr-1))^2 + (s\[3\]\*(\beta-1))^2 } \$\$ \$\$r=Pearson
-product-moment correlation coefficient\$\$ \$\$vr= \left\\
-\begin{array}{cc} \alpha & , \\ method=2009 \\ \gamma & , \\ method=2012
-\end{array} \right.\$\$ \$\$\beta=\mu_s/\mu_o\$\$
-\$\$\alpha=\sigma_s/\sigma_o\$\$ \$\$\gamma=\frac{CV_s}{CV_o} =
-\frac{\sigma_s/\mu_s}{\sigma_o/\mu_o}\$\$
+\$\$ \sigma\_{km} = \sqrt{ 2 K_2 } \$\$
+
+The variability ratio depends on the selected `method`:
+
+- For `method = "2009"`, variability is defined as the ratio of
+  knowable-moment dispersions:
+
+  \$\$ vr = \alpha = \frac{\sigma^{sim}\_{km}}{\sigma^{obs}\_{km}} \$\$
+
+- For `method = "2012"`, variability is defined as the ratio of
+  coefficients of variation:
+
+  \$\$ vr = \gamma = \frac{ \sigma^{sim}\_{km} / \mu^{sim} }{
+  \sigma^{obs}\_{km} / \mu^{obs} } \$\$
+
+- For `method = "2021"`, variability is defined as in the 2009
+  formulation:
+
+  \$\$ vr = \alpha = \frac{\sigma^{sim}\_{km}}{\sigma^{obs}\_{km}} \$\$
+
+The bias component also depends on the selected `method`:
+
+- For `method = "2009"` and `method = "2012"`:
+
+  \$\$ br = \beta = \frac{\mu^{sim}}{\mu^{obs}} \$\$
+
+- For `method = "2021"`:
+
+  \$\$ br = \beta\_{2021} = \frac{ \mu^{sim} - \mu^{obs} }{
+  \sigma^{obs}\_{km} } \$\$
+
+In the same line that the traditional Kling-Gupta efficiency, the
+(\\KGE\_{km}\\) ranges from -Inf to 1. Essentially, the closer to 1, the
+more similar `sim` and `obs` are.
+
+As with other KGE-type metrics, the statistic integrates information
+about correlation, variability, and bias into a single performance
+measure while allowing explicit control over the relative contribution
+of each component through the scaling factors \\s\\.
 
 ## Value
 
@@ -339,7 +371,7 @@ sim[hQ.index] <- sim[hQ.index] + rnorm(hQ.n, mean=mean(sim[hQ.index], na.rm=TRUE
 
 # KGEkm (Pizarro and Jorquera, 2024; method='2012')
 KGEkm(sim=sim, obs=obs)
-#> [1] 0.5684851
+#> [1] 0.5789637
 
 # KGE': Kling-Gupta eficiency 2012 (Kling et al.,2012) 
 KGE(sim=sim, obs=obs, method="2012")
@@ -390,7 +422,7 @@ sim[lQ.index] <- sim[lQ.index] + rnorm(lQ.n, mean=mean(sim[lQ.index], na.rm=TRUE
 
 # KGEkm (Pizarro and Jorquera, 2024; method='2012')
 KGEkm(sim=sim, obs=obs)
-#> [1] 0.8944277
+#> [1] 0.8762053
 
 # KGE': Kling-Gupta eficiency 2012 (Kling et al.,2012) 
 KGE(sim=sim, obs=obs, method="2012")
@@ -435,13 +467,13 @@ KGElf(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 KGEkm(sim=sim, obs=obs, fun=log)
-#> [1] 0.8522851
+#> [1] 0.8330954
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 KGEkm(sim=lsim, obs=lobs)
-#> [1] 0.8522851
+#> [1] 0.8330954
 
 ##################
 # Example 6: KGEkm for simulated values equal to observations plus random noise 
@@ -450,14 +482,14 @@ KGEkm(sim=lsim, obs=lobs)
 #            during computations
 
 KGEkm(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.8582384
+#> [1] 0.8397854
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 KGEkm(sim=lsim, obs=lobs)
-#> [1] 0.8582384
+#> [1] 0.8397854
 
 ##################
 # Example 7: KGEkm for simulated values equal to observations plus random noise 
@@ -467,13 +499,13 @@ KGEkm(sim=lsim, obs=lobs)
 
 eps <- 0.01
 KGEkm(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 0.8526774
+#> [1] 0.8335359
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 KGEkm(sim=lsim, obs=lobs)
-#> [1] 0.8526774
+#> [1] 0.8335359
 
 ##################
 # Example 8: KGEkm for simulated values equal to observations plus random noise 
@@ -484,14 +516,14 @@ KGEkm(sim=lsim, obs=lobs)
 
 fact <- 1/50
 KGEkm(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 0.8637066
+#> [1] 0.8459402
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 KGEkm(sim=lsim, obs=lobs)
-#> [1] 0.8637066
+#> [1] 0.8459402
 
 ##################
 # Example 9: KGEkm for simulated values equal to observations plus random noise 
@@ -501,11 +533,11 @@ KGEkm(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 KGEkm(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.9089236
+#> [1] 0.8951481
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 KGEkm(sim=sim1, obs=obs1)
-#> [1] 0.9089236
+#> [1] 0.8951481
 ```

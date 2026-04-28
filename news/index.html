@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-19</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-21</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,15 +45,20 @@
 <div class="section level3">
 <h3 id="bug-fixes-0-7-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-7-0"></a></h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>    o <span class="st">'APFB'</span> <span class="sc">:</span> <span class="sc">-</span><span class="er">)</span> Its value is now correctly computed, previously it was not Thanks to Rodrigo Mariano and Héctor Garcés.      </span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>               <span class="sc">-</span><span class="er">)</span> New argument <span class="st">'out.PerYear=FALSE'</span> to define the whether the output should include the annual peak flow bias computed <span class="cf">for</span> each individual year or not.</span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>               <span class="sc">-</span><span class="er">)</span> New argument <span class="st">'out.PerYear=FALSE'</span> to define the whether the output should include the annual peak flow bias computed <span class="cf">for</span> each individual year or not.</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>    o <span class="st">'sKGE'</span> <span class="sc">:</span> The content of <span class="st">'Details'</span> section <span class="cf">in</span> the documentation of this <span class="cf">function</span> was fixed, because it previously corresponded to the <span class="st">'KGElf'</span> function. Equations to summarise <span class="st">'sKGE'</span> were also added to the documentation. No change was made to the R code, only to the documentation.</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>    o <span class="st">'KGEkm'</span><span class="sc">:</span> The second knowable moment <span class="fu">K2</span> (dispersion<span class="sc">-</span>related quantity) is now correctly computed using ascending sorted values of <span class="st">'sim'</span> and <span class="st">'obs'</span> (previously the knowable moment K2 was computed using unsorted values of <span class="st">'sim'</span> and <span class="st">'obs'</span>). The other two components of the <span class="st">'KGEkm'</span> were previously correctly computed and now continue to do so. </span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="enhancements-0-7-0">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-7-0"></a></h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>    o <span class="st">'plot2'</span><span class="sc">:</span> now it shows and adaptive time axis <span class="cf">for</span> sub<span class="sc">-</span>daily zoo objects.</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>    o <span class="st">'ggof'</span> <span class="sc">:</span> <span class="sc">-</span><span class="er">)</span> now it shows and adaptive time axis <span class="cf">for</span> sub<span class="sc">-</span>daily zoo objects.</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>               <span class="sc">-</span><span class="er">)</span> now it returns the graphical device to its status before calling this function.</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>    o <span class="st">'gof'</span>  <span class="sc">:</span> now it does not compute sKGE, APFB and HFB when sim and obs are annual zoo objects.</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>    o <span class="st">'NRMSE'</span><span class="sc">:</span> <span class="cf">in</span> addition to the standard deviation and the range of observations, now it is possible to normlise the RMSE by the mean and IQRT of observations.</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>    o <span class="st">'plot2'</span>  <span class="sc">:</span> now it shows and adaptive time axis <span class="cf">for</span> sub<span class="sc">-</span>daily zoo objects.</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>    o <span class="st">'ggof'</span>   <span class="sc">:</span> <span class="sc">-</span><span class="er">)</span> now it shows and adaptive time axis <span class="cf">for</span> sub<span class="sc">-</span>daily zoo objects.</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>                 <span class="sc">-</span><span class="er">)</span> now it returns the graphical device to its status before calling this function.</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>    o <span class="st">'gof'</span>    <span class="sc">:</span> now it does not compute sKGE, APFB and HFB when sim and obs are annual zoo objects.</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>    o <span class="st">'NRMSE'</span>  <span class="sc">:</span> <span class="cf">in</span> addition to the standard deviation and the range of observations, now it is possible to normlise the RMSE by the mean and IQRT of observations.</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>    o <span class="st">'pfactor'</span><span class="sc">:</span> improved <span class="st">'Details'</span> section <span class="cf">in</span> the documentation, including new equations.</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>    o <span class="st">'rfactor'</span><span class="sc">:</span> improved <span class="st">'Details'</span> section <span class="cf">in</span> the documentation, including new equations.</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>    o <span class="st">'HFB'</span>    <span class="sc">:</span> improved <span class="st">'Details'</span> section <span class="cf">in</span> the documentation, including new equations.</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="package-files-0-7-0">Package files<a class="anchor" aria-label="anchor" href="#package-files-0-7-0"></a></h3>

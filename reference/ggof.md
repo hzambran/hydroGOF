@@ -722,7 +722,7 @@ gof(sim=sim, obs=obs)
 #> KGE      0.65
 #> KGElf    0.49
 #> KGEnp    0.61
-#> KGEkm    0.64
+#> KGEkm    0.63
 #> sKGE     0.63
 #> APFB     0.03
 #> HFB      0.92

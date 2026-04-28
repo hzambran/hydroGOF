@@ -24,48 +24,28 @@ values, please see Details.
 JDKGE(sim, obs, ...)
 
 # Default S3 method
-JDKGE(sim, obs,
-s=c(1,1,1,1),
-na.rm=TRUE,
-out.type=c("single","full"),
-fun=NULL, ...,
-epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
-epsilon.value=NA,
-density.method=c("hist","kde"),
-nbins="Sturges")
+JDKGE(sim, obs, s=c(1,1,1,1), na.rm=TRUE, method=c("2009","2012","2021"),
+              out.type=c("single", "full"), fun=NULL, ..., 
+              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
+              epsilon.value=NA, density.method=c("hist","kde"), nbins="Sturges" )
 
 # S3 method for class 'data.frame'
-JDKGE(sim, obs,
-s=c(1,1,1,1),
-na.rm=TRUE,
-out.type=c("single","full"),
-fun=NULL, ...,
-epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
-epsilon.value=NA,
-density.method=c("hist","kde"),
-nbins="Sturges")
+JDKGE(sim, obs, s=c(1,1,1,1), na.rm=TRUE, method=c("2009","2012","2021"),
+              out.type=c("single", "full"), fun=NULL, ..., 
+              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
+              epsilon.value=NA, density.method=c("hist","kde"), nbins="Sturges" )
 
 # S3 method for class 'matrix'
-JDKGE(sim, obs,
-s=c(1,1,1,1),
-na.rm=TRUE,
-out.type=c("single","full"),
-fun=NULL, ...,
-epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
-epsilon.value=NA,
-density.method=c("hist","kde"),
-nbins="Sturges")
+JDKGE(sim, obs, s=c(1,1,1,1), na.rm=TRUE, method=c("2009","2012","2021"),
+              out.type=c("single", "full"), fun=NULL, ..., 
+              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
+              epsilon.value=NA, density.method=c("hist","kde"), nbins="Sturges" )
 
 # S3 method for class 'zoo'
-JDKGE(sim, obs,
-s=c(1,1,1,1),
-na.rm=TRUE,
-out.type=c("single","full"),
-fun=NULL, ...,
-epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
-epsilon.value=NA,
-density.method=c("hist","kde"),
-nbins="Sturges")
+JDKGE(sim, obs, s=c(1,1,1,1), na.rm=TRUE, method=c("2009","2012","2021"),
+              out.type=c("single", "full"), fun=NULL, ..., 
+              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
+              epsilon.value=NA, density.method=c("hist","kde"), nbins="Sturges" )
 ```
 
 ## Arguments
@@ -99,6 +79,24 @@ nbins="Sturges")
   When an 'NA' value is found at the i-th position in `obs` **OR**
   `sim`, the i-th value of `obs` **AND** `sim` are removed before the
   computation.
+
+- method:
+
+  character, indicating the formula used to compute the variability
+  ratio in the Kling-Gupta efficiency. Valid values are:
+
+  -) 2009: the variability is defined as ‘Alpha’, the ratio of the
+  standard deviation of `sim` values to the standard deviation of `obs`.
+  This is the default option. See Gupta et al. (2009).
+
+  -) 2012: the variability is defined as ‘Gamma’, the ratio of the
+  coefficient of variation of `sim` values to the coefficient of
+  variation of `obs`. See Kling et al. (2012).
+
+  -) 2021: the bias is defined as ‘Beta’, the ratio of `mean(sim)` minus
+  `mean(obs)` to the standard deviation of `obs`. The variability is
+  defined as ‘Alpha’, the ratio of the standard deviation of `sim`
+  values to the standard deviation of `obs`. See Tang et al. (2021).
 
 - out.type:
 
@@ -174,6 +172,8 @@ nbins="Sturges")
   -) "kde": probability densities are estimated using kernel density
   estimation.
 
+  See 'Details' section for additional information.
+
 - nbins:
 
   numeric or character, indicating the number of bins or the method used
@@ -182,54 +182,84 @@ nbins="Sturges")
 
 ## Details
 
-In the computation of this index, there are four main components
-involved:
+In the computation of this index, four diagnostic components are
+considered:
 
-1\) r : the Pearson product-moment correlation coefficient. Ideal value
-is r=1.
+1\) r : the Pearson product-moment correlation coefficient computed from
+the raw (unsorted) simulated and observed values. The ideal value is
+r=1.
 
-2\) Alpha : the variability ratio, defined as the ratio between the
-standard deviation of the simulated values and the standard deviation of
-the observed ones. Ideal value is Alpha=1.
+2\) vr: the variability component, whose definition depends on the
+selected `method`:
 
-3\) Beta : the bias ratio, defined as the ratio between the mean of the
-simulated values and the mean of the observed ones. Ideal value is
-Beta=1.
+- For method="2009" (Gupta et al., 2009), variability is defined as
+  ‘Alpha’, the ratio between the standard deviation of the simulated
+  values and the standard deviation of the observed ones:
 
-4\) Delta : the distribution divergence component, derived from the
+  \$\$\alpha = \sigma_s / \sigma_o\$\$
+
+- For method="2012" (Kling et al., 2012), variability is defined as
+  ‘Gamma’, the ratio between the coefficients of variation of simulated
+  and observed values:
+
+  \$\$\gamma = (\sigma_s / \mu_s) / (\sigma_o / \mu_o)\$\$
+
+- For method="2021" (Tang et al., 2021), variability is again defined as
+  ‘Alpha’, the ratio between the standard deviation of the simulated
+  values and the standard deviation of the observed ones:
+
+  \$\$\alpha = \sigma_s / \sigma_o\$\$
+
+The ideal value of the variability component is 1.
+
+3\) br : the bias component, whose definition also depends on the
+selected `method`:
+
+- For method="2009" and method="2012", bias is defined as ‘Beta’, the
+  ratio between the mean of the simulated values and the mean of the
+  observed ones:
+
+  \$\$\beta = \mu_s / \mu_o\$\$
+
+- For method="2021", bias is defined as a standardized difference
+  between means, denoted here as ‘Beta.2021’:
+
+  \$\$\beta\_{2021} = (\mu_s - \mu_o) / \sigma_o\$\$
+
+The ideal value of the bias component is 1 for ratio-based definitions
+and 0 for the standardized bias formulation; however, within the unified
+JDKGE formulation the optimal point in the criteria space remains (1, 1,
+1, 1).
+
+4\) Delta : the distribution similarity component, derived from the
 Jensen-Shannon divergence (JSD) computed from the logarithm of simulated
-and observed values. Ideal value is Delta=1.
+and observed values:
 
-Joint Divergence Kling-Gupta efficiencies range from -Inf to 1.
-Essentially, the closer to 1, the more similar `sim` and `obs` are
-across correlation, variability, bias, and distributional
-characteristics. Values close to zero indicate substantial deviations
-from the ideal agreement, while increasingly negative values reflect
+\$\$\Delta = 1 - JSD\$\$
+
+The Jensen-Shannon divergence quantifies the difference between the
+empirical probability distributions of log-transformed simulated and
+observed values, allowing the metric to explicitly evaluate
+discrepancies in distributional shape, including differences in low-flow
+and high-flow regimes that may not be fully captured by moment-based
+statistics alone.
+
+The Joint Divergence Kling-Gupta Efficiency is defined as:
+
+\$\$ JDKGE = 1 - ED \$\$
+
+where the Euclidean distance in the criteria space is:
+
+\$\$ ED = \sqrt{ (s\[1\] (r-1))^2 + (s\[2\] (vr-1))^2 + (s\[3\]
+(br-1))^2 + (s\[4\] (\Delta-1))^2 } \$\$
+
+Joint Divergence Kling-Gupta efficiencies range from -Inf to 1. Values
+closer to 1 indicate stronger agreement between simulated and observed
+values across correlation, variability, bias, and distributional
+similarity. Values close to zero indicate substantial deviations from
+ideal agreement, while increasingly negative values reflect
 progressively poorer model performance relative to the observed
-dynamics.
-
-\$\$JDKGE = 1 - ED\$\$
-
-\$\$ ED = \sqrt{ (s\[1\]\*(r-1))^2 + (s\[2\]\*(\alpha-1))^2 +
-(s\[3\]\*(\beta-1))^2 + (s\[4\]\*(\Delta-1))^2 } \$\$
-
-\$\$r=Pearson product-moment correlation coefficient\$\$
-
-\$\$\alpha=\sigma_s/\sigma_o\$\$
-
-\$\$\beta=\mu_s/\mu_o\$\$
-
-\$\$\Delta=1 - JSD\$\$
-
-where:
-
-JSD = Jensen-Shannon divergence between the empirical probability
-distributions of log-transformed simulated and observed values.
-
-The distribution divergence component allows the metric to explicitly
-evaluate differences in the overall distributional behavior of simulated
-and observed series, including discrepancies in low-flow and high-flow
-regimes that may not be fully captured by moment-based statistics alone.
+hydrological dynamics.
 
 Regarding computational aspects, the choice of `density.method`
 influences both numerical cost and smoothness of the estimated
@@ -240,10 +270,9 @@ simulations. The option "kde" relies on kernel density estimation, which
 produces smoother probability density functions and may provide a more
 stable estimate of distributional divergence, but typically requires
 greater computational time and memory resources. Consequently, "hist" is
-recommended for routine model evaluation and calibration workflows,
-whereas "kde" may be preferable for diagnostic analyses or research
-applications where detailed characterization of distributional
-differences is required.
+recommended for routine model calibration workflows, whereas "kde" may
+be preferable for diagnostic analyses or research applications where
+detailed characterization of distributional differences is required.
 
 ## Value
 
@@ -271,6 +300,19 @@ Russo, C.; Salamon, P.; Toreti, A. (2026). Improving low and high flow
 simulations at once: An enhanced metric for hydrological model
 calibrations. EGUsphere \[preprint\],
 https://doi.org/10.5194/egusphere-2026-43.
+
+Gupta, H.V.; Kling, H.; Yilmaz, K.K.; Martinez, G.F. (2009).
+Decomposition of the mean squared error and NSE performance criteria:
+Implications for improving hydrological modelling. Journal of hydrology,
+377(1-2), 80-91. doi:10.1016/j.jhydrol.2009.08.003. ISSN 0022-1694.
+
+Kling, H.; Fuchs, M.; Paulin, M. (2012). Runoff conditions in the upper
+Danube basin under an ensemble of climate change scenarios. Journal of
+Hydrology, 424, 264-277, doi:10.1016/j.jhydrol.2012.01.011.
+
+Tang, G.; Clark, M.P.; Papalexiou, S.M. (2021). SC-earth: a
+station-based serially complete earth dataset from 1950 to 2019. Journal
+of Climate, 34(16), 6493-6511. doi:10.1175/JCLI-D-21-0067.1.
 
 ## Author
 
@@ -312,11 +354,11 @@ sim <- 2*obs
 
 JDKGE(sim=sim, obs=obs, out.type="full")
 #> $JDKGE.value
-#> [1] -0.02139159
+#> [1] -0.4294197
 #> 
 #> $JDKGE.elements
-#>         r      Beta     Gamma     Delta 
-#> 1.0000000 2.0000000 1.0000000 0.7920558 
+#>         r      Beta     Alpha     Delta 
+#> 1.0000000 2.0000000 2.0000000 0.7920558 
 #> 
 
 ##################
@@ -330,5 +372,5 @@ JDKGE(sim=sim, obs=obs, fun=log)
 # Example 4: using kernel density estimation
 
 JDKGE(sim=sim, obs=obs, density.method="kde")
-#> [1] -0.002352203
+#> [1] -0.4158778
 ```
