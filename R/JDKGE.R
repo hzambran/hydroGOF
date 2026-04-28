@@ -251,7 +251,7 @@ JDKGE.default <- function(sim, obs,
         sigma.sim <- sd(sim, na.rm=na.rm)
         sigma.obs <- sd(obs, na.rm=na.rm)
 
-        if ( (sigma.obs == 0) &  ( (method == "2009") | (method == "2021"))
+        if ( (sigma.obs == 0) &  ( (method == "2009") | (method == "2021") ) )
           warning("Warning: 'sd(obs)==0'. Variability ratio is undefined !")
 
         if (method == "2009") {
