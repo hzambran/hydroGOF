@@ -181,7 +181,7 @@ The choice of window length \code{k} influences the temporal scale at which robu
 
 \seealso{
 
-\code{\link{NSE}}, \code{\link{KGE}}, \code{\link{gof}}, \code{\link{ggof}}
+\code{\link{PBIAS}}, \code{\link{NSE}}, \code{\link{VE}}, \code{\link{JDKGE}}, \code{\link{gof}}, \code{\link{ggof}}
 
 }
 

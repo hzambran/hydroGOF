@@ -2,8 +2,8 @@
 %% Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 %%                                 https://cran.r-project.org/package=hydroGOF
 %%                                 http://www.rforge.net/hydroGOF/
-%% Copyright 2024-2024 Mauricio Zambrano-Bigiarini
-%% Distributed under GPL 2 or late
+%% Copyright 2024-2026 Mauricio Zambrano-Bigiarini
+%% Distributed under GPL 2 or later
 
 \name{HFB}
 \Rdversion{1.1}
@@ -14,10 +14,11 @@
 \alias{HFB.zoo}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-High-flows bias
+Median annual high-flow bias
 }
 \description{
-High flow bias between \code{sim} and \code{obs}, with treatment of missing values.
+
+Median annual high-flow bias between \code{sim} and \code{obs}, with treatment of missing values and explicit focus on the reproduction of high-flow events.
 
 This function is designed to identify differences in high values. See Details.
 }
@@ -100,21 +101,45 @@ Valid values of \code{epsilon.type} are:
  -) when \code{epsilon.type="otherFactor"} it represents the numeric factor used to multiply the mean of the observed values, instead of the one hundredth (1/100) described in Pushpalatha et al. (2012). The resulting value is then added to both \code{sim} and \code{obs} before applying \code{fun}.
 }
 }
+
 \details{
-The median annual high flow bias (HFB) is designed to drive the calibration of hydrological models focused in the reproduction of high-flow events. 
 
-The high flow bias (HFB) ranges from 0 to Inf, with an optimal value of 0. Higher values of HFB indicate stronger differences between the high values of \code{sim} and \code{obs}. Essentially, the closer to 0, the more similar the high values of \code{sim} and \code{obs} are. 
+The median annual high-flow bias (HFB) is a goodness-of-fit metric designed to support the calibration and evaluation of hydrological models with specific 
+emphasis on the reproduction of high-flow conditions.
 
-The HFB function is inspired in the annual peak-flow bias (APFB) objective function proposed by Mizukami et al. (2019). However, it has four important diferences:
+The HFB ranges from 0 to 1, with an optimal value of 1. Values close to 1 indicate that the simulated high flows closely match the observed high flows,  whereas values approaching 0 indicate increasing discrepancies between the simulated and observed high-flow magnitudes.
 
-1) instead of considering only the observed annual peak flow in each year, it considers all the high flows in each year, where "high flows" are all the values above a user-defined quantile of the observed values, by default 0.9 (\code{hQ.thr=0.1}).
+The HFB function is inspired by the annual peak-flow bias (APFB) objective function proposed by Mizukami et al. (2019). However, it differs from that metric in four important aspects:
 
-2) insted of considering only the simulated high flows for each year, which might occur in a date/time different from the date in which occurs the observed annual peak flow, it considers as many high simulated flows as the number of high observed flows for each year, each one in the exact same date/time in which the corresponding observed high flow occurred.
+1) Instead of considering only the single observed annual peak flow in each year, it considers all high flows in each year, where "high flows" are defined as all values equal to or greater than a user-defined exceedance probability threshold of the observed values. By default, high flows correspond to the upper 10\% of observed flows (i.e., \code{hQ.thr=0.1}).
 
-3) for each year, instead of using a single bias value (i.e., the bias in the single annual peak flow), it uses the median of all the bias in the user-defined high flows 
+2) Instead of selecting simulated high flows independently of the observed events, it evaluates simulated flows occurring at the same time steps as the observed high flows, thereby preserving temporal correspondence between observed and simulated events.
 
-4) when computing the final value of this metric, instead o using the mean of the annual values, it uses the median, in order to take a stronger representation of the bias when its distribution is not symetric.
+3) For each year, the metric uses the median of the individual high-flow ratios rather than a single annual peak-flow value, providing a more robust summary of high-flow bias within that year.
+
+4) When computing the final performance value, the metric uses the median of the annual values instead of the mean, reducing the influence of extreme years and improving robustness when the distribution of annual biases is asymmetric.
+
+Mathematically, the annual high-flow performance for year \( y \) is defined as:
+
+\deqn{
+HFB_y = 1 - \left| \operatorname{median} \left(
+\frac{Q^{sim}_{y,i}}{Q^{obs}_{y,i}}
+\right) - 1 \right|
 }
+
+where \( Q^{sim}_{y,i} \) and \( Q^{obs}_{y,i} \) are the simulated and observed 
+flows corresponding to the set of high-flow events \( i \) occurring in year 
+\( y \).
+
+The overall HFB value is then computed as:
+
+\deqn{
+HFB = 1 - \left| \operatorname{median}(HFB_y) - 1 \right|
+}
+
+This formulation ensures that the metric is bounded between 0 and 1, with the maximum value of 1 representing perfect agreement between simulated and observed high flows.
+}
+
 \value{
 If \code{out.PerYear=FALSE}: numeric with the median high flow bias between \code{sim} and \code{obs}. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the high flow bias between each column of \code{sim} and \code{obs}.
 
@@ -143,7 +168,7 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{APFB}}, \code{\link{NSE}}, \code{\link{wNSE}}, , \code{\link{wsNSE}}, \code{\link{gof}}, \code{\link{ggof}}
+\code{\link{APFB}}, \code{\link{NSE}}, \code{\link{wNSE}}, \code{\link{wsNSE}}, \code{\link{JDKGE}}, \code{\link{PMR}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 \examples{
 ##################

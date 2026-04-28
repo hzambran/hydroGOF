@@ -169,11 +169,7 @@ Joint Divergence Kling-Gupta efficiencies range from -Inf to 1. Essentially, the
 \deqn{JDKGE = 1 - ED}
 
 \deqn{
-ED = \sqrt{
-(s[1]*(r-1))^2 +
-(s[2]*(\alpha-1))^2 +
-(s[3]*(\beta-1))^2 +
-(s[4]*(\Delta-1))^2
+ED = \sqrt{ (s[1]*(r-1))^2 + (s[2]*(\alpha-1))^2 + (s[3]*(\beta-1))^2 + (s[4]*(\Delta-1))^2
 }
 }
 
@@ -235,7 +231,7 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 
 \seealso{
 
-\code{\link{KGE}}, \code{\link{NSE}}, \code{\link{gof}}, \code{\link{ggof}}
+\code{\link{APFB}}, \code{\link{NSE}}, \code{\link{wNSE}}, \code{\link{wsNSE}}, \code{\link{HFB}}, \code{\link{PMR}}, \code{\link{gof}}, \code{\link{ggof}}
 
 }
 
