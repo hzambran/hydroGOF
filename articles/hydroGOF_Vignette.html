@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-14</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-17</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -677,8 +677,8 @@ enough for illustrating the capability)</p>
 <p>Summarizing and plotting the residuals (it requires the hydroTSM
 package):</p>
 <div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hzambran/hydroTSM" class="external-link">hydroTSM</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/hydroTSM/man/smry.html" class="external-link">smry</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span> </span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://hzambran.github.io/hydroTSM/" class="external-link">hydroTSM</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://hzambran.github.io/hydroTSM/reference/smry.html" class="external-link">smry</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span> </span></code></pre></div>
 <pre><code><span><span class="co">##               Index         r</span></span>
 <span><span class="co">## Min.     1963-01-01   -0.3042</span></span>
 <span><span class="co">## 1st Qu.  1964-12-31    2.3620</span></span>
@@ -695,12 +695,12 @@ package):</p>
 <span><span class="co">## n              &lt;NA&gt; 2922.0000</span></span></code></pre>
 <div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># daily, monthly and annual plots, boxplots and histograms</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/hydroTSM/man/hydroplot.html" class="external-link">hydroplot</a></span><span class="op">(</span><span class="va">r</span>, FUN<span class="op">=</span><span class="va">mean</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://hzambran.github.io/hydroTSM/reference/hydroplot.html" class="external-link">hydroplot</a></span><span class="op">(</span><span class="va">r</span>, FUN<span class="op">=</span><span class="va">mean</span><span class="op">)</span></span></code></pre></div>
 <p><img src="hydroGOF_Vignette_files/figure-html/hydroplot2-1.png" class="r-plt" alt="" width="960"></p>
 <p>Seasonal plots and boxplots</p>
 <div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># daily, monthly and annual plots, boxplots and histograms</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/hydroTSM/man/hydroplot.html" class="external-link">hydroplot</a></span><span class="op">(</span><span class="va">r</span>, FUN<span class="op">=</span><span class="va">mean</span>, pfreq<span class="op">=</span><span class="st">"seasonal"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://hzambran.github.io/hydroTSM/reference/hydroplot.html" class="external-link">hydroplot</a></span><span class="op">(</span><span class="va">r</span>, FUN<span class="op">=</span><span class="va">mean</span>, pfreq<span class="op">=</span><span class="st">"seasonal"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="hydroGOF_Vignette_files/figure-html/hydroplo3-1.png" class="r-plt" alt="" width="768"></p>
 </div>
 </div>
@@ -710,7 +710,7 @@ package):</p>
 <p>This tutorial was built under:</p>
 <pre><code><span><span class="co">## [1] "x86_64-pc-linux-gnu"</span></span></code></pre>
 <pre><code><span><span class="co">## [1] "R version 4.6.0 (2026-04-24)"</span></span></code></pre>
-<pre><code><span><span class="co">## [1] "hydroGOF 0.6-14"</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "hydroGOF 0.6-17"</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="version-history">Version history<a class="anchor" aria-label="anchor" href="#version-history"></a>

@@ -9,7 +9,7 @@ This function was prposed by Mizukami et al. (2019) to identify differences in h
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-14</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-17</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,6 +89,12 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <dd><p>[OPTIONAL]. Only used when the (hydrological) year of interest is different from the calendar year.</p>
 <p>numeric in [1:12] indicating the starting month of the (hydrological) year. Numeric values in [1, 12] represent months in [January, December]. By default <code>start.month=1</code>.</p></dd>
 
+<dt id="arg-out-peryear">out.PerYear<a class="anchor" aria-label="anchor" href="#arg-out-peryear"></a></dt>
+<dd><p>logical value indicating whether the output should include the annual peak flow bias computed for each individual year or not.<br></p>
+<p>Valid values are:</p>
+<p>-) <kbd>FALSE</kbd>: the output is a numeric with the mean annual peak flow bias.</p>
+<p>-) <kbd>TRUE</kbd>: the output is a list including both the overall APFB value and the individual yearly values.</p></dd>
+
   <dt id="arg-fun">fun<a class="anchor" aria-label="anchor" href="#arg-fun"></a></dt>
 <dd><p>function to be applied to <code>sim</code> and <code>obs</code> in order to obtain transformed values thereof before computing this goodness-of-fit index.</p>
 <p>The first argument MUST BE a numeric vector with any name (e.g., <code>x</code>), and additional arguments are passed using <code>...</code>.</p></dd>
@@ -113,7 +119,15 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The annual peak flow bias (APFB; Mizukami et al., 2019) is designed to drive the calibration of hydrological models focused in the reproduction of high-flow events.</p>
-<p>The high flow bias (APFB) ranges from 0 to Inf, with an optimal value of 0. Higher values of APFB indicate stronger differences between the high values of <code>sim</code> and <code>obs</code>. Essentially, the closer to 0, the more similar the high values of <code>sim</code> and <code>obs</code> are. <br></p>
+<p>In the computation of this index, the annual peak flow is first identified for each hydrological year in both <code>sim</code> and <code>obs</code>. The mean of the resulting annual peak flow series is then computed separately for simulated and observed data.</p>
+<p>The annual peak flow bias is defined as the absolute relative difference between the mean simulated annual peak flow and the mean observed annual peak flow.</p>
+<p>$$APFB = \sqrt{ \left( \frac{\mu_{peak\,Q_s}}{\mu_{peak\,Q_o}} - 1 \right)^2 }$$</p>
+<p>where:</p>
+<ul><li><p><kbd>\mu_{peak\,Q_s}</kbd>: mean of the simulated annual peak flow series</p></li>
+<li><p><kbd>\mu_{peak\,Q_o}</kbd>: mean of the observed annual peak flow series</p></li>
+</ul><p>The APFB metric ranges from 0 to <kbd>Inf</kbd>. The optimal value is <kbd>0</kbd>, indicating perfect agreement between simulated and observed annual peak flows.</p>
+<p>Essentially, the closer to 0, the more similar the magnitude of simulated and observed annual peak flows.</p>
+<p>Because APFB focuses exclusively on annual maxima, it is particularly suitable for calibration tasks targeting flood estimation, extreme-flow simulation, or infrastructure design applications. However, because APFB evaluates only annual maxima, it does not assess overall hydrograph dynamics and is typically used in combination with complementary metrics (e.g., KGE or NSE) when broader performance evaluation is required.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>

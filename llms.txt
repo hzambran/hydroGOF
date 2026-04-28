@@ -454,6 +454,8 @@ hydroGOF functions.
   : Ega in "Estella" (Q071), ts with daily streamflows.
 - [`HFB()`](https://hzambran.github.io/hydroGOF/reference/HFB.md) :
   High-flows bias
+- [`JDKGE()`](https://hzambran.github.io/hydroGOF/reference/JDKGE.md) :
+  Joint Divergence Kling-Gupta Efficiency
 - [`KGE()`](https://hzambran.github.io/hydroGOF/reference/KGE.md) :
   Kling-Gupta Efficiency
 - [`KGEkm()`](https://hzambran.github.io/hydroGOF/reference/KGEkm.md) :

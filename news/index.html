@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-14</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-17</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,11 +39,13 @@
 <h2 class="pkg-version" data-toc-text="0.7-0" id="changes-in-version-07-0-ongoing">Changes in version 0.7-0 ongoing<a class="anchor" aria-label="anchor" href="#changes-in-version-07-0-ongoing"></a></h2>
 <div class="section level3">
 <h3 id="new-functions-0-7-0">New functions<a class="anchor" aria-label="anchor" href="#new-functions-0-7-0"></a></h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>    o <span class="st">'PMR'</span> <span class="sc">:</span> to compute the Proxy <span class="cf">for</span> Model Robustness to quantify the temporal stability of model bias, proposed by Royer<span class="sc">-</span>Gaspard et <span class="fu">al.</span> (<span class="dv">2021</span>).</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>    o <span class="st">'PMR'</span>  <span class="sc">:</span> to compute the Proxy <span class="cf">for</span> Model Robustness to quantify the temporal stability of model bias, proposed by Royer<span class="sc">-</span>Gaspard et <span class="fu">al.</span> (<span class="dv">2021</span>).</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>    o <span class="st">'JDKGE'</span><span class="sc">:</span> to compute the Joint Divergence Kling<span class="sc">-</span>Gupta Efficiency, which extends the traditional Kling<span class="sc">-</span>Gupta efficiency by incorporating a fourth diagnostic component that evaluates the similarity between the probability distributions of simulated and observed values, proposed by Ficchi et <span class="fu">al.</span> (<span class="dv">2026</span>).</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="bug-fixes-0-7-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-7-0"></a></h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>    o <span class="st">'APFB'</span> <span class="sc">:</span> Its value is now correctly computed, previously it was not Thanks to Rodrigo Mariano and Héctor Garcés</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>    o <span class="st">'APFB'</span> <span class="sc">:</span> <span class="sc">-</span><span class="er">)</span> Its value is now correctly computed, previously it was not Thanks to Rodrigo Mariano and Héctor Garcés.      </span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>               <span class="sc">-</span><span class="er">)</span> New argument <span class="st">'out.PerYear=FALSE'</span> to define the whether the output should include the annual peak flow bias computed <span class="cf">for</span> each individual year or not.</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="enhancements-0-7-0">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-7-0"></a></h3>
@@ -57,7 +59,8 @@
 <h3 id="package-files-0-7-0">Package files<a class="anchor" aria-label="anchor" href="#package-files-0-7-0"></a></h3>
 <div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>    o hydroGOF now has a graphical logo.  </span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>    o hydroGOF now has a <span class="fu">webpage</span> (https<span class="sc">:</span><span class="er">//</span>hzambran.github.io<span class="sc">/</span>hydroGOF<span class="sc">/</span>), created by pkgdown.  </span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>    o CITATION file<span class="sc">:</span> The DOI was changed form the one given by Zotero to the new DOI given by <span class="fu">CRAN</span> (<span class="fl">10.32614</span><span class="sc">/</span>CRAN.package.hydroGOF) since June <span class="fl">2024.</span></span></code></pre></div>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>    o CITATION file <span class="sc">:</span> The DOI was changed form the one given by Zotero to the new DOI given by <span class="fu">CRAN</span> (<span class="fl">10.32614</span><span class="sc">/</span>CRAN.package.hydroGOF) since June <span class="fl">2024.</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>    o NAMESPACE file<span class="sc">:</span> now imports the <span class="st">'shiftyears'</span> <span class="cf">function</span> of the hydroTSM R package.  </span></code></pre></div>
 </div>
 </div>
     <div class="section level2">

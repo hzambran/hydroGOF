@@ -59,7 +59,7 @@ plot2(x, y, plot.type = "multiple",
 
   Character indicating the format to be used for the label of the axis.
   See `lab.fmt` in
-  [`drawTimeAxis`](https://rdrr.io/pkg/hydroTSM/man/drawxaxis.html).
+  [`drawTimeAxis`](https://hzambran.github.io/hydroTSM/reference/drawxaxis.html).
 
 - main:
 
@@ -195,7 +195,7 @@ It requires the package hydroTSM.
 ## See also
 
 [`ggof`](https://hzambran.github.io/hydroGOF/reference/ggof.md),
-[`plot_pq`](https://rdrr.io/pkg/hydroTSM/man/plot_pq.html)
+[`plot_pq`](https://hzambran.github.io/hydroTSM/reference/plot_pq.html)
 
 ## Examples
 

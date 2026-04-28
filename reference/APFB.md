@@ -63,6 +63,18 @@ APFB(sim, obs, na.rm=TRUE, start.month=1,
   (hydrological) year. Numeric values in \[1, 12\] represent months in
   \[January, December\]. By default `start.month=1`.
 
+- out.PerYear:
+
+  logical value indicating whether the output should include the annual
+  peak flow bias computed for each individual year or not.  
+
+  Valid values are:
+
+  -) FALSE: the output is a numeric with the mean annual peak flow bias.
+
+  -) TRUE: the output is a list including both the overall APFB value
+  and the individual yearly values.
+
 - fun:
 
   function to be applied to `sim` and `obs` in order to obtain
@@ -120,10 +132,36 @@ The annual peak flow bias (APFB; Mizukami et al., 2019) is designed to
 drive the calibration of hydrological models focused in the reproduction
 of high-flow events.
 
-The high flow bias (APFB) ranges from 0 to Inf, with an optimal value of
-0. Higher values of APFB indicate stronger differences between the high
-values of `sim` and `obs`. Essentially, the closer to 0, the more
-similar the high values of `sim` and `obs` are.  
+In the computation of this index, the annual peak flow is first
+identified for each hydrological year in both `sim` and `obs`. The mean
+of the resulting annual peak flow series is then computed separately for
+simulated and observed data.
+
+The annual peak flow bias is defined as the absolute relative difference
+between the mean simulated annual peak flow and the mean observed annual
+peak flow.
+
+\$\$APFB = \sqrt{ \left( \frac{\mu\_{peak\\Q_s}}{\mu\_{peak\\Q_o}} - 1
+\right)^2 }\$\$
+
+where:
+
+- \mu\_{peak\\Q_s}: mean of the simulated annual peak flow series
+
+- \mu\_{peak\\Q_o}: mean of the observed annual peak flow series
+
+The APFB metric ranges from 0 to Inf. The optimal value is 0, indicating
+perfect agreement between simulated and observed annual peak flows.
+
+Essentially, the closer to 0, the more similar the magnitude of
+simulated and observed annual peak flows.
+
+Because APFB focuses exclusively on annual maxima, it is particularly
+suitable for calibration tasks targeting flood estimation, extreme-flow
+simulation, or infrastructure design applications. However, because APFB
+evaluates only annual maxima, it does not assess overall hydrograph
+dynamics and is typically used in combination with complementary metrics
+(e.g., KGE or NSE) when broader performance evaluation is required.
 
 ## Value
 

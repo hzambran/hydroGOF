@@ -156,7 +156,7 @@ ggof(sim, obs, na.rm = TRUE, dates, date.fmt = "%Y-%m-%d",
 
   Character indicating the format to be used for the label of the axis.
   See `lab.fmt` in
-  [`drawTimeAxis`](https://rdrr.io/pkg/hydroTSM/man/drawxaxis.html).
+  [`drawTimeAxis`](https://hzambran.github.io/hydroTSM/reference/drawxaxis.html).
 
 - cal.ini:
 

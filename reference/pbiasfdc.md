@@ -149,7 +149,7 @@ It requires the hydroTSM package.
 
 ## See also
 
-[fdc](https://rdrr.io/pkg/hydroTSM/man/fdc.html),
+[fdc](https://hzambran.github.io/hydroTSM/reference/fdc.html),
 [`pbias`](https://hzambran.github.io/hydroGOF/reference/pbias.md),
 [`mae`](https://hzambran.github.io/hydroGOF/reference/mae.md),
 [`mse`](https://hzambran.github.io/hydroGOF/reference/mse.md),

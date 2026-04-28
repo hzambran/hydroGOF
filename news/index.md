@@ -5,13 +5,15 @@
 ### New functions
 
 ``` R
-    o 'PMR' : to compute the Proxy for Model Robustness to quantify the temporal stability of model bias, proposed by Royer-Gaspard et al. (2021).
+    o 'PMR'  : to compute the Proxy for Model Robustness to quantify the temporal stability of model bias, proposed by Royer-Gaspard et al. (2021).
+    o 'JDKGE': to compute the Joint Divergence Kling-Gupta Efficiency, which extends the traditional Kling-Gupta efficiency by incorporating a fourth diagnostic component that evaluates the similarity between the probability distributions of simulated and observed values, proposed by Ficchi et al. (2026).
 ```
 
 ### Bug fixes
 
 ``` R
-    o 'APFB' : Its value is now correctly computed, previously it was not Thanks to Rodrigo Mariano and Héctor Garcés
+    o 'APFB' : -) Its value is now correctly computed, previously it was not Thanks to Rodrigo Mariano and Héctor Garcés.      
+               -) New argument 'out.PerYear=FALSE' to define the whether the output should include the annual peak flow bias computed for each individual year or not.
 ```
 
 ### Enhancements
@@ -29,7 +31,8 @@
 ``` R
     o hydroGOF now has a graphical logo.  
     o hydroGOF now has a webpage (https://hzambran.github.io/hydroGOF/), created by pkgdown.  
-    o CITATION file: The DOI was changed form the one given by Zotero to the new DOI given by CRAN (10.32614/CRAN.package.hydroGOF) since June 2024.
+    o CITATION file : The DOI was changed form the one given by Zotero to the new DOI given by CRAN (10.32614/CRAN.package.hydroGOF) since June 2024.
+    o NAMESPACE file: now imports the 'shiftyears' function of the hydroTSM R package.  
 ```
 
 ## Changes in version 0.6-0 08-May-2024
