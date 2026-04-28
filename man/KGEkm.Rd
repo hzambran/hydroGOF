@@ -105,47 +105,85 @@ Valid values of \code{epsilon.type} are:
 }
 }
 \details{
-Traditional objective functions, such as Nash-Sutcliffe Efficiency (NSE) and Kling-Gupta Efficiency (KGE), often make assumptions about data distribution and are sensitive to outliers. The Kling-Gupta Efficiency with knowable-moments (KGEkm) goodness-of-fit measure was developed by Pizarro and Jorquera (2024) to provide a reliable estimation and effective description of high-order statistics from typical hydrological samples and, therefore, reducing uncertainty in their estimation and computation of the KGE.
+Traditional objective functions, such as Nash-Sutcliffe Efficiency (NSE) and Kling-Gupta Efficiency (KGE), often make assumptions about data distribution and are sensitive to outliers. The Kling-Gupta Efficiency with knowable-moments (KGEkm) goodness-of-fit measure was developed by Pizarro and Jorquera (2024) to provide a reliable estimation and effective description of high-order statistics from typical hydrological samples and, therefore, reducing uncertainty in their estimation and computation of the KGE. In the KGEkm, the dispersion is quantified using knowable moments instead of the standard deviation while retaining the decomposition into correlation, variability, and bias components.
 
+The general formulation of Kling--Gupta Efficiency with knowable moments (\eqn{KGE_{km}}) is:
 
-In the same line that the traditional Kling-Gupta efficiency,  the KGEkm ranges from -Inf to 1. Essentially, the closer to 1, the more similar \code{sim} and \code{obs} are. 
-
-
-In the computation of this index, there are three main components involved: 
-
-1) \kbd{r}    : the Pearson product-moment correlation coefficient. Ideal value is r=1.
-
-2) \kbd{Beta} : the ratio between the mean of the simulated values and the mean of the observed ones. Ideal value is Beta=1.
-
-3) \kbd{vr}   : variability ratio, which could be computed using the standard deviation (\kbd{Alpha}) or the coefficient of variation (\kbd{Gamma}) of \code{sim} and \code{obs}, depending on the value of \code{method}:
-
-  3.1) \kbd{Alpha}: the ratio between the standard deviation of the simulated values and the standard deviation of the observed ones. Its ideal value is \kbd{Alpha=1}.
-
-  3.2) \kbd{Gamma}: the ratio between the coefficient of variation (\kbd{CV}) of the simulated values to the coefficient of variation of the observed ones. Its ideal value is \kbd{Gamma=1}.
-
-
-\deqn{KGEkm = 1 - ED}
-\deqn{ ED =  \sqrt{ (s[1]*(r-1))^2 +(s[2]*(vr-1))^2 + (s[3]*(\beta-1))^2 } }{%
-KGEkm = 1 - sqrt[ (s[1]*(r-1))^2 + (s[2]*(vr-1))^2 + (s[3]*(Beta-1))^2] 
-
-r     = Pearson product-moment correlation coefficient 
-beta  = mu_s/mu_o ; 
-alpha = sigma_s/sigma_o
-gamma = CV_s/CV_o; 
-
-method="2009": vr=alfa
-method="2012": vr=gamma }
-\deqn{r=Pearson product-moment correlation coefficient}
-\deqn{vr=  \left\{
-  \begin{array}{cc}
-    \alpha & , \: method=2009 \\
-    \gamma & , \: method=2012
-  \end{array}
-\right.}
-\deqn{\beta=\mu_s/\mu_o}
-\deqn{\alpha=\sigma_s/\sigma_o}
-\deqn{\gamma=\frac{CV_s}{CV_o} = \frac{\sigma_s/\mu_s}{\sigma_o/\mu_o}}
+\deqn{
+KGE_{km} = 1 - \sqrt{ \left[ s_1 (r - 1) \right]^2 + \left[ s_2 (vr - 1) \right]^2 + \left[ s_3 (br - 1) \right]^2 }
 }
+
+where \eqn{r} is the Pearson product--moment correlation coefficient between simulated (\eqn{Q^{sim}_t}) and observed (\eqn{Q^{obs}_t}) values, \eqn{vr} is the variability ratio, \eqn{br} is the bias ratio, and \eqn{s = (s_1, s_2, s_3)} is a vector of non-negative scaling factors that control the relative importance of each component.
+
+Dispersion is computed from the second knowable moment. For a sample \eqn{x_1, x_2, \ldots, x_n}, the second knowable moment is defined as:
+
+\deqn{
+K_2 = \frac{1}{n(n-1)} \sum_{i=1}^{n} 2 (i-1) x_{(i)}
+}
+
+where \eqn{x_{(i)}} denotes the ordered values of the sample in ascending order. The corresponding dispersion measure is:
+
+\deqn{
+\sigma_{km} = \sqrt{ 2 K_2 }
+}
+
+The variability ratio depends on the selected \code{method}:
+
+\itemize{
+
+\item For \code{method = "2009"}, variability is defined as the ratio of 
+knowable-moment dispersions:
+
+\deqn{
+vr = \alpha = \frac{\sigma^{sim}_{km}}{\sigma^{obs}_{km}}
+}
+
+\item For \code{method = "2012"}, variability is defined as the ratio of 
+coefficients of variation:
+
+\deqn{
+vr = \gamma = \frac{
+\sigma^{sim}_{km} / \mu^{sim}
+}{
+\sigma^{obs}_{km} / \mu^{obs}
+}
+}
+
+\item For \code{method = "2021"}, variability is defined as in the 2009 
+formulation:
+
+\deqn{
+vr = \alpha = \frac{\sigma^{sim}_{km}}{\sigma^{obs}_{km}}
+}
+
+}
+
+The bias component also depends on the selected \code{method}:
+
+\itemize{
+
+\item For \code{method = "2009"} and \code{method = "2012"}:
+
+\deqn{
+br = \beta = \frac{\mu^{sim}}{\mu^{obs}}
+}
+
+\item For \code{method = "2021"}:
+
+\deqn{
+br = \beta_{2021} = \frac{ \mu^{sim} - \mu^{obs}
+}{
+\sigma^{obs}_{km}
+}
+}
+
+}
+
+In the same line that the traditional Kling-Gupta efficiency, the (\eqn{KGE_{km}}) ranges from -Inf to 1. Essentially, the closer to 1, the more similar \code{sim} and \code{obs} are. 
+
+As with other KGE-type metrics, the statistic integrates information about correlation, variability, and bias into a single performance measure while allowing explicit control over the relative contribution of each component through the scaling factors \eqn{s}.
+}
+
 \value{
 If \code{out.type=single}: numeric with the Kling-Gupta efficiency between \code{sim} and \code{obs}. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the Kling-Gupta efficiency between each column of \code{sim} and \code{obs}
 

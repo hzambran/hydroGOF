@@ -11,6 +11,7 @@ NEWS/ChangeLog for hydroGOF
         o 'APFB' : -) Its value is now correctly computed, previously it was not Thanks to Rodrigo Mariano and Héctor Garcés.      
                    -) New argument 'out.PerYear=FALSE' to define the whether the output should include the annual peak flow bias computed for each individual year or not.
         o 'sKGE' : The content of 'Details' section in the documentation of this function was fixed, because it previously corresponded to the 'KGElf' function. Equations to summarise 'sKGE' were also added to the documentation. No change was made to the R code, only to the documentation.
+        o 'KGEkm': The second knowable moment K2 (dispersion-related quantity) is now correctly computed using ascending sorted values of 'sim' and 'obs' (previously the knowable moment K2 was computed using unsorted values of 'sim' and 'obs'). The other two components of the 'KGEkm' were previously correctly computed and now continue to do so. 
 
 
 ## Enhancements

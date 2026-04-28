@@ -12,6 +12,7 @@
 ################################################################################
 # Started: 06-May-2024                                                         #
 # Updates: 07-May-2024                                                         #
+#          28-Apr-2026                                                         #
 ################################################################################
 # The optimal value of KGEkm is 1
 
@@ -56,7 +57,7 @@ KGEkm.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
   # If the user provided a value for 's'
   if (!identical(s, c(1,1,1)) )  {
      if ( length(s) != 3 ) stop("Invalid argument: lenght(s) must be equal to 3 !")
-     if ( sum(s) != 1 )    stop("Invalid argument: sum(s) must be equal to 1.0 !")
+     if ( sum(s) != 1 )    warning("sum(s) != 1.0. Is this correct for you?")
   } # IF end
      
   method   <- match.arg(method)
@@ -85,6 +86,17 @@ KGEkm.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
     mean.sim <- mean(sim, na.rm=na.rm)
     mean.obs <- mean(obs, na.rm=na.rm)
 
+    # r: Pearson product-moment correlation coefficient.
+    # It measures linear association between paired observations at identical time indices.
+    # Sorting 'sim and 'obs' before computation of 'r' destroys that pairing structure and 
+    # therefore alters the stochastic dependence being measured.
+    r <- rPearson(sim, obs)
+
+    # The computation of the second knowable moment: K2 (dispersion-related quantity) 
+    # require 'sim' and 'obs' be sorted in ascending order 
+    sim <- sort(sim)
+    obs <- sort(obs)
+
     # Dispersion measures (~ standard deviation)
     n         <- length(vi)
     i         <- seq(from=1, to=n, by=1) 
@@ -93,9 +105,7 @@ KGEkm.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
     sigma.sim <- sqrt(2*K2sim)
     sigma.obs <- sqrt(2*K2obs)
          
-    # Pearson product-moment correlation coefficient
-    r     <- rPearson(sim, obs)
-
+    
     # Alpha is a measure of relative variability between simulated and observed values (See Ref1)
     Alpha <- sigma.sim / sigma.obs
 
@@ -133,10 +143,8 @@ KGEkm.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
         } # ELSE end
 
     # KGEkm Computation
-    if ( (mean.obs != 0) | (sigma.obs != 0) ) {
-        if ( (method=="2009") | (method=="2012") ) {
-          KGEkm <- 1 - sqrt( (s[1]*(r-1))^2 + (s[2]*(vr-1))^2 + (s[3]*(Beta-1))^2 )
-        } else KGEkm <- 1 - sqrt( (s[1]*(r-1))^2 + (s[2]*(vr-1))^2 + (s[3]*(Beta.2021))^2 )
+    if ( (mean.obs != 0) & (sigma.obs != 0) ) {
+        KGEkm <- 1 - sqrt( (s[1]*(r-1))^2 + (s[2]*(vr-1))^2 + (s[3]*(br-1))^2 )
     } else {
         if ( mean.obs != 0)  warning("Warning: 'mean(obs)==0'. Beta = Inf")
         if ( sigma.obs != 0) warning("Warning: 'sd(obs)==0'. ", vr.stg, " = Inf")
@@ -195,7 +203,7 @@ KGEkm.matrix <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
   # If the user provided a value for 's'
   if (!all.equal(s, c(1,1,1)) )  {
      if ( length(s) != 3 ) stop("Invalid argument: lenght(s) must be equal to 3 !")
-     if ( sum(s) != 1 )    stop("Invalid argument: sum(s) must be equal to 1.0 !")
+     if ( sum(s) != 1 )    warning("sum(s) != 1.0. Is this correct for you?")
   } # IF end
            
   method   <- match.arg(method)
