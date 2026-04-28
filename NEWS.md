@@ -18,7 +18,8 @@ NEWS/ChangeLog for hydroGOF
 ## Package files
         o hydroGOF now has a graphical logo.  
         o hydroGOF now has a webpage (https://hzambran.github.io/hydroGOF/), created by pkgdown.  
-        o CITATION file: The DOI was changed form the one given by Zotero to the new DOI given by CRAN (10.32614/CRAN.package.hydroGOF) since June 2024.
+        o CITATION file : The DOI was changed form the one given by Zotero to the new DOI given by CRAN (10.32614/CRAN.package.hydroGOF) since June 2024.
+        o NAMESPACE file: now imports the 'shiftyears' function of the hydroTSM R package.  
 
 
 
