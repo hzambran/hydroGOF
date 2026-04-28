@@ -34,23 +34,23 @@ For a short description of its four components and the numeric range of values, 
 
 JDKGE(sim, obs, ...)
 
-\method{JDKGE}{default}(sim, obs, s=c(1,1,1,1), na.rm=TRUE, out.type=c("single","full"),
-              fun=NULL, ..., 
+\method{JDKGE}{default}(sim, obs, s=c(1,1,1,1), na.rm=TRUE, method=c("2009","2012","2021"),
+              out.type=c("single", "full"), fun=NULL, ..., 
               epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
               epsilon.value=NA, density.method=c("hist","kde"), nbins="Sturges" )
 
-\method{JDKGE}{data.frame}(sim, obs, s=c(1,1,1,1), na.rm=TRUE, out.type=c("single","full"),
-              fun=NULL, ..., 
+\method{JDKGE}{data.frame}(sim, obs, s=c(1,1,1,1), na.rm=TRUE, method=c("2009","2012","2021"),
+              out.type=c("single", "full"), fun=NULL, ..., 
               epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
               epsilon.value=NA, density.method=c("hist","kde"), nbins="Sturges" )
 
-\method{JDKGE}{matrix}(sim, obs, s=c(1,1,1,1), na.rm=TRUE, out.type=c("single","full"),
-              fun=NULL, ..., 
+\method{JDKGE}{matrix}(sim, obs, s=c(1,1,1,1), na.rm=TRUE, method=c("2009","2012","2021"),
+              out.type=c("single", "full"), fun=NULL, ..., 
               epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
               epsilon.value=NA, density.method=c("hist","kde"), nbins="Sturges" )
 
-\method{JDKGE}{zoo}(sim, obs, s=c(1,1,1,1), na.rm=TRUE, out.type=c("single","full"),
-              fun=NULL, ..., 
+\method{JDKGE}{zoo}(sim, obs, s=c(1,1,1,1), na.rm=TRUE, method=c("2009","2012","2021"),
+              out.type=c("single", "full"), fun=NULL, ..., 
               epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
               epsilon.value=NA, density.method=c("hist","kde"), nbins="Sturges" )
 
@@ -78,6 +78,15 @@ a logical value indicating whether 'NA' should be stripped before the computatio
 When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{sim}, the i-th value of \code{obs} \bold{AND} \code{sim} are removed before the computation.
 }
 
+  \item{method}{
+character, indicating the formula used to compute the variability ratio in the Kling-Gupta efficiency. Valid values are:
+
+-) \kbd{2009}: the variability is defined as \sQuote{Alpha}, the ratio of the standard deviation of \code{sim} values to the standard deviation of \code{obs}. This is the default option. See Gupta et al. (2009).
+
+-) \kbd{2012}: the variability is defined as \sQuote{Gamma}, the ratio of the coefficient of variation of \code{sim} values to the coefficient of variation of \code{obs}. See Kling et al. (2012). 
+
+-) \kbd{2021}: the bias is defined as \sQuote{Beta}, the ratio of \code{mean(sim)} minus \code{mean(obs)} to the standard deviation of \code{obs}. The variability is defined as \sQuote{Alpha}, the ratio of the standard deviation of \code{sim} values to the standard deviation of \code{obs}. See Tang et al. (2021). 
+}
 \item{out.type}{
 character, indicating whether the output of the function has to include each one of the four terms used in the computation of the Joint Divergence Kling-Gupta efficiency or not. Valid values are:
 
@@ -192,6 +201,12 @@ numeric with 4 elements: the Pearson product-moment correlation coefficient (\sQ
 \cite{
 Ficchi, A.; Bavera, D.; Grimaldi, S.; Moschini, F.; Pistocchi, A.; Russo, C.; Salamon, P.; Toreti, A. (2026). Improving low and high flow simulations at once: An enhanced metric for hydrological model calibrations. EGUsphere [preprint], https://doi.org/10.5194/egusphere-2026-43. 
 }
+
+\cite{Gupta, H.V.; Kling, H.; Yilmaz, K.K.; Martinez, G.F. (2009). Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological modelling. Journal of hydrology, 377(1-2), 80-91. doi:10.1016/j.jhydrol.2009.08.003. ISSN 0022-1694.}
+
+\cite{Kling, H.; Fuchs, M.; Paulin, M. (2012). Runoff conditions in the upper Danube basin under an ensemble of climate change scenarios. Journal of Hydrology, 424, 264-277, doi:10.1016/j.jhydrol.2012.01.011.}
+
+\cite{Tang, G.; Clark, M.P.; Papalexiou, S.M. (2021). SC-earth: a station-based serially complete earth dataset from 1950 to 2019. Journal of Climate, 34(16), 6493-6511. doi:10.1175/JCLI-D-21-0067.1.}
 
 }
 

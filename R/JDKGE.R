@@ -174,12 +174,11 @@ JDKGE <- function(sim, obs, ...) UseMethod("JDKGE")
 JDKGE.default <- function(sim, obs,
                           s=c(1,1,1,1),
                           na.rm=TRUE,
+                          method=c("2009","2012","2021"),
                           out.type=c("single", "full"),
                           fun=NULL, ...,
-                          epsilon.type=c("none",
-                                         "Pushpalatha2012",
-                                         "otherFactor",
-                                         "otherValue"),
+                          epsilon.type=c("none", "Pushpalatha2012", 
+                                        "otherFactor", "otherValue"),
                           epsilon.value=NA,
                           density.method=c("hist","kde"),
                           nbins="Sturges") {
@@ -190,9 +189,10 @@ JDKGE.default <- function(sim, obs,
       stop("Invalid argument: length(s) must be equal to 4 !")
     if (sum(s) != 1)
       stop("Invalid argument: sum(s) must be equal to 1.0 !")
-  }
+  } # IF end
 
-  out.type <- match.arg(out.type)
+  method       <- match.arg(method)
+  out.type     <- match.arg(out.type)
   epsilon.type <- match.arg(epsilon.type)
 
   if ( is.na(match(class(sim), c("integer","numeric","ts","zoo"))) |
@@ -218,11 +218,11 @@ JDKGE.default <- function(sim, obs,
       sim <- new[["sim"]]
       obs <- new[["obs"]]
 
-    }
+    } # IF end
 
     if (any(sim <= 0) | any(obs <= 0)) {
 
-      r <- Beta <- Gamma <- Delta <- NA
+      r   <- Beta <- Gamma <- Delta <- NA
       JDK <- NA
 
       warning("Non-positive values detected => log-transform not possible")
@@ -235,14 +235,53 @@ JDKGE.default <- function(sim, obs,
         sigma.sim <- sd(sim, na.rm=na.rm)
         sigma.obs <- sd(obs, na.rm=na.rm)
 
+        # Correlation
         r <- cor(sim, obs)
 
-        Beta <- mean.sim / mean.obs
+        # Bias and variability components depend on 'method'
+        mean.sim <- mean(sim, na.rm=na.rm)
+        mean.obs <- mean(obs, na.rm=na.rm)
 
-        CV.sim <- sigma.sim / mean.sim
-        CV.obs <- sigma.obs / mean.obs
+        if ( (mean.obs == 0) & ( (method == "2009") | (method == "2012") ) )
+          warning("Warning: 'mean(obs)==0'. Beta is undefined")
 
-        Gamma <- CV.sim / CV.obs
+        if ( (mean.sim == 0) &  (method == "2012") )
+          warning("Warning: 'mean(obs)==0'. Beta is undefined !")
+
+        sigma.sim <- sd(sim, na.rm=na.rm)
+        sigma.obs <- sd(obs, na.rm=na.rm)
+
+        if ( (sigma.obs == 0) &  ( (method == "2009") | (method == "2021"))
+          warning("Warning: 'sd(obs)==0'. Variability ratio is undefined !")
+
+        if (method == "2009") {
+
+          # Variability: standard deviation ratio
+          Gamma <- sigma.sim / sigma.obs
+
+          # Bias: mean ratio
+          Beta <- mean.sim / mean.obs
+
+        } else if (method == "2012") {
+
+          # Coefficient of variation ratio
+          CV.sim <- sigma.sim / mean.sim
+          CV.obs <- sigma.obs / mean.obs
+
+          Gamma <- CV.sim / CV.obs
+
+          # Bias unchanged
+          Beta <- mean.sim / mean.obs
+
+        } else if (method == "2021") {
+
+            # Variability: standard deviation ratio
+            Gamma <- sigma.sim / sigma.obs
+
+            # Standardized bias
+            Beta <- (mean.sim - mean.obs) / sigma.obs
+
+          } # ELSE end
 
         # Distribution component (log flows)
         log.sim <- log(sim)
@@ -304,12 +343,11 @@ JDKGE.default <- function(sim, obs,
 JDKGE.matrix <- function(sim, obs,
                          s=c(1,1,1,1),
                          na.rm=TRUE,
-                         out.type=c("single","full"),
+                         method=c("2009","2012","2021"),
+                         out.type=c("single", "full"),
                          fun=NULL, ...,
-                         epsilon.type=c("none",
-                                        "Pushpalatha2012",
-                                        "otherFactor",
-                                        "otherValue"),
+                         epsilon.type=c("none", "Pushpalatha2012", 
+                                        "otherFactor", "otherValue"),
                          epsilon.value=NA,
                          density.method=c("hist","kde"),
                          nbins="Sturges") {
@@ -324,7 +362,9 @@ JDKGE.matrix <- function(sim, obs,
       stop("Invalid argument: sum(s) must be equal to 1.0 !")
   } # IF end
 
-  out.type <- match.arg(out.type)
+  method       <- match.arg(method)
+  out.type     <- match.arg(out.type)
+  epsilon.type <- match.arg(epsilon.type)
 
   JDK <- rep(NA, ncol(obs))
 
@@ -337,16 +377,9 @@ JDKGE.matrix <- function(sim, obs,
 
     out <- sapply(1:ncol(obs), function(i, x, y) {
 
-      JDKGE.default(
-        x[,i],
-        y[,i],
-        s=s,
-        na.rm=na.rm,
-        out.type="single",
-        fun=fun,
-        ...,
-        epsilon.type=epsilon.type,
-        epsilon.value=epsilon.value,
+      JDKGE.default( x[,i],  y[,i], s=s, na.rm=na.rm,
+        method=method, out.type="single", fun=fun,  ...,
+        epsilon.type=epsilon.type, epsilon.value=epsilon.value,
         nbins=nbins
       )
 
@@ -358,16 +391,9 @@ JDKGE.matrix <- function(sim, obs,
 
     tmp <- lapply(1:ncol(obs), function(i, x, y) {
 
-      JDKGE.default(
-        x[,i],
-        y[,i],
-        s=s,
-        na.rm=na.rm,
-        out.type="full",
-        fun=fun,
-        ...,
-        epsilon.type=epsilon.type,
-        epsilon.value=epsilon.value,
+      JDKGE.default( x[,i], y[,i], s=s, na.rm=na.rm,
+        method=method, out.type="full", fun=fun, ...,
+        epsilon.type=epsilon.type, epsilon.value=epsilon.value,
         nbins=nbins
       )
 
@@ -377,9 +403,7 @@ JDKGE.matrix <- function(sim, obs,
 
       JDK[i] <- tmp[[i]][[1]]
 
-      elements[,i] <- as.numeric(
-        tmp[[i]][[2]]
-      )
+      elements[,i] <- as.numeric( tmp[[i]][[2]] )
 
     } # FOR end
 
@@ -398,12 +422,11 @@ JDKGE.matrix <- function(sim, obs,
 JDKGE.data.frame <- function(sim, obs,
                              s=c(1,1,1,1),
                              na.rm=TRUE,
-                             out.type=c("single","full"),
+                             method=c("2009","2012","2021"),
+                             out.type=c("single", "full"),
                              fun=NULL, ...,
-                             epsilon.type=c("none",
-                                            "Pushpalatha2012",
-                                            "otherFactor",
-                                            "otherValue"),
+                             epsilon.type=c("none", "Pushpalatha2012", 
+                                            "otherFactor", "otherValue"),
                              epsilon.value=NA,
                              density.method=c("hist","kde"),
                              nbins="Sturges") {
@@ -412,14 +435,13 @@ JDKGE.data.frame <- function(sim, obs,
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
 
-  out.type <- match.arg(out.type)
+  method       <- match.arg(method)
+  out.type     <- match.arg(out.type)
+  epsilon.type <- match.arg(epsilon.type)
 
-  JDKGE.matrix(sim, obs,
-               s=s,
-               na.rm=na.rm,
-               out.type=out.type,
-               fun=fun,
-               ...,
+  JDKGE.matrix(sim, obs, s=s, na.rm=na.rm,
+               method=method, out.type=out.type,
+               fun=fun, ...,
                epsilon.type=epsilon.type,
                epsilon.value=epsilon.value,
                nbins=nbins)
@@ -433,12 +455,11 @@ JDKGE.data.frame <- function(sim, obs,
 JDKGE.zoo <- function(sim, obs,
                       s=c(1,1,1,1),
                       na.rm=TRUE,
-                      out.type=c("single","full"),
+                      method=c("2009","2012","2021"),
+                      out.type=c("single", "full"),
                       fun=NULL, ...,
-                      epsilon.type=c("none",
-                                     "Pushpalatha2012",
-                                     "otherFactor",
-                                     "otherValue"),
+                      epsilon.type=c("none", "Pushpalatha2012", 
+                                     "otherFactor", "otherValue"),
                       epsilon.value=NA,
                       density.method=c("hist","kde"),
                       nbins="Sturges") {
@@ -451,28 +472,22 @@ JDKGE.zoo <- function(sim, obs,
 
   if (is.matrix(sim) | is.data.frame(sim)) {
 
-    JDKGE.matrix(sim, obs,
-                 s=s,
-                 na.rm=na.rm,
-                 out.type=out.type,
-                 fun=fun,
-                 ...,
+    JDKGE.matrix(sim, obs, s=s, na.rm=na.rm,
+                 method=method, out.type=out.type,
+                 fun=fun, ...,
                  epsilon.type=epsilon.type,
                  epsilon.value=epsilon.value,
                  nbins=nbins)
 
   } else {
 
-      NextMethod(sim, obs,
-                 s=s,
-                 na.rm=na.rm,
-                 out.type=out.type,
-                 fun=fun,
-                 ...,
+      NextMethod(sim, obs, s=s, na.rm=na.rm,
+                 method=method, out.type=out.type,
+                 fun=fun, ...,
                  epsilon.type=epsilon.type,
                  epsilon.value=epsilon.value,
                  nbins=nbins)
 
-  }
+    } # ELSE
 
 } # 'JDKGE.zoo' END
