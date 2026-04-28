@@ -2,7 +2,7 @@
 %% Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 %%                                 https://cran.r-project.org/package=hydroGOF
 %%                                 http://www.rforge.net/hydroGOF/
-%% Copyright 2008-2024 Mauricio Zambrano-Bigiarini
+%% Copyright 2008-2026 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or later
 
 \name{pfactor}
@@ -47,14 +47,24 @@ a logical value indicating whether 'NA' values should be stripped before the com
 further arguments passed to or from other methods.
 }
 }
-%%\details{
-%%\deqn{ pfactor = 1 -\frac { \sum_{i=2}^N { \left( S_i - O_i \right)^2 } } { \sum_{i=1}^{N-1} { \left( O_{i+1} - O_i \right)^2 } }  }{%
-%%cp = 1 - [ sum( (obs[2:n] - sim[2:n])^2 ] / sum( ( obs[2:n] - obs[1:(n-1)] )^2 ) }
-%%}
+\details{
+
+The \var{P-factor} quantifies the percentage of observed values that fall within the prediction uncertainty band defined by the lower and upper bounds. It is a measure of the coverage of the uncertainty interval.
+
+Mathematically, the P-factor is defined as:
+
+\deqn{
+  P\text{-factor} = \frac{1}{N} \sum_{i=1}^{N} I \left( lband_i \le x_i \le uband_i \right)
+}
+
+where \eqn{N} is the total number of observations, \eqn{x_i} is the observed value at time step \eqn{i}, and \eqn{lband_i} and \eqn{uband_i} are the lower and upper uncertainty bounds, respectively. The function \eqn{I(\cdot)} is an indicator function that takes the value 1 when the observed value lies within the uncertainty bounds and 0 otherwise.
+
+The \var{P-factor} ranges from 0 to 1. A value of 1 indicates that all observations are bracketed by the uncertainty bounds, whereas a value of 0 indicates that none of the observations fall within the bounds.
+}
 \value{
 Percent of the \code{x} observations that are within the given uncertainty bounds given by \code{lband} and \code{uband}. \cr
 
-If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the \var{P-factor} between each column of \code{sim} and \code{obs}.
+If \code{x}, \code{lband}, and \code{uband} are matrices, the returned value is a vector with the \var{P-factor} computed for each column.
 }
 \references{
 \cite{Abbaspour, K.C.; Faramarzi, M.; Ghasemi, S.S.; Yang, H. (2009), Assessing the impact of climate change on water resources in Iran, Water Resources Research, 45(10), W10,434, doi:10.1029/2008WR007615.}
