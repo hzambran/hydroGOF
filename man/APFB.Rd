@@ -92,7 +92,28 @@ Valid values of \code{epsilon.type} are:
 \details{
 The annual peak flow bias (APFB; Mizukami et al., 2019) is designed to drive the calibration of hydrological models focused in the reproduction of high-flow events.
 
-The high flow bias (APFB) ranges from 0 to Inf, with an optimal value of 0. Higher values of APFB indicate stronger differences between the high values of \code{sim} and \code{obs}. Essentially, the closer to 0, the more similar the high values of \code{sim} and \code{obs} are. \cr
+In the computation of this index, the annual peak flow is first identified for each hydrological year in both \code{sim} and \code{obs}. The mean of the resulting annual peak flow series is then computed separately for simulated and observed data.
+
+The annual peak flow bias is defined as the absolute relative difference between the mean simulated annual peak flow and the mean observed annual peak flow.
+
+\deqn{APFB = \sqrt{ \left( \frac{\mu_{peak\,Q_s}}{\mu_{peak\,Q_o}} - 1 \right)^2 }}
+
+where:
+
+\itemize{
+
+\item \kbd{\mu_{peak\,Q_s}}: mean of the simulated annual peak flow series
+
+\item \kbd{\mu_{peak\,Q_o}}: mean of the observed annual peak flow series
+
+}
+
+The APFB metric ranges from 0 to \kbd{Inf}. The optimal value is \kbd{0}, indicating perfect agreement between simulated and observed annual peak flows.
+
+Essentially, the closer to 0, the more similar the magnitude of simulated and observed annual peak flows.
+
+Because APFB focuses exclusively on annual maxima, it is particularly suitable for calibration tasks targeting flood estimation, extreme-flow simulation, or infrastructure design applications. However, because APFB evaluates only annual maxima, it does not assess overall hydrograph dynamics and is typically used in combination with complementary metrics (e.g., KGE or NSE) when broader performance evaluation is required.
+
 }
 \value{
 If \code{out.PerYear=FALSE}: numeric with the mean annual peak flow bias between \code{sim} and \code{obs}. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the  mean annual peak flow bias between each column of \code{sim} and \code{obs}.
