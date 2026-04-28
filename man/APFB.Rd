@@ -2,7 +2,7 @@
 %% Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 %%                                 https://cran.r-project.org/package=hydroGOF
 %%                                 http://www.rforge.net/hydroGOF/
-%% Copyright 2024-2025 Mauricio Zambrano-Bigiarini
+%% Copyright 2024-2026 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or late
 
 \name{APFB}
@@ -62,7 +62,7 @@ When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{s
 numeric in [1:12] indicating the starting month of the (hydrological) year. Numeric values in [1, 12] represent months in [January, December]. By default \code{start.month=1}.
 }
 \item{out.PerYear}{
-logical value indicating whether the output should include the annual peak flow bias computed for each individual year.\cr
+logical value indicating whether the output should include the annual peak flow bias computed for each individual year or not.\cr
 
 Valid values are:
 
