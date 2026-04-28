@@ -172,15 +172,15 @@ median of the annual values instead of the mean, reducing the influence
 of extreme years and improving robustness when the distribution of
 annual biases is asymmetric.
 
-Mathematically, the annual high-flow performance for year \\ y \\ is
+Mathematically, the annual high-flow performance for year \\y\\ is
 defined as:
 
 \$\$ HFB_y = 1 - \left\| \operatorname{median} \left(
 \frac{Q^{sim}\_{y,i}}{Q^{obs}\_{y,i}} \right) - 1 \right\| \$\$
 
-where \\ Q^sim_y,i \\ and \\ Q^obs_y,i \\ are the simulated and observed
-flows corresponding to the set of high-flow events \\ i \\ occurring in
-year \\ y \\.
+where \\Q^{sim}\_{y,i}\\ and \\Q^{obs}\_{y,i}\\ are the simulated and
+observed flows corresponding to the set of high-flow events \\i\\
+occurring in year \\y\\.
 
 The overall HFB value is then computed as:
 

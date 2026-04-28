@@ -200,7 +200,8 @@ robustness is evaluated.
 
 ## See also
 
-`PBIAS`, [`NSE`](https://hzambran.github.io/hydroGOF/reference/NSE.md),
+[`pbias`](https://hzambran.github.io/hydroGOF/reference/pbias.md),
+[`NSE`](https://hzambran.github.io/hydroGOF/reference/NSE.md),
 [`VE`](https://hzambran.github.io/hydroGOF/reference/VE.md),
 [`JDKGE`](https://hzambran.github.io/hydroGOF/reference/JDKGE.md),
 [`gof`](https://hzambran.github.io/hydroGOF/reference/gof.md),

@@ -139,15 +139,11 @@ emphasis on the reproduction of high-flow conditions.</p>
 <p>2) Instead of selecting simulated high flows independently of the observed events, it evaluates simulated flows occurring at the same time steps as the observed high flows, thereby preserving temporal correspondence between observed and simulated events.</p>
 <p>3) For each year, the metric uses the median of the individual high-flow ratios rather than a single annual peak-flow value, providing a more robust summary of high-flow bias within that year.</p>
 <p>4) When computing the final performance value, the metric uses the median of the annual values instead of the mean, reducing the influence of extreme years and improving robustness when the distribution of annual biases is asymmetric.</p>
-<p>Mathematically, the annual high-flow performance for year \( y \) is defined as:</p>
+<p>Mathematically, the annual high-flow performance for year \(y\) is defined as:</p>
 <p>$$
-HFB_y = 1 - \left| \operatorname{median} \left(
-\frac{Q^{sim}_{y,i}}{Q^{obs}_{y,i}}
-\right) - 1 \right|
+HFB_y = 1 - \left| \operatorname{median} \left( \frac{Q^{sim}_{y,i}}{Q^{obs}_{y,i}} \right) - 1 \right|
 $$</p>
-<p>where \( Q^sim_y,i \) and \( Q^obs_y,i \) are the simulated and observed
-flows corresponding to the set of high-flow events \( i \) occurring in year
-\( y \).</p>
+<p>where \(Q^{sim}_{y,i}\) and \(Q^{obs}_{y,i}\) are the simulated and observed flows corresponding to the set of high-flow events \(i\) occurring in year \(y\).</p>
 <p>The overall HFB value is then computed as:</p>
 <p>$$
 HFB = 1 - \left| \operatorname{median}(HFB_y) - 1 \right|
