@@ -119,17 +119,13 @@ The HFB function is inspired by the annual peak-flow bias (APFB) objective funct
 
 4) When computing the final performance value, the metric uses the median of the annual values instead of the mean, reducing the influence of extreme years and improving robustness when the distribution of annual biases is asymmetric.
 
-Mathematically, the annual high-flow performance for year \( y \) is defined as:
+Mathematically, the annual high-flow performance for year \eqn{y} is defined as:
 
 \deqn{
-HFB_y = 1 - \left| \operatorname{median} \left(
-\frac{Q^{sim}_{y,i}}{Q^{obs}_{y,i}}
-\right) - 1 \right|
+HFB_y = 1 - \left| \operatorname{median} \left( \frac{Q^{sim}_{y,i}}{Q^{obs}_{y,i}} \right) - 1 \right|
 }
 
-where \( Q^{sim}_{y,i} \) and \( Q^{obs}_{y,i} \) are the simulated and observed 
-flows corresponding to the set of high-flow events \( i \) occurring in year 
-\( y \).
+where \eqn{Q^{sim}_{y,i}} and \eqn{Q^{obs}_{y,i}} are the simulated and observed flows corresponding to the set of high-flow events \eqn{i} occurring in year \eqn{y}.
 
 The overall HFB value is then computed as:
 
