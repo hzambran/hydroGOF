@@ -12,25 +12,25 @@ differences in high (streamflow) values. See Details.
 APFB(sim, obs, ...)
 
 # Default S3 method
-APFB(sim, obs, na.rm=TRUE, start.month=1, 
+APFB(sim, obs, na.rm=TRUE, start.month=1, out.PerYear=FALSE,
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
 
 # S3 method for class 'data.frame'
-APFB(sim, obs, na.rm=TRUE, start.month=1, 
+APFB(sim, obs, na.rm=TRUE, start.month=1, out.PerYear=FALSE,
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
 
 # S3 method for class 'matrix'
-APFB(sim, obs, na.rm=TRUE, start.month=1,
+APFB(sim, obs, na.rm=TRUE, start.month=1, out.PerYear=FALSE,
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
              
 # S3 method for class 'zoo'
-APFB(sim, obs, na.rm=TRUE, start.month=1, 
+APFB(sim, obs, na.rm=TRUE, start.month=1, out.PerYear=FALSE,
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
