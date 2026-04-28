@@ -7,7 +7,7 @@
 - [`EgaEnEstellaQts`](https://hzambran.github.io/hydroGOF/reference/EgaEnEstellaQts.md)
   : Ega in "Estella" (Q071), ts with daily streamflows.
 - [`HFB()`](https://hzambran.github.io/hydroGOF/reference/HFB.md) :
-  High-flows bias
+  Median annual high-flow bias
 - [`JDKGE()`](https://hzambran.github.io/hydroGOF/reference/JDKGE.md) :
   Joint Divergence Kling-Gupta Efficiency
 - [`KGE()`](https://hzambran.github.io/hydroGOF/reference/KGE.md) :

@@ -286,8 +286,12 @@ proceeds, and only those positions with non-missing values in `obs` and
 
 ## See also
 
-[`KGE`](https://hzambran.github.io/hydroGOF/reference/KGE.md),
+[`APFB`](https://hzambran.github.io/hydroGOF/reference/APFB.md),
 [`NSE`](https://hzambran.github.io/hydroGOF/reference/NSE.md),
+[`wNSE`](https://hzambran.github.io/hydroGOF/reference/wNSE.md),
+[`wsNSE`](https://hzambran.github.io/hydroGOF/reference/wsNSE.md),
+[`HFB`](https://hzambran.github.io/hydroGOF/reference/HFB.md),
+[`PMR`](https://hzambran.github.io/hydroGOF/reference/PMR.md),
 [`gof`](https://hzambran.github.io/hydroGOF/reference/gof.md),
 [`ggof`](https://hzambran.github.io/hydroGOF/reference/ggof.md)
 

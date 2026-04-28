@@ -17,7 +17,7 @@ For a short description of its four components and the numeric range of values, 
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-18</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-19</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -180,11 +180,7 @@ For a short description of its four components and the numeric range of values, 
 <p>Joint Divergence Kling-Gupta efficiencies range from -Inf to 1. Essentially, the closer to 1, the more similar <code>sim</code> and <code>obs</code> are across correlation, variability, bias, and distributional characteristics. Values close to zero indicate substantial deviations from the ideal agreement, while increasingly negative values reflect progressively poorer model performance relative to the observed dynamics.</p>
 <p>$$JDKGE = 1 - ED$$</p>
 <p>$$
-ED = \sqrt{
-(s[1]*(r-1))^2 +
-(s[2]*(\alpha-1))^2 +
-(s[3]*(\beta-1))^2 +
-(s[4]*(\Delta-1))^2
+ED = \sqrt{ (s[1]*(r-1))^2 + (s[2]*(\alpha-1))^2 + (s[3]*(\beta-1))^2 + (s[4]*(\Delta-1))^2
 }
 $$</p>
 <p>$$r=Pearson product-moment correlation coefficient$$</p>
@@ -236,7 +232,7 @@ Ficchi, A.; Bavera, D.; Grimaldi, S.; Moschini, F.; Pistocchi, A.; Russo, C.; Sa
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index">
 
-<p><code><a href="KGE.html">KGE</a></code>, <code><a href="NSE.html">NSE</a></code>, <code><a href="gof.html">gof</a></code>, <code><a href="ggof.html">ggof</a></code></p></div>
+<p><code><a href="APFB.html">APFB</a></code>, <code><a href="NSE.html">NSE</a></code>, <code><a href="wNSE.html">wNSE</a></code>, <code><a href="wsNSE.html">wsNSE</a></code>, <code><a href="HFB.html">HFB</a></code>, <code><a href="PMR.html">PMR</a></code>, <code><a href="gof.html">gof</a></code>, <code><a href="ggof.html">ggof</a></code></p></div>
     </div>
 
     <div class="section level2">
