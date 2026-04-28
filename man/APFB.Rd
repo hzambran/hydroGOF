@@ -24,22 +24,22 @@ This function was prposed by Mizukami et al. (2019) to identify differences in h
 \usage{
 APFB(sim, obs, ...)
 
-\method{APFB}{default}(sim, obs, na.rm=TRUE, start.month=1, 
+\method{APFB}{default}(sim, obs, na.rm=TRUE, start.month=1, out.PerYear=FALSE,
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
 
-\method{APFB}{data.frame}(sim, obs, na.rm=TRUE, start.month=1, 
+\method{APFB}{data.frame}(sim, obs, na.rm=TRUE, start.month=1, out.PerYear=FALSE,
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
 
-\method{APFB}{matrix}(sim, obs, na.rm=TRUE, start.month=1,
+\method{APFB}{matrix}(sim, obs, na.rm=TRUE, start.month=1, out.PerYear=FALSE,
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
              
-\method{APFB}{zoo}(sim, obs, na.rm=TRUE, start.month=1, 
+\method{APFB}{zoo}(sim, obs, na.rm=TRUE, start.month=1, out.PerYear=FALSE,
              fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
              epsilon.value=NA)
