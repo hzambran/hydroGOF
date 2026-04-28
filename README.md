@@ -177,6 +177,8 @@ Quantitative statistics included in this package are:
 
 * Pushpalatha, R.; Perrin, C.; Le Moine, N.; Andreassian, V. (2012). [A review of efficiency criteria suitable for evaluating low-flow simulations](https://doi.org/10.1016/j.jhydrol.2011.11.055). Journal of Hydrology, 420, 171-182. doi:10.1016/j.jhydrol.2011.11.055.
 
+* Royer-Gaspard, P., Andreassian, V., and Thirel, G. (2021). Technical note: PMR - a proxy metric to assess hydrological model robustness in a changing climate, Hydrology and Earth System Sciences, 25, 5703--5716. https://doi.org/10.5194/hess-25-5703-2021.  
+
 * Santos, L.; Thirel, G.; Perrin, C. (2018). [Pitfalls in using log-transformed flows within the KGE criterion](https://doi.org/10.5194/hess-22-4583-2018). doi:10.5194/hess-22-4583-2018. 
 
 * Schaefli, B., Gupta, H. (2007). [Do Nash values have value?](https://doi.org/10.1002/hyp.6825). Hydrological Processes 21, 2075-2080. doi:10.1002/hyp.6825. 
@@ -228,8 +230,8 @@ Quantitative statistics included in this package are:
 
 ## See Also 
 
-* [hydroGOF: Time series management, analysis and interpolation for hydrological modelling](https://cran.r-project.org/package=hydroGOF).
+* [**hydroGOF**: Time series management, analysis and interpolation for hydrological modelling](https://cran.r-project.org/package=hydroGOF).
 
-* [hydroPSO: Model-independent Particle Swarm Optimisation (PSO) for environmental/hydrological models](https://cran.r-project.org/package=hydroPSO).
+* [**hydroPSO**: Model-independent Particle Swarm Optimisation (PSO) for environmental/hydrological models](https://cran.r-project.org/package=hydroPSO).
 
-* [RFmerge: Merging of Satellite Datasets with Ground Observations using Random Forests](https://cran.r-project.org/package=RFmerge).
+* [**RFmerge**: Merging of Satellite Datasets with Ground Observations using Random Forests](https://cran.r-project.org/package=RFmerge).

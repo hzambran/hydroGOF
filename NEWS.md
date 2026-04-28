@@ -2,6 +2,9 @@ NEWS/ChangeLog for hydroGOF
 
 # Changes in version 0.7-0 ongoing
 
+## New functions
+        o 'PMR' : to compute the Proxy for Model Robustness to quantify the temporal stability of model bias, proposed by Royer-Gaspard et al. (2021).
+
 ## Bug fixes
         o 'APFB' : Its value is now correctly computed, previously it was not Thanks to Rodrigo Mariano and Héctor Garcés
 
