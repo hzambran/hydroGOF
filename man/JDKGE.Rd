@@ -34,45 +34,25 @@ For a short description of its four components and the numeric range of values, 
 
 JDKGE(sim, obs, ...)
 
-\method{JDKGE}{default}(sim, obs,
-s=c(1,1,1,1),
-na.rm=TRUE,
-out.type=c("single","full"),
-fun=NULL, ...,
-epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
-epsilon.value=NA,
-density.method=c("hist","kde"),
-nbins="Sturges")
+\method{JDKGE}{default}(sim, obs, s=c(1,1,1,1), na.rm=TRUE, out.type=c("single","full"),
+              fun=NULL, ..., 
+              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
+              epsilon.value=NA, density.method=c("hist","kde"), nbins="Sturges" )
 
-\method{JDKGE}{data.frame}(sim, obs,
-s=c(1,1,1,1),
-na.rm=TRUE,
-out.type=c("single","full"),
-fun=NULL, ...,
-epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
-epsilon.value=NA,
-density.method=c("hist","kde"),
-nbins="Sturges")
+\method{JDKGE}{data.frame}(sim, obs, s=c(1,1,1,1), na.rm=TRUE, out.type=c("single","full"),
+              fun=NULL, ..., 
+              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
+              epsilon.value=NA, density.method=c("hist","kde"), nbins="Sturges" )
 
-\method{JDKGE}{matrix}(sim, obs,
-s=c(1,1,1,1),
-na.rm=TRUE,
-out.type=c("single","full"),
-fun=NULL, ...,
-epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
-epsilon.value=NA,
-density.method=c("hist","kde"),
-nbins="Sturges")
+\method{JDKGE}{matrix}(sim, obs, s=c(1,1,1,1), na.rm=TRUE, out.type=c("single","full"),
+              fun=NULL, ..., 
+              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
+              epsilon.value=NA, density.method=c("hist","kde"), nbins="Sturges" )
 
-\method{JDKGE}{zoo}(sim, obs,
-s=c(1,1,1,1),
-na.rm=TRUE,
-out.type=c("single","full"),
-fun=NULL, ...,
-epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
-epsilon.value=NA,
-density.method=c("hist","kde"),
-nbins="Sturges")
+\method{JDKGE}{zoo}(sim, obs, s=c(1,1,1,1), na.rm=TRUE, out.type=c("single","full"),
+              fun=NULL, ..., 
+              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
+              epsilon.value=NA, density.method=c("hist","kde"), nbins="Sturges" )
 
 }
 
