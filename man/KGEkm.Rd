@@ -105,7 +105,9 @@ Valid values of \code{epsilon.type} are:
 }
 }
 \details{
-Traditional objective functions, such as Nash-Sutcliffe Efficiency (NSE) and Kling-Gupta Efficiency (KGE), often make assumptions about data distribution and are sensitive to outliers. The Kling-Gupta Efficiency with knowable-moments (KGEkm) goodness-of-fit measure was developed by Pizarro and Jorquera (2024) to provide a reliable estimation and effective description of high-order statistics from typical hydrological samples and, therefore, reducing uncertainty in their estimation and computation of the KGE. In the KGEkm, the dispersion is quantified using knowable moments instead of the standard deviation while retaining the decomposition into correlation, variability, and bias components.
+Traditional objective functions, such as Nash-Sutcliffe Efficiency (NSE) and Kling-Gupta Efficiency (KGE), often make assumptions about data distribution and are sensitive to outliers. The Kling-Gupta Efficiency with knowable-moments (KGEkm) goodness-of-fit measure was developed by Pizarro and Jorquera (2024) to provide a reliable estimation and effective description of high-order statistics from typical hydrological samples and, therefore, reducing uncertainty in their estimation and computation of the KGE. 
+
+In the \eqn{KGE_{km}}, the dispersion is quantified using knowable moments (computed over ordered values of the samples in ascending order) instead of the standard deviation, while retaining the decomposition into correlation, variability, and bias components.
 
 The general formulation of Kling--Gupta Efficiency with knowable moments (\eqn{KGE_{km}}) is:
 
@@ -121,7 +123,7 @@ Dispersion is computed from the second knowable moment. For a sample \eqn{x_1, x
 K_2 = \frac{1}{n(n-1)} \sum_{i=1}^{n} 2 (i-1) x_{(i)}
 }
 
-where \eqn{x_{(i)}} denotes the ordered values of the sample in ascending order. The corresponding dispersion measure is:
+where \eqn{x_{(i)}} denotes the \bold{ordered values of the sample in ascending order}. The corresponding dispersion measure is:
 
 \deqn{
 \sigma_{km} = \sqrt{ 2 K_2 }
