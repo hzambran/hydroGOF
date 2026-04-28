@@ -3,10 +3,14 @@ NEWS/ChangeLog for hydroGOF
 # Changes in version 0.7-0 ongoing
 
 ## New functions
-        o 'PMR' : to compute the Proxy for Model Robustness to quantify the temporal stability of model bias, proposed by Royer-Gaspard et al. (2021).
+        o 'PMR'  : to compute the Proxy for Model Robustness to quantify the temporal stability of model bias, proposed by Royer-Gaspard et al. (2021).
+        o 'JDKGE': to compute the Joint Divergence Kling-Gupta Efficiency, which extends the traditional Kling-Gupta efficiency by incorporating a fourth diagnostic component that evaluates the similarity between the probability distributions of simulated and observed values, proposed by Ficchi et al. (2026).
+
 
 ## Bug fixes
-        o 'APFB' : Its value is now correctly computed, previously it was not Thanks to Rodrigo Mariano and Héctor Garcés
+        o 'APFB' : -) Its value is now correctly computed, previously it was not Thanks to Rodrigo Mariano and Héctor Garcés.      
+                   -) New argument 'out.PerYear=FALSE' to define the whether the output should include the annual peak flow bias computed for each individual year or not.
+
 
 ## Enhancements
         o 'plot2': now it shows and adaptive time axis for sub-daily zoo objects.
