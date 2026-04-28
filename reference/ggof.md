@@ -696,36 +696,36 @@ sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 # Getting the new numeric goodness-of-fit measures
 gof(sim=sim, obs=obs)
 #>          [,1]
-#> ME       5.45
-#> MAE      5.45
-#> MSE     54.84
-#> RMSE     7.41
-#> ubRMSE   5.01
-#> NRMSE % 37.00
-#> PBIAS % 34.50
+#> ME       5.47
+#> MAE      5.47
+#> MSE     55.17
+#> RMSE     7.43
+#> ubRMSE   5.03
+#> NRMSE % 37.10
+#> PBIAS % 34.60
 #> RSR      0.37
 #> rSD      1.04
 #> NSE      0.86
 #> mNSE     0.57
-#> rNSE    -0.54
+#> rNSE    -0.58
 #> wNSE     0.97
 #> wsNSE    0.72
 #> d        0.97
 #> dr       0.78
 #> md       0.78
-#> rd       0.63
+#> rd       0.62
 #> cp       0.42
 #> r        0.97
 #> R2       0.86
 #> bR2      0.76
-#> VE       0.66
+#> VE       0.65
 #> KGE      0.65
 #> KGElf    0.49
 #> KGEnp    0.61
 #> KGEkm    0.64
 #> sKGE     0.63
 #> APFB     0.03
-#> HFB      0.91
+#> HFB      0.92
 
 # Getting the graphical representation of 'obs' and 'sim' along with the numeric 
 # goodness-of-fit measures for the daily and monthly time series 

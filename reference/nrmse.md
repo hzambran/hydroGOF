@@ -194,7 +194,7 @@ ggof(sim, obs)
 
 
 nrmse(sim=sim, obs=obs)
-#> [1] 35.6
+#> [1] 35.4
 
 ##################
 # Example 4: nrmse for simulated values equal to observations plus random noise 
@@ -202,13 +202,13 @@ nrmse(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 nrmse(sim=sim, obs=obs, fun=log)
-#> [1] 72.1
+#> [1] 72
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 nrmse(sim=lsim, obs=lobs)
-#> [1] 72.1
+#> [1] 72
 
 ##################
 # Example 5: nrmse for simulated values equal to observations plus random noise 
@@ -217,14 +217,14 @@ nrmse(sim=lsim, obs=lobs)
 #            during computations
 
 nrmse(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 71.6
+#> [1] 71.5
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 nrmse(sim=lsim, obs=lobs)
-#> [1] 71.6
+#> [1] 71.5
 
 ##################
 # Example 6: nrmse for simulated values equal to observations plus random noise 
@@ -234,13 +234,13 @@ nrmse(sim=lsim, obs=lobs)
 
 eps <- 0.01
 nrmse(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 72.1
+#> [1] 72
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 nrmse(sim=lsim, obs=lobs)
-#> [1] 72.1
+#> [1] 72
 
 ##################
 # Example 7: nrmse for simulated values equal to observations plus random noise 
@@ -251,14 +251,14 @@ nrmse(sim=lsim, obs=lobs)
 
 fact <- 1/50
 nrmse(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 71.2
+#> [1] 71.1
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 nrmse(sim=lsim, obs=lobs)
-#> [1] 71.2
+#> [1] 71.1
 
 ##################
 # Example 8: nrmse for simulated values equal to observations plus random noise 
@@ -268,11 +268,11 @@ nrmse(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 nrmse(sim=sim, obs=obs, fun=fun1)
-#> [1] 52.3
+#> [1] 52.2
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 nrmse(sim=sim1, obs=obs1)
-#> [1] 52.3
+#> [1] 52.2
 ```

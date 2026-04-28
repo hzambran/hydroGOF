@@ -213,7 +213,7 @@ ggof(sim, obs)
 
 
 dr(sim=sim, obs=obs)
-#> [1] 0.8025905
+#> [1] 0.8027166
 
 ##################
 # Example 4: dr for simulated values equal to observations plus random noise 
@@ -221,13 +221,13 @@ dr(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 dr(sim=sim, obs=obs, fun=log)
-#> [1] 0.7410608
+#> [1] 0.741255
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 dr(sim=lsim, obs=lobs)
-#> [1] 0.7410608
+#> [1] 0.741255
 
 ##################
 # Example 5: dr for simulated values equal to observations plus random noise 
@@ -236,14 +236,14 @@ dr(sim=lsim, obs=lobs)
 #            during computations
 
 dr(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.7416656
+#> [1] 0.7418609
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 dr(sim=lsim, obs=lobs)
-#> [1] 0.7416656
+#> [1] 0.7418609
 
 ##################
 # Example 6: dr for simulated values equal to observations plus random noise 
@@ -253,13 +253,13 @@ dr(sim=lsim, obs=lobs)
 
 eps <- 0.01
 dr(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 0.7411002
+#> [1] 0.7412945
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 dr(sim=lsim, obs=lobs)
-#> [1] 0.7411002
+#> [1] 0.7412945
 
 ##################
 # Example 7: dr for simulated values equal to observations plus random noise 
@@ -270,14 +270,14 @@ dr(sim=lsim, obs=lobs)
 
 fact <- 1/50
 dr(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 0.7422478
+#> [1] 0.7424441
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 dr(sim=lsim, obs=lobs)
-#> [1] 0.7422478
+#> [1] 0.7424441
 
 ##################
 # Example 8: dr for simulated values equal to observations plus random noise 
@@ -287,11 +287,11 @@ dr(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 dr(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.7679633
+#> [1] 0.768149
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 dr(sim=sim1, obs=obs1)
-#> [1] 0.7679633
+#> [1] 0.768149
 ```

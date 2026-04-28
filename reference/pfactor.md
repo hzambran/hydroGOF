@@ -110,7 +110,7 @@ pfactor(x, lband, uband)
 lband <- x - rnorm(10)
 uband <- x + rnorm(10)
 pfactor(x, lband, uband)
-#> [1] 0.3
+#> [1] 0.2
 
 #############
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970

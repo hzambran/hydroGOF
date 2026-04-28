@@ -207,13 +207,13 @@ pbias(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 pbias(sim=sim, obs=obs, fun=log)
-#> [1] 18.7
+#> [1] 18.8
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 pbias(sim=lsim, obs=lobs)
-#> [1] 18.7
+#> [1] 18.8
 
 ##################
 # Example 5: pbias for simulated values equal to observations plus random noise 

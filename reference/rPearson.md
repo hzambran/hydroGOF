@@ -192,7 +192,7 @@ ggof(sim, obs)
 
 
 rPearson(sim=sim, obs=obs)
-#> [1] 0.9698735
+#> [1] 0.9700874
 
 ##################
 # Example 4: rPearson for simulated values equal to observations plus random noise 
@@ -200,13 +200,13 @@ rPearson(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 rPearson(sim=sim, obs=obs, fun=log)
-#> [1] 0.8221754
+#> [1] 0.8228334
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 rPearson(sim=lsim, obs=lobs)
-#> [1] 0.8221754
+#> [1] 0.8228334
 
 ##################
 # Example 5: rPearson for simulated values equal to observations plus random noise 
@@ -215,14 +215,14 @@ rPearson(sim=lsim, obs=lobs)
 #            during computations
 
 rPearson(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.8258382
+#> [1] 0.826509
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 rPearson(sim=lsim, obs=lobs)
-#> [1] 0.8258382
+#> [1] 0.826509
 
 ##################
 # Example 6: rPearson for simulated values equal to observations plus random noise 
@@ -232,13 +232,13 @@ rPearson(sim=lsim, obs=lobs)
 
 eps <- 0.01
 rPearson(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 0.8224167
+#> [1] 0.8230756
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 rPearson(sim=lsim, obs=lobs)
-#> [1] 0.8224167
+#> [1] 0.8230756
 
 ##################
 # Example 7: rPearson for simulated values equal to observations plus random noise 
@@ -249,14 +249,14 @@ rPearson(sim=lsim, obs=lobs)
 
 fact <- 1/50
 rPearson(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 0.8292104
+#> [1] 0.8298919
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 rPearson(sim=lsim, obs=lobs)
-#> [1] 0.8292104
+#> [1] 0.8298919
 
 ##################
 # Example 8: rPearson for simulated values equal to observations plus random noise 
@@ -266,11 +266,11 @@ rPearson(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 rPearson(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.9240655
+#> [1] 0.9245663
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 rPearson(sim=sim1, obs=obs1)
-#> [1] 0.9240655
+#> [1] 0.9245663
 ```

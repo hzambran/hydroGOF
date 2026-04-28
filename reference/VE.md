@@ -181,7 +181,7 @@ ggof(sim, obs)
 
 
 VE(sim=sim, obs=obs)
-#> [1] 0.6836532
+#> [1] 0.6840065
 
 ##################
 # Example 4: VE for simulated values equal to observations plus random noise 
@@ -189,13 +189,13 @@ VE(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 VE(sim=sim, obs=obs, fun=log)
-#> [1] 0.81229
+#> [1] 0.8125236
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 VE(sim=lsim, obs=lobs)
-#> [1] 0.81229
+#> [1] 0.8125236
 
 ##################
 # Example 5: VE for simulated values equal to observations plus random noise 
@@ -204,14 +204,14 @@ VE(sim=lsim, obs=lobs)
 #            during computations
 
 VE(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.8181016
+#> [1] 0.8183296
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 VE(sim=lsim, obs=lobs)
-#> [1] 0.8181016
+#> [1] 0.8183296
 
 ##################
 # Example 6: VE for simulated values equal to observations plus random noise 
@@ -221,13 +221,13 @@ VE(sim=lsim, obs=lobs)
 
 eps <- 0.01
 VE(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 0.8126709
+#> [1] 0.812904
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 VE(sim=lsim, obs=lobs)
-#> [1] 0.8126709
+#> [1] 0.812904
 
 ##################
 # Example 7: VE for simulated values equal to observations plus random noise 
@@ -238,14 +238,14 @@ VE(sim=lsim, obs=lobs)
 
 fact <- 1/50
 VE(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 0.823502
+#> [1] 0.8237249
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 VE(sim=lsim, obs=lobs)
-#> [1] 0.823502
+#> [1] 0.8237249
 
 ##################
 # Example 8: VE for simulated values equal to observations plus random noise 
@@ -255,11 +255,11 @@ VE(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 VE(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.822691
+#> [1] 0.8229136
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 VE(sim=sim1, obs=obs1)
-#> [1] 0.822691
+#> [1] 0.8229136
 ```

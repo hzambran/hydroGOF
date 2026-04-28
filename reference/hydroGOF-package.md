@@ -395,18 +395,18 @@ sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 # Getting the new numeric goodness of fit
 gof(sim=sim, obs=obs)
 #>          [,1]
-#> ME       5.48
-#> MAE      5.48
-#> MSE     55.35
-#> RMSE     7.44
+#> ME       5.47
+#> MAE      5.47
+#> MSE     55.20
+#> RMSE     7.43
 #> ubRMSE   5.03
-#> NRMSE % 37.20
-#> PBIAS % 34.70
+#> NRMSE % 37.10
+#> PBIAS % 34.60
 #> RSR      0.37
 #> rSD      1.04
 #> NSE      0.86
 #> mNSE     0.57
-#> rNSE    -0.57
+#> rNSE    -0.56
 #> wNSE     0.97
 #> wsNSE    0.72
 #> d        0.97
@@ -416,7 +416,7 @@ gof(sim=sim, obs=obs)
 #> cp       0.42
 #> r        0.97
 #> R2       0.86
-#> bR2      0.75
+#> bR2      0.76
 #> VE       0.65
 #> KGE      0.65
 #> KGElf    0.49
@@ -424,7 +424,7 @@ gof(sim=sim, obs=obs)
 #> KGEkm    0.64
 #> sKGE     0.63
 #> APFB     0.03
-#> HFB      0.91
+#> HFB      0.92
 
 # Graphical representation of 'obs' vs 'sim', along with the numeric 
 # goodness-of-fit measures

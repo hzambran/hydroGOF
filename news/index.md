@@ -2,6 +2,12 @@
 
 ## Changes in version 0.7-0 ongoing
 
+### New functions
+
+``` R
+    o 'PMR' : to compute the Proxy for Model Robustness to quantify the temporal stability of model bias, proposed by Royer-Gaspard et al. (2021).
+```
+
 ### Bug fixes
 
 ``` R

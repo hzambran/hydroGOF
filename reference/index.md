@@ -18,6 +18,8 @@
   Non-parametric version of the Kling-Gupta Efficiency
 - [`NSE()`](https://hzambran.github.io/hydroGOF/reference/NSE.md) :
   Nash-Sutcliffe Efficiency
+- [`PMR()`](https://hzambran.github.io/hydroGOF/reference/PMR.md) :
+  Proxy for Model Robustness
 - [`R2()`](https://hzambran.github.io/hydroGOF/reference/R2.md) :
   Coefficient of determination
 - [`VE()`](https://hzambran.github.io/hydroGOF/reference/VE.md) :
