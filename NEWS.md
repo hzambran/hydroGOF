@@ -6,6 +6,7 @@ NEWS/ChangeLog for hydroGOF
         o 'PMR'  : to compute the Proxy for Model Robustness to quantify the temporal stability of model bias, proposed by Royer-Gaspard et al. (2021).
         o 'JDKGE': to compute the Joint Divergence Kling-Gupta Efficiency, which extends the traditional Kling-Gupta efficiency by incorporating a fourth diagnostic component that evaluates the similarity between the probability distributions of simulated and observed values, proposed by Ficchi et al. (2026).
         o 'LME'  : to compute the Liu-Mean Efficiency, which evaluates how large the error is compared to the average level of the observations, making it particularly useful in hydrological applications where the mean value is a meaningful scale for evaluating prediction accuracy.
+        o 'LCE'  : to compute the Lee and Choi Efficiency, which jointly assess the correlation, variability, and bias component of the error, while explicitly penalizing imbalances between correlation and variability through two complementary terms (r*Alpha and r/Alpha).
 
 ## Bug fixes
         o 'APFB' : -) Its value is now correctly computed, previously it was not Thanks to Rodrigo Mariano and Héctor Garcés.      
