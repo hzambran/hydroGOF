@@ -98,12 +98,8 @@ PMR.default <- function(sim, obs,
 
   epsilon.type <- match.arg(epsilon.type)
 
-  if ( is.na(match(class(sim),
-                   c("integer","numeric","ts","zoo","xts"))) |
-       is.na(match(class(obs),
-                   c("integer","numeric","ts","zoo","xts")))
-     )
-    stop("Invalid argument type: 'sim' & 'obs' must be numeric-like")
+  if ( !inherits(sim, "zoo") | !inherits(obs, "zoo"))
+    stop("Invalid argument: 'sim' and 'obs' must be 'zoo' objects !")
 
   if (is.null(k)) 
     k <- get_default_value_for_k(obs, years = min.years)
