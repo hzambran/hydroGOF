@@ -21,53 +21,72 @@ Joint Divergence Kling-Gupta Efficiency
 Joint Divergence Kling-Gupta Efficiency between \code{sim} and \code{obs}, with treatment of missing values.
 
 This implementation follows the technical formulation described by Ficchi et al. (2026): the KGE' variability term is used, and the distributional component is computed from a histogram-based Jensen-Shannon divergence applied to log-transformed flows after paper-specific zero handling.
+
 The function also allows JDKGE-style variants based on the 2009 and 2021 KGE formulations, while keeping the paper's 2012 variant as the default.
 }
 
 \usage{
 JDKGE(sim, obs, ...)
 
-\method{JDKGE}{default}(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
-        method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
+\method{JDKGE}{default}(sim, obs, na.rm=TRUE, s=c(1,1,1,1),
+        method=c("2012", "2009", "2021"), out.type=c("single", "full"), 
+        density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512, fun=NULL, ...,
         epsilon.type=c("otherValue", "none", "Pushpalatha2012", "otherFactor"),
-        epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
-        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
+        epsilon.value=NA)
 
-\method{JDKGE}{data.frame}(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
-        method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
+\method{JDKGE}{data.frame}(sim, obs, na.rm=TRUE, s=c(1,1,1,1),
+        method=c("2012", "2009", "2021"), out.type=c("single", "full"), 
+        density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512, fun=NULL, ...,
         epsilon.type=c("otherValue", "none", "Pushpalatha2012", "otherFactor"),
-        epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
-        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
+        epsilon.value=NA)
 
-\method{JDKGE}{matrix}(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
-        method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
+\method{JDKGE}{matrix}(sim, obs, na.rm=TRUE, s=c(1,1,1,1),
+        method=c("2012", "2009", "2021"), out.type=c("single", "full"), 
+        density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512, fun=NULL, ...,
         epsilon.type=c("otherValue", "none", "Pushpalatha2012", "otherFactor"),
-        epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
-        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
+        epsilon.value=NA)
 
-\method{JDKGE}{zoo}(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
-        method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
+\method{JDKGE}{zoo}(sim, obs, na.rm=TRUE, s=c(1,1,1,1),
+        method=c("2012", "2009", "2021"), out.type=c("single", "full"), 
+        density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512, fun=NULL, ...,
         epsilon.type=c("otherValue", "none", "Pushpalatha2012", "otherFactor"),
-        epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
-        timestep=NA, kde.n.grid=512, wasserstein.n.quantiles=512)
+        epsilon.value=NA)
 }
 
 \arguments{
 \item{sim}{numeric, zoo, matrix or data.frame with simulated values.}
+
 \item{obs}{numeric, zoo, matrix or data.frame with observed values.}
-\item{s}{numeric of length 4 with scaling factors for the Euclidean distance in criteria space. If \code{s} differs from \code{c(1,1,1,1)}, then \code{sum(s)} must be equal to 1.}
+
 \item{na.rm}{logical value indicating whether missing paired values should be removed before computing the metric.}
+
+\item{s}{numeric of length 4 with scaling factors for the Euclidean distance in criteria space. If \code{s} differs from \code{c(1,1,1,1)}, then \code{sum(s)} must be equal to 1.}
+
 \item{method}{character string indicating the Kling-Gupta formulation used by JDKGE. Valid values are \kbd{"2012"} (default, the paper's KGE' formulation), \kbd{"2009"}, and \kbd{"2021"}.}
+
 \item{out.type}{character string indicating the output format. Use \kbd{"single"} to return the JDKGE value only, or \kbd{"full"} to also return the four diagnostic components.}
-\item{fun}{optional function applied to \code{sim} and \code{obs} before computing JDKGE. The first argument of \code{fun} must be a numeric vector.}
-\item{\dots}{additional arguments passed to \code{fun}.}
-\item{epsilon.type}{rule used for zero-flow handling in the internal log-based divergence component, and also passed to \code{preproc} when \code{fun} needs an offset before transformation. The default is \kbd{"otherValue"}.}
-\item{epsilon.value}{numeric value used when \code{epsilon.type="otherValue"} or \code{epsilon.type="otherFactor"}. When \code{epsilon.type="otherValue"} and \code{epsilon.value=NA} (the default), the value described by Ficchi et al. (2026), \eqn{\epsilon = \min(10^{-6}, 10^{-1} \min(c))}, is computed internally.}
-\item{density.method}{method used to compute the divergence component. \kbd{"hist"} uses the paper-faithful histogram-based Jensen-Shannon divergence, \kbd{"kde"} uses a common-grid kernel density estimate followed by Jensen-Shannon divergence, and \kbd{"wasserstein"} uses a Wasserstein-distance similarity on log-flows.}
-\item{nbins}{binning rule used by the histogram divergence component. The default \kbd{"paper"} uses the procedure described by Ficchi et al. (2026). This argument is ignored for \code{density.method="kde"} and \code{density.method="wasserstein"}.}
-\item{timestep}{sampling time step in seconds used by the paper's bin-count adjustment. For \code{zoo} inputs this is inferred from the time index when omitted. The default for plain numeric vectors is one day (86400 seconds).}
+
+\item{density.method}{character, representing the method used to compute the divergence component. \kbd{"hist"} uses the paper-faithful histogram-based Jensen-Shannon divergence, \kbd{"kde"} uses a common-grid kernel density estimate followed by Jensen-Shannon divergence, and \kbd{"wasserstein"} uses a Wasserstein-distance similarity on log-flows.}
+
+\item{nbins}{character, representing the binning rule used by the histogram divergence component. The default \kbd{"paper"} uses the procedure described by Ficchi et al. (2026). This argument is ignored for \code{density.method="kde"} and \code{density.method="wasserstein"}.}
+
+\item{timestep}{numeric, representing the sampling time step in seconds used by the paper's bin-count adjustment. For \code{zoo} inputs this is inferred from the time index when omitted. The default for plain numeric vectors is one day (86400 seconds).}
+
 \item{kde.n.grid}{integer, number of grid points used when \code{density.method="kde"}. Larger values provide a finer common support grid at higher computational cost.}
+
 \item{wasserstein.n.quantiles}{integer, number of quantile levels used to approximate the first Wasserstein distance when \code{density.method="wasserstein"}. Larger values provide a finer approximation at higher computational cost.}
+
+\item{fun}{optional function applied to \code{sim} and \code{obs} before computing JDKGE. The first argument of \code{fun} must be a numeric vector.}
+
+\item{\dots}{additional arguments passed to \code{fun}.}
+
+\item{epsilon.type}{rule used for zero-flow handling in the internal log-based divergence component, and also passed to \code{preproc} when \code{fun} needs an offset before transformation. The default is \kbd{"otherValue"}.}
+
+\item{epsilon.value}{numeric value used when \code{epsilon.type="otherValue"} or \code{epsilon.type="otherFactor"}. When \code{epsilon.type="otherValue"} and \code{epsilon.value=NA} (the default), the value described by Ficchi et al. (2026), \eqn{\epsilon = \min(10^{-6}, 10^{-1} \min(c))}, is computed internally.}
 }
 
 \details{

@@ -45,9 +45,10 @@
 
 PMR <- function(sim, obs, ...) UseMethod("PMR")
 
-PMR.default <- function(sim, obs, k=NULL, min.years=5,
+PMR.default <- function(sim, obs, na.rm=TRUE, 
+                        k=NULL, min.years=5,
                         days.per.year=365,
-                        na.rm=TRUE, fun=NULL, ...,
+                        fun=NULL, ...,
                         epsilon.type=c("none",
                                        "Pushpalatha2012",
                                        "otherFactor",
@@ -175,9 +176,10 @@ PMR.default <- function(sim, obs, k=NULL, min.years=5,
 
 
 
-PMR.matrix <- function(sim, obs, k=NULL, min.years=5,
+PMR.matrix <- function(sim, obs, na.rm=TRUE, 
+                       k=NULL, min.years=5,
                        days.per.year=365,
-                       na.rm=TRUE, fun=NULL, ...,
+                       fun=NULL, ...,
                        epsilon.type=c("none",
                                       "Pushpalatha2012",
                                       "otherFactor",
@@ -203,10 +205,10 @@ PMR.matrix <- function(sim, obs, k=NULL, min.years=5,
     1:ncol(obs),
     function(i, x, y) {
 
-      PMR.default( x[, i], y[, i], k=k,
-                   min.years=min.years,
+      PMR.default( x[, i], y[, i], na.rm=na.rm, 
+                   k=k, min.years=min.years,
                    days.per.year=days.per.year,
-                   na.rm=na.rm, fun=fun, ...,
+                   fun=fun, ...,
                    epsilon.type=epsilon.type,
                    epsilon.value=epsilon.value
                   )
@@ -223,9 +225,10 @@ PMR.matrix <- function(sim, obs, k=NULL, min.years=5,
 } # 'PMR.matriz' END
 
 
-PMR.data.frame <- function(sim, obs, k=NULL, min.years=5,
+PMR.data.frame <- function(sim, obs, na.rm=TRUE, 
+                           k=NULL, min.years=5,
                            days.per.year=365,
-                           na.rm=TRUE, fun=NULL, ...,
+                           fun=NULL, ...,
                            epsilon.type=c("none",
                                           "Pushpalatha2012",
                                           "otherFactor",
@@ -240,19 +243,21 @@ PMR.data.frame <- function(sim, obs, k=NULL, min.years=5,
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
 
-  PMR.matrix( sim, obs, k=k, min.years=min.years,
-                days.per.year=days.per.year,
-                na.rm=na.rm, fun=fun, ...,
-                epsilon.type=epsilon.type,
-                epsilon.value=epsilon.value
-              )
+  PMR.matrix( sim, obs, na.rm=na.rm, 
+              k=k, min.years=min.years,
+              days.per.year=days.per.year,
+              fun=fun, ...,
+              epsilon.type=epsilon.type,
+              epsilon.value=epsilon.value
+            )
 
 } # 'PMR.data.frame' END
 
 
-PMR.zoo <- function(sim, obs, k=NULL, min.years=5,
+PMR.zoo <- function(sim, obs, na.rm=TRUE, 
+                    k=NULL, min.years=5,
                     days.per.year=365,
-                    na.rm=TRUE, fun=NULL, ...,
+                    fun=NULL, ...,
                     epsilon.type=c("none",
                                    "Pushpalatha2012",
                                    "otherFactor",
@@ -270,10 +275,10 @@ PMR.zoo <- function(sim, obs, k=NULL, min.years=5,
       seq_len(NCOL(obs)),
       function(i, x, y) {
 
-        PMR.default( x[, i], y[, i], k=k,
-                     min.years=min.years,
+        PMR.default( x[, i], y[, i], na.rm=na.rm, 
+                     k=k, min.years=min.years,
                      days.per.year=days.per.year,
-                     na.rm=na.rm, fun=fun, ...,
+                     fun=fun, ...,
                      epsilon.type=epsilon.type,
                      epsilon.value=epsilon.value
                     )
@@ -289,9 +294,10 @@ PMR.zoo <- function(sim, obs, k=NULL, min.years=5,
 
   } else {
 
-      NextMethod( sim, obs, k=k, min.years=min.years,
+      NextMethod( sim, obs, na.rm=na.rm, 
+                  k=k, min.years=min.years,
                   days.per.year=days.per.year,
-                  na.rm=na.rm, fun=fun, ...,
+                  fun=fun, ...,
                   epsilon.type=epsilon.type,
                   epsilon.value=epsilon.value
                 )

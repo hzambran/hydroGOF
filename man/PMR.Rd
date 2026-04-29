@@ -25,23 +25,23 @@ Proxy for model robustness (PMR) between \code{sim} and \code{obs}, with treatme
 \usage{
 PMR(sim, obs, ...)
 
-\method{PMR}{default}(sim, obs, k=NULL, min.years=5, days.per.year=365,
-             na.rm=TRUE, fun=NULL, ...,
+\method{PMR}{default}(sim, obs, na.rm=TRUE, k=NULL, min.years=5, 
+             days.per.year=365, fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
              epsilon.value=NA)
 
-\method{PMR}{data.frame}(sim, obs, k=NULL, min.years=5, days.per.year=365,
-             na.rm=TRUE, fun=NULL, ..., 
+\method{PMR}{data.frame}(sim, obs, na.rm=TRUE, k=NULL, min.years=5, 
+             days.per.year=365, fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
              epsilon.value=NA)
 
-\method{PMR}{matrix}(sim, obs, k=NULL, min.years=5, days.per.year=365,
-             na.rm=TRUE, fun=NULL, ..., 
+\method{PMR}{matrix}(sim, obs, na.rm=TRUE, k=NULL, min.years=5, 
+             days.per.year=365, fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
              epsilon.value=NA)
 
-\method{PMR}{zoo}(sim, obs, k=NULL, min.years=5, days.per.year=365,
-             na.rm=TRUE, fun=NULL, ..., 
+\method{PMR}{zoo}(sim, obs, na.rm=TRUE, k=NULL, min.years=5, 
+             days.per.year=365, fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
              epsilon.value=NA)
 }
@@ -56,27 +56,26 @@ zoo object with simulated values. Multicolumn \code{zoo} objects are allowed.
 zoo object with observed values. Multicolumn \code{zoo} objects are allowed.
 }
 
+  \item{na.rm}{
+a logical value indicating whether 'NA' should be stripped before the computation proceeds. \cr
+For the full-period bias, only positions with valid paired values in \code{obs} and \code{sim} are used. For the moving-window biases, each fixed-length window is selected first, and invalid pairs are then removed inside that window.
+}
+
   \item{k}{
 integer value representing the length of the moving window (number of time steps) used to compute the bias over sub-periods. \cr
 
 The k argument should reflect the temporal scale at which robustness is intended to be evaluated, and therefore depends primarily on the time resolution of the data. Royer-Gaspard et al. (2021) recommended to use multi-year windows, typically in the range of 3 to 5 years, to ensure that each sub-period captures meaningful hydroclimatic variability while still allowing enough windows for comparison.
 }
   \item{min.years}{
-only used when the user does not explicitly define the value of \code{k}, i.e., when \code{k=NULL}. \cr
+Numeric, only used when the user does not explicitly define the value of \code{k}, i.e., when \code{k=NULL}. \cr
 
 Minimum numbers of years used to ensure that each sub-period used int eh computation of PMR captures meaningful hydroclimatic variability while still allowing enough windows for comparison. By default, \code{min.years=5}.
 }
   \item{days.per.year}{
-only used when the user does not explicitly define the value of \code{k}, i.e., when \code{k=NULL}.  \cr
+Numeric, only used when the user does not explicitly define the value of \code{k}, i.e., when \code{k=NULL}.  \cr
 
 Number of days in a year. A value of Use 365.25 is recoomended instead of the default value of 365 when \code{sim} and \code{obs} are long climatological series.
 }
-
-  \item{na.rm}{
-a logical value indicating whether 'NA' should be stripped before the computation proceeds. \cr
-For the full-period bias, only positions with valid paired values in \code{obs} and \code{sim} are used. For the moving-window biases, each fixed-length window is selected first, and invalid pairs are then removed inside that window.
-}
-
   \item{fun}{
 function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing the proxy for model robustness.
 
