@@ -258,6 +258,7 @@ lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 PMR(sim=lsim, obs=lobs)
 
+\dontrun{
 ##################
 # Example 6: PMR for simulated values equal to observations plus random noise 
 #            on the first half of the observed values and applying (natural) 
@@ -301,7 +302,7 @@ PMR(sim=sim, obs=obs, fun=fun1)
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 PMR(sim=sim1, obs=obs1)
-
+}
 ##################
 # Example 9: PMR for a two-column data frame where simulated values are equal to 
 #            observations plus random noise on the first half of the observed values 
