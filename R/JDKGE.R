@@ -138,10 +138,10 @@ JDKGE <- function(sim, obs, ...) UseMethod("JDKGE")
 } # '.JDKGE_resolve_epsilon' end
 
 
-.JDKGE_jsd_hist <- function(sim, obs, timestep=86400, na.rm=TRUE,
-                            epsilon.type=c("paper", "none", "Pushpalatha2012",
-                                           "otherFactor", "otherValue"),
-                            epsilon.value=NA) {
+.JDKGE_prepare_logflows <- function(sim, obs, na.rm=TRUE,
+                                    epsilon.type=c("paper", "none", "Pushpalatha2012",
+                                                   "otherFactor", "otherValue"),
+                                    epsilon.value=NA) {
 
   if (length(sim) != length(obs))
     stop("Invalid argument: length(sim) != length(obs)")
@@ -157,16 +157,37 @@ JDKGE <- function(sim, obs, ...) UseMethod("JDKGE")
                                     epsilon.value=epsilon.value)
 
   if (is.na(epsilon)) {
-    return(list(jsd=NA_real_, epsilon=NA_real_, nbins=NA_integer_, alpha=NA_real_))
+    return(list(log.sim=NA_real_, log.obs=NA_real_, epsilon=NA_real_))
   }
 
   if ((epsilon <= 0) && (any(sim == 0) || any(obs == 0))) {
     warning("Zero flows detected: choose a positive 'epsilon.type' or 'epsilon.value' to compute JDKGE", call.=FALSE)
-    return(list(jsd=NA_real_, epsilon=epsilon, nbins=NA_integer_, alpha=NA_real_))
+    return(list(log.sim=NA_real_, log.obs=NA_real_, epsilon=epsilon))
   } # IF end
 
   sim.log <- log(ifelse(sim == 0, epsilon, sim))
   obs.log <- log(ifelse(obs == 0, epsilon, obs))
+
+  return( list(log.sim=sim.log, log.obs=obs.log, epsilon=epsilon) )
+
+} # '.JDKGE_prepare_logflows' end
+
+
+.JDKGE_jsd_hist <- function(sim, obs, timestep=86400, na.rm=TRUE,
+                            epsilon.type=c("paper", "none", "Pushpalatha2012",
+                                           "otherFactor", "otherValue"),
+                            epsilon.value=NA) {
+
+  prep <- .JDKGE_prepare_logflows(sim=sim, obs=obs, na.rm=na.rm,
+                                  epsilon.type=epsilon.type,
+                                  epsilon.value=epsilon.value)
+
+  if (length(prep$log.sim) == 1 && is.na(prep$log.sim))
+    return(list(jsd=NA_real_, epsilon=prep$epsilon, nbins=NA_integer_, alpha=NA_real_))
+
+  sim.log <- prep$log.sim
+  obs.log <- prep$log.obs
+  epsilon <- prep$epsilon
 
   if (identical(sim.log, obs.log)) {
     return(list(jsd=0, epsilon=epsilon, nbins=25L, alpha=epsilon))
@@ -226,6 +247,99 @@ JDKGE <- function(sim, obs, ...) UseMethod("JDKGE")
 } # '.JDKGE_jsd_hist' end
 
 
+.JDKGE_jsd_kde <- function(sim, obs, na.rm=TRUE,
+                           epsilon.type=c("paper", "none", "Pushpalatha2012",
+                                          "otherFactor", "otherValue"),
+                           epsilon.value=NA,
+                           n.grid=512,
+                           ...) {
+
+  prep <- .JDKGE_prepare_logflows(sim=sim, obs=obs, na.rm=na.rm,
+                                  epsilon.type=epsilon.type,
+                                  epsilon.value=epsilon.value)
+
+  if (length(prep$log.sim) == 1 && is.na(prep$log.sim))
+    return(list(jsd=NA_real_, epsilon=prep$epsilon, n.grid=NA_integer_, alpha=NA_real_))
+
+  sim.log <- prep$log.sim
+  obs.log <- prep$log.obs
+  epsilon <- prep$epsilon
+
+  if (identical(sim.log, obs.log))
+    return(list(jsd=0, epsilon=epsilon, n.grid=as.integer(n.grid), alpha=epsilon))
+
+  grid.range <- range(c(sim.log, obs.log))
+  pooled <- c(sim.log, obs.log)
+  bw <- stats::bw.nrd0(pooled)
+
+  if (!is.finite(bw) || bw <= 0)
+    bw <- max(stats::IQR(pooled, type=7) / 1.349, 1e-6)
+
+  d.sim <- stats::density(sim.log, bw=bw, from=grid.range[1], to=grid.range[2],
+                          n=n.grid, ...)
+  d.obs <- stats::density(obs.log, bw=bw, from=grid.range[1], to=grid.range[2],
+                          n=n.grid, ...)
+
+  dx <- d.sim$x[2] - d.sim$x[1]
+  p.tilde <- d.sim$y * dx + epsilon
+  q.tilde <- d.obs$y * dx + epsilon
+
+  p <- p.tilde / sum(p.tilde)
+  q <- q.tilde / sum(q.tilde)
+  m <- 0.5 * (p + q)
+
+  idx.p <- (p > 0) & (m > 0)
+  idx.q <- (q > 0) & (m > 0)
+
+  jsd <- 0.5 * sum(p[idx.p] * log2(p[idx.p] / m[idx.p])) +
+         0.5 * sum(q[idx.q] * log2(q[idx.q] / m[idx.q]))
+
+  return( list(jsd=jsd, epsilon=epsilon, n.grid=as.integer(n.grid), alpha=epsilon, bandwidth=bw) )
+
+} # '.JDKGE_jsd_kde' end
+
+
+.JDKGE_wasserstein <- function(sim, obs, na.rm=TRUE,
+                               epsilon.type=c("paper", "none", "Pushpalatha2012",
+                                              "otherFactor", "otherValue"),
+                               epsilon.value=NA,
+                               n.quantiles=512) {
+
+  prep <- .JDKGE_prepare_logflows(sim=sim, obs=obs, na.rm=na.rm,
+                                  epsilon.type=epsilon.type,
+                                  epsilon.value=epsilon.value)
+
+  if (length(prep$log.sim) == 1 && is.na(prep$log.sim))
+    return(list(distance=NA_real_, similarity=NA_real_, epsilon=prep$epsilon, scale=NA_real_))
+
+  sim.log <- prep$log.sim
+  obs.log <- prep$log.obs
+  epsilon <- prep$epsilon
+
+  if (identical(sim.log, obs.log))
+    return(list(distance=0, similarity=1, epsilon=epsilon, scale=1))
+
+  probs <- seq(0, 1, length.out=n.quantiles)
+  q.sim <- stats::quantile(sim.log, probs=probs, names=FALSE, type=8)
+  q.obs <- stats::quantile(obs.log, probs=probs, names=FALSE, type=8)
+
+  w1 <- mean(abs(q.sim - q.obs))
+  pooled <- c(sim.log, obs.log)
+  scale <- stats::IQR(pooled, na.rm=TRUE, type=7)
+
+  if (!is.finite(scale) || scale <= 0)
+    scale <- stats::sd(pooled, na.rm=TRUE)
+
+  if (!is.finite(scale) || scale <= 0)
+    scale <- 1
+
+  similarity <- exp(-w1 / scale)
+
+  return( list(distance=w1, similarity=similarity, epsilon=epsilon, scale=scale) )
+
+} # '.JDKGE_wasserstein' end
+
+
 JDKGE.default <- function(sim, obs,
                           s=c(1, 1, 1, 1),
                           na.rm=TRUE,
@@ -235,9 +349,11 @@ JDKGE.default <- function(sim, obs,
                           epsilon.type=c("paper", "none", "Pushpalatha2012",
                                          "otherFactor", "otherValue"),
                           epsilon.value=NA,
-                          density.method="hist",
+                          density.method=c("hist", "kde", "wasserstein"),
                           nbins="paper",
-                          timestep=86400) {
+                          timestep=86400,
+                          kde.n.grid=512,
+                          wasserstein.n.quantiles=512) {
 
   #####################################
   # Checkings
@@ -247,12 +363,10 @@ JDKGE.default <- function(sim, obs,
   method       <- match.arg(method)
   out.type     <- match.arg(out.type)
   epsilon.type <- match.arg(epsilon.type)
+  density.method <- match.arg(density.method)
 
-  if (!identical(density.method, "hist"))
-    stop("JDKGE follows the paper formulation and only supports density.method='hist'")
-
-  if (!identical(nbins, "paper"))
-    stop("JDKGE follows the paper formulation and computes histogram bins internally")
+  if ((density.method != "hist") && !identical(nbins, "paper"))
+    warning("'nbins' is only used when density.method='hist'; ignoring supplied value", call.=FALSE)
 
   if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo"))) |
        is.na(match(class(obs), c("integer", "numeric", "ts", "zoo"))) ) {
@@ -346,12 +460,28 @@ JDKGE.default <- function(sim, obs,
     } # ELSE end
 
 
-  jsd.info <- .JDKGE_jsd_hist(sim=sim, obs=obs, timestep=timestep, na.rm=na.rm,
-                              epsilon.type=epsilon.type,
-                              epsilon.value=epsilon.value)
-
-  if (!is.na(jsd.info$jsd))
-    Delta <- 1 - jsd.info$jsd
+  if (density.method == "hist") {
+    jsd.info <- .JDKGE_jsd_hist(sim=sim, obs=obs, timestep=timestep, na.rm=na.rm,
+                                epsilon.type=epsilon.type,
+                                epsilon.value=epsilon.value)
+    if (!is.na(jsd.info$jsd))
+      Delta <- 1 - jsd.info$jsd
+  } else if (density.method == "kde") {
+      jsd.info <- .JDKGE_jsd_kde(sim=sim, obs=obs, na.rm=na.rm,
+                                 epsilon.type=epsilon.type,
+                                 epsilon.value=epsilon.value,
+                                 n.grid=kde.n.grid,
+                                 ...)
+      if (!is.na(jsd.info$jsd))
+        Delta <- 1 - jsd.info$jsd
+    } else {
+        w.info <- .JDKGE_wasserstein(sim=sim, obs=obs, na.rm=na.rm,
+                                     epsilon.type=epsilon.type,
+                                     epsilon.value=epsilon.value,
+                                     n.quantiles=wasserstein.n.quantiles)
+        if (!is.na(w.info$similarity))
+          Delta <- w.info$similarity
+      } # ELSE end
 
   vr     <- if (method == "2012") Gamma else Alpha
   br.stg <- if (method == "2021") "Beta.2021" else "Beta"
@@ -386,7 +516,9 @@ JDKGE.matrix <- function(sim, obs,
                          epsilon.value=NA,
                          density.method="hist",
                          nbins="paper",
-                         timestep=86400) {
+                         timestep=86400,
+                         kde.n.grid=512,
+                         wasserstein.n.quantiles=512) {
 
   if (all.equal(dim(sim), dim(obs)) != TRUE)
     stop("Invalid argument: dim(sim) != dim(obs)")
@@ -413,7 +545,9 @@ JDKGE.matrix <- function(sim, obs,
                     s=s, na.rm=na.rm, method=method, out.type="single",
                     fun=fun, ..., epsilon.type=epsilon.type,
                     epsilon.value=epsilon.value, density.method=density.method,
-                    nbins=nbins, timestep=timestep)
+                    nbins=nbins, timestep=timestep,
+                    kde.n.grid=kde.n.grid,
+                    wasserstein.n.quantiles=wasserstein.n.quantiles)
     }, x=sim, y=obs)
     names(out) <- colnames(obs)
     return(out)
@@ -424,7 +558,9 @@ JDKGE.matrix <- function(sim, obs,
                   s=s, na.rm=na.rm, method=method, out.type="full",
                   fun=fun, ..., epsilon.type=epsilon.type,
                   epsilon.value=epsilon.value, density.method=density.method,
-                  nbins=nbins, timestep=timestep)
+                  nbins=nbins, timestep=timestep,
+                  kde.n.grid=kde.n.grid,
+                  wasserstein.n.quantiles=wasserstein.n.quantiles)
   }, x=sim, y=obs)
 
   for (i in seq_along(tmp)) {
@@ -448,7 +584,9 @@ JDKGE.data.frame <- function(sim, obs,
                              epsilon.value=NA,
                              density.method="hist",
                              nbins="paper",
-                             timestep=86400) {
+                             timestep=86400,
+                             kde.n.grid=512,
+                             wasserstein.n.quantiles=512) {
 
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
@@ -457,7 +595,9 @@ JDKGE.data.frame <- function(sim, obs,
                s=s, na.rm=na.rm, method=method, out.type=out.type,
                fun=fun, ..., epsilon.type=epsilon.type,
                epsilon.value=epsilon.value, density.method=density.method,
-               nbins=nbins, timestep=timestep)
+               nbins=nbins, timestep=timestep,
+               kde.n.grid=kde.n.grid,
+               wasserstein.n.quantiles=wasserstein.n.quantiles)
 
 } # 'JDKGE.data.frame' end
 
@@ -473,7 +613,9 @@ JDKGE.zoo <- function(sim, obs,
                       epsilon.value=NA,
                       density.method="hist",
                       nbins="paper",
-                      timestep=NA) {
+                      timestep=NA,
+                      kde.n.grid=512,
+                      wasserstein.n.quantiles=512) {
 
   if (is.na(timestep))
     timestep <- .JDKGE_timestep_seconds(sim)
@@ -488,11 +630,15 @@ JDKGE.zoo <- function(sim, obs,
                  s=s, na.rm=na.rm, method=method, out.type=out.type,
                  fun=fun, ..., epsilon.type=epsilon.type,
                  epsilon.value=epsilon.value, density.method=density.method,
-                 nbins=nbins, timestep=timestep)
+                 nbins=nbins, timestep=timestep,
+                 kde.n.grid=kde.n.grid,
+                 wasserstein.n.quantiles=wasserstein.n.quantiles)
   } else JDKGE.default(sim, obs,
                        s=s, na.rm=na.rm, method=method, out.type=out.type,
                        fun=fun, ..., epsilon.type=epsilon.type,
                        epsilon.value=epsilon.value, density.method=density.method,
-                       nbins=nbins, timestep=timestep)
+                       nbins=nbins, timestep=timestep,
+                       kde.n.grid=kde.n.grid,
+                       wasserstein.n.quantiles=wasserstein.n.quantiles)
 
 } # 'JDKGE.zoo' end

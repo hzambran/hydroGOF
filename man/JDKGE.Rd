@@ -30,26 +30,26 @@ JDKGE(sim, obs, ...)
 \method{JDKGE}{default}(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
               method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
               epsilon.type=c("paper", "none", "Pushpalatha2012", "otherFactor", "otherValue"),
-              epsilon.value=NA, density.method="hist", nbins="paper",
-              timestep=86400)
+              epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+              timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
 
 \method{JDKGE}{data.frame}(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
               method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
               epsilon.type=c("paper", "none", "Pushpalatha2012", "otherFactor", "otherValue"),
-              epsilon.value=NA, density.method="hist", nbins="paper",
-              timestep=86400)
+              epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+              timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
 
 \method{JDKGE}{matrix}(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
               method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
               epsilon.type=c("paper", "none", "Pushpalatha2012", "otherFactor", "otherValue"),
-              epsilon.value=NA, density.method="hist", nbins="paper",
-              timestep=86400)
+              epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+              timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
 
 \method{JDKGE}{zoo}(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
               method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
               epsilon.type=c("paper", "none", "Pushpalatha2012", "otherFactor", "otherValue"),
-              epsilon.value=NA, density.method="hist", nbins="paper",
-              timestep=NA)
+              epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+              timestep=NA, kde.n.grid=512, wasserstein.n.quantiles=512)
 }
 
 \arguments{
@@ -63,9 +63,11 @@ JDKGE(sim, obs, ...)
 \item{\dots}{additional arguments passed to \code{fun}.}
 \item{epsilon.type}{rule used for zero-flow handling in the internal log-based divergence component, and also passed to \code{preproc} when \code{fun} needs an offset before transformation. \kbd{"paper"} is the default and uses the epsilon rule described by Ficchi et al. (2026).}
 \item{epsilon.value}{numeric value used when \code{epsilon.type="otherValue"} or \code{epsilon.type="otherFactor"}.}
-\item{density.method}{distribution-estimation method used by the divergence component. Only \kbd{"hist"} is supported because the paper defines JDKGE with a histogram-based Jensen-Shannon divergence.}
-\item{nbins}{binning rule used by the divergence component. Only \kbd{"paper"} is supported; the number of bins is computed internally using the procedure described by Ficchi et al. (2026).}
+\item{density.method}{method used to compute the divergence component. \kbd{"hist"} uses the paper-faithful histogram-based Jensen-Shannon divergence, \kbd{"kde"} uses a common-grid kernel density estimate followed by Jensen-Shannon divergence, and \kbd{"wasserstein"} uses a Wasserstein-distance similarity on log-flows.}
+\item{nbins}{binning rule used by the histogram divergence component. The default \kbd{"paper"} uses the procedure described by Ficchi et al. (2026). This argument is ignored for \code{density.method="kde"} and \code{density.method="wasserstein"}.}
 \item{timestep}{sampling time step in seconds used by the paper's bin-count adjustment. For \code{zoo} inputs this is inferred from the time index when omitted. The default for plain numeric vectors is one day (86400 seconds).}
+\item{kde.n.grid}{integer, number of grid points used when \code{density.method="kde"}. Larger values provide a finer common support grid at higher computational cost.}
+\item{wasserstein.n.quantiles}{integer, number of quantile levels used to approximate the first Wasserstein distance when \code{density.method="wasserstein"}. Larger values provide a finer approximation at higher computational cost.}
 }
 
 \details{
@@ -75,7 +77,7 @@ JDKGE combines four components:
 \item the Pearson correlation coefficient \eqn{r},
 \item the variability term, defined as \eqn{\gamma = (\sigma_s / \mu_s) / (\sigma_o / \mu_o)} for \kbd{method="2012"} and as \eqn{\alpha = \sigma_s / \sigma_o} for \kbd{method="2009"} and \kbd{method="2021"},
 \item the bias term, defined as \eqn{\beta = \mu_s / \mu_o} for \kbd{method="2009"} and \kbd{method="2012"}, and as \eqn{\beta_{2021} = (\mu_s - \mu_o)/\sigma_o} for \kbd{method="2021"}, and
-\item the distributional similarity component \eqn{\Delta = 1 - JSD}.
+\item the distributional similarity component \eqn{\Delta}.
 }
 
 For the divergence component, this implementation follows the paper's workflow:
@@ -88,6 +90,12 @@ For the divergence component, this implementation follows the paper's workflow:
 \item additive smoothing with \eqn{\alpha = \epsilon} is applied to the empirical densities, and
 \item Jensen-Shannon divergence is computed with base-2 logarithms.
 }
+
+For \code{density.method="kde"}, simulated and observed log-flows are smoothed with Gaussian kernel density estimates evaluated on a common grid over the pooled support using a shared bandwidth estimated from the pooled sample. Jensen-Shannon divergence is then computed from the two resulting probability vectors.
+
+For \code{density.method="wasserstein"}, the log-flow distributions are compared with the first Wasserstein distance computed from empirical quantiles. The resulting distance is converted into a similarity component through
+\deqn{\Delta = \exp(-W_1 / s_w)}
+where \eqn{s_w} is a robust scale estimated from the pooled log-flows using the interquartile range, with fallback to the standard deviation when needed.
 
 The metric is then computed as:
 
@@ -130,6 +138,9 @@ JDKGE(sim=sim, obs=obs, out.type="full")
 ##################
 # Example 2: using kernel density estimation, instead of histograms (the default)
 JDKGE(sim=sim, obs=obs, density.method="kde")
+JDKGE(sim=sim, obs=obs, density.method="kde", kde.n.grid=1024)
+JDKGE(sim=sim, obs=obs, density.method="wasserstein")
+JDKGE(sim=sim, obs=obs, density.method="wasserstein", wasserstein.n.quantiles=1024)
 
 ##################
 # Example 3: Looking at the difference between JDKGE and KGE, both with 'method=2009' 
