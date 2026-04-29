@@ -9,7 +9,7 @@
 # 'JDKGE': Joint Divergence Kling-Gupta Efficiency (JDKGE)                     #
 ################################################################################
 # Author : Mauricio Zambrano-Bigiarini                                         #
-# Started: 28-Abr-2026                                                         #
+# Started: 28-Abr-2026 ; 29-Apr-2026                                           #
 ################################################################################
 # Reference:                                                                   #
 #  Ficchi, A.; Bavera, D.; Grimaldi, S.; Moschini, F.; Pistocchi, A.;          #
@@ -58,455 +58,441 @@
 JDKGE <- function(sim, obs, ...) UseMethod("JDKGE")
 
 
-################################################################################
-# Jensen-Shannon Divergence (JSD)
-# It is a low-level numerical kernel that assumes probability vectors are  
-# already available.
-################################################################################
-# JSD expects two numeric vectors representing discrete probability masses 
-# (or counts that can be normalized). It performs only the divergence 
-# calculation: normalization, mixture distribution construction, and evaluation 
-# of the symmetric Kullback-Leibler terms. It does not know anything about 
-# hydrological time series, log transformations, binning, or density estimation. 
-# Because of this narrow scope, .JSD is computationally simpler, easier to test, 
-# and reusable in other contexts where probability vectors are already 
-# defined, for example, when histograms have been precomputed or when working 
-# with categorical distributions. Conceptually, it implements the mathematical 
-# core of the divergence.
-################################################################################
+.JDKGE_check_s <- function(s) {
 
-.JSD <- function(p, q) {
-
-  if (length(p) != length(q))
-    stop("Invalid argument: length(p) != length(q)")
-
-  if (sum(p) == 0 | sum(q) == 0)
-    return(NA)
-
-  p <- p / sum(p)
-  q <- q / sum(q)
-
-  m <- 0.5 * (p + q)
-
-  KL <- function(a, b) {
-    idx <- which(a > 0 & b > 0)
-    sum(a[idx] * log(a[idx] / b[idx]))
-  }
-
-  0.5 * KL(p, m) + 0.5 * KL(q, m)
-
-} # '.JSD' end
-
-
-################################################################################
-# Jensen-Shannon divergence from densities
-################################################################################
-# This function supports both histogram and kernel density estimation. 
-# The KDE branch uses density() with a common evaluation grid to ensure 
-# comparability of the two empirical distributions.
-################################################################################
-# This is a higher-level convenience wrapper that first estimates those 
-# probability distributions from raw data using a specified density estimation 
-# method (histogram or kernel density), and then computes the divergence
-################################################################################
-# It takes raw continuous data vectors (e.g., log-transformed flows) and is 
-# responsible for estimating empirical probability distributions before calling 
-# the divergence logic internally. The estimation method is controlled through 
-# density.method, typically "hist" (bin counts) or "kde" (kernel density 
-# estimation). Thus, .JSD_density encapsulates both the statistical estimation 
-# step and the divergence calculation, making it more flexible but also more 
-# computationally expensive and methodologically opinionated. It is therefore 
-# more appropriate when the user wants to switch between distribution 
-# representations without modifying the surrounding code.
-################################################################################
-.JSD_density <- function(sim, obs,
-                         density.method=c("hist", "kde"),
-                         nbins="Sturges",
-                         ...) {
-
-  density.method <- match.arg(density.method)
-
-  if (density.method == "hist") {
-
-    breaks <- graphics::hist(c(sim, obs), plot=FALSE, breaks=nbins)$breaks
-
-    h.sim <- graphics::hist(sim, plot=FALSE, breaks=breaks)
-
-    h.obs <- graphics::hist(obs, plot=FALSE, breaks=breaks)
-
-    p <- h.sim$counts
-    q <- h.obs$counts
-
-  } else if (density.method == "kde") {
-
-      rng <- range(c(sim, obs))
-
-      d.sim <- stats::density(sim,  from=rng[1], to=rng[2], ...)
-
-      d.obs <- stats::density(obs, from=rng[1], to=rng[2], n=length(d.sim$x), ...)
-
-      p <- d.sim$y
-      q <- d.obs$y
-
-    } # ELSE end
-
-  if (sum(p) == 0 | sum(q) == 0)
-    return(NA_real_)
-
-  p <- p / sum(p)
-  q <- q / sum(q)
-
-  m <- 0.5 * (p + q)
-
-  idx1 <- (p > 0) & (m > 0)
-  idx2 <- (q > 0) & (m > 0)
-
-  jsd <- 0.5 * sum(p[idx1] * log(p[idx1] / m[idx1])) +
-         0.5 * sum(q[idx2] * log(q[idx2] / m[idx2]))
-
-  return(jsd)
-
-} # '.JSD_density' END
-
-
-################################################################################
-# Default method
-################################################################################
-
-JDKGE.default <- function(sim, obs,
-                          s=c(1,1,1,1),
-                          na.rm=TRUE,
-                          method=c("2009","2012","2021"),
-                          out.type=c("single", "full"),
-                          fun=NULL, ...,
-                          epsilon.type=c("none", "Pushpalatha2012", 
-                                        "otherFactor", "otherValue"),
-                          epsilon.value=NA,
-                          density.method=c("hist","kde"),
-                          nbins="Sturges") {
-
-  # Scaling factors
-  if (!identical(s, c(1,1,1,1))) {
+  if (!identical(s, c(1, 1, 1, 1))) {
     if (length(s) != 4)
       stop("Invalid argument: length(s) must be equal to 4 !")
     if (sum(s) != 1)
       stop("Invalid argument: sum(s) must be equal to 1.0 !")
+  }
+
+} # '.JDKGE_check_s' end
+
+
+.JDKGE_timestep_seconds <- function(x) {
+
+  timestep <- 86400
+
+  if (inherits(x, "zoo")) {
+
+    idx <- time(x)
+
+    if (length(idx) > 1) {
+      if (inherits(idx, "POSIXt")) {
+        dt <- median(diff(as.numeric(idx)), na.rm=TRUE)
+      } else if (inherits(idx, "Date")) {
+        dt <- median(diff(as.numeric(idx)), na.rm=TRUE) * 86400
+      } else {
+        dt <- NA_real_
+      }
+
+      if (is.finite(dt) && (dt > 0))
+        timestep <- dt
+    }
+
+  } else if (inherits(x, "ts")) {
+
+    freq <- stats::frequency(x)
+
+    if (is.finite(freq) && (freq > 0))
+      timestep <- (365.25 * 86400) / freq
+  }
+
+  return( timestep )
+
+} # '.JDKGE_timestep_seconds' end
+
+
+.JDKGE_resolve_epsilon <- function(sim, obs, na.rm=TRUE,
+                                   epsilon.type=c("paper", "none", "Pushpalatha2012",
+                                                  "otherFactor", "otherValue"),
+                                   epsilon.value=NA) {
+
+  epsilon.type <- match.arg(epsilon.type)
+
+  if (epsilon.type %in% c("otherFactor", "otherValue")) {
+    if (is.na(epsilon.value))
+      stop("Missing argument: you need to provide 'epsilon.value' !")
+    if (!is.numeric(epsilon.value))
+      stop("Invalid argument: 'epsilon.value' must be numeric !")
   } # IF end
+
+  if (epsilon.type == "paper") {
+    positive <- c(sim[sim > 0], obs[obs > 0])
+
+    if (length(positive) <= 0)
+      return(NA_real_)
+
+    epsilon <- min(1e-6, 0.1 * min(positive))
+  } else if (epsilon.type == "Pushpalatha2012") {
+      epsilon <- mean(obs, na.rm=na.rm) / 100
+    } else if (epsilon.type == "otherFactor") {
+        epsilon <- epsilon.value * mean(obs, na.rm=na.rm)
+      } else if (epsilon.type == "otherValue") {
+          epsilon <- epsilon.value
+        } else epsilon <- 0
+
+  return( epsilon )
+
+} # '.JDKGE_resolve_epsilon' end
+
+
+.JDKGE_jsd_hist <- function(sim, obs, timestep=86400, na.rm=TRUE,
+                            epsilon.type=c("paper", "none", "Pushpalatha2012",
+                                           "otherFactor", "otherValue"),
+                            epsilon.value=NA) {
+
+  if (length(sim) != length(obs))
+    stop("Invalid argument: length(sim) != length(obs)")
+
+  if (any(!is.finite(sim)) || any(!is.finite(obs)))
+    stop("Invalid argument: 'sim' and 'obs' must be finite")
+
+  if (any(sim < 0) || any(obs < 0))
+    stop("Invalid argument: negative values are not allowed in JDKGE")
+
+  epsilon <- .JDKGE_resolve_epsilon(sim=sim, obs=obs, na.rm=na.rm,
+                                    epsilon.type=epsilon.type,
+                                    epsilon.value=epsilon.value)
+
+  if (is.na(epsilon)) {
+    return(list(jsd=NA_real_, epsilon=NA_real_, nbins=NA_integer_, alpha=NA_real_))
+  }
+
+  if ((epsilon <= 0) && (any(sim == 0) || any(obs == 0))) {
+    warning("Zero flows detected: choose a positive 'epsilon.type' or 'epsilon.value' to compute JDKGE", call.=FALSE)
+    return(list(jsd=NA_real_, epsilon=epsilon, nbins=NA_integer_, alpha=NA_real_))
+  } # IF end
+
+  sim.log <- log(ifelse(sim == 0, epsilon, sim))
+  obs.log <- log(ifelse(obs == 0, epsilon, obs))
+
+  if (identical(sim.log, obs.log)) {
+    return(list(jsd=0, epsilon=epsilon, nbins=25L, alpha=epsilon))
+  }
+
+  xmin <- min(c(sim.log, obs.log))
+  xmax <- max(c(sim.log, obs.log))
+
+  iqr.obs <- stats::IQR(obs.log, na.rm=TRUE, type=7)
+  h.min   <- min(1e2 * epsilon, 1e-1)
+
+  if (is.finite(iqr.obs) && (iqr.obs > 0)) {
+    h.fd <- 2 * iqr.obs * (length(obs.log)^(-1/3))
+  } else h.fd <- 0
+
+  h <- max(h.fd, h.min)
+
+  tsf <- timestep / 86400
+  if (!is.finite(tsf) || (tsf <= 0))
+    tsf <- 1
+
+  span <- xmax - xmin
+  if (!is.finite(span) || (span <= 0))
+    span <- h
+
+  n.raw  <- ceiling((tsf^(1/3)) * span / h)
+  nbins  <- max(min(n.raw, 100), 25)
+  breaks <- seq(xmin, xmax, length.out=nbins + 1)
+
+  h.sim <- graphics::hist(sim.log, breaks=breaks, plot=FALSE,
+                          include.lowest=TRUE, right=TRUE)
+  h.obs <- graphics::hist(obs.log, breaks=breaks, plot=FALSE,
+                          include.lowest=TRUE, right=TRUE)
+
+  width <- diff(h.sim$breaks)[1]
+
+  d.sim <- h.sim$counts / (length(sim.log) * width)
+  d.obs <- h.obs$counts / (length(obs.log) * width)
+
+  alpha <- epsilon
+
+  p.tilde <- d.sim + alpha
+  q.tilde <- d.obs + alpha
+
+  p <- p.tilde / sum(p.tilde)
+  q <- q.tilde / sum(q.tilde)
+  m <- 0.5 * (p + q)
+
+  idx.p <- (p > 0) & (m > 0)
+  idx.q <- (q > 0) & (m > 0)
+
+  jsd <- 0.5 * sum(p[idx.p] * log2(p[idx.p] / m[idx.p])) +
+         0.5 * sum(q[idx.q] * log2(q[idx.q] / m[idx.q]))
+
+  return( list(jsd=jsd, epsilon=epsilon, nbins=nbins, alpha=alpha) )
+
+} # '.JDKGE_jsd_hist' end
+
+
+JDKGE.default <- function(sim, obs,
+                          s=c(1, 1, 1, 1),
+                          na.rm=TRUE,
+                          method=c("2012", "2009", "2021"),
+                          out.type=c("single", "full"),
+                          fun=NULL, ...,
+                          epsilon.type=c("paper", "none", "Pushpalatha2012",
+                                         "otherFactor", "otherValue"),
+                          epsilon.value=NA,
+                          density.method="hist",
+                          nbins="paper",
+                          timestep=86400) {
+
+  #####################################
+  # Checkings
+  #####################################
+  .JDKGE_check_s(s)
 
   method       <- match.arg(method)
   out.type     <- match.arg(out.type)
   epsilon.type <- match.arg(epsilon.type)
 
-  if ( is.na(match(class(sim), c("integer","numeric","ts","zoo"))) |
-       is.na(match(class(obs), c("integer","numeric","ts","zoo"))) )
-    stop("Invalid argument type: 'sim' & 'obs' have to be numeric")
+  if (!identical(density.method, "hist"))
+    stop("JDKGE follows the paper formulation and only supports density.method='hist'")
+
+  if (!identical(nbins, "paper"))
+    stop("JDKGE follows the paper formulation and computes histogram bins internally")
+
+  if ( is.na(match(class(sim), c("integer", "numeric", "ts", "zoo"))) |
+       is.na(match(class(obs), c("integer", "numeric", "ts", "zoo"))) ) {
+    stop("Invalid argument type: 'sim' & 'obs' have to be of class: c('integer', 'numeric', 'ts', 'zoo')")
+  }
 
   vi <- valindex(sim, obs)
 
-  if (length(vi) > 0) {
+  if (length(vi) <= 0) {
+    warning("There are no pairs of 'sim' and 'obs' without missing values !")
+    JDK <- NA_real_
+    elements <- c(r=NA_real_, Beta=NA_real_, Gamma=NA_real_, Delta=NA_real_)
+    if (out.type == "single") return(JDK)
+    return(list(JDKGE.value=JDK, JDKGE.elements=elements))
+  } # IF end
 
-    obs <- as.numeric(obs[vi])
-    sim <- as.numeric(sim[vi])
+  obs <- as.numeric(obs[vi])
+  sim <- as.numeric(sim[vi])
 
-    if (!is.null(fun)) {
+  if (!is.null(fun)) {
+    fun1 <- match.fun(fun)
+    new <- preproc(sim=sim, obs=obs,
+                   fun=fun1, ...,
+                   epsilon.type=epsilon.type,
+                   epsilon.value=epsilon.value)
+    sim <- new[["sim"]]
+    obs <- new[["obs"]]
+  } # IF end
 
-      fun1 <- match.fun(fun)
+  keep <- is.finite(sim) & is.finite(obs)
+  sim  <- sim[keep]
+  obs  <- obs[keep]
 
-      new <- preproc(sim=sim, obs=obs,
-                     fun=fun1, ...,
-                     epsilon.type=epsilon.type,
-                     epsilon.value=epsilon.value)
+  if (length(sim) <= 0) {
+    warning("There are no finite pairs of 'sim' and 'obs' after preprocessing !")
+    JDK <- NA_real_
+    elements <- c(r=NA_real_, Beta=NA_real_, Gamma=NA_real_, Delta=NA_real_)
+    if (out.type == "single") return(JDK)
+    return(list(JDKGE.value=JDK, JDKGE.elements=elements))
+  } # IF end
 
-      sim <- new[["sim"]]
-      obs <- new[["obs"]]
+  if (any(sim < 0) || any(obs < 0)) {
+    warning("Negative values detected: JDKGE is defined for non-negative flows only", call.=FALSE)
+    JDK <- NA_real_
+    elements <- c(r=NA_real_, Beta=NA_real_, Gamma=NA_real_, Delta=NA_real_)
+    if (out.type == "single") return(JDK)
+    return(list(JDKGE.value=JDK, JDKGE.elements=elements))
+  } # IF end
 
-    } # IF end
+  #####################################
+  # Starting computations of the JDKGE
+  #####################################
 
-    if (any(sim <= 0) | any(obs <= 0)) {
+  r <- stats::cor(sim, obs)
 
-      r   <- Beta <- Gamma <- Delta <- NA
-      JDK <- NA
+  mean.sim  <- mean(sim, na.rm=na.rm)
+  mean.obs  <- mean(obs, na.rm=na.rm)
+  sigma.sim <- stats::sd(sim, na.rm=na.rm)
+  sigma.obs <- stats::sd(obs, na.rm=na.rm)
 
-      warning("Non-positive values detected => log-transform not possible")
+  Beta  <- NA_real_
+  Gamma <- NA_real_
+  Alpha <- NA_real_
+  Delta <- NA_real_
+  JDK   <- NA_real_
 
-    } else {
-
-        mean.sim <- mean(sim, na.rm=na.rm)
-        mean.obs <- mean(obs, na.rm=na.rm)
-
-        sigma.sim <- sd(sim, na.rm=na.rm)
-        sigma.obs <- sd(obs, na.rm=na.rm)
-
-        # Correlation
-        r <- cor(sim, obs)
-
-        # Bias and variability components depend on 'method'
-        mean.sim <- mean(sim, na.rm=na.rm)
-        mean.obs <- mean(obs, na.rm=na.rm)
-
-        if ( (mean.obs == 0) & ( (method == "2009") | (method == "2012") ) )
-          warning("Warning: 'mean(obs)==0'. Beta is undefined")
-
-        if ( (mean.sim == 0) &  (method == "2012") )
-          warning("Warning: 'mean(obs)==0'. Beta is undefined !")
-
-        sigma.sim <- sd(sim, na.rm=na.rm)
-        sigma.obs <- sd(obs, na.rm=na.rm)
-
-        if ( (sigma.obs == 0) & ( (method == "2009") | (method == "2021") ) )
-          warning("Warning: 'sd(obs)==0'. Variability ratio is undefined !")
-
-        if (method == "2009") {
-
-          # Variability: standard deviation ratio
-          vr     <- sigma.sim / sigma.obs
-          vr.stg <- "Alpha"
-
-          # Bias: mean ratio
-          br     <- mean.sim / mean.obs
-          br.stg <- "Beta"
-
-        } else if (method == "2012") {
-
-            # Coefficient of variation ratio
-            CV.sim <- sigma.sim / mean.sim
-            CV.obs <- sigma.obs / mean.obs
-
-            vr     <- CV.sim / CV.obs
-            vr.stg <- "Gamma"
-
-            # Bias unchanged
-            br     <- mean.sim / mean.obs
-            br.stg <- "Beta"
-
-          } else if (method == "2021") {
-
-              # Variability: standard deviation ratio
-              vr     <- sigma.sim / sigma.obs
-              vr.stg <- "Alpha"
-
-              # Standardized bias
-              br     <- (mean.sim - mean.obs) / sigma.obs
-              br.stg <- "Beta.2021"
-
-            } # END
-
-        # Distribution component (log flows)
-        log.sim <- log(sim)
-        log.obs <- log(obs)
-
-        jsd <- .JSD_density(sim=log.sim, obs=log.obs, 
-                            density.method=density.method,
-                            nbins=nbins, ...)
-
-        Delta <- 1 - jsd
-
-        if ( (mean.obs != 0) & (sigma.obs != 0) & !is.na(jsd) ) {
-
-          JDK <- 1 - sqrt( (s[1]*(r-1))^2  + (s[2]*(vr-1))^2  +
-                           (s[3]*(br-1))^2 + (s[4]*(Delta-1))^2 )
-
-        } else {
-
-            JDK <- NA
-
-            if (mean.obs == 0)
-              warning("Warning: 'mean(obs)==0'. Beta = Inf")
-
-            if (sigma.obs == 0)
-              warning("Warning: 'sd(obs)==0'. Gamma = Inf")
-
-          } # ELSE end
-
-      } # ELSE end
-
+  if (method %in% c("2009", "2012")) {
+    if (mean.obs == 0) {
+      warning("Warning: 'mean(obs)==0'. Beta is undefined", call.=FALSE)
+    } else Beta <- mean.sim / mean.obs
   } else {
-
-      r <- Beta <- Gamma <- Delta <- NA
-      JDK <- NA
-
-      warning("There are no pairs of 'sim' and 'obs' without missing values !")
-
+      if (sigma.obs == 0) {
+        warning("Warning: 'sd(obs)==0'. Beta.2021 is undefined", call.=FALSE)
+      } else Beta <- (mean.sim - mean.obs) / sigma.obs
     } # ELSE end
+
+  if (method == "2012") {
+    if (mean.sim == 0 || mean.obs == 0 || sigma.obs == 0) {
+      if (mean.sim == 0)
+        warning("Warning: 'mean(sim)==0'. Gamma is undefined", call.=FALSE)
+      if (mean.obs == 0)
+        warning("Warning: 'mean(obs)==0'. Gamma is undefined", call.=FALSE)
+      if (sigma.obs == 0)
+        warning("Warning: 'sd(obs)==0'. Gamma is undefined", call.=FALSE)
+    } else Gamma <- (sigma.sim / mean.sim) / (sigma.obs / mean.obs)
+  } else {
+      if (sigma.obs == 0) {
+        warning("Warning: 'sd(obs)==0'. Alpha is undefined", call.=FALSE)
+      } else Alpha <- sigma.sim / sigma.obs
+      Gamma <- Alpha
+    } # ELSE end
+
+
+  jsd.info <- .JDKGE_jsd_hist(sim=sim, obs=obs, timestep=timestep, na.rm=na.rm,
+                              epsilon.type=epsilon.type,
+                              epsilon.value=epsilon.value)
+
+  if (!is.na(jsd.info$jsd))
+    Delta <- 1 - jsd.info$jsd
+
+  vr     <- if (method == "2012") Gamma else Alpha
+  br.stg <- if (method == "2021") "Beta.2021" else "Beta"
+  vr.stg <- if (method == "2012") "Gamma" else "Alpha"
+
+  if (is.finite(r) && is.finite(Beta) && is.finite(vr) && is.finite(Delta)) {
+    JDK <- 1 - sqrt((s[1] * (r - 1))^2 +
+                    (s[2] * (vr - 1))^2 +
+                    (s[3] * (Beta - 1))^2 +
+                    (s[4] * (Delta - 1))^2)
+  } # IF end
+
+  elements        <- c(r=r, Beta=Beta, vr, Delta=Delta)
+  names(elements) <- c("r", br.stg, vr.stg, "Delta")
 
   if (out.type == "single") {
-
     out <- JDK
+  } else out <- list(JDKGE.value=JDK, JDKGE.elements=elements)
 
-  } else {
-
-      elements <- c(r, br, vr, Delta)
-
-      names(elements) <- c("r", br.stg, vr.stg, "Delta")
-
-      out <- list( JDKGE.value = JDK, JDKGE.elements = elements )
-
-    } # ELSE end
-
-  return(out)
-
-} # 'JDKGE.default' END
+  return( out )
+} # 'JDKGE.default' end
 
 
 JDKGE.matrix <- function(sim, obs,
-                         s=c(1,1,1,1),
+                         s=c(1, 1, 1, 1),
                          na.rm=TRUE,
-                         method=c("2009","2012","2021"),
+                         method=c("2012", "2009", "2021"),
                          out.type=c("single", "full"),
                          fun=NULL, ...,
-                         epsilon.type=c("none", "Pushpalatha2012", 
+                         epsilon.type=c("paper", "none", "Pushpalatha2012",
                                         "otherFactor", "otherValue"),
                          epsilon.value=NA,
-                         density.method=c("hist","kde"),
-                         nbins="Sturges") {
+                         density.method="hist",
+                         nbins="paper",
+                         timestep=86400) {
 
-  if ( all.equal(dim(sim), dim(obs)) != TRUE )
-    stop(paste("Invalid argument: dim(sim) != dim(obs)"))
+  if (all.equal(dim(sim), dim(obs)) != TRUE)
+    stop("Invalid argument: dim(sim) != dim(obs)")
 
-  if (!identical(s, c(1,1,1,1))) {
-    if (length(s) != 4)
-      stop("Invalid argument: length(s) must be equal to 4 !")
-    if (sum(s) != 1)
-      stop("Invalid argument: sum(s) must be equal to 1.0 !")
-  } # IF end
+  .JDKGE_check_s(s)
 
   method       <- match.arg(method)
   out.type     <- match.arg(out.type)
   epsilon.type <- match.arg(epsilon.type)
 
-  JDK <- rep(NA, ncol(obs))
-
-  elements <- matrix( NA, nrow=4, ncol=ncol(obs) )
-
+  JDK <- rep(NA_real_, ncol(obs))
+  elements <- matrix(NA_real_, nrow=4, ncol=ncol(obs))
   if (method == "2012") {
-    vr.stg <- "Gamma"
-    br.stg <- "Beta"
+    rownames(elements) <- c("r", "Beta", "Gamma", "Delta")
   } else if (method == "2009") {
-      vr.stg <- "Alpha"
-      br.stg <- "Beta"
-    } else {
-        vr.stg <- "Alpha"
-        br.stg <- "Beta.2021"
-      } # ELSE end
+      rownames(elements) <- c("r", "Beta", "Alpha", "Delta")
+    } else rownames(elements) <- c("r", "Beta.2021", "Alpha", "Delta")
 
-  rownames(elements) <- c("r", br.stg, vr.stg, "Delta")
   colnames(elements) <- colnames(obs)
 
   if (out.type == "single") {
-
-    out <- sapply(1:ncol(obs), function(i, x, y) {
-
-      JDKGE.default( x[,i],  y[,i], s=s, na.rm=na.rm,
-        method=method, out.type="single", fun=fun,  ...,
-        epsilon.type=epsilon.type, epsilon.value=epsilon.value,
-        nbins=nbins
-      )
-
+    out <- sapply(seq_len(ncol(obs)), function(i, x, y) {
+      JDKGE.default(x[, i], y[, i],
+                    s=s, na.rm=na.rm, method=method, out.type="single",
+                    fun=fun, ..., epsilon.type=epsilon.type,
+                    epsilon.value=epsilon.value, density.method=density.method,
+                    nbins=nbins, timestep=timestep)
     }, x=sim, y=obs)
-
     names(out) <- colnames(obs)
+    return(out)
+  } # IF end
 
-  } else {
+  tmp <- lapply(seq_len(ncol(obs)), function(i, x, y) {
+    JDKGE.default(x[, i], y[, i],
+                  s=s, na.rm=na.rm, method=method, out.type="full",
+                  fun=fun, ..., epsilon.type=epsilon.type,
+                  epsilon.value=epsilon.value, density.method=density.method,
+                  nbins=nbins, timestep=timestep)
+  }, x=sim, y=obs)
 
-    tmp <- lapply(1:ncol(obs), function(i, x, y) {
+  for (i in seq_along(tmp)) {
+    JDK[i] <- tmp[[i]][[1]]
+    elements[, i] <- as.numeric(tmp[[i]][[2]])
+  } # FOR end
 
-      JDKGE.default( x[,i], y[,i], s=s, na.rm=na.rm,
-        method=method, out.type="full", fun=fun, ...,
-        epsilon.type=epsilon.type, epsilon.value=epsilon.value,
-        nbins=nbins
-      )
+  return ( list(JDKGE.value=JDK, JDKGE.elements=elements) )
 
-    }, x=sim, y=obs)
-
-    for (i in 1:length(tmp)) {
-
-      JDK[i] <- tmp[[i]][[1]]
-
-      elements[,i] <- as.numeric( tmp[[i]][[2]] )
-
-    } # FOR end
-
-    out <- list( JDKGE.value = JDK, JDKGE.elements = elements )
-
-  } # ELSE end
-
-  return(out)
-
-} # 'JDKGE.matrix' END
+} # 'JDKGE.matrix' end
 
 
-################################################################################
-# Author: Mauricio Zambrano-Bigiarini style adaptation                         #
-################################################################################
 JDKGE.data.frame <- function(sim, obs,
-                             s=c(1,1,1,1),
+                             s=c(1, 1, 1, 1),
                              na.rm=TRUE,
-                             method=c("2009","2012","2021"),
+                             method=c("2012", "2009", "2021"),
                              out.type=c("single", "full"),
                              fun=NULL, ...,
-                             epsilon.type=c("none", "Pushpalatha2012", 
+                             epsilon.type=c("paper", "none", "Pushpalatha2012",
                                             "otherFactor", "otherValue"),
                              epsilon.value=NA,
-                             density.method=c("hist","kde"),
-                             nbins="Sturges") {
+                             density.method="hist",
+                             nbins="paper",
+                             timestep=86400) {
 
-  # Coercion to matrix 
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
 
-  method       <- match.arg(method)
-  out.type     <- match.arg(out.type)
-  epsilon.type <- match.arg(epsilon.type)
+  JDKGE.matrix(sim, obs,
+               s=s, na.rm=na.rm, method=method, out.type=out.type,
+               fun=fun, ..., epsilon.type=epsilon.type,
+               epsilon.value=epsilon.value, density.method=density.method,
+               nbins=nbins, timestep=timestep)
 
-  JDKGE.matrix(sim, obs, s=s, na.rm=na.rm,
-               method=method, out.type=out.type,
-               fun=fun, ...,
-               epsilon.type=epsilon.type,
-               epsilon.value=epsilon.value,
-               nbins=nbins)
-
-} # 'JDKGE.data.frame' END
+} # 'JDKGE.data.frame' end
 
 
-################################################################################
-# Author: Mauricio Zambrano-Bigiarini style adaptation                         #
-################################################################################
 JDKGE.zoo <- function(sim, obs,
-                      s=c(1,1,1,1),
+                      s=c(1, 1, 1, 1),
                       na.rm=TRUE,
-                      method=c("2009","2012","2021"),
+                      method=c("2012", "2009", "2021"),
                       out.type=c("single", "full"),
                       fun=NULL, ...,
-                      epsilon.type=c("none", "Pushpalatha2012", 
+                      epsilon.type=c("paper", "none", "Pushpalatha2012",
                                      "otherFactor", "otherValue"),
                       epsilon.value=NA,
-                      density.method=c("hist","kde"),
-                      nbins="Sturges") {
+                      density.method="hist",
+                      nbins="paper",
+                      timestep=NA) {
 
-  # Extract core data (same logic as KGE)
+  if (is.na(timestep))
+    timestep <- .JDKGE_timestep_seconds(sim)
+
   sim <- zoo::coredata(sim)
 
-  if (is.zoo(obs))
+  if (zoo::is.zoo(obs))
     obs <- zoo::coredata(obs)
 
-  if (is.matrix(sim) | is.data.frame(sim)) {
+  if (is.matrix(sim) || is.data.frame(sim)) {
+    JDKGE.matrix(sim, obs,
+                 s=s, na.rm=na.rm, method=method, out.type=out.type,
+                 fun=fun, ..., epsilon.type=epsilon.type,
+                 epsilon.value=epsilon.value, density.method=density.method,
+                 nbins=nbins, timestep=timestep)
+  } else JDKGE.default(sim, obs,
+                       s=s, na.rm=na.rm, method=method, out.type=out.type,
+                       fun=fun, ..., epsilon.type=epsilon.type,
+                       epsilon.value=epsilon.value, density.method=density.method,
+                       nbins=nbins, timestep=timestep)
 
-    JDKGE.matrix(sim, obs, s=s, na.rm=na.rm,
-                 method=method, out.type=out.type,
-                 fun=fun, ...,
-                 epsilon.type=epsilon.type,
-                 epsilon.value=epsilon.value,
-                 nbins=nbins)
-
-  } else {
-
-      NextMethod(sim, obs, s=s, na.rm=na.rm,
-                 method=method, out.type=out.type,
-                 fun=fun, ...,
-                 epsilon.type=epsilon.type,
-                 epsilon.value=epsilon.value,
-                 nbins=nbins)
-
-    } # ELSE
-
-} # 'JDKGE.zoo' END
+} # 'JDKGE.zoo' end
