@@ -734,13 +734,13 @@ gof(sim=sim, obs=obs)
 #>          [,1]
 #> ME       4.98
 #> MAE      4.98
-#> MSE     50.20
-#> RMSE     7.09
-#> ubRMSE   5.04
+#> MSE     50.12
+#> RMSE     7.08
+#> ubRMSE   5.03
 #> NRMSE % 35.40
 #> PBIAS % 31.50
 #> RSR      0.35
-#> rSD      1.03
+#> rSD      1.04
 #> NSE      0.87
 #> mNSE     0.61
 #> rNSE    -0.55
@@ -754,12 +754,12 @@ gof(sim=sim, obs=obs)
 #> r        0.97
 #> R2       0.87
 #> bR2      0.78
-#> VE       0.68
+#> VE       0.69
 #> KGE     -0.32
 #> KGElf   -0.08
-#> KGEnp    0.63
+#> KGEnp    0.64
 #> KGEkm    0.66
-#> sKGE    -0.35
+#> sKGE    -0.34
 #> APFB     0.03
 #> HFB      0.92
 
@@ -781,14 +781,14 @@ gof(sim=sim, obs=obs, fun=log)
 #> rSD      0.88
 #> NSE      0.48
 #> mNSE     0.48
-#> rNSE    -4.40
+#> rNSE    -4.47
 #> wNSE     0.74
 #> wsNSE    0.78
 #> d        0.86
 #> dr       0.74
 #> md       0.74
-#> rd      -0.44
-#> cp      -7.93
+#> rd      -0.46
+#> cp      -7.91
 #> r        0.82
 #> R2       0.48
 #> bR2      0.43
@@ -796,7 +796,7 @@ gof(sim=sim, obs=obs, fun=log)
 #> KGE     -0.21
 #> KGElf   -0.08
 #> KGEnp    0.74
-#> KGEkm    0.73
+#> KGEkm    0.74
 #> sKGE    -0.46
 #> APFB     0.01
 #> HFB      0.98
@@ -817,14 +817,14 @@ gof(sim=lsim, obs=lobs)
 #> rSD      0.88
 #> NSE      0.48
 #> mNSE     0.48
-#> rNSE    -4.40
+#> rNSE    -4.47
 #> wNSE     0.74
 #> wsNSE    0.78
 #> d        0.86
 #> dr       0.74
 #> md       0.74
-#> rd      -0.44
-#> cp      -7.93
+#> rd      -0.46
+#> cp      -7.91
 #> r        0.82
 #> R2       0.48
 #> bR2      0.43
@@ -832,7 +832,7 @@ gof(sim=lsim, obs=lobs)
 #> KGE     -0.21
 #> KGElf   -0.18
 #> KGEnp    0.74
-#> KGEkm    0.73
+#> KGEkm    0.74
 #> sKGE    -0.24
 #> APFB     0.01
 #> HFB      0.98
@@ -852,18 +852,18 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
 #> ubRMSE   0.54
 #> NRMSE % 71.50
 #> PBIAS % 18.10
-#> RSR      0.72
+#> RSR      0.71
 #> rSD      0.89
 #> NSE      0.49
 #> mNSE     0.48
-#> rNSE    -2.03
+#> rNSE    -2.04
 #> wNSE     0.74
 #> wsNSE    0.78
 #> d        0.86
 #> dr       0.74
 #> md       0.74
 #> rd       0.19
-#> cp      -7.67
+#> cp      -7.64
 #> r        0.83
 #> R2       0.49
 #> bR2      0.44
@@ -889,18 +889,18 @@ gof(sim=lsim, obs=lobs)
 #> ubRMSE   0.54
 #> NRMSE % 71.50
 #> PBIAS % 18.10
-#> RSR      0.72
+#> RSR      0.71
 #> rSD      0.89
 #> NSE      0.49
 #> mNSE     0.48
-#> rNSE    -2.03
+#> rNSE    -2.04
 #> wNSE     0.74
 #> wsNSE    0.78
 #> d        0.86
 #> dr       0.74
 #> md       0.74
 #> rd       0.19
-#> cp      -7.67
+#> cp      -7.64
 #> r        0.83
 #> R2       0.49
 #> bR2      0.44

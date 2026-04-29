@@ -356,7 +356,7 @@ ggof(sim, obs)
 
 
 sKGE(sim=sim, obs=obs)
-#> [1] -0.3456779
+#> [1] -0.3459784
 
 ##################
 # Example 4: sKGE for simulated values equal to observations plus random noise 
@@ -364,13 +364,13 @@ sKGE(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 sKGE(sim=sim, obs=obs, fun=log)
-#> [1] -0.4598299
+#> [1] -0.4601124
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 sKGE(sim=lsim, obs=lobs)
-#> [1] -0.2367535
+#> [1] -0.2368626
 
 ##################
 # Example 5: sKGE for simulated values equal to observations plus random noise 
@@ -379,14 +379,14 @@ sKGE(sim=lsim, obs=lobs)
 #            during computations
 
 sKGE(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] -0.3941827
+#> [1] -0.3943736
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 sKGE(sim=lsim, obs=lobs)
-#> [1] -0.2290266
+#> [1] -0.2291305
 
 ##################
 # Example 6: sKGE for simulated values equal to observations plus random noise 
@@ -396,13 +396,13 @@ sKGE(sim=lsim, obs=lobs)
 
 eps <- 0.01
 sKGE(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] -0.4465225
+#> [1] -0.4467841
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 sKGE(sim=lsim, obs=lobs)
-#> [1] -0.2362445
+#> [1] -0.2363533
 
 ##################
 # Example 7: sKGE for simulated values equal to observations plus random noise 
@@ -413,14 +413,14 @@ sKGE(sim=lsim, obs=lobs)
 
 fact <- 1/50
 sKGE(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] -0.3519844
+#> [1] -0.3521248
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 sKGE(sim=lsim, obs=lobs)
-#> [1] -0.2219171
+#> [1] -0.2220165
 
 ##################
 # Example 8: sKGE for simulated values equal to observations plus random noise 
@@ -430,13 +430,13 @@ sKGE(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 sKGE(sim=sim, obs=obs, fun=fun1)
-#> [1] -0.08974406
+#> [1] -0.08981059
 
 # Verifying the previous value
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 sKGE(sim=sim1, obs=obs1)
-#> [1] -0.1903878
+#> [1] -0.1905133
 
 ##################
 # Example 9: sKGE for a two-column data frame where simulated values are equal to 
@@ -447,7 +447,7 @@ OBS <- cbind(obs, obs)
 
 sKGE(sim=SIM, obs=OBS)
 #>        obs        obs 
-#> -0.3456779 -0.3456779 
+#> -0.3459784 -0.3459784 
 
 ##################
 # Example 10: sKGE for each year, where simulated values are given in a two-column data 
@@ -458,15 +458,15 @@ OBS <- cbind(obs, obs)
 sKGE(sim=SIM, obs=OBS, out.PerYear=TRUE)
 #> $sKGE.value
 #>        obs        obs 
-#> -0.3456779 -0.3456779 
+#> -0.3459784 -0.3459784 
 #> 
 #> $sKGE.PerYear
 #>             obs        obs
-#> 1961 -0.4396460 -0.4396460
-#> 1962 -0.6208083 -0.6208083
-#> 1963 -0.7935676 -0.7935676
-#> 1964 -1.0898733 -1.0898733
-#> 1965 -0.5128835 -0.5128835
+#> 1961 -0.4387314 -0.4387314
+#> 1962 -0.6157697 -0.6157697
+#> 1963 -0.7995483 -0.7995483
+#> 1964 -1.0987051 -1.0987051
+#> 1965 -0.5070291 -0.5070291
 #> 1966  0.0000000  0.0000000
 #> 1967  0.0000000  0.0000000
 #> 1968  0.0000000  0.0000000

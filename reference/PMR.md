@@ -37,11 +37,13 @@ PMR(sim, obs, k=NULL, min.years=5, days.per.year=365,
 
 - sim:
 
-  numeric, zoo, matrix or data.frame with simulated values
+  zoo object with simulated values. Multicolumn `zoo` objects are
+  allowed.
 
 - obs:
 
-  numeric, zoo, matrix or data.frame with observed values
+  zoo object with observed values. Multicolumn `zoo` objects are
+  allowed.
 
 - k:
 
@@ -78,9 +80,10 @@ PMR(sim, obs, k=NULL, min.years=5, days.per.year=365,
 
   a logical value indicating whether 'NA' should be stripped before the
   computation proceeds.  
-  When an 'NA' value is found at the i-th position in `obs` **OR**
-  `sim`, the i-th value of `obs` **AND** `sim` are removed before the
-  computation.
+  For the full-period bias, only positions with valid paired values in
+  `obs` and `sim` are used. For the moving-window biases, each
+  fixed-length window is selected first, and invalid pairs are then
+  removed inside that window.
 
 - fun:
 
@@ -168,14 +171,15 @@ periods, suggesting reduced robustness of model performance.
 
 Proxy for model robustness between `sim` and `obs`.  
 
-If `sim` and `obs` are matrixes, the returned value is a vector, with
-the proxy for model robustness between each column of `sim` and `obs`.
+If `sim` and `obs` are multicolumn `zoo` objects, the returned value is
+a vector with the proxy for model robustness between each column of
+`sim` and `obs`.
 
 ## References
 
-Royer-Gaspard, P., Thirel, G., Andreassian, V., Perrin, C., and Coron,
-L. (2021). A robust and efficient framework for evaluating hydrological
-model robustness. Hydrology and Earth System Sciences, 25, 5703–5726.
+Royer-Gaspard, P., Andreassian, V., and Thirel, G. (2021). Technical
+note: PMR - a proxy metric to assess hydrological model robustness in a
+changing climate. Hydrology and Earth System Sciences, 25, 5703–5716.
 doi:10.5194/hess-25-5703-2021.
 
 Pushpalatha, R.; Perrin, C.; Le Moine, N.; Andreassian, V. (2012). A
@@ -191,9 +195,8 @@ Mauricio Zambrano Bigiarini \<mzb.devel@gmail.com\>
 
 `obs` and `sim` have to have the same length/dimension.  
 
-The missing values in `obs` and `sim` are removed before the computation
-proceeds, and only those positions with non-missing values in `obs` and
-`sim` are considered in the computation.
+For the moving-window biases, the fixed-length window is selected before
+invalid pairs are removed inside that window.
 
 The choice of window length `k` influences the temporal scale at which
 robustness is evaluated.
@@ -243,9 +246,8 @@ KGE(sim=sim, obs=obs, method="2012", out.type="full")
 
 # PMR (Royer-Gaspard et al., 2021):
 PMR(sim=sim, obs=obs)
-#> [1] 0.05855559
+#> [1] 0.05886164
 
-if (FALSE) { # \dontrun{
 ##################
 # Example 2: 
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
@@ -257,6 +259,7 @@ sim <- obs
 
 # Computing the 'PMR' for the "best" (unattainable) case
 PMR(sim=sim, obs=obs)
+#> [1] 0
 
 ##################
 # Example 3: PMR for simulated values equal to observations plus random noise 
@@ -269,8 +272,11 @@ PMR(sim=sim, obs=obs)
 sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
 ggof(sim, obs)
 
-PMR(sim=sim, obs=obs)
 
+PMR(sim=sim, obs=obs)
+#> [1] 0.3162052
+
+if (FALSE) { # \dontrun{
 ##################
 # Example 4: PMR for simulated values equal to observations plus random noise 
 #            on the first half of the observed values and applying (natural) 
@@ -296,7 +302,6 @@ eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 PMR(sim=lsim, obs=lobs)
-
 
 ##################
 # Example 6: PMR for simulated values equal to observations plus random noise 
@@ -341,7 +346,7 @@ PMR(sim=sim, obs=obs, fun=fun1)
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 PMR(sim=sim1, obs=obs1)
-
+} # }
 ##################
 # Example 9: PMR for a two-column data frame where simulated values are equal to 
 #            observations plus random noise on the first half of the observed values 
@@ -350,5 +355,6 @@ SIM <- cbind(sim, sim)
 OBS <- cbind(obs, obs)
 
 PMR(sim=SIM, obs=OBS)
-} # }
+#>       obs       obs 
+#> 0.3162052 0.3162052 
 ```

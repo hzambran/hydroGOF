@@ -251,14 +251,14 @@ nrmse(sim=lsim, obs=lobs)
 
 fact <- 1/50
 nrmse(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 71.3
+#> [1] 71.2
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 nrmse(sim=lsim, obs=lobs)
-#> [1] 71.3
+#> [1] 71.2
 
 ##################
 # Example 8: nrmse for simulated values equal to observations plus random noise 
