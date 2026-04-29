@@ -330,7 +330,6 @@ SIM <- cbind(sim, sim)
 OBS <- cbind(obs, obs)
 LME(sim=SIM, obs=OBS, out.PerYear=TRUE)
 
-
 }
 
 \keyword{ math }
