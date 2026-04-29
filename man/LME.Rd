@@ -27,7 +27,9 @@ Liu-Mean Efficiency between \code{sim} and \code{obs}, with treatment of missing
 
 This goodness-of-fit measure was proposed by Liu et al. (2020) as an alternative to the Nash-Sutcliffe efficiency (NSE), designed to provide a more balanced assessment of model performance by normalising the mean squared error using the mean of the observed values instead of their variance.
 
-The Liu-Mean Efficiency emphasizes proportional error relative to the mean magnitude of the observed variable, making it particularly useful in hydrological applications where the mean value is a meaningful scale for evaluating prediction accuracy.
+The Liu-Mean Efficiency evaluates how large the error is compared to the average level of the observations, making it particularly useful in hydrological applications where the mean value is a meaningful scale for evaluating prediction accuracy.
+
+The normalisation makes that this performance measure behave like a dimensionless relative error, scaled by the characteristic magnitude of the variable. As a result, the same absolute error will be judged differently depending on whether the mean flow is small or large.
 
 For a short description of the metric and the numeric range of values, please see Details.
 }
@@ -35,19 +37,19 @@ For a short description of the metric and the numeric range of values, please se
 \usage{
 LME(sim, obs, ...)
 
-\method{LME}{default}(sim, obs, na.rm=TRUE, fun=NULL, ...,
+\method{LME}{default}(sim, obs, na.rm=TRUE, out.type=c("single","full"), fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
              epsilon.value=NA)
 
-\method{LME}{data.frame}(sim, obs, na.rm=TRUE, fun=NULL, ...,
+\method{LME}{data.frame}(sim, obs, na.rm=TRUE, out.type=c("single","full"), fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
              epsilon.value=NA)
 
-\method{LME}{matrix}(sim, obs, na.rm=TRUE, fun=NULL, ...,
+\method{LME}{matrix}(sim, obs, na.rm=TRUE, out.type=c("single","full"), fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
              epsilon.value=NA)
 
-\method{LME}{zoo}(sim, obs, na.rm=TRUE, fun=NULL, ...,
+\method{LME}{zoo}(sim, obs, na.rm=TRUE, out.type=c("single","full"), fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
              epsilon.value=NA)
 }
@@ -66,7 +68,13 @@ numeric, zoo, matrix or data.frame with observed values.
 a logical value indicating whether 'NA' should be stripped before the computation proceeds. \cr
 When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{sim}, the i-th value of \code{obs} \bold{AND} \code{sim} are removed before the computation.
 }
+\item{out.type}{
+character, indicating whether the output of the function has to include only the Liu-Mean Efficiency or also the intermediate quantities used in its computation. Valid values are:
 
+-) \kbd{single}: the output is a numeric with the Liu-Mean Efficiency only.
+
+-) \kbd{full}: the output is a list of two elements: the first one with the Liu-Mean Efficiency, and the second is a numeric with 2 elements: the mean squared error (\sQuote{MSE}) between \code{sim} and \code{obs}, and the mean of the observed values (\sQuote{MeanObs}) used as the normalization term in the computation of the Liu-Mean Efficiency.
+}
 \item{fun}{
 function to be applied to \code{sim} and \code{obs} in order to obtain transformed values thereof before computing the Liu-Mean Efficiency.
 
@@ -140,17 +148,24 @@ where:
 
 \value{
 
-numeric with the Liu-Mean Efficiency between \code{sim} and \code{obs}.
+If \code{out.type=single}: numeric with the Liu-Mean Efficiency between \code{sim} and \code{obs}. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the Liu-Mean Efficiency between each column of \code{sim} and \code{obs}
 
-If \code{sim} and \code{obs} are matrices, the output value is a vector, with the Liu-Mean Efficiency between each column of \code{sim} and \code{obs}.
+If \code{out.type=full}: a list of two elements:
 
+\item{LME.value}{
+numeric with the Liu-Mean Efficiency. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the Liu-Mean Efficiency between each column of \code{sim} and \code{obs}
+}
+
+\item{LME.elements}{
+numeric with 2 elements: the mean squared error (\sQuote{MSE}) between \code{sim} and \code{obs}, and the mean of the observed values (\sQuote{MeanObs}). If \code{sim} and \code{obs} are matrices, the output value is a matrix, with the previous two elements computed for each column of \code{sim} and \code{obs}\cr
+}
 }
 
 \references{
 
 \cite{Liu, D.; Chen, X.; Lian, Y.; Lou, Z. (2020). A new performance measure for hydrologic models. Journal of Hydrology, 590, 125488. doi:10.1016/j.jhydrol.2020.125488.}
 
-\cite{Nash, J.E.; Sutcliffe, J.V. (1970). River flow forecasting through conceptual models part I — A discussion of principles. Journal of Hydrology, 10(3), 282-290.}
+\cite{Nash, J.E.; Sutcliffe, J.V. (1970). River flow forecasting through conceptual models part I - A discussion of principles. Journal of Hydrology, 10(3), 282-290.}
 
 \cite{Pushpalatha, R.; Perrin, C.; Le Moine, N.; Andreassian, V. (2012). A review of efficiency criteria suitable for evaluating low-flow simulations. Journal of Hydrology, 420-421, 171-182.}
 
