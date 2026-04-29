@@ -8,6 +8,15 @@
 ################################################################################
 # Liu-Mean Efficiency (LME)                                                    #
 ################################################################################
+# Author : Mauricio Zambrano-Bigiarini                                         #
+################################################################################
+# Started: 28-Abr-2026                                                         #
+################################################################################
+# Reference:                                                                   #
+#  Liu, D. (2020). A rational performance criterion for hydrological model.    #
+#  Journal of Hydrology, 590, 125488.                                          #
+#  https://doi.org/10.1016/j.jhydrol.2020.125488                               #
+################################################################################
 # This goodness-of-fit measure was proposed by Liu et al. (2020) as an 
 # alternative to the Nash-Sutcliffe efficiency (NSE), designed to provide a 
 # more balanced assessment of model performance by normalising the mean squared 
@@ -17,13 +26,6 @@
 # magnitude of the observed variable, making it particularly useful in 
 # hydrological applications where the mean value is a meaningful scale for 
 # evaluating prediction accuracy.
-################################################################################
-# Reference:                                                                   #
-#  Liu, D. (2020). A rational performance criterion for hydrological model.    #
-#  Journal of Hydrology, 590, 125488.                                          #
-#  https://doi.org/10.1016/j.jhydrol.2020.125488                               #
-################################################################################
-# Started: 28-Abr-2026                                                         #
 ################################################################################
 # The Liu-Mean Efficiency (LME) is a goodness-of-fit metric designed to 
 # evaluate hydrological model performance by jointly assessing two fundamental 
@@ -54,7 +56,7 @@
 
 # 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values
 # 'sim'   : numeric 'data.frame', 'matrix' or 'vector' with simulated values
-# 'Result': Joint Divergence Kling-Gupta Efficiency between 'sim' and 'obs'
+# 'Result': Liu-Mean Efficiency between 'sim' and 'obs'
 
 LME <- function(sim, obs, ...) UseMethod("LME")
 

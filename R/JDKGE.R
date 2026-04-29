@@ -8,13 +8,14 @@
 ################################################################################
 # 'JDKGE': Joint Divergence Kling-Gupta Efficiency (JDKGE)                     #
 ################################################################################
+# Author : Mauricio Zambrano-Bigiarini                                         #
+# Started: 28-Abr-2026                                                         #
+################################################################################
 # Reference:                                                                   #
 #  Ficchi, A.; Bavera, D.; Grimaldi, S.; Moschini, F.; Pistocchi, A.;          #
 #  Russo, C.; Salamon, P.; Toreti, A. (2026). Improving low and high flow      #
 #  simulations at once: An enhanced metric for hydrological model calibrations.#
 #  EGUsphere [preprint], https://doi.org/10.5194/egusphere-2026-43.            #
-################################################################################
-# Started: 28-Abr-2026                                                         #
 ################################################################################
 # The Joint Divergence Kling-Gupta Efficiency (JDKGE) is a composite 
 # performance metric designed to evaluate hydrological model simulations by 
@@ -37,12 +38,13 @@
 #   increasing mismatch in one or more components, such that the simulation 
 #   deviates substantially from the observed statistical and distributional 
 #   characteristics. 
+################################################################################
 # In practical hydrological model evaluation, therefore, values closer to 1 
 # denote higher overall fidelity of the simulation across both 
 # **central tendencies and extremes**, while increasingly negative values 
 # signal structural deficiencies in the model representation of the 
 # hydrological regime.
-
+################################################################################
 # 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values
 # 'sim'   : numeric 'data.frame', 'matrix' or 'vector' with simulated values
 # 'Result': Joint Divergence Kling-Gupta Efficiency between 'sim' and 'obs'

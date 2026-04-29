@@ -2,7 +2,7 @@
 # Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF
 #                                 https://cran.r-project.org/package=hydroGOF
 #                                 http://www.rforge.net/hydroGOF/ ;
-# Copyright 2011-2023 Mauricio Zambrano-Bigiarini
+# Copyright 2011-2026 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -18,21 +18,9 @@
 #          28-Feb-2016 ; 17-Jul-2016                                           #
 #          12-Jul-2022 ; 13-Jul-2022                                           #
 #          11-Jul-2023 ; 08-Nov-2023                                           #
-#          28-Apr-2026                                                         #
+#          28-Apr-2026 ; 29-Apr-2026                                           #
 ################################################################################
-# The optimal value of KGE is 1
-
-# This goodness-of-fit measure was developed by Gupta et al. (2009) to provide a 
-# diagnostically interesting decomposition of the Nash-Sutcliffe efficiency 
-# (and hence MSE), which facilitates the analysis of the relative importance of  
-# its different components (correlation, bias and variability) in the context of 
-# hydrological modelling. 
-
-# Kling et al. (2012) proposed a revised version of this index (KGE') to 
-# ensure that the bias and variability ratios are not cross-correlated.
-
-# Tang et al. (2021) proposed a revised version of this index to avoid the 
-# anomalously negative KGE' or KGE values when the mean value is close to zero.
+# References:
 
 # Ref1:
 # Gupta, H.V.; Kling, H.; Yilmaz, K.K.; Martinez, G.F. (2009).
@@ -49,7 +37,21 @@
 # Ref3: Tang, G., Clark, M. P., & Papalexiou, S. M. (2021).  
 # SC-earth: a station-based serially complete earth dataset from 1950 to 2019. 
 # Journal of Climate, 34(16), 6493-6511. DOI: 10.1175/JCLI-D-21-0067.1.
+################################################################################
+# The optimal value of KGE is 1
 
+# This goodness-of-fit measure was developed by Gupta et al. (2009) to provide a 
+# diagnostically interesting decomposition of the Nash-Sutcliffe efficiency 
+# (and hence MSE), which facilitates the analysis of the relative importance of  
+# its different components (correlation, bias and variability) in the context of 
+# hydrological modelling. 
+
+# Kling et al. (2012) proposed a revised version of this index (KGE') to 
+# ensure that the bias and variability ratios are not cross-correlated.
+
+# Tang et al. (2021) proposed a revised version of this index to avoid the 
+# anomalously negative KGE' or KGE values when the mean value is close to zero.
+################################################################################
 
 # 'obs' : numeric 'data.frame', 'matrix' or 'vector' with observed values
 # 'sim' : numeric 'data.frame', 'matrix' or 'vector' with simulated values
