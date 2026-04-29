@@ -109,6 +109,7 @@ Quantitative statistics included in this package are:
 * **HFB**:        High Flow Bias 
 * **PMR**:        Proxy for Model Robustness (**Royer-Gaspard et al., 2021**)
 * **LME**:        Liu-Mean Efficiency (**Liu, 2020**)
+* **LCE**:        Lee and Choi Efficiency (**Lee and Choi, 2022**)
 * **rSpearman**:  Spearman's rank correlation coefficient (**Spearman, 1961**) 
 * **ssq**:        Sum of the Squared Residuals (**Willmott et al., 2009**)
 * **pbiasfdc**:   PBIAS in the slope of the midsegment of the flow duration curve (**Yilmaz et al., 2008**)
