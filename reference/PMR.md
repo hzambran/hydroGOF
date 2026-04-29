@@ -276,7 +276,7 @@ ggof(sim, obs)
 PMR(sim=sim, obs=obs)
 #> [1] 0.3162052
 
-if (FALSE) { # \dontrun{
+if (FALSE) { # \dontrun{ 
 ##################
 # Example 4: PMR for simulated values equal to observations plus random noise 
 #            on the first half of the observed values and applying (natural) 

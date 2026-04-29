@@ -3,7 +3,7 @@ pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   hydroGOF_Vignette: hydroGOF_Vignette.html
-last_built: 2026-04-29T21:43Z
+last_built: 2026-04-29T22:14Z
 urls:
   reference: https://hzambran.github.io/hydroGOF/reference
   article: https://hzambran.github.io/hydroGOF/articles
