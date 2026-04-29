@@ -45,13 +45,9 @@
 
 PMR <- function(sim, obs, ...) UseMethod("PMR")
 
-PMR.default <- function(sim, obs,
-                        k=NULL,
-                        min.years=5,
+PMR.default <- function(sim, obs, k=NULL, min.years=5,
                         days.per.year=365,
-                        na.rm=TRUE,
-                        fun=NULL,
-                        ...,
+                        na.rm=TRUE, fun=NULL, ...,
                         epsilon.type=c("none",
                                        "Pushpalatha2012",
                                        "otherFactor",
@@ -114,16 +110,13 @@ PMR.default <- function(sim, obs,
     if (!is.null(fun)) {
       fun1 <- match.fun(fun)
 
-      new <- preproc(sim=sim,
-                     obs=obs,
-                     fun=fun1,
-                     ...,
+      new <- preproc(sim=sim, obs=obs, fun=fun1, ...,
                      epsilon.type=epsilon.type,
                      epsilon.value=epsilon.value)
 
       sim <- new[["sim"]]
       obs <- new[["obs"]]
-    }
+    } # IF end
 
     n <- length(obs)
 
@@ -172,13 +165,9 @@ PMR.default <- function(sim, obs,
 
 
 
-PMR.matrix <- function(sim, obs,
-                       k=NULL,
-                       min.years=5,
+PMR.matrix <- function(sim, obs, k=NULL, min.years=5,
                        days.per.year=365,
-                       na.rm=TRUE,
-                       fun=NULL,
-                       ...,
+                       na.rm=TRUE, fun=NULL, ...,
                        epsilon.type=c("none",
                                       "Pushpalatha2012",
                                       "otherFactor",
@@ -201,18 +190,13 @@ PMR.matrix <- function(sim, obs,
     1:ncol(obs),
     function(i, x, y) {
 
-      PMR.default(
-        x[, i],
-        y[, i],
-        k=k,
-        min.years=min.years,
-        days.per.year=days.per.year,
-        na.rm=na.rm,
-        fun=fun,
-        ...,
-        epsilon.type=epsilon.type,
-        epsilon.value=epsilon.value
-      )
+      PMR.default( x[, i], y[, i], k=k,
+                   min.years=min.years,
+                   days.per.year=days.per.year,
+                   na.rm=na.rm, fun=fun, ...,
+                   epsilon.type=epsilon.type,
+                   epsilon.value=epsilon.value
+                  )
 
     },
     x=sim,
@@ -226,13 +210,9 @@ PMR.matrix <- function(sim, obs,
 } # 'PMR.matriz' END
 
 
-PMR.data.frame <- function(sim, obs,
-                           k=NULL,
-                           min.years=5,
+PMR.data.frame <- function(sim, obs, k=NULL, min.years=5,
                            days.per.year=365,
-                           na.rm=TRUE,
-                           fun=NULL,
-                           ...,
+                           na.rm=TRUE, fun=NULL, ...,
                            epsilon.type=c("none",
                                           "Pushpalatha2012",
                                           "otherFactor",
@@ -244,29 +224,19 @@ PMR.data.frame <- function(sim, obs,
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
 
-  PMR.matrix(
-    sim,
-    obs,
-    k=k,
-    min.years=min.years,
-    days.per.year=days.per.year,
-    na.rm=na.rm,
-    fun=fun,
-    ...,
-    epsilon.type=epsilon.type,
-    epsilon.value=epsilon.value
-  )
+  PMR.matrix( sim, obs, k=k, min.years=min.years,
+                days.per.year=days.per.year,
+                na.rm=na.rm, fun=fun, ...,
+                epsilon.type=epsilon.type,
+                epsilon.value=epsilon.value
+              )
 
 } # 'PMR.data.frame' END
 
 
-PMR.zoo <- function(sim, obs,
-                    k=NULL,
-                    min.years=5,
+PMR.zoo <- function(sim, obs, k=NULL, min.years=5,
                     days.per.year=365,
-                    na.rm=TRUE,
-                    fun=NULL,
-                    ...,
+                    na.rm=TRUE, fun=NULL, ...,
                     epsilon.type=c("none",
                                    "Pushpalatha2012",
                                    "otherFactor",
@@ -275,42 +245,28 @@ PMR.zoo <- function(sim, obs,
 
   epsilon.type <- match.arg(epsilon.type)
 
-  sim <- zoo::coredata(sim)
-
-  if (is.zoo(obs))
-    obs <- zoo::coredata(obs)
+  #sim <- zoo::coredata(sim)
+  #if (is.zoo(obs)) obs <- zoo::coredata(obs)
 
   if (is.matrix(sim) | is.data.frame(sim)) {
 
-    PMR.matrix(
-      sim,
-      obs,
-      k=k,
-      min.years=min.years,
-      days.per.year=days.per.year,
-      na.rm=na.rm,
-      fun=fun,
-      ...,
-      epsilon.type=epsilon.type,
-      epsilon.value=epsilon.value
-    )
+    PMR.matrix( sim, obs, k=k, min.years=min.years,
+                days.per.year=days.per.year,
+                na.rm=na.rm, fun=fun, ...,
+                epsilon.type=epsilon.type,
+                epsilon.value=epsilon.value
+              )
 
   } else {
 
-    NextMethod(
-      sim,
-      obs,
-      k=k,
-      min.years=min.years,
-      days.per.year=days.per.year,
-      na.rm=na.rm,
-      fun=fun,
-      ...,
-      epsilon.type=epsilon.type,
-      epsilon.value=epsilon.value
-    )
+      NextMethod( sim, obs, k=k, min.years=min.years,
+                  days.per.year=days.per.year,
+                  na.rm=na.rm, fun=fun, ...,
+                  epsilon.type=epsilon.type,
+                  epsilon.value=epsilon.value
+                )
 
-  }
+    } # ELSE end
 
 } # 'PMR.zoo' end
 
