@@ -105,32 +105,34 @@ JDKGE <- function(sim, obs, ...) UseMethod("JDKGE")
 
 
 .JDKGE_resolve_epsilon <- function(sim, obs, na.rm=TRUE,
-                                   epsilon.type=c("paper", "none", "Pushpalatha2012",
-                                                  "otherFactor", "otherValue"),
+                                   epsilon.type=c("otherValue", "none", "Pushpalatha2012",
+                                                  "otherFactor"),
                                    epsilon.value=NA) {
 
   epsilon.type <- match.arg(epsilon.type)
 
-  if (epsilon.type %in% c("otherFactor", "otherValue")) {
+  if (epsilon.type == "otherFactor") {
     if (is.na(epsilon.value))
       stop("Missing argument: you need to provide 'epsilon.value' !")
     if (!is.numeric(epsilon.value))
       stop("Invalid argument: 'epsilon.value' must be numeric !")
   } # IF end
 
-  if (epsilon.type == "paper") {
-    positive <- c(sim[sim > 0], obs[obs > 0])
-
-    if (length(positive) <= 0)
-      return(NA_real_)
-
-    epsilon <- min(1e-6, 0.1 * min(positive))
-  } else if (epsilon.type == "Pushpalatha2012") {
+  if (epsilon.type == "Pushpalatha2012") {
       epsilon <- mean(obs, na.rm=na.rm) / 100
     } else if (epsilon.type == "otherFactor") {
         epsilon <- epsilon.value * mean(obs, na.rm=na.rm)
       } else if (epsilon.type == "otherValue") {
-          epsilon <- epsilon.value
+          if (is.na(epsilon.value)) {
+            positive <- c(sim[sim > 0], obs[obs > 0])
+            if (length(positive) <= 0)
+              return(NA_real_)
+            epsilon <- min(1e-6, 0.1 * min(positive))
+          } else {
+              if (!is.numeric(epsilon.value))
+                stop("Invalid argument: 'epsilon.value' must be numeric !")
+              epsilon <- epsilon.value
+            } # ELSE end
         } else epsilon <- 0
 
   return( epsilon )
@@ -139,8 +141,8 @@ JDKGE <- function(sim, obs, ...) UseMethod("JDKGE")
 
 
 .JDKGE_prepare_logflows <- function(sim, obs, na.rm=TRUE,
-                                    epsilon.type=c("paper", "none", "Pushpalatha2012",
-                                                   "otherFactor", "otherValue"),
+                                    epsilon.type=c("otherValue", "none", "Pushpalatha2012",
+                                                   "otherFactor"),
                                     epsilon.value=NA) {
 
   if (length(sim) != length(obs))
@@ -174,8 +176,8 @@ JDKGE <- function(sim, obs, ...) UseMethod("JDKGE")
 
 
 .JDKGE_jsd_hist <- function(sim, obs, timestep=86400, na.rm=TRUE,
-                            epsilon.type=c("paper", "none", "Pushpalatha2012",
-                                           "otherFactor", "otherValue"),
+                            epsilon.type=c("otherValue", "none", "Pushpalatha2012",
+                                           "otherFactor"),
                             epsilon.value=NA) {
 
   prep <- .JDKGE_prepare_logflows(sim=sim, obs=obs, na.rm=na.rm,
@@ -248,8 +250,8 @@ JDKGE <- function(sim, obs, ...) UseMethod("JDKGE")
 
 
 .JDKGE_jsd_kde <- function(sim, obs, na.rm=TRUE,
-                           epsilon.type=c("paper", "none", "Pushpalatha2012",
-                                          "otherFactor", "otherValue"),
+                           epsilon.type=c("otherValue", "none", "Pushpalatha2012",
+                                          "otherFactor"),
                            epsilon.value=NA,
                            n.grid=512,
                            ...) {
@@ -300,8 +302,8 @@ JDKGE <- function(sim, obs, ...) UseMethod("JDKGE")
 
 
 .JDKGE_wasserstein <- function(sim, obs, na.rm=TRUE,
-                               epsilon.type=c("paper", "none", "Pushpalatha2012",
-                                              "otherFactor", "otherValue"),
+                               epsilon.type=c("otherValue", "none", "Pushpalatha2012",
+                                              "otherFactor"),
                                epsilon.value=NA,
                                n.quantiles=512) {
 
@@ -346,8 +348,8 @@ JDKGE.default <- function(sim, obs,
                           method=c("2012", "2009", "2021"),
                           out.type=c("single", "full"),
                           fun=NULL, ...,
-                          epsilon.type=c("paper", "none", "Pushpalatha2012",
-                                         "otherFactor", "otherValue"),
+                          epsilon.type=c("otherValue", "none", "Pushpalatha2012",
+                                         "otherFactor"),
                           epsilon.value=NA,
                           density.method=c("hist", "kde", "wasserstein"),
                           nbins="paper",
@@ -387,11 +389,21 @@ JDKGE.default <- function(sim, obs,
   sim <- as.numeric(sim[vi])
 
   if (!is.null(fun)) {
+    preproc.epsilon.type  <- epsilon.type
+    preproc.epsilon.value <- epsilon.value
+
+    if ((epsilon.type == "otherValue") && is.na(epsilon.value)) {
+      preproc.epsilon.value <- .JDKGE_resolve_epsilon(sim=sim, obs=obs, na.rm=na.rm,
+                                                      epsilon.type="otherValue",
+                                                      epsilon.value=NA)
+      preproc.epsilon.type <- if (is.na(preproc.epsilon.value)) "none" else "otherValue"
+    }
+
     fun1 <- match.fun(fun)
     new <- preproc(sim=sim, obs=obs,
                    fun=fun1, ...,
-                   epsilon.type=epsilon.type,
-                   epsilon.value=epsilon.value)
+                   epsilon.type=preproc.epsilon.type,
+                   epsilon.value=preproc.epsilon.value)
     sim <- new[["sim"]]
     obs <- new[["obs"]]
   } # IF end
@@ -511,10 +523,10 @@ JDKGE.matrix <- function(sim, obs,
                          method=c("2012", "2009", "2021"),
                          out.type=c("single", "full"),
                          fun=NULL, ...,
-                         epsilon.type=c("paper", "none", "Pushpalatha2012",
-                                        "otherFactor", "otherValue"),
+                         epsilon.type=c("otherValue", "none", "Pushpalatha2012",
+                                        "otherFactor"),
                          epsilon.value=NA,
-                         density.method="hist",
+                         density.method=c("hist", "kde", "wasserstein"),
                          nbins="paper",
                          timestep=86400,
                          kde.n.grid=512,
@@ -579,10 +591,10 @@ JDKGE.data.frame <- function(sim, obs,
                              method=c("2012", "2009", "2021"),
                              out.type=c("single", "full"),
                              fun=NULL, ...,
-                             epsilon.type=c("paper", "none", "Pushpalatha2012",
-                                            "otherFactor", "otherValue"),
+                             epsilon.type=c("otherValue", "none", "Pushpalatha2012",
+                                            "otherFactor"),
                              epsilon.value=NA,
-                             density.method="hist",
+                             density.method=c("hist", "kde", "wasserstein"),
                              nbins="paper",
                              timestep=86400,
                              kde.n.grid=512,
@@ -608,10 +620,10 @@ JDKGE.zoo <- function(sim, obs,
                       method=c("2012", "2009", "2021"),
                       out.type=c("single", "full"),
                       fun=NULL, ...,
-                      epsilon.type=c("paper", "none", "Pushpalatha2012",
-                                     "otherFactor", "otherValue"),
+                      epsilon.type=c("otherValue", "none", "Pushpalatha2012",
+                                     "otherFactor"),
                       epsilon.value=NA,
-                      density.method="hist",
+                      density.method=c("hist", "kde", "wasserstein"),
                       nbins="paper",
                       timestep=NA,
                       kde.n.grid=512,
