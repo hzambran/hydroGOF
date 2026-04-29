@@ -18,6 +18,7 @@
 #          28-Feb-2016 ; 17-Jul-2016                                           #
 #          12-Jul-2022 ; 13-Jul-2022                                           #
 #          11-Jul-2023 ; 08-Nov-2023                                           #
+#          28-Apr-2026                                                         #
 ################################################################################
 # The optimal value of KGE is 1
 
@@ -140,10 +141,8 @@ KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
         } # ELSE end
 
     # KGE Computation
-    if ( (mean.obs != 0) | (sigma.obs != 0) ) {
-        if ( (method=="2009") | (method=="2012") ) {
-          KGE <- 1 - sqrt( (s[1]*(r-1))^2 + (s[2]*(vr-1))^2 + (s[3]*(Beta-1))^2 )
-        } else KGE <- 1 - sqrt( (s[1]*(r-1))^2 + (s[2]*(vr-1))^2 + (s[3]*(Beta.2021))^2 )
+    if ( (mean.obs != 0) & (sigma.obs != 0) ) {
+        KGE <- 1 - sqrt( (s[1]*(r-1))^2 + (s[2]*(vr-1))^2 + (s[3]*(br))^2 )
     } else {
         if ( mean.obs != 0)  warning("Warning: 'mean(obs)==0'. Beta = Inf")
         if ( sigma.obs != 0) warning("Warning: 'sd(obs)==0'. ", vr.stg, " = Inf")
