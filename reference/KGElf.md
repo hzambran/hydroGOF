@@ -217,12 +217,12 @@ proceeds, and only those positions with non-missing values in `obs` and
 obs <- 1:10
 sim <- 1:10
 KGElf(sim, obs)
-#> [1] 1
+#> [1] 0
 
 obs <- 1:10
 sim <- 2:11
 KGElf(sim, obs)
-#> [1] 0.6078047
+#> [1] -0.02703023
 
 ##################
 # Example2: Looking at the difference between 'method=2009' and 'method=2012'
@@ -236,7 +236,7 @@ sim <- 2*obs
 # KGE 2009
 KGE(sim=sim, obs=obs, method="2009", out.type="full")
 #> $KGE.value
-#> [1] -0.4142136
+#> [1] -1.236068
 #> 
 #> $KGE.elements
 #>     r  Beta Alpha 
@@ -246,7 +246,7 @@ KGE(sim=sim, obs=obs, method="2009", out.type="full")
 # KGE 2012
 KGE(sim=sim, obs=obs, method="2012", out.type="full")
 #> $KGE.value
-#> [1] 0
+#> [1] -1
 #> 
 #> $KGE.elements
 #>     r  Beta Gamma 
@@ -255,7 +255,7 @@ KGE(sim=sim, obs=obs, method="2012", out.type="full")
 
 # KGElf (Garcia et al., 2017):
 KGElf(sim=sim, obs=obs, method="2012")
-#> [1] 0.2547788
+#> [1] -0.2550394
 
 ##################
 # Example3: KGElf for simulated values equal to observations plus random noise 
@@ -272,7 +272,7 @@ ggof(sim, obs)
 
 # Computing 'KGElf'
 KGElf(sim=sim, obs=obs)
-#> [1] 0.5179968
+#> [1] -0.07520619
 
 ##################
 # Example 4: KGElf for simulated values equal to observations plus random noise 
@@ -280,13 +280,13 @@ KGElf(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 KGElf(sim=sim, obs=obs, fun=log)
-#> [1] 0.5179968
+#> [1] -0.07520619
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 KGElf(sim=lsim, obs=lobs)
-#> [1] 0.426374
+#> [1] -0.1676462
 
 ##################
 # Example 5: KGElf for simulated values equal to observations plus random noise 
@@ -295,14 +295,14 @@ KGElf(sim=lsim, obs=lobs)
 #            during computations
 
 KGElf(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.5179968
+#> [1] -0.07520619
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 KGElf(sim=lsim, obs=lobs)
-#> [1] 0.5043881
+#> [1] -0.1195413
 
 ##################
 # Example 6: KGElf for simulated values equal to observations plus random noise 
@@ -312,13 +312,13 @@ KGElf(sim=lsim, obs=lobs)
 
 eps <- 0.01
 KGElf(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 0.5066379
+#> [1] -0.07955099
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 KGElf(sim=lsim, obs=lobs)
-#> [1] 0.4336083
+#> [1] -0.162855
 
 ##################
 # Example 7: KGElf for simulated values equal to observations plus random noise 
@@ -329,14 +329,14 @@ KGElf(sim=lsim, obs=lobs)
 
 fact <- 1/50
 KGElf(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 0.5285574
+#> [1] -0.07162864
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 KGElf(sim=lsim, obs=lobs)
-#> [1] 0.5479057
+#> [1] -0.0964785
 
 ##################
 # Example 8: KGElf for simulated values equal to observations plus random noise 
@@ -346,11 +346,11 @@ KGElf(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 KGElf(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.5179968
+#> [1] -0.07520619
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 KGElf(sim=sim1, obs=obs1)
-#> [1] 0.7227627
+#> [1] -0.02961372
 ```

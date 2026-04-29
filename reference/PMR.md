@@ -224,7 +224,7 @@ sim <- 2*obs
 # KGE 2009
 KGE(sim=sim, obs=obs, method="2009", out.type="full")
 #> $KGE.value
-#> [1] -0.4142136
+#> [1] -1.236068
 #> 
 #> $KGE.elements
 #>     r  Beta Alpha 
@@ -234,7 +234,7 @@ KGE(sim=sim, obs=obs, method="2009", out.type="full")
 # KGE 2012
 KGE(sim=sim, obs=obs, method="2012", out.type="full")
 #> $KGE.value
-#> [1] 0
+#> [1] -1
 #> 
 #> $KGE.elements
 #>     r  Beta Gamma 
@@ -245,6 +245,7 @@ KGE(sim=sim, obs=obs, method="2012", out.type="full")
 PMR(sim=sim, obs=obs)
 #> [1] 0.05855559
 
+if (FALSE) { # \dontrun{
 ##################
 # Example 2: 
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
@@ -256,7 +257,6 @@ sim <- obs
 
 # Computing the 'PMR' for the "best" (unattainable) case
 PMR(sim=sim, obs=obs)
-#> [1] 0
 
 ##################
 # Example 3: PMR for simulated values equal to observations plus random noise 
@@ -269,9 +269,7 @@ PMR(sim=sim, obs=obs)
 sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
 ggof(sim, obs)
 
-
 PMR(sim=sim, obs=obs)
-#> [1] 0.3155555
 
 ##################
 # Example 4: PMR for simulated values equal to observations plus random noise 
@@ -279,13 +277,11 @@ PMR(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 PMR(sim=sim, obs=obs, fun=log)
-#> [1] 0.2060464
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 PMR(sim=lsim, obs=lobs)
-#> [1] 0.2060464
 
 ##################
 # Example 5: PMR for simulated values equal to observations plus random noise 
@@ -294,16 +290,14 @@ PMR(sim=lsim, obs=lobs)
 #            during computations
 
 PMR(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.1993593
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 PMR(sim=lsim, obs=lobs)
-#> [1] 0.1993593
 
-if (FALSE) { # \dontrun{
+
 ##################
 # Example 6: PMR for simulated values equal to observations plus random noise 
 #            on the first half of the observed values and applying (natural) 
@@ -347,7 +341,7 @@ PMR(sim=sim, obs=obs, fun=fun1)
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 PMR(sim=sim1, obs=obs1)
-} # }
+
 ##################
 # Example 9: PMR for a two-column data frame where simulated values are equal to 
 #            observations plus random noise on the first half of the observed values 
@@ -356,6 +350,5 @@ SIM <- cbind(sim, sim)
 OBS <- cbind(obs, obs)
 
 PMR(sim=SIM, obs=OBS)
-#>       obs       obs 
-#> 0.3155555 0.3155555 
+} # }
 ```

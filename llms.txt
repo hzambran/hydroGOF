@@ -24,7 +24,7 @@ status](https://www.r-pkg.org/badges/version/hydroGOF)](https://CRAN.R-project.o
 package developed to provide a rigorous and consistent framework for
 evaluating the performance of hydrological and environmental models. It
 implements a broad suite of widely used statistical and graphical
-goodness-of-fit metrics to compare simulatd values agains iits observed
+goodness-of-fit metrics to compare simulated values against its observed
 counterparts; such as the coefficient of determination (R²),
 Nash–Sutcliffe efficiency (NSE), Kling–Gupta efficiency (KGE), and
 percent bias (PBIAS); that support objective assessment of model
@@ -57,7 +57,7 @@ Installing the latest stable version from
     install.packages("hydroGOF")
 
 Alternatively, you can also try the under-development version from
-[Github](https://github.com/hzambran/hydroGOF):
+[GitHub](https://github.com/hzambran/hydroGOF):
 
     if (!require(devtools)) install.packages("devtools")
     library(devtools)
@@ -66,8 +66,9 @@ Alternatively, you can also try the under-development version from
 ## Reporting bugs, requesting new features
 
 If you find an error in some function, or want to report a typo in the
-documentation, or to request a new feature (and wish it be implemented
-:) you can do it [here](https://github.com/hzambran/hydroGOF/issues)
+documentation, or to request a new feature (and wish it to be
+implemented :) you can do it
+[here](https://github.com/hzambran/hydroGOF/issues)
 
 ## Citation
 

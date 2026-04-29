@@ -681,11 +681,11 @@ gof(sim=sim, obs=obs)
 #> R2         1
 #> bR2        1
 #> VE         1
-#> KGE        1
-#> KGElf      1
+#> KGE        0
+#> KGElf      0
 #> KGEnp      1
 #> KGEkm      1
-#> sKGE       1
+#> sKGE       0
 #> APFB       0
 #> HFB        1
 
@@ -696,11 +696,11 @@ sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 # Getting the new numeric goodness-of-fit measures
 gof(sim=sim, obs=obs)
 #>          [,1]
-#> ME       5.47
-#> MAE      5.47
-#> MSE     55.10
-#> RMSE     7.42
-#> ubRMSE   5.02
+#> ME       5.48
+#> MAE      5.48
+#> MSE     55.27
+#> RMSE     7.43
+#> ubRMSE   5.03
 #> NRMSE % 37.10
 #> PBIAS % 34.60
 #> RSR      0.37
@@ -719,11 +719,11 @@ gof(sim=sim, obs=obs)
 #> R2       0.86
 #> bR2      0.76
 #> VE       0.65
-#> KGE      0.65
-#> KGElf    0.49
+#> KGE     -0.35
+#> KGElf   -0.09
 #> KGEnp    0.61
 #> KGEkm    0.63
-#> sKGE     0.63
+#> sKGE    -0.37
 #> APFB     0.03
 #> HFB      0.92
 

@@ -198,7 +198,7 @@ ggof(sim, obs)
 
 
 cp(sim=sim, obs=obs)
-#> [1] 0.4731231
+#> [1] 0.4688829
 
 ##################
 # Example 4: cp for simulated values equal to observations plus random noise 
@@ -206,13 +206,13 @@ cp(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 cp(sim=sim, obs=obs, fun=log)
-#> [1] -7.887182
+#> [1] -7.973078
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 cp(sim=lsim, obs=lobs)
-#> [1] -7.887182
+#> [1] -7.973078
 
 ##################
 # Example 5: cp for simulated values equal to observations plus random noise 
@@ -221,14 +221,14 @@ cp(sim=lsim, obs=lobs)
 #            during computations
 
 cp(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] -7.621184
+#> [1] -7.704801
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 cp(sim=lsim, obs=lobs)
-#> [1] -7.621184
+#> [1] -7.704801
 
 ##################
 # Example 6: cp for simulated values equal to observations plus random noise 
@@ -238,13 +238,13 @@ cp(sim=lsim, obs=lobs)
 
 eps <- 0.01
 cp(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] -7.869693
+#> [1] -7.955439
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 cp(sim=lsim, obs=lobs)
-#> [1] -7.869693
+#> [1] -7.955439
 
 ##################
 # Example 7: cp for simulated values equal to observations plus random noise 
@@ -255,14 +255,14 @@ cp(sim=lsim, obs=lobs)
 
 fact <- 1/50
 cp(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] -7.375664
+#> [1] -7.457172
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 cp(sim=lsim, obs=lobs)
-#> [1] -7.375664
+#> [1] -7.457172
 
 ##################
 # Example 8: cp for simulated values equal to observations plus random noise 
@@ -272,11 +272,11 @@ cp(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 cp(sim=sim, obs=obs, fun=fun1)
-#> [1] -1.151768
+#> [1] -1.173382
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 cp(sim=sim1, obs=obs1)
-#> [1] -1.151768
+#> [1] -1.173382
 ```

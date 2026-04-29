@@ -147,7 +147,7 @@ rfactor(x, lband, uband)
 lband <- x - rnorm(10)
 uband <- x + rnorm(10)
 rfactor(x, lband, uband)
-#> [1] 0.1307914
+#> [1] 0.1141172
 
 #############
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
@@ -169,5 +169,5 @@ uband <- obs + rnorm(length(obs))
 lband <- obs - rnorm(length(obs))
 
 rfactor(obs, lband, uband)
-#> [1] -0.0006681959
+#> [1] 0.007503845
 ```

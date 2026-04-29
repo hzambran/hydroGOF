@@ -255,23 +255,23 @@ sim[hQ.index] <- sim[hQ.index] + rnorm(hQ.n, mean=mean(sim[hQ.index], na.rm=TRUE
 
 # Traditional Kling-Gupta eficiency (Gupta and Kling, 2009)
 KGE(sim=sim, obs=obs)
-#> [1] 0.06799411
+#> [1] -0.6331258
 
 # Traditional Nash-Sutcliffe eficiency (Nash and Sutcliffe, 1970)
 NSE(sim=sim, obs=obs)
-#> [1] 0.004506628
+#> [1] 0.004150031
 
 # Weighted Nash-Sutcliffe efficiency (Hundecha and Bardossy, 2004)
 wNSE(sim=sim, obs=obs)
-#> [1] 0.2811574
+#> [1] 0.2817697
 
 # wsNSE (Zambrano-Bigiarini and Bellin, 2012):
 wsNSE(sim=sim, obs=obs)
-#> [1] -0.2216765
+#> [1] -0.2221141
 
 # APFB (Mizukami et al., 2019):
 APFB(sim=sim, obs=obs)
-#> [1] 0.2927659
+#> [1] 0.2926898
 
 
 ##################
@@ -293,31 +293,31 @@ sim[lQ.index] <- sim[lQ.index] + rnorm(lQ.n, mean=mean(sim[lQ.index], na.rm=TRUE
 
 # Traditional Kling-Gupta eficiency (Gupta and Kling, 2009)
 KGE(sim=sim, obs=obs)
-#> [1] 0.8922841
+#> [1] -0.09828114
 
 # Traditional Nash-Sutcliffe eficiency (Nash and Sutcliffe, 1970)
 NSE(sim=sim, obs=obs)
-#> [1] 0.9838826
+#> [1] 0.9842891
 
 # Weighted seasonal Nash-Sutcliffe efficiency (Zambrano-Bigiarini and Bellin, 2012):
 wsNSE(sim=sim, obs=obs, lambda=0.05, j=1/2)
-#> [1] 0.6782912
+#> [1] 0.6806065
 
 # Refined Index of Agreement (Willmott et al., 2012):
 dr(sim=sim, obs=obs)
-#> [1] 0.9382536
+#> [1] 0.9391046
 
 # Relative Index of Agreement (Krause et al., 2005):
 rd(sim=sim, obs=obs)
-#> [1] 0.9039394
+#> [1] 0.9075715
 
 # Modified Index of Agreement (Krause et al., 2005):
 md(sim=sim, obs=obs)
-#> [1] 0.93419
+#> [1] 0.9351558
 
 # KGElf (Garcia et al., 2017):
 KGElf(sim=sim, obs=obs)
-#> [1] 0.5817347
+#> [1] 0.009525685
 
 
 ##################

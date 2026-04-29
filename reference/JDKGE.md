@@ -377,7 +377,7 @@ sim <- 2*obs
 # KGE 2009
 KGE(sim=sim, obs=obs, method="2009", out.type="full")
 #> $KGE.value
-#> [1] -0.4142136
+#> [1] -1.236068
 #> 
 #> $KGE.elements
 #>     r  Beta Alpha 
@@ -397,7 +397,7 @@ JDKGE(sim=sim, obs=obs, method="2009", out.type="full")
 # KGE 2012
 KGE(sim=sim, obs=obs, method="2012", out.type="full")
 #> $KGE.value
-#> [1] 0
+#> [1] -1
 #> 
 #> $KGE.elements
 #>     r  Beta Gamma 

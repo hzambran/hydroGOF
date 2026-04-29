@@ -195,7 +195,7 @@ ggof(sim, obs)
 
 
 ubRMSE(sim=sim, obs=obs)
-#> [1] 5.033222
+#> [1] 5.054226
 
 ##################
 # Example 4: ubRMSE for simulated values equal to observations plus random noise 
@@ -203,13 +203,13 @@ ubRMSE(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 ubRMSE(sim=sim, obs=obs, fun=log)
-#> [1] 0.5501685
+#> [1] 0.5531378
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 ubRMSE(sim=lsim, obs=lobs)
-#> [1] 0.5501685
+#> [1] 0.5531378
 
 ##################
 # Example 5: ubRMSE for simulated values equal to observations plus random noise 
@@ -218,14 +218,14 @@ ubRMSE(sim=lsim, obs=lobs)
 #            during computations
 
 ubRMSE(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.5352482
+#> [1] 0.5381856
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 ubRMSE(sim=lsim, obs=lobs)
-#> [1] 0.5352482
+#> [1] 0.5381856
 
 ##################
 # Example 6: ubRMSE for simulated values equal to observations plus random noise 
@@ -235,13 +235,13 @@ ubRMSE(sim=lsim, obs=lobs)
 
 eps <- 0.01
 ubRMSE(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 0.5491889
+#> [1] 0.5521562
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 ubRMSE(sim=lsim, obs=lobs)
-#> [1] 0.5491889
+#> [1] 0.5521562
 
 ##################
 # Example 7: ubRMSE for simulated values equal to observations plus random noise 
@@ -252,14 +252,14 @@ ubRMSE(sim=lsim, obs=lobs)
 
 fact <- 1/50
 ubRMSE(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 0.5214274
+#> [1] 0.5243328
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 ubRMSE(sim=lsim, obs=lobs)
-#> [1] 0.5214274
+#> [1] 0.5243328
 
 ##################
 # Example 8: ubRMSE for simulated values equal to observations plus random noise 
@@ -269,11 +269,11 @@ ubRMSE(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 ubRMSE(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.7048679
+#> [1] 0.7097224
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 ubRMSE(sim=sim1, obs=obs1)
-#> [1] 0.7048679
+#> [1] 0.7097224
 ```

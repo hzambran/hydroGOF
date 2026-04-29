@@ -199,7 +199,7 @@ ggof(sim, obs)
 
 
 pbias(sim=sim, obs=obs)
-#> [1] 31.6
+#> [1] 31.7
 
 ##################
 # Example 4: pbias for simulated values equal to observations plus random noise 
@@ -239,13 +239,13 @@ pbias(sim=lsim, obs=lobs)
 
 eps <- 0.01
 pbias(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 18.8
+#> [1] 18.7
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 pbias(sim=lsim, obs=lobs)
-#> [1] 18.8
+#> [1] 18.7
 
 ##################
 # Example 7: pbias for simulated values equal to observations plus random noise 
