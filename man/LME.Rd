@@ -184,7 +184,7 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 }
 
 \seealso{
-\code{\link{me}}, \code{\link{pbias}},\code{\link{NSE}}, \code{\link{KGE}}, \code{\link{gof}}, \code{\link{ggof}}
+\code{\link{LCE}}, \code{\link{me}}, \code{\link{pbias}},\code{\link{NSE}}, \code{\link{KGE}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 
 \examples{
