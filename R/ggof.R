@@ -70,9 +70,9 @@ ggof <- function (sim, obs,
   oldpars <- par(no.readonly=TRUE)
 
   on.exit({
-    par(oldpars)
     layout(1)
-  })
+    par(oldpars)
+  }, add=TRUE)
 
   # Checking class 'sim' &'obs'   
   valid.class <- c("xts", "zoo", "numeric", "integer")    
@@ -196,7 +196,7 @@ ggof <- function (sim, obs,
       stop("Invalid argument: 'ftype' must be in c('o', 'dm', 'ma, 'dma', 'seasonal')")
   
   # If 'obs' and 'sim' are not zoo objects, the only possible value for 'ftype' is 'o'     
-  if ( !zoo::is.zoo(sim) & !zoo::is.zoo(sim) ) {
+  if ( !zoo::is.zoo(sim) & !zoo::is.zoo(obs) ) {
      if (!is.na(match(ftype, c("dm", "ma", "dma", "seasonal") ) ) ) 
       message("[ Note: 'sim' & 'obs' are not zoo objects => 'ftype' was changed to 'o' ]")
       ftype <- "o"
@@ -242,9 +242,6 @@ ggof <- function (sim, obs,
           # Generating a Monthly time series
           obs.monthly <- hydroTSM::daily2monthly(obs, FUN, na.rm) 
           sim.monthly <- hydroTSM::daily2monthly(sim, FUN, na.rm)
-          
-          def.par <- par(no.readonly = TRUE) # save default, for resetting... 
-          on.exit(par(def.par)) 
           
           # If the user wants a legend, the screen is split into 2 rows and 2 columns, 
           # where the proportion of width of the 1st column to the 2nd one is 9:2
