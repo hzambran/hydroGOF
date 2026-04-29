@@ -188,27 +188,7 @@ The choice of window length \code{k} influences the temporal scale at which robu
 \examples{
 
 ##################
-# Example 1: ideal case
-obs <- 1:100
-sim <- 1:100
-
-PMR(sim, obs, k=10)
-
-##################
-# Example 2:
-# Simulated values with systematic bias in the second half
-
-set.seed(123)
-
-obs <- 1:100
-sim <- obs
-
-sim[51:100] <- sim[51:100] + 5
-
-PMR(sim, obs, k=10)
-
-##################
-# Example 3: Looking at the difference between PMR and KGE, both with 'method=2009' 
+# Example 1: Looking at the difference between PMR and KGE, both with 'method=2009' 
 #            and 'method=2012'
 
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
