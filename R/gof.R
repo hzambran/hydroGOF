@@ -16,6 +16,7 @@
 #          14-Jan-2023 ; 15-Jan-2023 ; 16-Jan-2023                             #
 #          19-Jan-2024 ; 20-Jan-2024 ; 23-Mar-2024 ; 08-May-2024               #
 #          03-May-2025 ; 01-Nov-2025                                           #
+#          29-Apr-2026                                                         #
 ################################################################################
 
 # It computes:
@@ -47,24 +48,54 @@
 # 25) 'KGElf'     : Kling-Gupta efficiency with focus on low values (-Inf < KGElf <= 1)
 # 26) 'KGEnp'     : Non-parametric Kling-Gupta efficiency (-Inf < KGEnp <= 1)
 # 27) 'KGEkm'     : Knowable Moments Kling-Gupta efficiency (-Inf < KGEkm <= 1) 
+# 28) 'JDKGE'     : Joint Divergence Kling-Gupta Efficiency (-Inf < JDKGE <= 1) 
+# 29) 'LME'       : Liu-Mean Efficiency (-Inf < LME <= 1) 
+# 30) 'LCE'       : Lee and Choi Efficiency  Efficiency (-Inf < LCE <= 1) 
 
-# 28) 'APFB'      : Annual Peak Flow Bias ( 0 <= APFB <= Inf )
-# 29) 'HFB'       : High Flow Bias ( 0 <= HFB <= Inf )
-# 30) 'sKGE'      : Split Kling-Gupta efficiency (-Inf < sKGE <= 1)
-# 31) 'rSpearman' : Spearman correlation coefficient ( -1 <= r <= 1 ) 
-# 32) 'pbiasFDC'  : PBIAS in the slope of the midsegment of the Flow Duration Curve  ( 0 <= pbiasFDC ) 
+
+# 31) 'APFB'      : Annual Peak Flow Bias ( 0 <= APFB <= Inf )
+# 32) 'HFB'       : High Flow Bias ( 0 <= HFB <= Inf )
+# 33) 'sKGE'      : Split Kling-Gupta efficiency (-Inf < sKGE <= 1)
+# 34) 'rSpearman' : Spearman correlation coefficient ( -1 <= r <= 1 ) 
+# 35) 'pbiasFDC'  : PBIAS in the slope of the midsegment of the Flow Duration Curve  ( 0 <= pbiasFDC ) 
+# 36) 'PMR'       : Proxy for Model Robustness ( 0 <= PMR <= +Inf ) 
+
 
 gof <-function(sim, obs, ...) UseMethod("gof")
 
-gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
-                        j=1, lambda=0.95, norm="sd", s=c(1,1,1), 
+gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, do.PMR=FALSE,
+                        j=1, lambda=0.95, norm="sd", 
+                        s=c(1,1,1,1),                                   # The 4th element is only used for JDKGE 
                         method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, 
-                        start.month=1, digits=2, fun=NULL, ...,
-                        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                        epsilon.value=NA){
 
-     method        <- match.arg(method)
-     epsilon.type  <- match.arg(epsilon.type)
+                        start.month=1, 
+
+                        k=NULL,            # PMR only
+                        min.years=5,       # PMR only
+                        days.per.year=365, # PMR only
+
+                        density.method=c("hist", "kde", "wasserstein"), # JDKGE only
+                        nbins="paper",                                  # JDKGE only
+                        timestep=86400,                                 # JDKGE only
+                        kde.n.grid=512,                                 # JDKGE only
+                        wasserstein.n.quantiles=512                     # JDKGE only
+
+                        digits=2, 
+
+                        fun=NULL, ...,
+
+                        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
+                        epsilon.value=NA
+                        ){
+
+     method         <- match.arg(method)
+     epsilon.type   <- match.arg(epsilon.type)
+     density.method <- match.arg(density.method)
+
+     # Only JDSK requires 4 elements for 's', qll the other KGE-like functions only use 3 elements
+     s0 <- s
+      s <- s0[1:3]
+
 
      # Checking the sampling frequency of 'x' and 'y'
      sim.sfreq <- NULL
@@ -134,10 +165,19 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
                      epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
      KGEkm  <- KGEkm(sim, obs, na.rm=na.rm, s=s, method=method, out.type="single", 
                      fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     JDKGE  <- JDKGE(sim, obs, na.rm=na.rm, s=s0, method=method, out.type="single",
+                    fun=fun, ..., epsilon.type=epsilon.type, epsilon.value=epsilon.value,
+                    density.method=density.method, nbins=nbins, timestep=timestep,
+                    kde.n.grid=kde.n.grid, wasserstein.n.quantiles=wasserstein.n.quantiles)
+     LME    <- LME(sim, obs, na.rm=na.rm, out.type="single", fun=fun, ..., 
+                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+     LCE    <- LCE(sim, obs, na.rm=na.rm, out.type="single", fun=fun, ..., 
+                   epsilon.type=epsilon.type, epsilon.value=epsilon.value)
 
-     do.sKGE <- FALSE ; sKGE    <- NA
-     do.HFB  <- FALSE ; HFB     <- NA
-     do.APFB <- FALSE ; APFB    <- NA
+     do.sKGE <- FALSE ; sKGE <- NA
+     do.HFB  <- FALSE ; HFB  <- NA
+     do.APFB <- FALSE ; APFB <- NA
+     do.PMR  <- FALSE ; PMR  <- NA
 
      if ( ( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) & ( !is.null(sim.sfreq)  ) ) {
        if (sim.sfreq != "annual") {
@@ -155,6 +195,11 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
          APFB    <- APFB(sim, obs, na.rm=na.rm, start.month=start.month, 
                          fun=fun, ..., 
                          epsilon.type=epsilon.type, epsilon.value=epsilon.value) 
+
+         do.PMR <- TRUE
+         PMR    <- PMR(sim, obs, na.rm=na.rm, k=k, min.years=min.years,
+                       days.per.year=days.per.years, fun=fun, ..., 
+                       epsilon.type=epsilon.type, epsilon.value=epsilon.value)
        } # IF end
      } # IF end
        
@@ -164,7 +209,7 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
                     mNSE,  rNSE,  wNSE, wsNSE,      d,
                       dr,    md,    rd,    cp,      r,    
                       R2,   bR2,    VE,   KGE,  KGElf, 
-                   KGEnp, KGEkm)   
+                   KGEnp, KGEkm, JDKGE,   LME, LCE)   
      
      # Changing names to NRMSE and PBIAS
      rownames(gof)[6] <- "NRMSE %"
@@ -204,6 +249,16 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
        gof <- rbind(gof, pbfdc) 
        rownames(gof)[length(rownames(gof))] <- "pbiasFDC %"
      } # IF end
+
+     # Adding PMR
+     if (do.PMR) { 
+       pmr  <- PMR(sim, obs, na.rm=na.rm, k=k, min.years=min.years, days.per.year=days.per.year,
+                   fun=fun, ...,, epsilon.type=epsilon.type, epsilon.value=epsilon.value)
+                          
+                          
+       gof <- rbind(gof, pmr) 
+       rownames(gof)[length(rownames(gof))] <- "PMR"
+     } # IF end
      
      # Rounding the final results, for avoiding scientific notation
      gof <- round(gof, digits)
@@ -223,13 +278,29 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
 #          08-May-2012                                                         #
 #          15-Jan-2023                                                         #
 #          19-Jan-2024 ; 08-May-2024                                           #
+#          29-Apr-2026                                                         #
 ################################################################################
-gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
-                       j=1, lambda=0.95, norm="sd", s=c(1,1,1), 
+gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, do.PMR=FALSE, 
+                       j=1, lambda=0.95, norm="sd", 
+                       s=c(1,1,1,1),                                   # The 4th element is only used for JDKGE 
                        method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, 
-                       start.month=1, digits=2, fun=NULL, ...,
+                       start.month=1, 
+
+                       k=NULL,            # PMR only
+                       min.years=5,       # PMR only
+                       days.per.year=365, # PMR only,
+                        
+                       density.method=c("hist", "kde", "wasserstein"), # JDKGE only
+                       nbins="paper",                                  # JDKGE only
+                       timestep=86400,                                 # JDKGE only
+                       kde.n.grid=512,                                 # JDKGE only
+                       wasserstein.n.quantiles=512,                    # JDKGE only
+
+                       digits=2, 
+                       fun=NULL, ...,
                        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                       epsilon.value=NA){
+                       epsilon.value=NA
+                      ){
     
     # Temporal variable for some computations
     tmp <- gof(1:10,1:10)
@@ -246,12 +317,16 @@ gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
     # Computing the goodness-of-fit measures for each column of 'sim' and 'obs'      
     gof <- sapply(1:ncol(obs), function(i,x,y) { 
                  gof[, i] <- gof.default( x[,i], y[,i], na.rm=na.rm, 
-                                          do.spearman=do.spearman, do.pbfdc=do.pbfdc, 
+                                          do.spearman=do.spearman, do.pbfdc=do.pbfdc, do.pmr=do.pmr,
                                           j=j, lambda=lambda, norm=norm, s=s, 
                                           method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr, 
-                                          start.month=start.month, digits=digits, fun=fun, ...,  
-                                          epsilon.type=epsilon.type, 
-                                          epsilon.value=epsilon.value)
+                                          start.month=start.month, 
+                                          k=k, min.years=min.years, days.per.year=days.per.year,
+                                          digits=digits, fun=fun, ...,  
+                                          epsilon.type=epsilon.type, epsilon.value=epsilon.value,
+                                          density.method=density.method, nbins=nbins, timestep=timestep, 
+                                          kde.n.grid=kde.n.grid, wasserstein.n.quantile=wasserstein.n.quantiles 
+                                        )
             }, x=sim, y=obs )            
      
     rownames(gof) <- gofnames
@@ -272,23 +347,42 @@ gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
 #          08-May-2012 ;                                                       #
 #          15-Jan-2023                                                         #
 #          19-Jan-2024 ; 08-May-2024                                           #
+#          29-Apr-2026                                                         #
 ################################################################################
-gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
-                           j=1, lambda=0.95, norm="sd", s=c(1,1,1), 
+gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, do.PMR=FALSE, 
+                           j=1, lambda=0.95, norm="sd", 
+                           s=c(1,1,1,1),                                   # The 4th element is only used for JDKGE 
                            method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, 
-                           start.month=1, digits=2, fun=NULL, ...,
+                           start.month=1, 
+
+                           k=NULL,            # PMR only
+                           min.years=5,       # PMR only
+                           days.per.year=365, # PMR only
+                        
+                           density.method=c("hist", "kde", "wasserstein"), # JDKGE only
+                           nbins="paper",                                  # JDKGE only
+                           timestep=86400,                                 # JDKGE only
+                           kde.n.grid=512,                                 # JDKGE only
+                           wasserstein.n.quantiles=512,                    # JDKGE only
+
+                           digits=2, 
+                           fun=NULL, ...,
                            epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
-                           epsilon.value=NA){ 
+                           epsilon.value=NA
+                          ){ 
  
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
    
-  gof.matrix(sim, obs, na.rm=na.rm, do.spearman=do.spearman, do.pbfdc=do.pbfdc, 
+  gof.matrix(sim, obs, na.rm=na.rm, do.spearman=do.spearman, do.pbfdc=do.pbfdc, do.pmr=do.pmr,
              j=j, lambda=lambda, norm=norm, s=s, 
              method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr, 
-             start.month=start.month, digits=digits, fun=fun, ...,  
-             epsilon.type=epsilon.type, 
-             epsilon.value=epsilon.value)
+             start.month=start.month, 
+             k=k, min.years=min.years, days.per.year=days.per.year,
+             digits=digits, fun=fun, ...,  
+             epsilon.type=epsilon.type, epsilon.value=epsilon.value,
+             density.method=density.method, nbins=nbins, timestep=timestep, 
+             kde.n.grid=kde.n.grid, wasserstein.n.quantile=wasserstein.n.quantiles)
      
 } # 'gof.data.frame' end 
 
@@ -300,11 +394,26 @@ gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FAL
 # Updates: 22-Mar-2013                                                         #
 #          15-Jan-2023                                                         #
 #          19-Jan-2024 ; 08-May-2024                                           #
+#          29-Apr-2026                                                         #
 ################################################################################
-gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
-                    j=1, lambda=0.95, norm="sd", s=c(1,1,1), 
+gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, do.PMR=FALSE, 
+                    j=1, lambda=0.95, norm="sd", 
+                    s=c(1,1,1,1),                                   # The 4th element is only used for JDKGE 
                     method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, 
-                    start.month=1, digits=2, fun=NULL, ...,
+                    start.month=1, 
+
+                    k=NULL,            # PMR only
+                    min.years=5,       # PMR only
+                    days.per.year=365, # PMR only
+                        
+                    density.method=c("hist", "kde", "wasserstein"), # JDKGE only
+                    nbins="paper",                                  # JDKGE only
+                    timestep=86400,                                 # JDKGE only
+                    kde.n.grid=512,                                 # JDKGE only
+                    wasserstein.n.quantiles=512,                    # JDKGE only
+
+                    digits=2, 
+                    fun=NULL, ...,
                     epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
                     epsilon.value=NA){
     
@@ -313,20 +422,26 @@ gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
     
     if (is.matrix(sim) | is.data.frame(sim)) {
        gof.matrix(sim, obs, na.rm=na.rm, 
-                  do.spearman=do.spearman, do.pbfdc=do.pbfdc, 
+                  do.spearman=do.spearman, do.pbfdc=do.pbfdc, do.pmr=do.pmr,
                   j=j, lambda=lambda, norm=norm, s=s, 
                   method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr, 
-                  start.month=start.month, digits=digits, fun=fun, ...,  
-                  epsilon.type=epsilon.type, 
-                  epsilon.value=epsilon.value)
+                  start.month=start.month, 
+                  k=k, min.years=min.years, days.per.year=days.per.year,
+                  digits=digits, fun=fun, ...,  
+                  epsilon.type=epsilon.type, epsilon.value=epsilon.value,
+                  density.method=density.method, nbins=nbins, timestep=timestep, 
+                  kde.n.grid=kde.n.grid, wasserstein.n.quantile=wasserstein.n.quantiles)
     } else
         NextMethod(sim, obs, na.rm=na.rm, 
-                   do.spearman=do.spearman, do.pbfdc=do.pbfdc, 
+                   do.spearman=do.spearman, do.pbfdc=do.pbfdc, do.pmr=do.pmr,
                    j=j, lambda=lambda, norm=norm, s=s, 
                    method=method, lQ.thr=lQ.thr, hQ.thr=hQ.thr, 
-                   start.month=start.month, digits=digits, fun=fun, ...,  
-                   epsilon.type=epsilon.type, 
-                   epsilon.value=epsilon.value)
+                   start.month=start.month, 
+                   k=k, min.years=min.years, days.per.year=days.per.year,
+                   digits=digits, fun=fun, ...,  
+                   epsilon.type=epsilon.type, epsilon.value=epsilon.value,
+                   density.method=density.method, nbins=nbins, timestep=timestep, 
+                   kde.n.grid=kde.n.grid, wasserstein.n.quantile=wasserstein.n.quantiles)
      
 } # 'gof.zoo' end
   

@@ -22,28 +22,44 @@ Numerical goodness-of-fit measures between \code{sim} and \code{obs}, with treat
 \usage{
 gof(sim, obs, ...)
 
-\method{gof}{default}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
-        j=1, lambda=0.95, norm="sd", s=c(1,1,1), method=c("2009", "2012", "2021"), 
-        lQ.thr=0.6, hQ.thr=0.1, start.month=1, digits=2, fun=NULL, ...,
+\method{gof}{default}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
+        do.pmr=FALSE, j=1, lambda=0.95, norm="sd", s=c(1,1,1,1), 
+        method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, start.month=1, 
+        k=NULL, min.years=5, days.per.year=365, 
+        density.method=c("hist", "kde", "wasserstein"), 
+        nbins="paper", timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512,
+        digits=2, fun=NULL, ...,
         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
         epsilon.value=NA)
 
-\method{gof}{matrix}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
-        j=1, lambda=0.95, norm="sd", s=c(1,1,1), method=c("2009", "2012", "2021"),
-        lQ.thr=0.6, hQ.thr=0.1, start.month=1, digits=2, fun=NULL, ...,
-        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
+\method{gof}{matrix}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
+        do.pmr=FALSE, j=1, lambda=0.95, norm="sd", s=c(1,1,1,1), 
+        method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, start.month=1, 
+        k=NULL, min.years=5, days.per.year=365, 
+        density.method=c("hist", "kde", "wasserstein"), 
+        nbins="paper", timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512,
+        digits=2, fun=NULL, ...,
+        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
         epsilon.value=NA)
 
-\method{gof}{data.frame}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
-        j=1, lambda=0.95, norm="sd", s=c(1,1,1), method=c("2009", "2012", "2021"),
-        lQ.thr=0.6, hQ.thr=0.1, start.month=1, digits=2, fun=NULL, ...,
-        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
+\method{gof}{data.frame}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
+        do.pmr=FALSE, j=1, lambda=0.95, norm="sd", s=c(1,1,1,1), 
+        method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, start.month=1, 
+        k=NULL, min.years=5, days.per.year=365, 
+        density.method=c("hist", "kde", "wasserstein"), 
+        nbins="paper", timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512,
+        digits=2, fun=NULL, ...,
+        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
         epsilon.value=NA)
 
-\method{gof}{zoo}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
-        j=1, lambda=0.95, norm="sd", s=c(1,1,1), method=c("2009", "2012", "2021"),
-        lQ.thr=0.6, hQ.thr=0.1, start.month=1, digits=2, fun=NULL, ...,
-        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
+\method{gof}{zoo}(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
+        do.pmr=FALSE, j=1, lambda=0.95, norm="sd", s=c(1,1,1,1), 
+        method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, start.month=1, 
+        k=NULL, min.years=5, days.per.year=365, 
+        density.method=c("hist", "kde", "wasserstein"), 
+        nbins="paper", timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512,
+        digits=2, fun=NULL, ...,
+        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
         epsilon.value=NA)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -64,6 +80,9 @@ logical. Indicates if the Spearman correlation has to be computed. The default i
   \item{do.pbfdc}{
 logical. Indicates if the Percent Bias in the Slope of the midsegment of the Flow Duration Curve (\code{\link{pbiasfdc}}) has to be computed. The default is FALSE.
 }
+  \item{do.pmr}{
+logical. Indicates if the Proxy for Model Robustness (\code{\link{PMR}}) has to be computed. The default is FALSE.
+}
   \item{j}{
 argument passed to the \code{\link{mNSE}} and \code{\link{wsNSE}} functions.
 }
@@ -74,7 +93,7 @@ argument passed to the \code{\link{wsNSE}} function.
 argument passed to the \code{\link{nrmse}} function
 }
   \item{s}{
-argument passed to the \code{\link{KGE}}, \code{\link{KGElf}}, \code{\link{sKGE}} and \code{\link{KGEkm}} functions.
+argument passed to the \code{\link{KGE}}, \code{\link{KGElf}}, \code{\link{sKGE}}, \code{\link{KGEkm}} and \code{\link{JDKGE}} functions. The fourth element in \code{s} is only used in the \code{\link{JDKGE}} function; while \code{\link{KGE}}, \code{\link{KGElf}}, \code{\link{sKGE}}, and \code{\link{KGEkm}} only uses the first three elements in \code{s}.
 }
   \item{method}{
 argument passed to the \code{\link{KGE}}, \code{\link{KGElf}}, \code{\link{sKGE}} and \code{\link{KGEkm}} functions.
@@ -90,6 +109,52 @@ argument passed to the \code{\link{KGE}}, \code{\link{KGElf}}, \code{\link{sKGE}
 
 numeric in [1:12] indicating the starting month of the (hydrological) year. Numeric values in [1, 12] represent months in [January, December]. By default \code{start.month=1}.
 }
+  \item{k}{
+Only used for the computation of the Proxy for Model Robustness (\code{PMR}). \cr
+
+integer value representing the length of the moving window (number of time steps) used to compute the bias over sub-periods. \cr
+
+The k argument should reflect the temporal scale at which robustness is intended to be evaluated, and therefore depends primarily on the time resolution of the data. Royer-Gaspard et al. (2021) recommended to use multi-year windows, typically in the range of 3 to 5 years, to ensure that each sub-period captures meaningful hydroclimatic variability while still allowing enough windows for comparison.
+}
+  \item{min.years}{
+Only used for the computation of the Proxy for Model Robustness (\code{PMR}). \cr
+
+Numeric, only used when the user does not explicitly define the value of \code{k}, i.e., when \code{k=NULL}. \cr
+
+Minimum numbers of years used to ensure that each sub-period used int eh computation of PMR captures meaningful hydroclimatic variability while still allowing enough windows for comparison. By default, \code{min.years=5}.
+}
+  \item{days.per.year}{
+Only used for the computation of the Proxy for Model Robustness (\code{PMR}). \cr
+
+Numeric, only used when the user does not explicitly define the value of \code{k}, i.e., when \code{k=NULL}.  \cr
+
+Number of days in a year. A value of Use 365.25 is recoomended instead of the default value of 365 when \code{sim} and \code{obs} are long climatological series.
+}
+\item{density.method}{
+  Only used for the computation of the Joint Divergence Kling-Gupta Efficiency (\code{JDKGE}). \cr
+
+  Character, representing the method used to compute the divergence component. \kbd{"hist"} uses the paper-faithful histogram-based Jensen-Shannon divergence, \kbd{"kde"} uses a common-grid kernel density estimate followed by Jensen-Shannon divergence, and \kbd{"wasserstein"} uses a Wasserstein-distance similarity on log-flows.}
+
+\item{nbins}{
+  Only used for the computation of the Joint Divergence Kling-Gupta Efficiency (\code{JDKGE}). \cr
+
+  Character, representing the binning rule used by the histogram divergence component. The default \kbd{"paper"} uses the procedure described by Ficchi et al. (2026). This argument is ignored for \code{density.method="kde"} and \code{density.method="wasserstein"}.}
+
+\item{timestep}{
+  Only used for the computation of the Joint Divergence Kling-Gupta Efficiency (\code{JDKGE}). \cr
+
+Numeric, representing the sampling time step in seconds used by the paper's bin-count adjustment. For \code{zoo} inputs this is inferred from the time index when omitted. The default for plain numeric vectors is one day (86400 seconds).}
+
+\item{kde.n.grid}{
+  Only used for the computation of the Joint Divergence Kling-Gupta Efficiency (\code{JDKGE}). \cr
+
+Integer, number of grid points used when \code{density.method="kde"}. Larger values provide a finer common support grid at higher computational cost.}
+
+\item{wasserstein.n.quantiles}{
+  Only used for the computation of the Joint Divergence Kling-Gupta Efficiency (\code{JDKGE}). \cr
+
+Integer, number of quantile levels used to approximate the first Wasserstein distance when \code{density.method="wasserstein"}. Larger values provide a finer approximation at higher computational cost.}
+
   \item{digits}{
 decimal places used for rounding the goodness-of-fit indexes.
 }
