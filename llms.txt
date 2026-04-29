@@ -480,6 +480,8 @@ hydroGOF functions.
   Kling-Gupta Efficiency for low values
 - [`KGEnp()`](https://hzambran.github.io/hydroGOF/reference/KGEnp.md) :
   Non-parametric version of the Kling-Gupta Efficiency
+- [`LCE()`](https://hzambran.github.io/hydroGOF/reference/LCE.md) : Lee
+  and Choi Efficiency
 - [`LME()`](https://hzambran.github.io/hydroGOF/reference/LME.md) :
   Liu-Mean Efficiency
 - [`NSE()`](https://hzambran.github.io/hydroGOF/reference/NSE.md) :

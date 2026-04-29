@@ -256,14 +256,14 @@ pbias(sim=lsim, obs=lobs)
 
 fact <- 1/50
 pbias(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 17.7
+#> [1] 17.6
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 pbias(sim=lsim, obs=lobs)
-#> [1] 17.7
+#> [1] 17.6
 
 ##################
 # Example 8: pbias for simulated values equal to observations plus random noise 

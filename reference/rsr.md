@@ -172,7 +172,7 @@ ggof(sim, obs)
 
 
 rsr(sim=sim, obs=obs)
-#> [1] 0.3551828
+#> [1] 0.355571
 
 ##################
 # Example 4: rsr for simulated values equal to observations plus random noise 
@@ -180,13 +180,13 @@ rsr(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 rsr(sim=sim, obs=obs, fun=log)
-#> [1] 0.7212403
+#> [1] 0.7215834
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 rsr(sim=lsim, obs=lobs)
-#> [1] 0.7212403
+#> [1] 0.7215834
 
 ##################
 # Example 5: rsr for simulated values equal to observations plus random noise 
@@ -195,14 +195,14 @@ rsr(sim=lsim, obs=lobs)
 #            during computations
 
 rsr(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.7162512
+#> [1] 0.7166236
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 rsr(sim=lsim, obs=lobs)
-#> [1] 0.7162512
+#> [1] 0.7166236
 
 ##################
 # Example 6: rsr for simulated values equal to observations plus random noise 
@@ -212,13 +212,13 @@ rsr(sim=lsim, obs=lobs)
 
 eps <- 0.01
 rsr(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 0.7209151
+#> [1] 0.72126
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 rsr(sim=lsim, obs=lobs)
-#> [1] 0.7209151
+#> [1] 0.72126
 
 ##################
 # Example 7: rsr for simulated values equal to observations plus random noise 
@@ -229,14 +229,14 @@ rsr(sim=lsim, obs=lobs)
 
 fact <- 1/50
 rsr(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 0.7115594
+#> [1] 0.711959
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 rsr(sim=lsim, obs=lobs)
-#> [1] 0.7115594
+#> [1] 0.711959
 
 ##################
 # Example 8: rsr for simulated values equal to observations plus random noise 
@@ -246,11 +246,11 @@ rsr(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 rsr(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.5230151
+#> [1] 0.523825
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 rsr(sim=sim1, obs=obs1)
-#> [1] 0.5230151
+#> [1] 0.523825
 ```

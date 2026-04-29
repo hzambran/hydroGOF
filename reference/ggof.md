@@ -696,9 +696,9 @@ sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 # Getting the new numeric goodness-of-fit measures
 gof(sim=sim, obs=obs)
 #>          [,1]
-#> ME       5.48
-#> MAE      5.48
-#> MSE     55.27
+#> ME       5.47
+#> MAE      5.47
+#> MSE     55.21
 #> RMSE     7.43
 #> ubRMSE   5.03
 #> NRMSE % 37.10

@@ -395,28 +395,28 @@ sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 # Getting the new numeric goodness of fit
 gof(sim=sim, obs=obs)
 #>          [,1]
-#> ME       5.50
-#> MAE      5.50
-#> MSE     55.75
-#> RMSE     7.47
-#> ubRMSE   5.05
-#> NRMSE % 37.30
-#> PBIAS % 34.80
+#> ME       5.46
+#> MAE      5.46
+#> MSE     55.05
+#> RMSE     7.42
+#> ubRMSE   5.02
+#> NRMSE % 37.10
+#> PBIAS % 34.50
 #> RSR      0.37
 #> rSD      1.04
 #> NSE      0.86
 #> mNSE     0.57
-#> rNSE    -0.58
+#> rNSE    -0.56
 #> wNSE     0.97
 #> wsNSE    0.72
 #> d        0.97
 #> dr       0.78
 #> md       0.78
 #> rd       0.63
-#> cp       0.41
+#> cp       0.42
 #> r        0.97
 #> R2       0.86
-#> bR2      0.75
+#> bR2      0.76
 #> VE       0.65
 #> KGE     -0.35
 #> KGElf   -0.09

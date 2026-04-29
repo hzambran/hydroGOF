@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-28</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-31</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -173,7 +173,7 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-plt img"><img src="mNSE-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">mNSE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6075654</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6055035</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 4: mNSE for simulated values equal to observations plus random noise </span></span></span>
@@ -181,13 +181,13 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-in"><span><span class="co">#            logarithm to 'sim' and 'obs' during computations.</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">mNSE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4841678</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4825549</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value:</span></span></span>
 <span class="r-in"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">mNSE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4841678</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4825549</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 5: mNSE for simulated values equal to observations plus random noise </span></span></span>
@@ -196,14 +196,14 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-in"><span><span class="co">#            during computations</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">mNSE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"Pushpalatha2012"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4853937</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4837675</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value, with the epsilon value following Pushpalatha2012</span></span></span>
 <span class="r-in"><span><span class="va">eps</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">/</span><span class="fl">100</span></span></span>
 <span class="r-in"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">mNSE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4853937</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4837675</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 6: mNSE for simulated values equal to observations plus random noise </span></span></span>
@@ -213,13 +213,13 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">eps</span> <span class="op">&lt;-</span> <span class="fl">0.01</span></span></span>
 <span class="r-in"><span><span class="fu">mNSE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"otherValue"</span>, epsilon.value<span class="op">=</span><span class="va">eps</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4842476</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4826338</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value:</span></span></span>
 <span class="r-in"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">mNSE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4842476</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4826338</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 7: mNSE for simulated values equal to observations plus random noise </span></span></span>
@@ -230,14 +230,14 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">fact</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">50</span></span></span>
 <span class="r-in"><span><span class="fu">mNSE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"otherFactor"</span>, epsilon.value<span class="op">=</span><span class="va">fact</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4865736</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.484935</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value:</span></span></span>
 <span class="r-in"><span><span class="va">eps</span>  <span class="op">&lt;-</span> <span class="va">fact</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">mNSE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4865736</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.484935</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 8: mNSE for simulated values equal to observations plus random noise </span></span></span>
@@ -247,13 +247,13 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-in"><span><span class="va">fun1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">mNSE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">fun1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5383157</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.536385</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value, with the epsilon value following Pushpalatha2012</span></span></span>
 <span class="r-in"><span><span class="va">sim1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">obs1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">mNSE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim1</span>, obs<span class="op">=</span><span class="va">obs1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5383157</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.536385</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

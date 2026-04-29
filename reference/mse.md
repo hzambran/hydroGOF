@@ -188,7 +188,7 @@ ggof(sim, obs)
 
 
 mse(sim=sim, obs=obs)
-#> [1] 50.49731
+#> [1] 50.57333
 
 ##################
 # Example 4: mse for simulated values equal to observations plus random noise 
@@ -196,13 +196,13 @@ mse(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 mse(sim=sim, obs=obs, fun=log)
-#> [1] 0.483615
+#> [1] 0.4836431
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 mse(sim=lsim, obs=lobs)
-#> [1] 0.483615
+#> [1] 0.4836431
 
 ##################
 # Example 5: mse for simulated values equal to observations plus random noise 
@@ -211,14 +211,14 @@ mse(sim=lsim, obs=lobs)
 #            during computations
 
 mse(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.4600137
+#> [1] 0.4600443
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 mse(sim=lsim, obs=lobs)
-#> [1] 0.4600137
+#> [1] 0.4600443
 
 ##################
 # Example 6: mse for simulated values equal to observations plus random noise 
@@ -228,13 +228,13 @@ mse(sim=lsim, obs=lobs)
 
 eps <- 0.01
 mse(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 0.4820511
+#> [1] 0.4820793
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 mse(sim=lsim, obs=lobs)
-#> [1] 0.4820511
+#> [1] 0.4820793
 
 ##################
 # Example 7: mse for simulated values equal to observations plus random noise 
@@ -245,14 +245,14 @@ mse(sim=lsim, obs=lobs)
 
 fact <- 1/50
 mse(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 0.4385757
+#> [1] 0.4386083
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 mse(sim=lsim, obs=lobs)
-#> [1] 0.4385757
+#> [1] 0.4386083
 
 ##################
 # Example 8: mse for simulated values equal to observations plus random noise 
@@ -262,11 +262,11 @@ mse(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 mse(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.9225066
+#> [1] 0.9226073
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 mse(sim=sim1, obs=obs1)
-#> [1] 0.9225066
+#> [1] 0.9226073
 ```

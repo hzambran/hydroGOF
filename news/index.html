@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-28</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-31</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,8 @@
 <h3 id="new-functions-0-7-0">New functions<a class="anchor" aria-label="anchor" href="#new-functions-0-7-0"></a></h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>    o <span class="st">'PMR'</span>  <span class="sc">:</span> to compute the Proxy <span class="cf">for</span> Model Robustness to quantify the temporal stability of model bias, proposed by Royer<span class="sc">-</span>Gaspard et <span class="fu">al.</span> (<span class="dv">2021</span>).</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>    o <span class="st">'JDKGE'</span><span class="sc">:</span> to compute the Joint Divergence Kling<span class="sc">-</span>Gupta Efficiency, which extends the traditional Kling<span class="sc">-</span>Gupta efficiency by incorporating a fourth diagnostic component that evaluates the similarity between the probability distributions of simulated and observed values, proposed by Ficchi et <span class="fu">al.</span> (<span class="dv">2026</span>).</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    o <span class="st">'LME'</span>  <span class="sc">:</span> to compute the Liu<span class="sc">-</span>Mean Efficiency, which evaluates how large the error is compared to the average level of the observations, making it particularly useful <span class="cf">in</span> hydrological applications where the mean value is a meaningful scale <span class="cf">for</span> evaluating prediction accuracy.</span></code></pre></div>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    o <span class="st">'LME'</span>  <span class="sc">:</span> to compute the Liu<span class="sc">-</span>Mean Efficiency, which evaluates how large the error is compared to the average level of the observations, making it particularly useful <span class="cf">in</span> hydrological applications where the mean value is a meaningful scale <span class="cf">for</span> evaluating prediction accuracy.</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>    o <span class="st">'LCE'</span>  <span class="sc">:</span> to compute the Lee and Choi Efficiency, which jointly assess the correlation, variability, and bias component of the error, <span class="cf">while</span> explicitly penalizing imbalances between correlation and variability through two complementary <span class="fu">terms</span> (r<span class="sc">*</span>Alpha and r<span class="sc">/</span>Alpha).</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="bug-fixes-0-7-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-7-0"></a></h3>

@@ -216,6 +216,7 @@ proceeds, and only those positions with non-missing values in `obs` and
 
 ## See also
 
+[`LCE`](https://hzambran.github.io/hydroGOF/reference/LCE.md),
 [`me`](https://hzambran.github.io/hydroGOF/reference/me.md),
 [`pbias`](https://hzambran.github.io/hydroGOF/reference/pbias.md),[`NSE`](https://hzambran.github.io/hydroGOF/reference/NSE.md),
 [`KGE`](https://hzambran.github.io/hydroGOF/reference/KGE.md),
@@ -297,7 +298,7 @@ ggof(sim, obs)
 
 
 LME(sim=sim, obs=obs)
-#> [1] 0.6830111
+#> [1] 0.6830412
 
 ##################
 # Example 4: LME for simulated values equal to observations plus random noise 
@@ -305,13 +306,13 @@ LME(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 LME(sim=sim, obs=obs, fun=log)
-#> [1] 0.6664222
+#> [1] 0.6666261
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 LME(sim=lsim, obs=lobs)
-#> [1] 0.6664222
+#> [1] 0.6666261
 
 ##################
 # Example 5: LME for simulated values equal to observations plus random noise 
@@ -320,14 +321,14 @@ LME(sim=lsim, obs=lobs)
 #            during computations
 
 LME(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.6746213
+#> [1] 0.6748451
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 LME(sim=lsim, obs=lobs)
-#> [1] 0.6746213
+#> [1] 0.6748451
 
 ##################
 # Example 6: LME for simulated values equal to observations plus random noise 
@@ -337,13 +338,13 @@ LME(sim=lsim, obs=lobs)
 
 eps <- 0.01
 LME(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 0.6669616
+#> [1] 0.6671667
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 LME(sim=lsim, obs=lobs)
-#> [1] 0.6669616
+#> [1] 0.6671667
 
 ##################
 # Example 7: LME for simulated values equal to observations plus random noise 
@@ -354,14 +355,14 @@ LME(sim=lsim, obs=lobs)
 
 fact <- 1/50
 LME(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 0.6821882
+#> [1] 0.6824302
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 LME(sim=lsim, obs=lobs)
-#> [1] 0.6821882
+#> [1] 0.6824302
 
 ##################
 # Example 8: LME for simulated values equal to observations plus random noise 
@@ -371,13 +372,13 @@ LME(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 LME(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.7948135
+#> [1] 0.7952498
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 LME(sim=sim1, obs=obs1)
-#> [1] 0.7948135
+#> [1] 0.7952498
 
 ##################
 # Example 9: LME for a two-column data frame where simulated values are equal to 
@@ -388,7 +389,7 @@ OBS <- cbind(obs, obs)
 
 LME(sim=SIM, obs=OBS)
 #>       obs       obs 
-#> 0.6830111 0.6830111 
+#> 0.6830412 0.6830412 
 
 ##################
 # Example 10: LME for each year, where simulated values are given in a two-column data 
@@ -398,5 +399,5 @@ SIM <- cbind(sim, sim)
 OBS <- cbind(obs, obs)
 LME(sim=SIM, obs=OBS, out.PerYear=TRUE)
 #>       obs       obs 
-#> 0.6830111 0.6830111 
+#> 0.6830412 0.6830412 
 ```
