@@ -18,31 +18,31 @@ JDKGE(sim, obs, ...)
 
 # Default S3 method
 JDKGE(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
-              method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
-              epsilon.type=c("paper", "none", "Pushpalatha2012", "otherFactor", "otherValue"),
-              epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
-              timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
+        method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
+        epsilon.type=c("otherValue", "none", "Pushpalatha2012", "otherFactor"),
+        epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
 
 # S3 method for class 'data.frame'
 JDKGE(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
-              method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
-              epsilon.type=c("paper", "none", "Pushpalatha2012", "otherFactor", "otherValue"),
-              epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
-              timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
+        method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
+        epsilon.type=c("otherValue", "none", "Pushpalatha2012", "otherFactor"),
+        epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
 
 # S3 method for class 'matrix'
 JDKGE(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
-              method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
-              epsilon.type=c("paper", "none", "Pushpalatha2012", "otherFactor", "otherValue"),
-              epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
-              timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
+        method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
+        epsilon.type=c("otherValue", "none", "Pushpalatha2012", "otherFactor"),
+        epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
 
 # S3 method for class 'zoo'
 JDKGE(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
-              method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
-              epsilon.type=c("paper", "none", "Pushpalatha2012", "otherFactor", "otherValue"),
-              epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
-              timestep=NA, kde.n.grid=512, wasserstein.n.quantiles=512)
+        method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
+        epsilon.type=c("otherValue", "none", "Pushpalatha2012", "otherFactor"),
+        epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+        timestep=NA, kde.n.grid=512, wasserstein.n.quantiles=512)
 ```
 
 ## Arguments
@@ -91,13 +91,15 @@ JDKGE(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
 
   rule used for zero-flow handling in the internal log-based divergence
   component, and also passed to `preproc` when `fun` needs an offset
-  before transformation. "paper" is the default and uses the epsilon
-  rule described by Ficchi et al. (2026).
+  before transformation. The default is "otherValue".
 
 - epsilon.value:
 
   numeric value used when `epsilon.type="otherValue"` or
-  `epsilon.type="otherFactor"`.
+  `epsilon.type="otherFactor"`. When `epsilon.type="otherValue"` and
+  `epsilon.value=NA` (the default), the value described by Ficchi et al.
+  (2026), \\\epsilon = \min(10^{-6}, 10^{-1} \min(c))\\, is computed
+  internally.
 
 - density.method:
 
@@ -153,9 +155,9 @@ For the divergence component, this implementation follows the paper's
 workflow:
 
 1.  exact zeros are replaced according to `epsilon.type`. With the
-    default "paper", \\\epsilon = \min(10^{-6}, 10^{-1} \min(c))\\,
-    where \\c\\ is the set of strictly positive simulated and observed
-    values,
+    default "otherValue" and `epsilon.value=NA`, \\\epsilon =
+    \min(10^{-6}, 10^{-1} \min(c))\\, where \\c\\ is the set of strictly
+    positive simulated and observed values,
 
 2.  the transformed values \\\log(x)\\ are binned using a histogram,
 
@@ -363,77 +365,13 @@ JDKGE(sim=sim, obs=obs)
 
 ##################
 # Example 6: JDKGE for simulated values equal to observations plus random noise 
-#            on the first half of the observed values and applying (natural) 
-#            logarithm to 'sim' and 'obs' during computations.
-
-JDKGE(sim=sim, obs=obs, fun=log)
-#> Error in match.arg(epsilon.type): 'arg' should be one of “none”, “Pushpalatha2012”, “otherFactor”, “otherValue”
-
-# Verifying the previous value:
-lsim <- log(sim)
-lobs <- log(obs)
-JDKGE(sim=lsim, obs=lobs)
-#> [1] 0.6262745
-
-##################
-# Example 7: JDKGE for simulated values equal to observations plus random noise 
-#            on the first half of the observed values and applying (natural) 
-#            logarithm to 'sim' and 'obs' and adding the Pushpalatha2012 constant
-#            during computations
-
-JDKGE(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.6393235
-
-# Verifying the previous value, with the epsilon value following Pushpalatha2012
-eps  <- mean(obs, na.rm=TRUE)/100
-lsim <- log(sim+eps)
-lobs <- log(obs+eps)
-JDKGE(sim=lsim, obs=lobs)
-#> [1] 0.6353161
-
-##################
-# Example 8: JDKGE for simulated values equal to observations plus random noise 
-#            on the first half of the observed values and applying (natural) 
-#            logarithm to 'sim' and 'obs' and adding a user-defined constant
-#            during computations
-
-eps <- 0.01
-JDKGE(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 0.6296324
-
-# Verifying the previous value:
-lsim <- log(sim+eps)
-lobs <- log(obs+eps)
-JDKGE(sim=lsim, obs=lobs)
-#> [1] 0.626984
-
-##################
-# Example 9: JDKGE for simulated values equal to observations plus random noise 
-#            on the first half of the observed values and applying (natural) 
-#            logarithm to 'sim' and 'obs' and using a user-defined factor
-#            to multiply the mean of the observed values to obtain the constant
-#            to be added to 'sim' and 'obs' during computations
-
-fact <- 1/50
-JDKGE(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 0.6490924
-
-# Verifying the previous value:
-eps  <- fact*mean(obs, na.rm=TRUE)
-lsim <- log(sim+eps)
-lobs <- log(obs+eps)
-JDKGE(sim=lsim, obs=lobs)
-#> [1] 0.6437007
-
-##################
-# Example 10: JDKGE for simulated values equal to observations plus random noise 
-#             on the first half of the observed values and applying a 
-#             user-defined function to 'sim' and 'obs' during computations
+#            on the first half of the observed values and applying a 
+#            user-defined function to 'sim' and 'obs' during computations
 
 fun1 <- function(x) {sqrt(x+1)}
 
 JDKGE(sim=sim, obs=obs, fun=fun1)
-#> Error in match.arg(epsilon.type): 'arg' should be one of “none”, “Pushpalatha2012”, “otherFactor”, “otherValue”
+#> [1] 0.7286612
 
 # Verifying the previous value
 sim1 <- sqrt(sim+1)
@@ -442,8 +380,8 @@ JDKGE(sim=sim1, obs=obs1)
 #> [1] 0.7286612
 
 ##################
-# Example 11: JDKGE for a two-column data frame where simulated values are equal to 
-#             observations plus random noise on the first half of the observed values 
+# Example 7: JDKGE for a two-column data frame where simulated values are equal to 
+#            observations plus random noise on the first half of the observed values 
 
 SIM <- cbind(sim, sim)
 OBS <- cbind(obs, obs)

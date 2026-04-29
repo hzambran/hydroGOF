@@ -11,7 +11,7 @@ The function also allows JDKGE-style variants based on the 2009 and 2021 KGE for
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-31</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-32</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,31 +52,31 @@ The function also allows JDKGE-style variants based on the 2009 and 2021 KGE for
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
 <span><span class="fu">JDKGE</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, s<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>,</span>
-<span>              method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2012"</span>, <span class="st">"2009"</span>, <span class="st">"2021"</span><span class="op">)</span>, out.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"single"</span>, <span class="st">"full"</span><span class="op">)</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
-<span>              epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"paper"</span>, <span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span>, <span class="st">"otherValue"</span><span class="op">)</span>,</span>
-<span>              epsilon.value<span class="op">=</span><span class="cn">NA</span>, density.method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hist"</span>, <span class="st">"kde"</span>, <span class="st">"wasserstein"</span><span class="op">)</span>, nbins<span class="op">=</span><span class="st">"paper"</span>,</span>
-<span>              timestep<span class="op">=</span><span class="fl">86400</span>, kde.n.grid<span class="op">=</span><span class="fl">512</span>, wasserstein.n.quantiles<span class="op">=</span><span class="fl">512</span><span class="op">)</span></span>
+<span>        method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2012"</span>, <span class="st">"2009"</span>, <span class="st">"2021"</span><span class="op">)</span>, out.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"single"</span>, <span class="st">"full"</span><span class="op">)</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
+<span>        epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"otherValue"</span>, <span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span><span class="op">)</span>,</span>
+<span>        epsilon.value<span class="op">=</span><span class="cn">NA</span>, density.method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hist"</span>, <span class="st">"kde"</span>, <span class="st">"wasserstein"</span><span class="op">)</span>, nbins<span class="op">=</span><span class="st">"paper"</span>,</span>
+<span>        timestep<span class="op">=</span><span class="fl">86400</span>, kde.n.grid<span class="op">=</span><span class="fl">512</span>, wasserstein.n.quantiles<span class="op">=</span><span class="fl">512</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'data.frame'</span></span>
 <span><span class="fu">JDKGE</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, s<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>,</span>
-<span>              method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2012"</span>, <span class="st">"2009"</span>, <span class="st">"2021"</span><span class="op">)</span>, out.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"single"</span>, <span class="st">"full"</span><span class="op">)</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
-<span>              epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"paper"</span>, <span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span>, <span class="st">"otherValue"</span><span class="op">)</span>,</span>
-<span>              epsilon.value<span class="op">=</span><span class="cn">NA</span>, density.method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hist"</span>, <span class="st">"kde"</span>, <span class="st">"wasserstein"</span><span class="op">)</span>, nbins<span class="op">=</span><span class="st">"paper"</span>,</span>
-<span>              timestep<span class="op">=</span><span class="fl">86400</span>, kde.n.grid<span class="op">=</span><span class="fl">512</span>, wasserstein.n.quantiles<span class="op">=</span><span class="fl">512</span><span class="op">)</span></span>
+<span>        method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2012"</span>, <span class="st">"2009"</span>, <span class="st">"2021"</span><span class="op">)</span>, out.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"single"</span>, <span class="st">"full"</span><span class="op">)</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
+<span>        epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"otherValue"</span>, <span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span><span class="op">)</span>,</span>
+<span>        epsilon.value<span class="op">=</span><span class="cn">NA</span>, density.method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hist"</span>, <span class="st">"kde"</span>, <span class="st">"wasserstein"</span><span class="op">)</span>, nbins<span class="op">=</span><span class="st">"paper"</span>,</span>
+<span>        timestep<span class="op">=</span><span class="fl">86400</span>, kde.n.grid<span class="op">=</span><span class="fl">512</span>, wasserstein.n.quantiles<span class="op">=</span><span class="fl">512</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'matrix'</span></span>
 <span><span class="fu">JDKGE</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, s<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>,</span>
-<span>              method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2012"</span>, <span class="st">"2009"</span>, <span class="st">"2021"</span><span class="op">)</span>, out.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"single"</span>, <span class="st">"full"</span><span class="op">)</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
-<span>              epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"paper"</span>, <span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span>, <span class="st">"otherValue"</span><span class="op">)</span>,</span>
-<span>              epsilon.value<span class="op">=</span><span class="cn">NA</span>, density.method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hist"</span>, <span class="st">"kde"</span>, <span class="st">"wasserstein"</span><span class="op">)</span>, nbins<span class="op">=</span><span class="st">"paper"</span>,</span>
-<span>              timestep<span class="op">=</span><span class="fl">86400</span>, kde.n.grid<span class="op">=</span><span class="fl">512</span>, wasserstein.n.quantiles<span class="op">=</span><span class="fl">512</span><span class="op">)</span></span>
+<span>        method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2012"</span>, <span class="st">"2009"</span>, <span class="st">"2021"</span><span class="op">)</span>, out.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"single"</span>, <span class="st">"full"</span><span class="op">)</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
+<span>        epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"otherValue"</span>, <span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span><span class="op">)</span>,</span>
+<span>        epsilon.value<span class="op">=</span><span class="cn">NA</span>, density.method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hist"</span>, <span class="st">"kde"</span>, <span class="st">"wasserstein"</span><span class="op">)</span>, nbins<span class="op">=</span><span class="st">"paper"</span>,</span>
+<span>        timestep<span class="op">=</span><span class="fl">86400</span>, kde.n.grid<span class="op">=</span><span class="fl">512</span>, wasserstein.n.quantiles<span class="op">=</span><span class="fl">512</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'zoo'</span></span>
 <span><span class="fu">JDKGE</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, s<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>,</span>
-<span>              method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2012"</span>, <span class="st">"2009"</span>, <span class="st">"2021"</span><span class="op">)</span>, out.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"single"</span>, <span class="st">"full"</span><span class="op">)</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
-<span>              epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"paper"</span>, <span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span>, <span class="st">"otherValue"</span><span class="op">)</span>,</span>
-<span>              epsilon.value<span class="op">=</span><span class="cn">NA</span>, density.method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hist"</span>, <span class="st">"kde"</span>, <span class="st">"wasserstein"</span><span class="op">)</span>, nbins<span class="op">=</span><span class="st">"paper"</span>,</span>
-<span>              timestep<span class="op">=</span><span class="cn">NA</span>, kde.n.grid<span class="op">=</span><span class="fl">512</span>, wasserstein.n.quantiles<span class="op">=</span><span class="fl">512</span><span class="op">)</span></span></code></pre></div>
+<span>        method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2012"</span>, <span class="st">"2009"</span>, <span class="st">"2021"</span><span class="op">)</span>, out.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"single"</span>, <span class="st">"full"</span><span class="op">)</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
+<span>        epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"otherValue"</span>, <span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span><span class="op">)</span>,</span>
+<span>        epsilon.value<span class="op">=</span><span class="cn">NA</span>, density.method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hist"</span>, <span class="st">"kde"</span>, <span class="st">"wasserstein"</span><span class="op">)</span>, nbins<span class="op">=</span><span class="st">"paper"</span>,</span>
+<span>        timestep<span class="op">=</span><span class="cn">NA</span>, kde.n.grid<span class="op">=</span><span class="fl">512</span>, wasserstein.n.quantiles<span class="op">=</span><span class="fl">512</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -108,10 +108,10 @@ The function also allows JDKGE-style variants based on the 2009 and 2021 KGE for
 <dd><p>additional arguments passed to <code>fun</code>.</p></dd>
 
 <dt id="arg-epsilon-type">epsilon.type<a class="anchor" aria-label="anchor" href="#arg-epsilon-type"></a></dt>
-<dd><p>rule used for zero-flow handling in the internal log-based divergence component, and also passed to <code>preproc</code> when <code>fun</code> needs an offset before transformation. <kbd>"paper"</kbd> is the default and uses the epsilon rule described by Ficchi et al. (2026).</p></dd>
+<dd><p>rule used for zero-flow handling in the internal log-based divergence component, and also passed to <code>preproc</code> when <code>fun</code> needs an offset before transformation. The default is <kbd>"otherValue"</kbd>.</p></dd>
 
 <dt id="arg-epsilon-value">epsilon.value<a class="anchor" aria-label="anchor" href="#arg-epsilon-value"></a></dt>
-<dd><p>numeric value used when <code>epsilon.type="otherValue"</code> or <code>epsilon.type="otherFactor"</code>.</p></dd>
+<dd><p>numeric value used when <code>epsilon.type="otherValue"</code> or <code>epsilon.type="otherFactor"</code>. When <code>epsilon.type="otherValue"</code> and <code>epsilon.value=NA</code> (the default), the value described by Ficchi et al. (2026), \(\epsilon = \min(10^{-6}, 10^{-1} \min(c))\), is computed internally.</p></dd>
 
 <dt id="arg-density-method">density.method<a class="anchor" aria-label="anchor" href="#arg-density-method"></a></dt>
 <dd><p>method used to compute the divergence component. <kbd>"hist"</kbd> uses the paper-faithful histogram-based Jensen-Shannon divergence, <kbd>"kde"</kbd> uses a common-grid kernel density estimate followed by Jensen-Shannon divergence, and <kbd>"wasserstein"</kbd> uses a Wasserstein-distance similarity on log-flows.</p></dd>
@@ -137,7 +137,7 @@ The function also allows JDKGE-style variants based on the 2009 and 2021 KGE for
 <li><p>the bias term, defined as \(\beta = \mu_s / \mu_o\) for <kbd>method="2009"</kbd> and <kbd>method="2012"</kbd>, and as \(\beta_{2021} = (\mu_s - \mu_o)/\sigma_o\) for <kbd>method="2021"</kbd>, and</p></li>
 <li><p>the distributional similarity component \(\Delta\).</p></li>
 </ol><p>For the divergence component, this implementation follows the paper's workflow:</p>
-<ol><li><p>exact zeros are replaced according to <code>epsilon.type</code>. With the default <kbd>"paper"</kbd>, \(\epsilon = \min(10^{-6}, 10^{-1} \min(c))\), where \(c\) is the set of strictly positive simulated and observed values,</p></li>
+<ol><li><p>exact zeros are replaced according to <code>epsilon.type</code>. With the default <kbd>"otherValue"</kbd> and <code>epsilon.value=NA</code>, \(\epsilon = \min(10^{-6}, 10^{-1} \min(c))\), where \(c\) is the set of strictly positive simulated and observed values,</p></li>
 <li><p>the transformed values \(\log(x)\) are binned using a histogram,</p></li>
 <li><p>the Freedman-Diaconis width is lower-bounded by \(h_{min} = \min(10^2 \epsilon, 10^{-1})\),</p></li>
 <li><p>the number of bins is adjusted by the time-scale factor and clipped to the interval \([25, 100]\),</p></li>
@@ -302,77 +302,13 @@ where \(s_w\) is a robust scale estimated from the pooled log-flows using the in
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 6: JDKGE for simulated values equal to observations plus random noise </span></span></span>
-<span class="r-in"><span><span class="co">#            on the first half of the observed values and applying (natural) </span></span></span>
-<span class="r-in"><span><span class="co">#            logarithm to 'sim' and 'obs' during computations.</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">JDKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in match.arg(epsilon.type):</span> 'arg' should be one of “none”, “Pushpalatha2012”, “otherFactor”, “otherValue”</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Verifying the previous value:</span></span></span>
-<span class="r-in"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">JDKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6262745</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">##################</span></span></span>
-<span class="r-in"><span><span class="co"># Example 7: JDKGE for simulated values equal to observations plus random noise </span></span></span>
-<span class="r-in"><span><span class="co">#            on the first half of the observed values and applying (natural) </span></span></span>
-<span class="r-in"><span><span class="co">#            logarithm to 'sim' and 'obs' and adding the Pushpalatha2012 constant</span></span></span>
-<span class="r-in"><span><span class="co">#            during computations</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">JDKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"Pushpalatha2012"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6393235</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Verifying the previous value, with the epsilon value following Pushpalatha2012</span></span></span>
-<span class="r-in"><span><span class="va">eps</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">/</span><span class="fl">100</span></span></span>
-<span class="r-in"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">JDKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6353161</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">##################</span></span></span>
-<span class="r-in"><span><span class="co"># Example 8: JDKGE for simulated values equal to observations plus random noise </span></span></span>
-<span class="r-in"><span><span class="co">#            on the first half of the observed values and applying (natural) </span></span></span>
-<span class="r-in"><span><span class="co">#            logarithm to 'sim' and 'obs' and adding a user-defined constant</span></span></span>
-<span class="r-in"><span><span class="co">#            during computations</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">eps</span> <span class="op">&lt;-</span> <span class="fl">0.01</span></span></span>
-<span class="r-in"><span><span class="fu">JDKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"otherValue"</span>, epsilon.value<span class="op">=</span><span class="va">eps</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6296324</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Verifying the previous value:</span></span></span>
-<span class="r-in"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">JDKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.626984</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">##################</span></span></span>
-<span class="r-in"><span><span class="co"># Example 9: JDKGE for simulated values equal to observations plus random noise </span></span></span>
-<span class="r-in"><span><span class="co">#            on the first half of the observed values and applying (natural) </span></span></span>
-<span class="r-in"><span><span class="co">#            logarithm to 'sim' and 'obs' and using a user-defined factor</span></span></span>
-<span class="r-in"><span><span class="co">#            to multiply the mean of the observed values to obtain the constant</span></span></span>
-<span class="r-in"><span><span class="co">#            to be added to 'sim' and 'obs' during computations</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">fact</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">50</span></span></span>
-<span class="r-in"><span><span class="fu">JDKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"otherFactor"</span>, epsilon.value<span class="op">=</span><span class="va">fact</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6490924</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Verifying the previous value:</span></span></span>
-<span class="r-in"><span><span class="va">eps</span>  <span class="op">&lt;-</span> <span class="va">fact</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">JDKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6437007</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">##################</span></span></span>
-<span class="r-in"><span><span class="co"># Example 10: JDKGE for simulated values equal to observations plus random noise </span></span></span>
-<span class="r-in"><span><span class="co">#             on the first half of the observed values and applying a </span></span></span>
-<span class="r-in"><span><span class="co">#             user-defined function to 'sim' and 'obs' during computations</span></span></span>
+<span class="r-in"><span><span class="co">#            on the first half of the observed values and applying a </span></span></span>
+<span class="r-in"><span><span class="co">#            user-defined function to 'sim' and 'obs' during computations</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">fun1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">JDKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">fun1</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in match.arg(epsilon.type):</span> 'arg' should be one of “none”, “Pushpalatha2012”, “otherFactor”, “otherValue”</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7286612</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value</span></span></span>
 <span class="r-in"><span><span class="va">sim1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span></span>
@@ -381,8 +317,8 @@ where \(s_w\) is a robust scale estimated from the pooled log-flows using the in
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7286612</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
-<span class="r-in"><span><span class="co"># Example 11: JDKGE for a two-column data frame where simulated values are equal to </span></span></span>
-<span class="r-in"><span><span class="co">#             observations plus random noise on the first half of the observed values </span></span></span>
+<span class="r-in"><span><span class="co"># Example 7: JDKGE for a two-column data frame where simulated values are equal to </span></span></span>
+<span class="r-in"><span><span class="co">#            observations plus random noise on the first half of the observed values </span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">SIM</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">sim</span>, <span class="va">sim</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">OBS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">obs</span>, <span class="va">obs</span><span class="op">)</span></span></span>
