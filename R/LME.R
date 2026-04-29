@@ -25,7 +25,7 @@
 ################################################################################
 # Started: 28-Abr-2026                                                         #
 ################################################################################
-# The Liu–Mean Efficiency (LME) is a goodness-of-fit metric designed to 
+# The Liu-Mean Efficiency (LME) is a goodness-of-fit metric designed to 
 # evaluate hydrological model performance by jointly assessing two fundamental 
 # aspects of agreement between simulated and observed time series: 
 # - the combined representation of correlation and variability, through the 
