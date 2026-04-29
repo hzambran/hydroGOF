@@ -8,6 +8,16 @@
 ################################################################################
 # Liu-Mean Efficiency (LME)                                                    #
 ################################################################################
+# This goodness-of-fit measure was proposed by Liu et al. (2020) as an 
+# alternative to the Nash-Sutcliffe efficiency (NSE), designed to provide a 
+# more balanced assessment of model performance by normalising the mean squared 
+# error using the mean of the observed values instead of their variance.
+################################################################################
+# The Liu-Mean Efficiency emphasises proportional error relative to the mean 
+# magnitude of the observed variable, making it particularly useful in 
+# hydrological applications where the mean value is a meaningful scale for 
+# evaluating prediction accuracy.
+################################################################################
 # Reference:                                                                   #
 #  Liu, D. (2020). A rational performance criterion for hydrological model.    #
 #  Journal of Hydrology, 590, 125488.                                          #
@@ -52,8 +62,7 @@ LME <- function(sim, obs, ...) UseMethod("LME")
 # Default method
 ###############################################################################
 
-LME.default <- function(sim, obs,
-                        na.rm=TRUE,
+LME.default <- function(sim, obs, na.rm=TRUE,
                         out.type=c("single","full"),
                         fun=NULL, ...,
                         epsilon.type=c("none",
@@ -171,12 +180,14 @@ LME.default <- function(sim, obs,
 } # 'LME.default' end
 
 
-###############################################################################
-# Matrix method
-###############################################################################
-
-LME.matrix <- function(sim, obs,
-                       na.rm=TRUE,
+################################################################################
+# Matrix method                                                                #
+################################################################################
+# Author : Mauricio Zambrano-Bigiarini                                         #
+################################################################################
+# Started: 28-Apr-2026                                                         #
+################################################################################
+LME.matrix <- function(sim, obs, na.rm=TRUE,
                        out.type=c("single","full"),
                        fun=NULL, ...,
                        epsilon.type=c("none",
@@ -185,81 +196,130 @@ LME.matrix <- function(sim, obs,
                                       "otherValue"),
                        epsilon.value=NA) {
 
-  if (!is.matrix(sim))
-    stop("'sim' must be a matrix")
+  # Checking that 'sim' and 'obs' have the same dimensions
+  if ( all.equal(dim(sim), dim(obs)) != TRUE )
+     stop( paste("Invalid argument: dim(sim) != dim(obs) ( [",
+           paste(dim(sim), collapse=" "), "] != [",
+           paste(dim(obs), collapse=" "), "] )", sep="") )
 
-  if (!is.matrix(obs))
-    stop("'obs' must be a matrix")
+  out.type     <- match.arg(out.type)
+  epsilon.type <- match.arg(epsilon.type)
 
-  if (!all(dim(sim) == dim(obs)))
-    stop("'sim' and 'obs' must have the same dimensions")
+  LME                <- rep(NA, ncol(obs))
+  elements           <- matrix(NA, nrow=2, ncol=ncol(obs))
+  rownames(elements) <- c("MSE", "MeanObs")
+  colnames(elements) <- colnames(obs)
 
-  nvar <- ncol(sim)
+  if (out.type=="single") {
 
-  LME.values <- numeric(nvar)
+    out <- sapply(1:ncol(obs), function(i, x, y) {
 
-  if (out.type == "full")
-    elements <- matrix(NA_real_,
-                       nrow=3,
-                       ncol=nvar)
+                   LME[i] <- LME.default(
+                                 sim=x[, i],
+                                 obs=y[, i],
+                                 na.rm=na.rm,
+                                 out.type=out.type,
+                                 fun=fun, ...,
+                                 epsilon.type=epsilon.type,
+                                 epsilon.value=epsilon.value)
 
-  for (i in seq_len(nvar)) {
+                 }, x=sim, y=obs)
 
-    res <- LME.default(sim=sim[, i],
-                       obs=obs[, i],
-                       na.rm=na.rm,
-                       out.type="full",
-                       fun=fun, ...,
-                       epsilon.type=epsilon.type,
-                       epsilon.value=epsilon.value)
-
-    LME.values[i] <- res$LME.value
-
-    if (out.type == "full")
-      elements[, i] <- res$LME.elements
-  }
-
-  if (out.type == "single") {
-
-    return(LME.values)
+    names(out) <- colnames(obs)
 
   } else {
 
-    rownames(elements) <- c("r",
-                            "Alpha",
-                            "Beta")
+    out <- lapply(1:ncol(obs), function(i, x, y) {
 
-    return(list(LME.value    = LME.values,
-                LME.elements = elements))
+                    LME.default(
+                        sim=x[, i],
+                        obs=y[, i],
+                        na.rm=na.rm,
+                        out.type=out.type,
+                        fun=fun, ...,
+                        epsilon.type=epsilon.type,
+                        epsilon.value=epsilon.value)
+
+                  }, x=sim, y=obs)
+
+    for (i in 1:length(out)) {
+       LME[i]        <- out[[i]][[1]]
+       elements[, i] <- as.numeric(out[[i]][[2]])
+    }
+
+    out <- list(LME.value= LME,
+                LME.elements= elements)
   }
+
+  return(out)
 
 } # 'LME.matrix' end
 
 ###############################################################################
 # data.frame method
 ###############################################################################
-
-LME.data.frame <- function(sim, obs, ...) {
+LME.data.frame <- function(sim, obs, na.rm=TRUE,
+                           out.type=c("single","full"),
+                           fun=NULL, ...,
+                           epsilon.type=c("none",
+                                          "Pushpalatha2012",
+                                          "otherFactor",
+                                          "otherValue"),
+                           epsilon.value=NA) {
 
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
 
-  LME.matrix(sim=sim, obs=obs, ...)
+  out.type     <- match.arg(out.type)
+  epsilon.type <- match.arg(epsilon.type)
+
+  LME.matrix(sim=sim, obs=obs,
+             na.rm=na.rm,
+             out.type=out.type,
+             fun=fun, ...,
+             epsilon.type=epsilon.type,
+             epsilon.value=epsilon.value)
 
 } # 'LME.data.frame' end
 
 ###############################################################################
 # zoo method
 ###############################################################################
-
-LME.zoo <- function(sim, obs, ...) {
-
-  if (!requireNamespace("zoo", quietly=TRUE))
-    stop("Package 'zoo' is required")
+LME.zoo <- function(sim, obs, na.rm=TRUE,
+                    out.type=c("single","full"),
+                    fun=NULL, ...,
+                    epsilon.type=c("none",
+                                   "Pushpalatha2012",
+                                   "otherFactor",
+                                   "otherValue"),
+                    epsilon.value=NA) {
 
   sim <- zoo::coredata(sim)
-  obs <- zoo::coredata(obs)
+  if (is.zoo(obs))
+     obs <- zoo::coredata(obs)
 
-  LME.matrix(sim=sim, obs=obs, ...)
+  out.type     <- match.arg(out.type)
+  epsilon.type <- match.arg(epsilon.type)
+
+
+  if (is.matrix(sim) | is.data.frame(sim)) {
+
+     LME.matrix(sim, obs,
+                na.rm=na.rm,
+                out.type=out.type,
+                fun=fun, ...,
+                epsilon.type=epsilon.type,
+                epsilon.value=epsilon.value)
+
+  } else {
+
+     NextMethod(sim, obs,
+                na.rm=na.rm,
+                out.type=out.type,
+                fun=fun, ...,
+                epsilon.type=epsilon.type,
+                epsilon.value=epsilon.value)
+
+  }
 
 } # 'LME.zoo' end
