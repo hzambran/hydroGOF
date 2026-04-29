@@ -49,11 +49,11 @@ PMR(sim, obs, ...)
 \arguments{
 
   \item{sim}{
-numeric, zoo, matrix or data.frame with simulated values
+zoo object with simulated values. Multicolumn \code{zoo} objects are allowed.
 }
 
   \item{obs}{
-numeric, zoo, matrix or data.frame with observed values
+zoo object with observed values. Multicolumn \code{zoo} objects are allowed.
 }
 
   \item{k}{
@@ -74,7 +74,7 @@ Number of days in a year. A value of Use 365.25 is recoomended instead of the de
 
   \item{na.rm}{
 a logical value indicating whether 'NA' should be stripped before the computation proceeds. \cr
-When an 'NA' value is found at the i-th position in \code{obs} \bold{OR} \code{sim}, the i-th value of \code{obs} \bold{AND} \code{sim} are removed before the computation.
+For the full-period bias, only positions with valid paired values in \code{obs} and \code{sim} are used. For the moving-window biases, each fixed-length window is selected first, and invalid pairs are then removed inside that window.
 }
 
   \item{fun}{
@@ -153,14 +153,16 @@ The proxy for model robustness ranges from 0 to positive infinity. Essentially, 
 
 Proxy for model robustness between \code{sim} and \code{obs}. \cr
 
-If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with the proxy for model robustness between each column of \code{sim} and \code{obs}.
+If \code{sim} and \code{obs} are multicolumn \code{zoo} objects, the returned value is a vector with the proxy for model robustness between each column of \code{sim} and \code{obs}.
 }
 
 \references{
 
-\cite{Royer-Gaspard, P., Andreassian, V., and Thirel, G. (2021). Technical note: PMR - a proxy metric to assess hydrological model robustness in a changing climate, Hydrology and Earth System Sciences, 25, 5703--5716, https://doi.org/10.5194/hess-25-5703-2021}
+\cite{
+Royer-Gaspard, P., Andreassian, V., and Thirel, G. (2021). Technical note: PMR - a proxy metric to assess hydrological model robustness in a changing climate. Hydrology and Earth System Sciences, 25, 5703--5716. doi:10.5194/hess-25-5703-2021. }
 
-\cite{Pushpalatha, R.; Perrin, C.; Le Moine, N.; Andreassian, V. (2012). A review of efficiency criteria suitable for evaluating low-flow simulations. Journal of Hydrology, 420, 171--182. doi:10.1016/j.jhydrol.2011.11.055.}
+\cite{
+Pushpalatha, R.; Perrin, C.; Le Moine, N.; Andreassian, V. (2012). A review of efficiency criteria suitable for evaluating low-flow simulations. Journal of Hydrology, 420, 171--182. doi:10.1016/j.jhydrol.2011.11.055.}
 
 }
 
@@ -172,7 +174,7 @@ Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 
 \code{obs} and \code{sim} have to have the same length/dimension. \cr
 
-The missing values in \code{obs} and \code{sim} are removed before the computation proceeds, and only those positions with non-missing values in \code{obs} and \code{sim} are considered in the computation.
+For the moving-window biases, the fixed-length window is selected before invalid pairs are removed inside that window.
 
 The choice of window length \code{k} influences the temporal scale at which robustness is evaluated.
 }
@@ -205,7 +207,6 @@ KGE(sim=sim, obs=obs, method="2012", out.type="full")
 # PMR (Royer-Gaspard et al., 2021):
 PMR(sim=sim, obs=obs)
 
-\dontrun{
 ##################
 # Example 2: 
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
@@ -257,7 +258,7 @@ lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 PMR(sim=lsim, obs=lobs)
 
-
+\dontrun{
 ##################
 # Example 6: PMR for simulated values equal to observations plus random noise 
 #            on the first half of the observed values and applying (natural) 
@@ -301,7 +302,7 @@ PMR(sim=sim, obs=obs, fun=fun1)
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 PMR(sim=sim1, obs=obs1)
-
+}
 ##################
 # Example 9: PMR for a two-column data frame where simulated values are equal to 
 #            observations plus random noise on the first half of the observed values 
@@ -310,7 +311,6 @@ SIM <- cbind(sim, sim)
 OBS <- cbind(obs, obs)
 
 PMR(sim=SIM, obs=OBS)
-}
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the

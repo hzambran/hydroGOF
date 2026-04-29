@@ -16,7 +16,7 @@
 # in a changing climate, Hydrology and Earth System Sciences, 25, 5703--5716,  #
 # https://doi.org/10.5194/hess-25-5703-2021.                                   #
 ################################################################################
-# Started: 27-Mar-2026                                                         #
+# Started: 27-Apr-2026 ; 28-Apr-2026 ; 29-Apr-2026                             #
 ################################################################################
 # The proxy for model robustness (PMR) is a dimensionless performance metric 
 # that quantifies the temporal stability of model bias by measuring how much 
@@ -38,9 +38,9 @@
 #   model performance is highly sensitive to changes in hydrological  
 #   conditions or calibration/validation periods.
 
-# 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values
-# 'sim'   : numeric 'data.frame', 'matrix' or 'vector' with simulated values
-# 'Result': Nash-sutcliffe Efficiency between 'sim' and 'obs'
+# 'obs'   : 'zoo' object with observed values
+# 'sim'   : 'zoo' object with simulated values
+# 'Result': Proxy for Model Robustness between 'sim' and 'obs'
 
 
 PMR <- function(sim, obs, ...) UseMethod("PMR")
@@ -98,35 +98,39 @@ PMR.default <- function(sim, obs, k=NULL, min.years=5,
     stop("Invalid argument: 'sim' and 'obs' must be 'zoo' objects !")
 
   if (is.null(k)) 
-    k <- get_default_value_for_k(obs, years = min.years)
+    k <- get_default_value_for_k(obs, years = min.years,
+                                 days.per.year = days.per.year)
+
+  if (NCOL(sim) > 1 | NCOL(obs) > 1)
+    stop("Invalid argument: 'sim' and 'obs' must be univariate 'zoo' objects !")
+
+  if (!is.null(fun)) {
+    fun1 <- match.fun(fun)
+
+    new <- preproc(sim=sim, obs=obs, fun=fun1, ...,
+                   epsilon.type=epsilon.type,
+                   epsilon.value=epsilon.value)
+
+    sim <- new[["sim"]]
+    obs <- new[["obs"]]
+  } # IF end
+
+  n <- length(obs)
+
+  if (n < k) {
+    PMRval <- NA
+    warning("Length of series smaller than window length 'k'")
+    return(PMRval)
+  } # IF end
 
   vi <- valindex(sim, obs)
 
   if (length(vi) > 0) {
 
-    obs <- obs[vi]
-    sim <- sim[vi]
+    obs.valid <- obs[vi]
+    sim.valid <- sim[vi]
 
-    if (!is.null(fun)) {
-      fun1 <- match.fun(fun)
-
-      new <- preproc(sim=sim, obs=obs, fun=fun1, ...,
-                     epsilon.type=epsilon.type,
-                     epsilon.value=epsilon.value)
-
-      sim <- new[["sim"]]
-      obs <- new[["obs"]]
-    } # IF end
-
-    n <- length(obs)
-
-    if (n < k) {
-      PMRval <- NA
-      warning("Length of series smaller than window length 'k'")
-      return(PMRval)
-    } # IF end
-
-    Qobs_mean <- mean(obs)
+    Qobs_mean <- mean(obs.valid)
 
     if ( (Qobs_mean == 0) | is.na(Qobs_mean) ) {
       PMRval <- NA
@@ -134,23 +138,29 @@ PMR.default <- function(sim, obs, k=NULL, min.years=5,
       return(PMRval)
     } # IF end
 
-    mean_bias <- mean(sim) - mean(obs)
+    mean_bias <- mean(sim.valid) - mean(obs.valid)
 
     N <- n - k + 1
 
-    moving_bias <- numeric(N)
+    moving_bias <- rep(NA, N)
 
     for (i in seq_len(N)) {
 
       idx <- i:(i + k - 1)
 
-      moving_bias[i] <-
-        mean(sim[idx]) - mean(obs[idx])
+      sim.window <- sim[idx]
+      obs.window <- obs[idx]
+      vi.window  <- valindex(sim.window, obs.window)
+
+      if (length(vi.window) > 0) {
+        moving_bias[i] <-
+          mean(sim.window[vi.window]) - mean(obs.window[vi.window])
+      } # IF end
     } # FOR end
 
     deviations <- abs(moving_bias - mean_bias)
 
-    PMRval <- 2 * mean(deviations) / Qobs_mean
+    PMRval     <- 2 * mean(deviations, na.rm=na.rm) / Qobs_mean
 
   } else {
 
@@ -175,6 +185,9 @@ PMR.matrix <- function(sim, obs, k=NULL, min.years=5,
                        epsilon.value=NA) {
 
   epsilon.type <- match.arg(epsilon.type)
+
+  if (!inherits(sim, "zoo") | !inherits(obs, "zoo"))
+    stop("Invalid argument: 'sim' and 'obs' must be 'zoo' objects !")
 
   if ( all.equal(dim(sim), dim(obs)) != TRUE )
     stop(paste("Invalid argument: dim(sim) != dim(obs) ( [",
@@ -221,6 +234,9 @@ PMR.data.frame <- function(sim, obs, k=NULL, min.years=5,
 
   epsilon.type <- match.arg(epsilon.type)
 
+  if (!inherits(sim, "zoo") | !inherits(obs, "zoo"))
+    stop("Invalid argument: 'sim' and 'obs' must be 'zoo' objects !")
+
   sim <- as.matrix(sim)
   obs <- as.matrix(obs)
 
@@ -245,17 +261,31 @@ PMR.zoo <- function(sim, obs, k=NULL, min.years=5,
 
   epsilon.type <- match.arg(epsilon.type)
 
-  #sim <- zoo::coredata(sim)
-  #if (is.zoo(obs)) obs <- zoo::coredata(obs)
+  if (NCOL(sim) > 1 | NCOL(obs) > 1) {
 
-  if (is.matrix(sim) | is.data.frame(sim)) {
+    if (NCOL(sim) != NCOL(obs))
+      stop("Invalid argument: ncol(sim) != ncol(obs) !")
 
-    PMR.matrix( sim, obs, k=k, min.years=min.years,
-                days.per.year=days.per.year,
-                na.rm=na.rm, fun=fun, ...,
-                epsilon.type=epsilon.type,
-                epsilon.value=epsilon.value
-              )
+    PMRval <- sapply(
+      seq_len(NCOL(obs)),
+      function(i, x, y) {
+
+        PMR.default( x[, i], y[, i], k=k,
+                     min.years=min.years,
+                     days.per.year=days.per.year,
+                     na.rm=na.rm, fun=fun, ...,
+                     epsilon.type=epsilon.type,
+                     epsilon.value=epsilon.value
+                    )
+
+      },
+      x=sim,
+      y=obs
+    ) # sapply END
+
+    names(PMRval) <- colnames(obs)
+
+    return(PMRval)
 
   } else {
 
@@ -269,4 +299,3 @@ PMR.zoo <- function(sim, obs, k=NULL, min.years=5,
     } # ELSE end
 
 } # 'PMR.zoo' end
-
