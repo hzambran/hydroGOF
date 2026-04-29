@@ -208,28 +208,128 @@ sim[51:100] <- sim[51:100] + 5
 PMR(sim, obs, k=10)
 
 ##################
-# Example 3:
-# Applying logarithmic transformation
+# Example 3: Looking at the difference between PMR and KGE, both with 'method=2009' 
+#            and 'method=2012'
 
-PMR(sim, obs, k=10, fun=log)
+# Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
+data(EgaEnEstellaQts)
+obs <- EgaEnEstellaQts
+
+# Simulated daily time series, initially equal to twice the observed values
+sim <- 2*obs 
+
+# KGE 2009
+KGE(sim=sim, obs=obs, method="2009", out.type="full")
+
+# KGE 2012
+KGE(sim=sim, obs=obs, method="2012", out.type="full")
+
+# PMR (Royer-Gaspard et al., 2021):
+PMR(sim=sim, obs=obs)
 
 ##################
-# Example 4:
-# Using Pushpalatha2012 epsilon
+# Example 2: 
+# Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
+data(EgaEnEstellaQts)
+obs <- EgaEnEstellaQts
 
-PMR(sim, obs, k=10, fun=log, epsilon.type="Pushpalatha2012")
+# Generating a simulated daily time series, initially equal to the observed series
+sim <- obs 
+
+# Computing the 'PMR' for the "best" (unattainable) case
+PMR(sim=sim, obs=obs)
 
 ##################
-# Example 5:
-# Matrix input (multi-site case)
+# Example 3: PMR for simulated values equal to observations plus random noise 
+#            on the first half of the observed values. 
+#            This random noise has more relative importance for low flows than 
+#            for medium and high flows.
+  
+# Randomly changing the first 1826 elements of 'sim', by using a normal distribution 
+# with mean 10 and standard deviation equal to 1 (default of 'rnorm').
+sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
+ggof(sim, obs)
 
-obs <- cbind(site1=1:100, site2=1:100)
+PMR(sim=sim, obs=obs)
 
-sim <- obs
-sim[51:100,2] <- sim[51:100,2] + 10
+##################
+# Example 4: PMR for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' during computations.
 
-PMR(sim, obs, k=10)
+PMR(sim=sim, obs=obs, fun=log)
 
+# Verifying the previous value:
+lsim <- log(sim)
+lobs <- log(obs)
+PMR(sim=lsim, obs=lobs)
+
+##################
+# Example 5: PMR for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' and adding the Pushpalatha2012 constant
+#            during computations
+
+PMR(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
+
+# Verifying the previous value, with the epsilon value following Pushpalatha2012
+eps  <- mean(obs, na.rm=TRUE)/100
+lsim <- log(sim+eps)
+lobs <- log(obs+eps)
+PMR(sim=lsim, obs=lobs)
+
+##################
+# Example 6: PMR for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' and adding a user-defined constant
+#            during computations
+
+eps <- 0.01
+PMR(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
+
+# Verifying the previous value:
+lsim <- log(sim+eps)
+lobs <- log(obs+eps)
+PMR(sim=lsim, obs=lobs)
+
+##################
+# Example 7: PMR for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' and using a user-defined factor
+#            to multiply the mean of the observed values to obtain the constant
+#            to be added to 'sim' and 'obs' during computations
+
+fact <- 1/50
+PMR(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
+
+# Verifying the previous value:
+eps  <- fact*mean(obs, na.rm=TRUE)
+lsim <- log(sim+eps)
+lobs <- log(obs+eps)
+PMR(sim=lsim, obs=lobs)
+
+##################
+# Example 8: PMR for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying a 
+#            user-defined function to 'sim' and 'obs' during computations
+
+fun1 <- function(x) {sqrt(x+1)}
+
+PMR(sim=sim, obs=obs, fun=fun1)
+
+# Verifying the previous value
+sim1 <- sqrt(sim+1)
+obs1 <- sqrt(obs+1)
+PMR(sim=sim1, obs=obs1)
+
+##################
+# Example 9: PMR for a two-column data frame where simulated values are equal to 
+#            observations plus random noise on the first half of the observed values 
+
+SIM <- cbind(sim, sim)
+OBS <- cbind(obs, obs)
+
+PMR(sim=SIM, obs=OBS)
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the
