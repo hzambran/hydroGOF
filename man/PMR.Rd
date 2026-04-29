@@ -232,6 +232,7 @@ ggof(sim, obs)
 
 PMR(sim=sim, obs=obs)
 
+\dontrun{
 ##################
 # Example 4: PMR for simulated values equal to observations plus random noise 
 #            on the first half of the observed values and applying (natural) 
@@ -258,7 +259,6 @@ lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 PMR(sim=lsim, obs=lobs)
 
-\dontrun{
 ##################
 # Example 6: PMR for simulated values equal to observations plus random noise 
 #            on the first half of the observed values and applying (natural) 
