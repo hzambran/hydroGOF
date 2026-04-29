@@ -347,7 +347,7 @@ sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
 
 # Computing the new 'KGE'
 KGE(sim=sim, obs=obs)
-#> [1] 0.6799691
+#> [1] 0.6797008
 
 # Randomly changing the first 2000 elements of 'sim', by using a normal distribution 
 # with mean 10 and standard deviation equal to 1 (default of 'rnorm').
@@ -356,31 +356,31 @@ sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 # Traditional Kling-Gupta eficiency (Gupta and Kling, 2009)
 KGE(sim=sim, obs=obs, method="2009", out.type="full")
 #> $KGE.value
-#> [1] 0.6490295
+#> [1] 0.6506403
 #> 
 #> $KGE.elements
 #>         r      Beta     Alpha 
-#> 0.9704045 1.3471574 1.0422635 
+#> 0.9707048 1.3455522 1.0422804 
 #> 
 
 # KGE': Kling-Gupta eficiency 2012 (Kling et al.,2012) 
 KGE(sim=sim, obs=obs, method="2012", out.type="full")
 #> $KGE.value
-#> [1] 0.5845285
+#> [1] 0.5864006
 #> 
 #> $KGE.elements
 #>         r      Beta     Gamma 
-#> 0.9704045 1.3471574 0.7736762 
+#> 0.9707048 1.3455522 0.7746116 
 #> 
 
 # KGE'': Kling-Gupta eficiency 2021 (Tang et al.,2021) 
 KGE(sim=sim, obs=obs, method="2021", out.type="full")
 #> $KGE.value
-#> [1] 0.720931
+#> [1] 0.7222063
 #> 
 #> $KGE.elements
 #>         r Beta.2021     Alpha 
-#> 0.9704045 0.2742580 1.0422635 
+#> 0.9707048 0.2729899 1.0422804 
 #> 
 
 ##################
@@ -389,13 +389,13 @@ KGE(sim=sim, obs=obs, method="2021", out.type="full")
 #            logarithm to 'sim' and 'obs' during computations.
 
 KGE(sim=sim, obs=obs, fun=log)
-#> [1] 0.7157116
+#> [1] 0.7169559
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 KGE(sim=lsim, obs=lobs)
-#> [1] 0.7157116
+#> [1] 0.7169559
 
 ##################
 # Example 5: KGE for simulated values equal to observations plus random noise 
@@ -404,14 +404,14 @@ KGE(sim=lsim, obs=lobs)
 #            during computations
 
 KGE(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.7233712
+#> [1] 0.7246052
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 KGE(sim=lsim, obs=lobs)
-#> [1] 0.7233712
+#> [1] 0.7246052
 
 ##################
 # Example 6: KGE for simulated values equal to observations plus random noise 
@@ -421,13 +421,13 @@ KGE(sim=lsim, obs=lobs)
 
 eps <- 0.01
 KGE(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 0.7162154
+#> [1] 0.717459
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 KGE(sim=lsim, obs=lobs)
-#> [1] 0.7162154
+#> [1] 0.717459
 
 ##################
 # Example 7: KGE for simulated values equal to observations plus random noise 
@@ -438,14 +438,14 @@ KGE(sim=lsim, obs=lobs)
 
 fact <- 1/50
 KGE(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 0.730441
+#> [1] 0.7316655
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 KGE(sim=lsim, obs=lobs)
-#> [1] 0.730441
+#> [1] 0.7316655
 
 ##################
 # Example 8: KGE for simulated values equal to observations plus random noise 
@@ -455,11 +455,11 @@ KGE(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 KGE(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.7948099
+#> [1] 0.7958555
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 KGE(sim=sim1, obs=obs1)
-#> [1] 0.7948099
+#> [1] 0.7958555
 ```

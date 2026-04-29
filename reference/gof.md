@@ -732,25 +732,25 @@ ggof(sim, obs)
 
 gof(sim=sim, obs=obs)
 #>          [,1]
-#> ME       5.01
-#> MAE      5.01
-#> MSE     50.69
-#> RMSE     7.12
-#> ubRMSE   5.06
-#> NRMSE % 35.60
-#> PBIAS % 31.70
+#> ME       5.02
+#> MAE      5.02
+#> MSE     50.94
+#> RMSE     7.14
+#> ubRMSE   5.07
+#> NRMSE % 35.70
+#> PBIAS % 31.80
 #> RSR      0.36
-#> rSD      1.03
+#> rSD      1.04
 #> NSE      0.87
 #> mNSE     0.60
-#> rNSE    -0.56
+#> rNSE    -0.57
 #> wNSE     0.98
 #> wsNSE    0.76
 #> d        0.97
 #> dr       0.80
 #> md       0.80
-#> rd       0.63
-#> cp       0.47
+#> rd       0.62
+#> cp       0.46
 #> r        0.97
 #> R2       0.87
 #> bR2      0.78
@@ -772,7 +772,7 @@ gof(sim=sim, obs=obs, fun=log)
 #>          [,1]
 #> ME       0.42
 #> MAE      0.42
-#> MSE      0.49
+#> MSE      0.48
 #> RMSE     0.70
 #> ubRMSE   0.55
 #> NRMSE % 72.20
@@ -781,14 +781,14 @@ gof(sim=sim, obs=obs, fun=log)
 #> rSD      0.88
 #> NSE      0.48
 #> mNSE     0.48
-#> rNSE    -4.43
+#> rNSE    -4.41
 #> wNSE     0.74
 #> wsNSE    0.78
 #> d        0.86
 #> dr       0.74
 #> md       0.74
-#> rd      -0.45
-#> cp      -7.97
+#> rd      -0.44
+#> cp      -7.96
 #> r        0.82
 #> R2       0.48
 #> bR2      0.43
@@ -797,7 +797,7 @@ gof(sim=sim, obs=obs, fun=log)
 #> KGElf    0.50
 #> KGEnp    0.74
 #> KGEkm    0.73
-#> sKGE     0.46
+#> sKGE     0.47
 #> APFB     0.01
 #> HFB      0.98
 
@@ -808,7 +808,7 @@ gof(sim=lsim, obs=lobs)
 #>          [,1]
 #> ME       0.42
 #> MAE      0.42
-#> MSE      0.49
+#> MSE      0.48
 #> RMSE     0.70
 #> ubRMSE   0.55
 #> NRMSE % 72.20
@@ -817,14 +817,14 @@ gof(sim=lsim, obs=lobs)
 #> rSD      0.88
 #> NSE      0.48
 #> mNSE     0.48
-#> rNSE    -4.43
+#> rNSE    -4.41
 #> wNSE     0.74
 #> wsNSE    0.78
 #> d        0.86
 #> dr       0.74
 #> md       0.74
-#> rd      -0.45
-#> cp      -7.97
+#> rd      -0.44
+#> cp      -7.96
 #> r        0.82
 #> R2       0.48
 #> bR2      0.43
@@ -833,7 +833,7 @@ gof(sim=lsim, obs=lobs)
 #> KGElf    0.41
 #> KGEnp    0.74
 #> KGEkm    0.73
-#> sKGE     0.69
+#> sKGE     0.70
 #> APFB     0.01
 #> HFB      0.98
 
@@ -856,14 +856,14 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
 #> rSD      0.89
 #> NSE      0.49
 #> mNSE     0.48
-#> rNSE    -2.03
+#> rNSE    -2.05
 #> wNSE     0.74
 #> wsNSE    0.78
 #> d        0.86
 #> dr       0.74
 #> md       0.74
 #> rd       0.19
-#> cp      -7.71
+#> cp      -7.70
 #> r        0.83
 #> R2       0.49
 #> bR2      0.44
@@ -893,14 +893,14 @@ gof(sim=lsim, obs=lobs)
 #> rSD      0.89
 #> NSE      0.49
 #> mNSE     0.48
-#> rNSE    -2.03
+#> rNSE    -2.05
 #> wNSE     0.74
 #> wsNSE    0.78
 #> d        0.86
 #> dr       0.74
 #> md       0.74
 #> rd       0.19
-#> cp      -7.71
+#> cp      -7.70
 #> r        0.83
 #> R2       0.49
 #> bR2      0.44
@@ -927,7 +927,7 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
 #> MSE      0.48
 #> RMSE     0.70
 #> ubRMSE   0.55
-#> NRMSE % 72.20
+#> NRMSE % 72.10
 #> PBIAS % 18.70
 #> RSR      0.72
 #> rSD      0.88
@@ -940,13 +940,13 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
 #> dr       0.74
 #> md       0.74
 #> rd      -0.36
-#> cp      -7.96
+#> cp      -7.95
 #> r        0.82
 #> R2       0.48
 #> bR2      0.43
 #> VE       0.81
 #> KGE      0.72
-#> KGElf    0.51
+#> KGElf    0.50
 #> KGEnp    0.74
 #> KGEkm    0.73
 #> sKGE     0.48
@@ -963,7 +963,7 @@ gof(sim=lsim, obs=lobs)
 #> MSE      0.48
 #> RMSE     0.70
 #> ubRMSE   0.55
-#> NRMSE % 72.20
+#> NRMSE % 72.10
 #> PBIAS % 18.70
 #> RSR      0.72
 #> rSD      0.88
@@ -976,7 +976,7 @@ gof(sim=lsim, obs=lobs)
 #> dr       0.74
 #> md       0.74
 #> rd      -0.36
-#> cp      -7.96
+#> cp      -7.95
 #> r        0.82
 #> R2       0.48
 #> bR2      0.43
@@ -985,7 +985,7 @@ gof(sim=lsim, obs=lobs)
 #> KGElf    0.41
 #> KGEnp    0.74
 #> KGEkm    0.73
-#> sKGE     0.69
+#> sKGE     0.70
 #> APFB     0.01
 #> HFB      0.98
 
@@ -1010,14 +1010,14 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
 #> rSD      0.89
 #> NSE      0.49
 #> mNSE     0.48
-#> rNSE    -1.31
+#> rNSE    -1.32
 #> wNSE     0.74
 #> wsNSE    0.78
 #> d        0.87
 #> dr       0.74
 #> md       0.74
-#> rd       0.39
-#> cp      -7.46
+#> rd       0.38
+#> cp      -7.45
 #> r        0.83
 #> R2       0.49
 #> bR2      0.44
@@ -1047,14 +1047,14 @@ gof(sim=lsim, obs=lobs)
 #> rSD      0.89
 #> NSE      0.49
 #> mNSE     0.48
-#> rNSE    -1.31
+#> rNSE    -1.32
 #> wNSE     0.74
 #> wsNSE    0.78
 #> d        0.87
 #> dr       0.74
 #> md       0.74
-#> rd       0.39
-#> cp      -7.46
+#> rd       0.38
+#> cp      -7.45
 #> r        0.83
 #> R2       0.49
 #> bR2      0.44
@@ -1082,11 +1082,11 @@ gof(sim=sim, obs=obs, fun=fun1)
 #> RMSE     0.96
 #> ubRMSE   0.71
 #> NRMSE % 52.40
-#> PBIAS % 17.70
+#> PBIAS % 17.80
 #> RSR      0.52
 #> rSD      0.97
 #> NSE      0.73
-#> mNSE     0.54
+#> mNSE     0.53
 #> rNSE     0.34
 #> wNSE     0.89
 #> wsNSE    0.76
@@ -1102,7 +1102,7 @@ gof(sim=sim, obs=obs, fun=fun1)
 #> KGE      0.80
 #> KGElf    0.50
 #> KGEnp    0.75
-#> KGEkm    0.80
+#> KGEkm    0.79
 #> sKGE     0.84
 #> APFB     0.02
 #> HFB      0.96
@@ -1118,11 +1118,11 @@ gof(sim=sim1, obs=obs1)
 #> RMSE     0.96
 #> ubRMSE   0.71
 #> NRMSE % 52.40
-#> PBIAS % 17.70
+#> PBIAS % 17.80
 #> RSR      0.52
 #> rSD      0.97
 #> NSE      0.73
-#> mNSE     0.54
+#> mNSE     0.53
 #> rNSE     0.34
 #> wNSE     0.89
 #> wsNSE    0.76
@@ -1138,7 +1138,7 @@ gof(sim=sim1, obs=obs1)
 #> KGE      0.80
 #> KGElf    0.72
 #> KGEnp    0.75
-#> KGEkm    0.80
+#> KGEkm    0.79
 #> sKGE     0.79
 #> APFB     0.02
 #> HFB      0.96
@@ -1149,10 +1149,10 @@ g <-  gof(sim, obs)
 # Getting only the RMSE
 g[4,1]
 #> RMSE 
-#> 7.12 
+#> 7.14 
 g["RMSE",]
 #> RMSE 
-#> 7.12 
+#> 7.14 
 
 if (FALSE) { # \dontrun{
 # Writing all the GoFs into a TXT file

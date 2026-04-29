@@ -259,7 +259,7 @@ sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
 
 # Computing the new 'KGEnp'
 KGEnp(sim=sim, obs=obs)
-#> [1] 0.634457
+#> [1] 0.6344234
 
 # Randomly changing the first 2000 elements of 'sim', by using a normal distribution 
 # with mean 10 and standard deviation equal to 1 (default of 'rnorm').
@@ -267,7 +267,7 @@ sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 
 # Computing the new 'KGEnp'
 KGEnp(sim=sim, obs=obs)
-#> [1] 0.6123063
+#> [1] 0.6129172
 
 ##################
 # Example 4: KGEnp for simulated values equal to observations plus random noise 
@@ -275,13 +275,13 @@ KGEnp(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 KGEnp(sim=sim, obs=obs, fun=log)
-#> [1] 0.7444944
+#> [1] 0.7452
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 KGEnp(sim=lsim, obs=lobs)
-#> [1] 0.7444944
+#> [1] 0.7452
 
 ##################
 # Example 5: KGEnp for simulated values equal to observations plus random noise 
@@ -290,14 +290,14 @@ KGEnp(sim=lsim, obs=lobs)
 #            during computations
 
 KGEnp(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.7444944
+#> [1] 0.7452
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 KGEnp(sim=lsim, obs=lobs)
-#> [1] 0.7496178
+#> [1] 0.7503355
 
 ##################
 # Example 6: KGEnp for simulated values equal to observations plus random noise 
@@ -307,13 +307,13 @@ KGEnp(sim=lsim, obs=lobs)
 
 eps <- 0.01
 KGEnp(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 0.7444944
+#> [1] 0.7452
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 KGEnp(sim=lsim, obs=lobs)
-#> [1] 0.744832
+#> [1] 0.7455385
 
 ##################
 # Example 7: KGEnp for simulated values equal to observations plus random noise 
@@ -324,14 +324,14 @@ KGEnp(sim=lsim, obs=lobs)
 
 fact <- 1/50
 KGEnp(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 0.7444944
+#> [1] 0.7452
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 KGEnp(sim=lsim, obs=lobs)
-#> [1] 0.7543158
+#> [1] 0.7550453
 
 ##################
 # Example 8: KGEnp for simulated values equal to observations plus random noise 
@@ -341,11 +341,11 @@ KGEnp(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 KGEnp(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.7526124
+#> [1] 0.7533573
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 KGEnp(sim=sim1, obs=obs1)
-#> [1] 0.7526124
+#> [1] 0.7533573
 ```

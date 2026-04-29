@@ -371,35 +371,35 @@ sim[hQ.index] <- sim[hQ.index] + rnorm(hQ.n, mean=mean(sim[hQ.index], na.rm=TRUE
 
 # KGEkm (Pizarro and Jorquera, 2024; method='2012')
 KGEkm(sim=sim, obs=obs)
-#> [1] 0.5789637
+#> [1] 0.578109
 
 # KGE': Kling-Gupta eficiency 2012 (Kling et al.,2012) 
 KGE(sim=sim, obs=obs, method="2012")
-#> [1] 0.4896672
+#> [1] 0.4887559
 
 # Traditional Kling-Gupta eficiency (Gupta and Kling, 2009)
 KGE(sim=sim, obs=obs)
-#> [1] 0.07018192
+#> [1] 0.06833165
 
 # KGE'': Kling-Gupta eficiency 2021 (Tang et al.,2021) 
 KGE(sim=sim, obs=obs, method="2021")
-#> [1] 0.1028389
+#> [1] 0.1010568
 
 # Traditional Nash-Sutcliffe eficiency (Nash and Sutcliffe, 1970)
 NSE(sim=sim, obs=obs)
-#> [1] 0.008828118
+#> [1] 0.004794342
 
 # Weighted Nash-Sutcliffe efficiency (Hundecha and Bardossy, 2004)
 wNSE(sim=sim, obs=obs)
-#> [1] 0.284463
+#> [1] 0.281951
 
 # wsNSE (Zambrano-Bigiarini and Bellin, 2012):
 wsNSE(sim=sim, obs=obs)
-#> [1] -0.2163731
+#> [1] -0.2213234
 
 # APFB (Mizukami et al., 2019):
 APFB(sim=sim, obs=obs)
-#> [1] 0.2927511
+#> [1] 0.2918397
 
 
 ##################
@@ -422,43 +422,43 @@ sim[lQ.index] <- sim[lQ.index] + rnorm(lQ.n, mean=mean(sim[lQ.index], na.rm=TRUE
 
 # KGEkm (Pizarro and Jorquera, 2024; method='2012')
 KGEkm(sim=sim, obs=obs)
-#> [1] 0.8762053
+#> [1] 0.8774177
 
 # KGE': Kling-Gupta eficiency 2012 (Kling et al.,2012) 
 KGE(sim=sim, obs=obs, method="2012")
-#> [1] 0.8390655
+#> [1] 0.8405711
 
 # Traditional Kling-Gupta eficiency (Gupta and Kling, 2009)
 KGE(sim=sim, obs=obs)
-#> [1] 0.8932852
+#> [1] 0.8943441
 
 # KGE'': Kling-Gupta eficiency 2021 (Tang et al.,2021) 
 KGE(sim=sim, obs=obs, method="2021")
-#> [1] 0.9117652
+#> [1] 0.912638
 
 # Traditional Nash-Sutcliffe eficiency (Nash and Sutcliffe, 1970)
 NSE(sim=sim, obs=obs)
-#> [1] 0.9842043
+#> [1] 0.9844205
 
 # Weighted seasonal Nash-Sutcliffe efficiency (Zambrano-Bigiarini and Bellin, 2012):
 wsNSE(sim=sim, obs=obs, lambda=0.05, j=1/2)
-#> [1] 0.6796887
+#> [1] 0.6815896
 
 # Refined Index of Agreement (Willmott et al., 2012):
 dr(sim=sim, obs=obs)
-#> [1] 0.9388341
+#> [1] 0.9394451
 
 # Relative Index of Agreement (Krause et al., 2005):
 rd(sim=sim, obs=obs)
-#> [1] 0.9067161
+#> [1] 0.9077374
 
 # Modified Index of Agreement (Krause et al., 2005):
 md(sim=sim, obs=obs)
-#> [1] 0.9348491
+#> [1] 0.9355419
 
 # KGElf (Garcia et al., 2017):
 KGElf(sim=sim, obs=obs)
-#> [1] 0.5851953
+#> [1] 0.5862099
 
 
 ##################
@@ -467,13 +467,13 @@ KGElf(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 KGEkm(sim=sim, obs=obs, fun=log)
-#> [1] 0.8330954
+#> [1] 0.8341867
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 KGEkm(sim=lsim, obs=lobs)
-#> [1] 0.8330954
+#> [1] 0.8341867
 
 ##################
 # Example 6: KGEkm for simulated values equal to observations plus random noise 
@@ -482,14 +482,14 @@ KGEkm(sim=lsim, obs=lobs)
 #            during computations
 
 KGEkm(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.8397854
+#> [1] 0.8408504
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 KGEkm(sim=lsim, obs=lobs)
-#> [1] 0.8397854
+#> [1] 0.8408504
 
 ##################
 # Example 7: KGEkm for simulated values equal to observations plus random noise 
@@ -499,13 +499,13 @@ KGEkm(sim=lsim, obs=lobs)
 
 eps <- 0.01
 KGEkm(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 0.8335359
+#> [1] 0.8346255
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 KGEkm(sim=lsim, obs=lobs)
-#> [1] 0.8335359
+#> [1] 0.8346255
 
 ##################
 # Example 8: KGEkm for simulated values equal to observations plus random noise 
@@ -516,14 +516,14 @@ KGEkm(sim=lsim, obs=lobs)
 
 fact <- 1/50
 KGEkm(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 0.8459402
+#> [1] 0.8469799
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 KGEkm(sim=lsim, obs=lobs)
-#> [1] 0.8459402
+#> [1] 0.8469799
 
 ##################
 # Example 9: KGEkm for simulated values equal to observations plus random noise 
@@ -533,11 +533,11 @@ KGEkm(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 KGEkm(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.8951481
+#> [1] 0.8960538
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 KGEkm(sim=sim1, obs=obs1)
-#> [1] 0.8951481
+#> [1] 0.8960538
 ```

@@ -7,6 +7,7 @@
 ``` R
     o 'PMR'  : to compute the Proxy for Model Robustness to quantify the temporal stability of model bias, proposed by Royer-Gaspard et al. (2021).
     o 'JDKGE': to compute the Joint Divergence Kling-Gupta Efficiency, which extends the traditional Kling-Gupta efficiency by incorporating a fourth diagnostic component that evaluates the similarity between the probability distributions of simulated and observed values, proposed by Ficchi et al. (2026).
+    o 'LME'  : to compute the Liu-Mean Efficiency, which evaluates how large the error is compared to the average level of the observations, making it particularly useful in hydrological applications where the mean value is a meaningful scale for evaluating prediction accuracy.
 ```
 
 ### Bug fixes

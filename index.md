@@ -134,8 +134,12 @@ Quantitative statistics included in this package are:
 - **KGEkm**: Knowable Moments Kling-Gupta Efficiency (**Pizarro and
   Jorquera, 2024**)
 - **sKGE**: Split Kling-Gupta Efficiency (**Fowler et al., 2018**)
+- **JDKGE**: Joint Divergence Kling-Gupta Efficiency (**Ficchi et al.,
+  2026**)
 - **APFB**: Annual Peak Flow Bias (**Mizukami et al., 2019**)
 - **HFB**: High Flow Bias
+- **PMR**: Proxy for Model Robustness (**Royer-Gaspard et al., 2021**)
+- **LME**: Liu-Mean Efficiency (**Liu, 2020**)
 - **rSpearman**: Spearman’s rank correlation coefficient (**Spearman,
   1961**)
 - **ssq**: Sum of the Squared Residuals (**Willmott et al., 2009**)
@@ -155,59 +159,65 @@ Quantitative statistics included in this package are:
   Mieleitner, J. ; Zobrist, J.; Srinivasan, R. (2007), [Modelling
   hydrology and water quality in the pre-alpine/alpine Thur watershed
   using SWAT](https://doi.org/10.1016/j.jhydrol.2006.09.014), Journal of
-  Hydrology, 333(2-4), 413-430, <doi:10.1016/j.jhydrol.2006.09.014>.
+  Hydrology, 333(2-4), 413–430, <doi:10.1016/j.jhydrol.2006.09.014>.
 
 - Box, G.E. (1966). [Use and abuse of
   regression](https://doi.org/10.1080/00401706.1966.10490407).
-  Technometrics, 8(4), 625-629. <doi:10.1080/00401706.1966.10490407>.
+  Technometrics, 8(4), 625–629. <doi:10.1080/00401706.1966.10490407>.
 
 - Barrett, J.P. (1974). [The coefficient of determination-some
   limitations](https://doi.org/10.1080/00031305.1974.10479056). The
-  American Statistician, 28(1), 19-20.
+  American Statistician, 28(1), 19–20.
   <doi:10.1080/00031305.1974.10479056>.
 
 - Chai, T.; Draxler, R.R. (2014). [Root mean square error (RMSE) or mean
   absolute error (MAE)? - Arguments against avoiding RMSE in the
   literature](https://doi.org/10.5194/gmd-7-1247-2014), Geoscientific
-  Model Development, 7, 1247-1250. <doi:10.5194/gmd-7-1247-2014>.
+  Model Development, 7, 1247–1250. <doi:10.5194/gmd-7-1247-2014>.
 
 - Cinkus, G.; Mazzilli, N.; Jourde, H.; Wunsch, A.; Liesch, T.; Ravbar,
   N.; Chen, Z.; and Goldscheider, N. (2023). [When best is the enemy of
   good - critical evaluation of performance criteria in hydrological
   models](https://doi.org/10.5194/hess-27-2397-2023). Hydrology and
-  Earth System Sciences 27, 2397-2411, <doi:10.5194/hess-27-2397-2023>.
+  Earth System Sciences 27, 2397–2411, <doi:10.5194/hess-27-2397-2023>.
 
 - Criss, R. E.; Winston, W. E. (2008), [Do Nash values have value?
   Discussion and alternate proposals](https://doi.org/10.1002/hyp.7072).
-  Hydrological Processes, 22: 2723-2725. <doi:10.1002/hyp.7072>.
+  Hydrological Processes, 22: 2723–2725. <doi:10.1002/hyp.7072>.
 
 - Entekhabi, D.; Reichle, R.H.; Koster, R.D.; Crow, W.T. (2010).
   [Performance metrics for soil moisture retrievals and application
   requirements](https://doi.org/10.1175/2010JHM1223.1). Journal of
-  Hydrometeorology, 11(3), 832-840. <doi:10.1175/2010JHM1223.1>.
+  Hydrometeorology, 11(3), 832–840. <doi:10.1175/2010JHM1223.1>.
+
+- Ficchi, A.; Bavera, D.; Grimaldi, S.; Moschini, F.; Pistocchi, A.;
+  Russo, C.; Salamon, P.; Toreti, A. (2026). [Improving low and high
+  flow simulations at once: An enhanced metric for hydrological model
+  calibrations](https://doi.org/10.5194/egusphere-2026-43). EGUsphere
+  \[preprint\], <doi:10.5194/egusphere-2026-43>.
 
 - Fowler, K.; Coxon, G.; Freer, J.; Peel, M.; Wagener, T.; Western, A.;
   Woods, R.; Zhang, L. (2018). [Simulating runoff under changing
   climatic conditions: A framework for model
   improvement](https://doi.org/10.1029/2018WR023989). Water Resources
-  Research, 54(12), 812-9832. <doi:10.1029/2018WR023989>.
+  Research, 54(12), 812–9832. <doi:10.1029/2018WR023989>.
 
 - Garcia, F.; Folton, N.; Oudin, L. (2017). [Which objective function to
   calibrate rainfall-runoff models for low-flow index
   simulations?](https://doi.org/10.1080/02626667.2017.1308511).
-  Hydrological sciences journal, 62(7), 1149-1166.
+  Hydrological sciences journal, 62(7), 1149–1166.
   <doi:10.1080/02626667.2017.1308511>.
 
 - Garrick, M.; Cunnane, C.; Nash, J.E. (1978). [A criterion of
   efficiency for rainfall-runoff
   models](https://doi.org/10.1016/0022-1694(78)90155-5). Journal of
-  Hydrology 36, 375-381. <doi:10.1016/0022-1694(78)90155-5>.
+  Hydrology 36, 375–381. <doi:10.1016/0022-1694(78)90155-5>.
 
 - Gupta, H.V.; Kling, H.; Yilmaz, K.K.; Martinez, G.F. (2009).
   [Decomposition of the mean squared error and NSE performance criteria:
   Implications for improving hydrological
   modelling](https://doi.org/10.1016/j.jhydrol.2009.08.003.%20ISSN%200022-1694).
-  Journal of hydrology, 377(1-2), 80-91.
+  Journal of hydrology, 377(1-2), 80–91.
   <doi:10.1016/j.jhydrol.2009.08.003>. ISSN 0022-1694.
 
 - Gupta, H.V.; Kling, H. (2011). [On typical range, sensitivity, and
@@ -217,18 +227,18 @@ Quantitative statistics included in this package are:
 
 - Hahn, G.J. (1973). [The coefficient of determination
   exposed](https://www2.hawaii.edu/~cbaajwe/Ph.D.Seminar/Hahn1973.pdf).
-  Chemtech, 3(10), 609-612. Aailable online at: .
+  Chemtech, 3(10), 609–612. Aailable online at: .
 
 - Hodson, T.O. (2022). [Root-mean-square error (RMSE) or mean absolute
   error (MAE): when to use them or
   not](https://doi.org/10.5194/gmd-15-5481-2022), Geoscientific Model
-  Development, 15, 5481-5487, <doi:10.5194/gmd-15-5481-2022>.
+  Development, 15, 5481–5487, <doi:10.5194/gmd-15-5481-2022>.
 
 - Hundecha, Y., Bardossy, A. (2004). [Modeling of the effect of land use
   changes on the runoff generation of a river basin through parameter
   regionalization of a watershed
   model](https://doi.org/10.1016/j.jhydrol.2004.01.002). Journal of
-  hydrology, 292(1-4), 281-295. <doi:10.1016/j.jhydrol.2004.01.002>.
+  hydrology, 292(1-4), 281–295. <doi:10.1016/j.jhydrol.2004.01.002>.
 
 - Kitanidis, P.K.; Bras, R.L. (1980). [Real-time forecasting with a
   conceptual hydrologic
@@ -239,18 +249,18 @@ Quantitative statistics included in this package are:
 - Kling, H.; Fuchs, M.; Paulin, M. (2012). [Runoff conditions in the
   upper Danube basin under an ensemble of climate change
   scenarios](https://doi.org/10.1016/j.jhydrol.2012.01.011). Journal of
-  Hydrology, 424, 264-277, <doi:10.1016/j.jhydrol.2012.01.011>.
+  Hydrology, 424, 264–277, <doi:10.1016/j.jhydrol.2012.01.011>.
 
 - Knoben, W.J.; Freer, J.E.; Woods, R.A. (2019). [Inherent benchmark or
   not? Comparing Nash-Sutcliffe and Kling-Gupta efficiency
   scores](https://doi.org/10.5194/hess-23-4323-2019). Hydrology and
-  Earth System Sciences, 23(10), 4323-4331.
+  Earth System Sciences, 23(10), 4323–4331.
   <doi:10.5194/hess-23-4323-2019>.
 
 - Krause, P.; Boyle, D.P.; Base, F. (2005). [Comparison of different
   efficiency criteria for hydrological model
   assessment](https://doi.org/10.5194/adgeo-5-89-2005), Advances in
-  Geosciences, 5, 89-97. <doi:10.5194/adgeo-5-89-2005>.
+  Geosciences, 5, 89–97. <doi:10.5194/adgeo-5-89-2005>.
 
 - Krstic, G.; Krstic, N.S.; Zambrano-Bigiarini, M. (2016). [The
   br2-weighting Method for Estimating the Effects of Air Pollution on
@@ -270,6 +280,10 @@ Quantitative statistics included in this package are:
   Hydrology and Earth System Sciences, 25(7), 4209-4229.
   <doi:10.5194/hess-25-4209-2021>.
 
+- Liu, D. (2020). [A rational performance criterion for hydrological
+  model](https://doi.org/10.1016/j.jhydrol.2020.125488). Journal of
+  Hydrology, 590, 125488. <doi:10.1016/j.jhydrol.2020.125488>.
+
 - Mizukami, N.; Rakovec, O.; Newman, A.J.; Clark, M.P.; Wood, A.W.;
   Gupta, H.V.; Kumar, R.: (2019). [On the choice of calibration metrics
   for “high-flow” estimation using hydrologic
@@ -280,7 +294,7 @@ Quantitative statistics included in this package are:
   R.D.; Veith, T.L. (2007). [Model evaluation guidelines for systematic
   quantification of accuracy in watershed
   simulations](https://swat.tamu.edu/media/1312/moriasimodeleval.pdf).
-  Transactions of the ASABE. 50(3):885-900.
+  Transactions of the ASABE. 50(3):885–900.
 
 - Nash, J.E. and Sutcliffe, J.V. (1970). [River flow forecasting through
   conceptual models. Part 1: a discussion of
@@ -312,12 +326,13 @@ Quantitative statistics included in this package are:
 - Pushpalatha, R.; Perrin, C.; Le Moine, N.; Andreassian, V. (2012). [A
   review of efficiency criteria suitable for evaluating low-flow
   simulations](https://doi.org/10.1016/j.jhydrol.2011.11.055). Journal
-  of Hydrology, 420, 171-182. <doi:10.1016/j.jhydrol.2011.11.055>.
+  of Hydrology, 420, 171–182. <doi:10.1016/j.jhydrol.2011.11.055>.
 
-- Royer-Gaspard, P., Andreassian, V., and Thirel, G. (2021). Technical
+- Royer-Gaspard, P., Andreassian, V., and Thirel, G. (2021). [Technical
   note: PMR - a proxy metric to assess hydrological model robustness in
-  a changing climate, Hydrology and Earth System Sciences, 25,
-  5703–5716. <https://doi.org/10.5194/hess-25-5703-2021>.
+  a changing climate](https://doi.org/10.5194/hess-25-5703-2021).
+  Hydrology and Earth System Sciences, 25, 5703–5716.
+  <doi:10.5194/hess-25-5703-2021>.
 
 - Santos, L.; Thirel, G.; Perrin, C. (2018). [Pitfalls in using
   log-transformed flows within the KGE

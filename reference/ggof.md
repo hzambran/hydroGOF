@@ -698,22 +698,22 @@ gof(sim=sim, obs=obs)
 #>          [,1]
 #> ME       5.47
 #> MAE      5.47
-#> MSE     55.17
-#> RMSE     7.43
-#> ubRMSE   5.03
+#> MSE     55.10
+#> RMSE     7.42
+#> ubRMSE   5.02
 #> NRMSE % 37.10
 #> PBIAS % 34.60
 #> RSR      0.37
 #> rSD      1.04
 #> NSE      0.86
 #> mNSE     0.57
-#> rNSE    -0.58
+#> rNSE    -0.57
 #> wNSE     0.97
 #> wsNSE    0.72
 #> d        0.97
 #> dr       0.78
 #> md       0.78
-#> rd       0.62
+#> rd       0.63
 #> cp       0.42
 #> r        0.97
 #> R2       0.86

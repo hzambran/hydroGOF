@@ -200,7 +200,7 @@ ggof(sim, obs)
 
 
 wNSE(sim=sim, obs=obs)
-#> [1] 0.9768892
+#> [1] 0.9766039
 
 ##################
 # Example 4: wNSE for simulated values equal to observations plus random noise 
@@ -208,13 +208,13 @@ wNSE(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 wNSE(sim=sim, obs=obs, fun=log)
-#> [1] 0.7418773
+#> [1] 0.7428831
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 wNSE(sim=lsim, obs=lobs)
-#> [1] 0.7418773
+#> [1] 0.7428831
 
 ##################
 # Example 5: wNSE for simulated values equal to observations plus random noise 
@@ -223,14 +223,14 @@ wNSE(sim=lsim, obs=lobs)
 #            during computations
 
 wNSE(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.7380472
+#> [1] 0.7390918
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 wNSE(sim=lsim, obs=lobs)
-#> [1] 0.7380472
+#> [1] 0.7390918
 
 ##################
 # Example 6: wNSE for simulated values equal to observations plus random noise 
@@ -240,13 +240,13 @@ wNSE(sim=lsim, obs=lobs)
 
 eps <- 0.01
 wNSE(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 0.7416104
+#> [1] 0.7426189
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 wNSE(sim=lsim, obs=lobs)
-#> [1] 0.7416104
+#> [1] 0.7426189
 
 ##################
 # Example 7: wNSE for simulated values equal to observations plus random noise 
@@ -257,14 +257,14 @@ wNSE(sim=lsim, obs=lobs)
 
 fact <- 1/50
 wNSE(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 0.7349272
+#> [1] 0.7360056
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 wNSE(sim=lsim, obs=lobs)
-#> [1] 0.7349272
+#> [1] 0.7360056
 
 ##################
 # Example 8: wNSE for simulated values equal to observations plus random noise 
@@ -274,11 +274,11 @@ wNSE(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 wNSE(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.8871412
+#> [1] 0.8875357
 
-# Verifying the previous value, with the epsilon value following Pushpalatha2012
+# Verifying the previous value
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 wNSE(sim=sim1, obs=obs1)
-#> [1] 0.8871412
+#> [1] 0.8875357
 ```

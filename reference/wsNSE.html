@@ -9,7 +9,7 @@ This function is designed to identify differences in high or low values, dependi
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-21</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-26</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -177,23 +177,23 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Traditional Kling-Gupta eficiency (Gupta and Kling, 2009)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="KGE.html">KGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0688656</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.06799411</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Traditional Nash-Sutcliffe eficiency (Nash and Sutcliffe, 1970)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="NSE.html">NSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.006163656</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.004506628</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Weighted Nash-Sutcliffe efficiency (Hundecha and Bardossy, 2004)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="wNSE.html">wNSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2825154</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2811574</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># wsNSE (Zambrano-Bigiarini and Bellin, 2012):</span></span></span>
 <span class="r-in"><span><span class="fu">wsNSE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.219643</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2216765</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># APFB (Mizukami et al., 2019):</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="APFB.html">APFB</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2931668</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2927659</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
@@ -215,31 +215,31 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Traditional Kling-Gupta eficiency (Gupta and Kling, 2009)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="KGE.html">KGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8935468</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8922841</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Traditional Nash-Sutcliffe eficiency (Nash and Sutcliffe, 1970)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="NSE.html">NSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9841827</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9838826</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Weighted seasonal Nash-Sutcliffe efficiency (Zambrano-Bigiarini and Bellin, 2012):</span></span></span>
 <span class="r-in"><span><span class="fu">wsNSE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, lambda<span class="op">=</span><span class="fl">0.05</span>, j<span class="op">=</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6803463</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6782912</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Refined Index of Agreement (Willmott et al., 2012):</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="dr.html">dr</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9389685</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9382536</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Relative Index of Agreement (Krause et al., 2005):</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="rd.html">rd</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9083284</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9039394</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Modified Index of Agreement (Krause et al., 2005):</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="md.html">md</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9350015</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.93419</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># KGElf (Garcia et al., 2017):</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="KGElf.html">KGElf</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5886897</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5817347</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>

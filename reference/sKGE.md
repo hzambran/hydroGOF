@@ -292,7 +292,9 @@ proceeds, and only those positions with non-missing values in `obs` and
 
 ``` r
 ##################
-# Example 1: Looking at the difference between 'method=2009' and 'method=2012'
+# Example 1: Looking at the difference between sKGE and KGE, both with 'method=2009' 
+#            and 'method=2012'
+
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
 data(EgaEnEstellaQts)
 obs <- EgaEnEstellaQts
@@ -309,6 +311,10 @@ KGE(sim=sim, obs=obs, method="2009", out.type="full")
 #>     r  Beta Alpha 
 #>     1     2     2 
 #> 
+
+# sKGE (Fowler et al., 2018):
+sKGE(sim=sim, obs=obs, method="2009")
+#> [1] -0.4142136
 
 # KGE 2012
 KGE(sim=sim, obs=obs, method="2012", out.type="full")
@@ -340,7 +346,7 @@ sKGE(sim=sim, obs=obs)
 ##################
 # Example 3: sKGE for simulated values equal to observations plus random noise 
 #            on the first half of the observed values. 
-#            This random noise has more relative importance for ow flows than 
+#            This random noise has more relative importance for low flows than 
 #            for medium and high flows.
   
 # Randomly changing the first 1826 elements of 'sim', by using a normal distribution 
@@ -350,7 +356,7 @@ ggof(sim, obs)
 
 
 sKGE(sim=sim, obs=obs)
-#> [1] 0.651655
+#> [1] 0.654224
 
 ##################
 # Example 4: sKGE for simulated values equal to observations plus random noise 
@@ -358,13 +364,13 @@ sKGE(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 sKGE(sim=sim, obs=obs, fun=log)
-#> [1] 0.46389
+#> [1] 0.4656818
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 sKGE(sim=lsim, obs=lobs)
-#> [1] 0.6935973
+#> [1] 0.6952354
 
 ##################
 # Example 5: sKGE for simulated values equal to observations plus random noise 
@@ -373,14 +379,14 @@ sKGE(sim=lsim, obs=lobs)
 #            during computations
 
 sKGE(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.5246817
+#> [1] 0.5264183
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 sKGE(sim=lsim, obs=lobs)
-#> [1] 0.7009262
+#> [1] 0.7025541
 
 ##################
 # Example 6: sKGE for simulated values equal to observations plus random noise 
@@ -390,13 +396,13 @@ sKGE(sim=lsim, obs=lobs)
 
 eps <- 0.01
 sKGE(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 0.4761664
+#> [1] 0.4779436
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 sKGE(sim=lsim, obs=lobs)
-#> [1] 0.6940795
+#> [1] 0.6957169
 
 ##################
 # Example 7: sKGE for simulated values equal to observations plus random noise 
@@ -407,14 +413,14 @@ sKGE(sim=lsim, obs=lobs)
 
 fact <- 1/50
 sKGE(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 0.5625905
+#> [1] 0.5642908
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 sKGE(sim=lsim, obs=lobs)
-#> [1] 0.707689
+#> [1] 0.709307
 
 ##################
 # Example 8: sKGE for simulated values equal to observations plus random noise 
@@ -424,13 +430,13 @@ sKGE(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 sKGE(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.8410809
+#> [1] 0.8422328
 
-# Verifying the previous value, with the epsilon value following Pushpalatha2012
+# Verifying the previous value
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 sKGE(sim=sim1, obs=obs1)
-#> [1] 0.7922515
+#> [1] 0.7936897
 
 ##################
 # Example 9: sKGE for a two-column data frame where simulated values are equal to 
@@ -441,7 +447,7 @@ OBS <- cbind(obs, obs)
 
 sKGE(sim=SIM, obs=OBS)
 #>      obs      obs 
-#> 0.651655 0.651655 
+#> 0.654224 0.654224 
 
 ##################
 # Example 10: sKGE for each year, where simulated values are given in a two-column data 
@@ -452,15 +458,15 @@ OBS <- cbind(obs, obs)
 sKGE(sim=SIM, obs=OBS, out.PerYear=TRUE)
 #> $sKGE.value
 #>      obs      obs 
-#> 0.651655 0.651655 
+#> 0.654224 0.654224 
 #> 
 #> $sKGE.PerYear
 #>              obs         obs
-#> 1961  0.55778247  0.55778247
-#> 1962  0.37518324  0.37518324
-#> 1963  0.19105604  0.19105604
-#> 1964 -0.09780021 -0.09780021
-#> 1965  0.49032849  0.49032849
+#> 1961  0.56303921  0.56303921
+#> 1962  0.38016359  0.38016359
+#> 1963  0.19944539  0.19944539
+#> 1964 -0.09654481 -0.09654481
+#> 1965  0.49613671  0.49613671
 #> 1966  1.00000000  1.00000000
 #> 1967  1.00000000  1.00000000
 #> 1968  1.00000000  1.00000000

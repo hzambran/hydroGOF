@@ -340,7 +340,7 @@ proceeds, and only those positions with non-missing values in `obs` and
 ## Examples
 
 ``` r
-# Example 1: ideal case
+# Example 0.1: ideal case
 obs <- 1:10
 sim <- 1:10
 
@@ -348,10 +348,8 @@ JDKGE(sim, obs)
 #> [1] 1
 
 ##################
-# Example 2: simulated values equal to twice the observations
-
+# Example 1: simulated values equal to twice the observations
 sim <- 2*obs
-
 JDKGE(sim=sim, obs=obs, out.type="full")
 #> $JDKGE.value
 #> [1] -0.4294197
@@ -362,15 +360,196 @@ JDKGE(sim=sim, obs=obs, out.type="full")
 #> 
 
 ##################
-# Example 3: using logarithmic transformation
-
-JDKGE(sim=sim, obs=obs, fun=log)
-#> Warning: Non-positive values detected => log-transform not possible
-#> [1] NA
-
-##################
-# Example 4: using kernel density estimation
-
+# Example 2: using kernel density estimation, instead of histograms (the default)
 JDKGE(sim=sim, obs=obs, density.method="kde")
 #> [1] -0.4158778
+
+##################
+# Example 3: Looking at the difference between JDKGE and KGE, both with 'method=2009' 
+#            and 'method=2012'
+# Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
+data(EgaEnEstellaQts)
+obs <- EgaEnEstellaQts
+
+# Simulated daily time series, initially equal to twice the observed values
+sim <- 2*obs 
+
+# KGE 2009
+KGE(sim=sim, obs=obs, method="2009", out.type="full")
+#> $KGE.value
+#> [1] -0.4142136
+#> 
+#> $KGE.elements
+#>     r  Beta Alpha 
+#>     1     2     2 
+#> 
+
+# JDKGE (Ficchi et al., 2026):
+JDKGE(sim=sim, obs=obs, method="2009", out.type="full")
+#> $JDKGE.value
+#> [1] -0.4179194
+#> 
+#> $JDKGE.elements
+#>         r      Beta     Alpha     Delta 
+#> 1.0000000 2.0000000 2.0000000 0.8975529 
+#> 
+
+# KGE 2012
+KGE(sim=sim, obs=obs, method="2012", out.type="full")
+#> $KGE.value
+#> [1] 0
+#> 
+#> $KGE.elements
+#>     r  Beta Gamma 
+#>     1     2     1 
+#> 
+
+# JDKGE (Ficchi et al., 2026):
+JDKGE(sim=sim, obs=obs, method="2012", out.type="full")
+#> $JDKGE.value
+#> [1] -0.005234004
+#> 
+#> $JDKGE.elements
+#>         r      Beta     Gamma     Delta 
+#> 1.0000000 2.0000000 1.0000000 0.8975529 
+#> 
+
+# KGE 2021
+KGE(sim=sim, obs=obs, method="2021", out.type="full")
+#> $KGE.value
+#> [1] -0.2744084
+#> 
+#> $KGE.elements
+#>         r Beta.2021     Alpha 
+#> 1.0000000 0.7900105 2.0000000 
+#> 
+
+# JDKGE (Ficchi et al., 2026):
+JDKGE(sim=sim, obs=obs, method="2021", out.type="full")
+#> $JDKGE.value
+#> [1] -0.0269328
+#> 
+#> $JDKGE.elements
+#>         r Beta.2021     Alpha     Delta 
+#> 1.0000000 0.7900105 2.0000000 0.8975529 
+#> 
+
+##################
+# Example 4: 
+# Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
+data(EgaEnEstellaQts)
+obs <- EgaEnEstellaQts
+
+# Generating a simulated daily time series, initially equal to the observed series
+sim <- obs 
+
+# Computing the 'JDKGE' for the "best" (unattainable) case
+JDKGE(sim=sim, obs=obs)
+#> [1] 1
+
+##################
+# Example 5: JDKGE for simulated values equal to observations plus random noise 
+#            on the first half of the observed values. 
+#            This random noise has more relative importance for ow flows than 
+#            for medium and high flows.
+  
+# Randomly changing the first 1826 elements of 'sim', by using a normal distribution 
+# with mean 10 and standard deviation equal to 1 (default of 'rnorm').
+sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
+ggof(sim, obs)
+
+
+JDKGE(sim=sim, obs=obs)
+#> [1] 0.6760578
+
+##################
+# Example 6: JDKGE for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' during computations.
+
+JDKGE(sim=sim, obs=obs, fun=log)
+#> [1] 0.7140393
+
+# Verifying the previous value:
+lsim <- log(sim)
+lobs <- log(obs)
+JDKGE(sim=lsim, obs=lobs)
+#> [1] 0.7140393
+
+##################
+# Example 7: JDKGE for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' and adding the Pushpalatha2012 constant
+#            during computations
+
+JDKGE(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
+#> [1] 0.7194128
+
+# Verifying the previous value, with the epsilon value following Pushpalatha2012
+eps  <- mean(obs, na.rm=TRUE)/100
+lsim <- log(sim+eps)
+lobs <- log(obs+eps)
+JDKGE(sim=lsim, obs=lobs)
+#> [1] 0.7194128
+
+##################
+# Example 8: JDKGE for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' and adding a user-defined constant
+#            during computations
+
+eps <- 0.01
+JDKGE(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
+#> [1] 0.7145427
+
+# Verifying the previous value:
+lsim <- log(sim+eps)
+lobs <- log(obs+eps)
+JDKGE(sim=lsim, obs=lobs)
+#> [1] 0.7145427
+
+##################
+# Example 9: JDKGE for simulated values equal to observations plus random noise 
+#            on the first half of the observed values and applying (natural) 
+#            logarithm to 'sim' and 'obs' and using a user-defined factor
+#            to multiply the mean of the observed values to obtain the constant
+#            to be added to 'sim' and 'obs' during computations
+
+fact <- 1/50
+JDKGE(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
+#> [1] 0.7259865
+
+# Verifying the previous value:
+eps  <- fact*mean(obs, na.rm=TRUE)
+lsim <- log(sim+eps)
+lobs <- log(obs+eps)
+JDKGE(sim=lsim, obs=lobs)
+#> [1] 0.7259865
+
+##################
+# Example 10: JDKGE for simulated values equal to observations plus random noise 
+#             on the first half of the observed values and applying a 
+#             user-defined function to 'sim' and 'obs' during computations
+
+fun1 <- function(x) {sqrt(x+1)}
+
+JDKGE(sim=sim, obs=obs, fun=fun1)
+#> [1] 0.7995661
+
+# Verifying the previous value
+sim1 <- sqrt(sim+1)
+obs1 <- sqrt(obs+1)
+JDKGE(sim=sim1, obs=obs1)
+#> [1] 0.7995661
+
+##################
+# Example 11: JDKGE for a two-column data frame where simulated values are equal to 
+#             observations plus random noise on the first half of the observed values 
+
+SIM <- cbind(sim, sim)
+OBS <- cbind(obs, obs)
+
+JDKGE(sim=SIM, obs=OBS)
+#>       obs       obs 
+#> 0.6760578 0.6760578 
 ```
