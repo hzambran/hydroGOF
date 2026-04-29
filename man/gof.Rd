@@ -2,7 +2,7 @@
 %% Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 %%                                 https://cran.r-project.org/package=hydroGOF
 %%                                 http://www.rforge.net/hydroGOF/
-%% Copyright 2011-2025 Mauricio Zambrano-Bigiarini
+%% Copyright 2011-2026 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or later
 
 \name{gof}
@@ -348,6 +348,7 @@ lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 gof(sim=lsim, obs=lobs)
 
+\dontrun{
 ##################
 # Example 6: gof for simulated values equal to observations plus random noise 
 #            on the first half of the observed values and applying (natural) 
@@ -399,7 +400,7 @@ g <-  gof(sim, obs)
 g[4,1]
 g["RMSE",]
 
-\dontrun{
+
 # Writing all the GoFs into a TXT file
 write.table(g, "GoFs.txt", col.names=FALSE, quote=FALSE)
 
