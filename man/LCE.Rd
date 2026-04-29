@@ -161,7 +161,7 @@ numeric with 5 elements: the Pearson product-moment correlation coefficient (\sQ
 
 \cite{Choi, H. I. (2021). Comment on Liu (2020): A rational performance criterion for hydrological model. Journal of Hydrology, 606, 126927. https://doi.org/10.1016/j.jhydrol.2021.126927}
 
-\cite{Liu, D. (2021). Reply to “Comment on Liu (2020): A rational performance criterion for a hydrological model” by HyunIl Choi. Journal of Hydrology, 603, 126935. https://doi.org/10.1016/j.jhydrol.2021.126927}
+\cite{Liu, D. (2021). Reply to "Comment on Liu (2020): A rational performance criterion for a hydrological model" by HyunIl Choi. Journal of Hydrology, 603, 126935. https://doi.org/10.1016/j.jhydrol.2021.126927}
 
 \cite{Gupta, H.V.; Kling, H.; Yilmaz, K.K.; Martinez, G.F. (2009). Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological modelling. Journal of Hydrology, 377(1-2), 80-91. doi:10.1016/j.jhydrol.2009.08.003.}
 
