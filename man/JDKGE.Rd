@@ -28,28 +28,28 @@ The function also allows JDKGE-style variants based on the 2009 and 2021 KGE for
 JDKGE(sim, obs, ...)
 
 \method{JDKGE}{default}(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
-              method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
-              epsilon.type=c("paper", "none", "Pushpalatha2012", "otherFactor", "otherValue"),
-              epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
-              timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
+        method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
+        epsilon.type=c("otherValue", "none", "Pushpalatha2012", "otherFactor"),
+        epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
 
 \method{JDKGE}{data.frame}(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
-              method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
-              epsilon.type=c("paper", "none", "Pushpalatha2012", "otherFactor", "otherValue"),
-              epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
-              timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
+        method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
+        epsilon.type=c("otherValue", "none", "Pushpalatha2012", "otherFactor"),
+        epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
 
 \method{JDKGE}{matrix}(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
-              method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
-              epsilon.type=c("paper", "none", "Pushpalatha2012", "otherFactor", "otherValue"),
-              epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
-              timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
+        method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
+        epsilon.type=c("otherValue", "none", "Pushpalatha2012", "otherFactor"),
+        epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
 
 \method{JDKGE}{zoo}(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
-              method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
-              epsilon.type=c("paper", "none", "Pushpalatha2012", "otherFactor", "otherValue"),
-              epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
-              timestep=NA, kde.n.grid=512, wasserstein.n.quantiles=512)
+        method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
+        epsilon.type=c("otherValue", "none", "Pushpalatha2012", "otherFactor"),
+        epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+        timestep=NA, kde.n.grid=512, wasserstein.n.quantiles=512)
 }
 
 \arguments{
@@ -61,8 +61,8 @@ JDKGE(sim, obs, ...)
 \item{out.type}{character string indicating the output format. Use \kbd{"single"} to return the JDKGE value only, or \kbd{"full"} to also return the four diagnostic components.}
 \item{fun}{optional function applied to \code{sim} and \code{obs} before computing JDKGE. The first argument of \code{fun} must be a numeric vector.}
 \item{\dots}{additional arguments passed to \code{fun}.}
-\item{epsilon.type}{rule used for zero-flow handling in the internal log-based divergence component, and also passed to \code{preproc} when \code{fun} needs an offset before transformation. \kbd{"paper"} is the default and uses the epsilon rule described by Ficchi et al. (2026).}
-\item{epsilon.value}{numeric value used when \code{epsilon.type="otherValue"} or \code{epsilon.type="otherFactor"}.}
+\item{epsilon.type}{rule used for zero-flow handling in the internal log-based divergence component, and also passed to \code{preproc} when \code{fun} needs an offset before transformation. The default is \kbd{"otherValue"}.}
+\item{epsilon.value}{numeric value used when \code{epsilon.type="otherValue"} or \code{epsilon.type="otherFactor"}. When \code{epsilon.type="otherValue"} and \code{epsilon.value=NA} (the default), the value described by Ficchi et al. (2026), \eqn{\epsilon = \min(10^{-6}, 10^{-1} \min(c))}, is computed internally.}
 \item{density.method}{method used to compute the divergence component. \kbd{"hist"} uses the paper-faithful histogram-based Jensen-Shannon divergence, \kbd{"kde"} uses a common-grid kernel density estimate followed by Jensen-Shannon divergence, and \kbd{"wasserstein"} uses a Wasserstein-distance similarity on log-flows.}
 \item{nbins}{binning rule used by the histogram divergence component. The default \kbd{"paper"} uses the procedure described by Ficchi et al. (2026). This argument is ignored for \code{density.method="kde"} and \code{density.method="wasserstein"}.}
 \item{timestep}{sampling time step in seconds used by the paper's bin-count adjustment. For \code{zoo} inputs this is inferred from the time index when omitted. The default for plain numeric vectors is one day (86400 seconds).}
@@ -83,7 +83,7 @@ JDKGE combines four components:
 For the divergence component, this implementation follows the paper's workflow:
 
 \enumerate{
-\item exact zeros are replaced according to \code{epsilon.type}. With the default \kbd{"paper"}, \eqn{\epsilon = \min(10^{-6}, 10^{-1} \min(c))}, where \eqn{c} is the set of strictly positive simulated and observed values,
+\item exact zeros are replaced according to \code{epsilon.type}. With the default \kbd{"otherValue"} and \code{epsilon.value=NA}, \eqn{\epsilon = \min(10^{-6}, 10^{-1} \min(c))}, where \eqn{c} is the set of strictly positive simulated and observed values,
 \item the transformed values \eqn{\log(x)} are binned using a histogram,
 \item the Freedman-Diaconis width is lower-bounded by \eqn{h_{min} = \min(10^2 \epsilon, 10^{-1})},
 \item the number of bins is adjusted by the time-scale factor and clipped to the interval \eqn{[25, 100]},
@@ -197,64 +197,8 @@ JDKGE(sim=sim, obs=obs)
 
 ##################
 # Example 6: JDKGE for simulated values equal to observations plus random noise 
-#            on the first half of the observed values and applying (natural) 
-#            logarithm to 'sim' and 'obs' during computations.
-
-JDKGE(sim=sim, obs=obs, fun=log)
-
-# Verifying the previous value:
-lsim <- log(sim)
-lobs <- log(obs)
-JDKGE(sim=lsim, obs=lobs)
-
-##################
-# Example 7: JDKGE for simulated values equal to observations plus random noise 
-#            on the first half of the observed values and applying (natural) 
-#            logarithm to 'sim' and 'obs' and adding the Pushpalatha2012 constant
-#            during computations
-
-JDKGE(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-
-# Verifying the previous value, with the epsilon value following Pushpalatha2012
-eps  <- mean(obs, na.rm=TRUE)/100
-lsim <- log(sim+eps)
-lobs <- log(obs+eps)
-JDKGE(sim=lsim, obs=lobs)
-
-##################
-# Example 8: JDKGE for simulated values equal to observations plus random noise 
-#            on the first half of the observed values and applying (natural) 
-#            logarithm to 'sim' and 'obs' and adding a user-defined constant
-#            during computations
-
-eps <- 0.01
-JDKGE(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-
-# Verifying the previous value:
-lsim <- log(sim+eps)
-lobs <- log(obs+eps)
-JDKGE(sim=lsim, obs=lobs)
-
-##################
-# Example 9: JDKGE for simulated values equal to observations plus random noise 
-#            on the first half of the observed values and applying (natural) 
-#            logarithm to 'sim' and 'obs' and using a user-defined factor
-#            to multiply the mean of the observed values to obtain the constant
-#            to be added to 'sim' and 'obs' during computations
-
-fact <- 1/50
-JDKGE(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-
-# Verifying the previous value:
-eps  <- fact*mean(obs, na.rm=TRUE)
-lsim <- log(sim+eps)
-lobs <- log(obs+eps)
-JDKGE(sim=lsim, obs=lobs)
-
-##################
-# Example 10: JDKGE for simulated values equal to observations plus random noise 
-#             on the first half of the observed values and applying a 
-#             user-defined function to 'sim' and 'obs' during computations
+#            on the first half of the observed values and applying a 
+#            user-defined function to 'sim' and 'obs' during computations
 
 fun1 <- function(x) {sqrt(x+1)}
 
@@ -266,8 +210,8 @@ obs1 <- sqrt(obs+1)
 JDKGE(sim=sim1, obs=obs1)
 
 ##################
-# Example 11: JDKGE for a two-column data frame where simulated values are equal to 
-#             observations plus random noise on the first half of the observed values 
+# Example 7: JDKGE for a two-column data frame where simulated values are equal to 
+#            observations plus random noise on the first half of the observed values 
 
 SIM <- cbind(sim, sim)
 OBS <- cbind(obs, obs)
