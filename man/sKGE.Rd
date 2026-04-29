@@ -213,7 +213,9 @@ The missing values in \code{obs} and \code{sim} are removed before the computati
 }
 \examples{
 ##################
-# Example 1: Looking at the difference between 'method=2009' and 'method=2012'
+# Example 1: Looking at the difference between sKGE and KGE, both with 'method=2009' 
+#            and 'method=2012'
+
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
 data(EgaEnEstellaQts)
 obs <- EgaEnEstellaQts
@@ -223,6 +225,9 @@ sim <- 2*obs
 
 # KGE 2009
 KGE(sim=sim, obs=obs, method="2009", out.type="full")
+
+# sKGE (Fowler et al., 2018):
+sKGE(sim=sim, obs=obs, method="2009")
 
 # KGE 2012
 KGE(sim=sim, obs=obs, method="2012", out.type="full")
@@ -245,7 +250,7 @@ sKGE(sim=sim, obs=obs)
 ##################
 # Example 3: sKGE for simulated values equal to observations plus random noise 
 #            on the first half of the observed values. 
-#            This random noise has more relative importance for ow flows than 
+#            This random noise has more relative importance for low flows than 
 #            for medium and high flows.
   
 # Randomly changing the first 1826 elements of 'sim', by using a normal distribution 
@@ -320,7 +325,7 @@ fun1 <- function(x) {sqrt(x+1)}
 
 sKGE(sim=sim, obs=obs, fun=fun1)
 
-# Verifying the previous value, with the epsilon value following Pushpalatha2012
+# Verifying the previous value
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 sKGE(sim=sim1, obs=obs1)

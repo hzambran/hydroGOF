@@ -216,7 +216,7 @@ fun1 <- function(x) {sqrt(x+1)}
 
 wNSE(sim=sim, obs=obs, fun=fun1)
 
-# Verifying the previous value, with the epsilon value following Pushpalatha2012
+# Verifying the previous value
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 wNSE(sim=sim1, obs=obs1)
