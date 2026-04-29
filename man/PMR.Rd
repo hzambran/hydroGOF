@@ -158,11 +158,9 @@ If \code{sim} and \code{obs} are matrixes, the returned value is a vector, with 
 
 \references{
 
-\cite{
-Royer-Gaspard, P., Thirel, G., Andreassian, V., Perrin, C., and Coron, L. (2021). A robust and efficient framework for evaluating hydrological model robustness. Hydrology and Earth System Sciences, 25, 5703--5726. doi:10.5194/hess-25-5703-2021. }
+\cite{Royer-Gaspard, P., Andreassian, V., and Thirel, G. (2021). Technical note: PMR - a proxy metric to assess hydrological model robustness in a changing climate, Hydrology and Earth System Sciences, 25, 5703--5716, https://doi.org/10.5194/hess-25-5703-2021}
 
-\cite{
-Pushpalatha, R.; Perrin, C.; Le Moine, N.; Andreassian, V. (2012). A review of efficiency criteria suitable for evaluating low-flow simulations. Journal of Hydrology, 420, 171--182. doi:10.1016/j.jhydrol.2011.11.055.}
+\cite{Pushpalatha, R.; Perrin, C.; Le Moine, N.; Andreassian, V. (2012). A review of efficiency criteria suitable for evaluating low-flow simulations. Journal of Hydrology, 420, 171--182. doi:10.1016/j.jhydrol.2011.11.055.}
 
 }
 
