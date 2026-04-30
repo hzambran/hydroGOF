@@ -64,6 +64,8 @@ For the full-period bias, only positions with valid paired values in \code{obs} 
   \item{k}{
 integer value representing the length of the moving window (number of time steps) used to compute the bias over sub-periods. \cr
 
+By default \code{k=NULL}, which means that its value is automatically computed based on the minimum numbers of years defined by \code{min.years}.
+
 The k argument should reflect the temporal scale at which robustness is intended to be evaluated, and therefore depends primarily on the time resolution of the data. Royer-Gaspard et al. (2021) recommended to use multi-year windows, typically in the range of 3 to 5 years, to ensure that each sub-period captures meaningful hydroclimatic variability while still allowing enough windows for comparison.
 }
   \item{min.years}{
