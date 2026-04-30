@@ -109,7 +109,7 @@ emphasis on the reproduction of high-flow conditions.
 
 The HFB ranges from 0 to 1, with an optimal value of 1. Values close to 1 indicate that the simulated high flows closely match the observed high flows,  whereas values approaching 0 indicate increasing discrepancies between the simulated and observed high-flow magnitudes.
 
-The HFB function is inspired by the annual peak-flow bias (APFB) objective function proposed by Mizukami et al. (2019). However, it differs from that metric in four important aspects:
+The HFB function was developed by Zambrano-Bigiarini (2024), is inspired by the annual peak-flow bias (APFB) objective function proposed by Mizukami et al. (2019). However, it differs from that metric in four important aspects:
 
 1) Instead of considering only the single observed annual peak flow in each year, it considers all high flows in each year, where "high flows" are defined as all values equal to or greater than a user-defined exceedance probability threshold of the observed values. By default, high flows correspond to the upper 10\% of observed flows (i.e., \code{hQ.thr=0.1}).
 
@@ -150,6 +150,9 @@ numeric with the median annual high flow bias between \code{sim} and \code{obs}.
 }
 }
 \references{
+
+\cite{Zambrano-Bigiarini, Mauricio (2024). hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series. doi:10.5281/zenodo.839854, R package version 0.6-0.1 . doi:10.5281/zenodo.839854, https://cran.r-project.org/package=hydroGOF. }
+
 \cite{Mizukami, N.; Rakovec, O.; Newman, A.J.; Clark, M.P.; Wood, A.W.; Gupta, H.V.; Kumar, R.: (2019). On the choice of calibration metrics for "high-flow" estimation using hydrologic models, Hydrology Earth System Sciences 23, 2601-2614, doi:10.5194/hess-23-2601-2019.}
 }
 \author{
