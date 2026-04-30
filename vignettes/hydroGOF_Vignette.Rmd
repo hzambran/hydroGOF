@@ -2,7 +2,7 @@
 title: Goodness-of-fit measures to compare observed and simulated time series with hydroGOF
 author:
 - Mauricio Zambrano-Bigiarini^[mauricio.zambrano@ufrontera.cl]
-date: "version 0.3, 21-Jan-2024"
+date: "version 0.4, 30-Apr-2026"
 output: 
   pdf_document:
     number_sections: yes
@@ -22,9 +22,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Citation
 
-If you use *[hydroGOF](https://cran.r-project.org/package=hydroGOF)*, please cite it as Zambrano-Bigiarini (2024):
+If you use *[hydroGOF](https://cran.r-project.org/package=hydroGOF)*, please cite it as Zambrano-Bigiarini (2026):
 
-Zambrano-Bigiarini, M. (2024) hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series R package version 0.5-4. URL: https://cran.r-project.org/package=hydroGOF. doi:10.5281/zenodo.839854.
+Zambrano-Bigiarini, M. (2026) hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series R package version 0.7-0. URL: https://cran.r-project.org/package=hydroGOF. doi:10.32614/CRAN.package.hydroGOF.
 
 
 # Installation
@@ -56,7 +56,7 @@ library(hydroGOF)
 The following examples use the well-known Nash-Sutcliffe efficiency (NSE), but you can repeat the computations using any of the goodness-of-fit measures included in the *hydroGOF* package (e.g., KGE, ubRMSE, dr).
 
 
-## Example 1
+## Ex 1: ideal integer values
 
 Basic ideal case with a numeric sequence of integers:
 
@@ -70,8 +70,21 @@ sim <- 2:11
 NSE(sim, obs)
 ```
 
+## Ex 2: ideal real values
 
-## Example 2
+Basic ideal case with a numeric sequence of integers:
+
+```{r Example1}
+obs <- 1:10 + 0.1
+sim <- 1:10 +0.1
+NSE(sim, obs)
+
+obs <- 1:10 + 0.1
+sim <- 2:11 + 0.1
+NSE(sim, obs)
+```
+
+## Ex 3: ideal daily ts
 
 From this example onwards, a streamflow time series will be used.
 
@@ -88,13 +101,19 @@ Generating a simulated daily time series, initially equal to the observed series
 sim <- obs 
 ```
 
+Visualising the observed and simulated time series:
+
+```{r Example2-2, fig.width=8, fig.height=5}
+ggof(sim, obs)
+```
+
 Computing the 'NSE' for the "best" (unattainable) case
-```{r Example2-2}
+```{r Example2-3}
 NSE(sim=sim, obs=obs)
 ```
 
 
-## Example 3
+## Ex 4: random noise in the first half of the simulated values
 
 NSE for simulated values equal to observations plus random noise on the first half of the observed values. 
 
@@ -102,7 +121,7 @@ This random noise has more relative importance for low flows than for medium and
   
 Randomly changing the first 1826 elements of 'sim', by using a normal distribution with mean 10 and standard deviation equal to 1 (default of 'rnorm').
 
-```{r Example3-1, fig.width=8, fig.height=5}
+```{r Example4-1, fig.width=8, fig.height=5}
 sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
 ggof(sim, obs)
 
@@ -111,46 +130,64 @@ NSE(sim=sim, obs=obs)
 
 Let's have a look at other goodness-of-fit measures:
 
-```{r Example3-2, fig.width=8, fig.height=5}
-mNSE(sim=sim, obs=obs)               # modified NSE
-rNSE(sim=sim, obs=obs)               # relative NSE
+```{r Example4-2, fig.width=8, fig.height=5}
+mNSE(sim=sim, obs=obs)                 # Modified NSE
+rNSE(sim=sim, obs=obs)                 # Relative NSE
+wNSE(sim=sim, obs=obs)                 # Weighted NSE
+wsNSE(sim=sim, obs=obs)                # Weighted Seasonal NSE
 
-KGE(sim=sim, obs=obs)                # Kling-Gupta efficiency (KGE), 2009
-KGE(sim=sim, obs=obs, method="2012") # Kling-Gupta efficiency (KGE), 2012
-KGElf(sim=sim, obs=obs)              # KGE for low flows
-KGEnp(sim=sim, obs=obs)              # Non-parametric KGE
-sKGE(sim=sim, obs=obs)               # Split KGE
+KGE(sim=sim, obs=obs)                  # Kling-Gupta efficiency (KGE), 2009
+KGE(sim=sim, obs=obs, method="2012")   # Kling-Gupta efficiency (KGE), 2012
+KGE(sim=sim, obs=obs, method="2021")   # Kling-Gupta efficiency (KGE), 2021
+KGElf(sim=sim, obs=obs)                # KGE for low flows
+KGEnp(sim=sim, obs=obs)                # Non-parametric KGE
+sKGE(sim=sim, obs=obs)                 # Split KGE
+KGEkm(sim=sim, obs=obs)                # Knowable Moments KGE
+JDKGE(sim=sim, obs=obs)                # Joint Divergence KGE
 
-d(sim=sim, obs=obs)                  # Index of agreement (d)
-rd(sim=sim, obs=obs)                 # Relative d
-md(sim=sim, obs=obs)                 # Modified d
-dr(sim=sim, obs=obs)                 # Refined d
+d(sim=sim, obs=obs)                    # Index of Agreement
+dr(sim=sim, obs=obs)                   # Refined Index of Agreement
+md(sim=sim, obs=obs)                   # Modified Index of Agreement
+rd(sim=sim, obs=obs)                   # Relative Index of Agreement
 
-VE(sim=sim, obs=obs)                 # Volumetric efficiency
-cp(sim=sim, obs=obs)                 # Coefficient of persistence
+VE(sim=sim, obs=obs)                   # Volumetric Efficiency
+cp(sim=sim, obs=obs)                   # Coefficient of Persistence
+APFB(sim=sim, obs=obs)                 # Annual Peak Flow Bias
+HFB(sim=sim, obs=obs)                  # High Flow Bias
+LME(sim=sim, obs=obs)                  # Liu-Mean Efficiency
+LCE(sim=sim, obs=obs)                  # Lee and Choi Efficiency
+PMR(sim=sim, obs=obs)                  # Proxy for Model Robustness
 
-pbias(sim=sim, obs=obs)              # Percent bias (PBIAS)
-pbiasfdc(sim=sim, obs=obs)           # PBIAS in the slope of the midsegment of the FDC
+pbias(sim=sim, obs=obs)                # Percent bias (PBIAS)
+pbiasfdc(sim=sim, obs=obs)             # PBIAS in the slope of the midsegment of the FDC
 
-rmse(sim=sim, obs=obs)               # Root mean square error (RMSE)
-ubRMSE(sim=sim, obs=obs)             # Unbiased RMSE
+me(sim=sim, obs=obs)                   # Mean Error
+mae(sim=sim, obs=obs)                  # Mean Absolute Error
+mse(sim=sim, obs=obs)                  # Mean Squared Error 
+rmse(sim=sim, obs=obs)                 # Root Mean Square Error (RMSE)
+ubRMSE(sim=sim, obs=obs)               # Unbiased RMSE
+nrmse(sim=sim, obs=obs, norm="sd")     # Normalised Root Mean Square Error
+nrmse(sim=sim, obs=obs, norm="maxmin") # Normalised Root Mean Square Error
+nrmse(sim=sim, obs=obs, norm="mean")   # Normalised Root Mean Square Error
+nrmse(sim=sim, obs=obs, norm="IQR")    # Normalised Root Mean Square Error
 
-rPearson(sim=sim, obs=obs)           # Pearson correlation coefficient
-rSpearman(sim=sim, obs=obs)          # Spearman rank correlation coefficient
-R2(sim=sim, obs=obs)                 # Coefficient of determination (R2)
-br2(sim=sim, obs=obs)                # R2 multiplied by the slope of the regression line
+rPearson(sim=sim, obs=obs)             # Pearson correlation coefficient
+rSpearman(sim=sim, obs=obs)            # Spearman rank correlation coefficient
+R2(sim=sim, obs=obs)                   # Coefficient of determination (R2)
+br2(sim=sim, obs=obs)                  # R2 multiplied by the slope of the regression line
 ```
 
-## Example 4: 
+## Ex 5: random noise and logarithmic transformation
+
 NSE for simulated values equal to observations plus random noise on the first half of the observed values and applying (natural) logarithm to 'sim' and 'obs' during computations.
 
-```{r Example4-1}
+```{r Example5-1}
 NSE(sim=sim, obs=obs, fun=log)
 ```
 
 Verifying the previous value:
 
-```{r Example4-2}
+```{r Example5-2}
 lsim <- log(sim)
 lobs <- log(obs)
 NSE(sim=lsim, obs=lobs)
@@ -158,47 +195,64 @@ NSE(sim=lsim, obs=lobs)
 
 Let's have a look at other goodness-of-fit measures:
 
-```{r Example4-3, fig.width=8, fig.height=5}
-mNSE(sim=sim, obs=obs, fun=log)               # modified NSE
-rNSE(sim=sim, obs=obs, fun=log)               # relative NSE
+```{r Example5-3, fig.width=8, fig.height=5}
+mNSE(sim=sim, obs=obs)                 # Modified NSE
+rNSE(sim=sim, obs=obs)                 # Relative NSE
+wNSE(sim=sim, obs=obs)                 # Weighted NSE
+wsNSE(sim=sim, obs=obs)                # Weighted Seasonal NSE
 
-KGE(sim=sim, obs=obs, fun=log)                # Kling-Gupta efficiency (KGE), 2009
-KGE(sim=sim, obs=obs, method="2012", fun=log) # Kling-Gupta efficiency (KGE), 2012
-KGElf(sim=sim, obs=obs)                       # KGE for low flows (it does not allow 'fun' argument)
-KGEnp(sim=sim, obs=obs, fun=log)              # Non-parametric KGE
-sKGE(sim=sim, obs=obs, fun=log)               # Split KGE
+KGE(sim=sim, obs=obs)                  # Kling-Gupta efficiency (KGE), 2009
+KGE(sim=sim, obs=obs, method="2012")   # Kling-Gupta efficiency (KGE), 2012
+KGE(sim=sim, obs=obs, method="2021")   # Kling-Gupta efficiency (KGE), 2021
+KGElf(sim=sim, obs=obs)                # KGE for low flows
+KGEnp(sim=sim, obs=obs)                # Non-parametric KGE
+sKGE(sim=sim, obs=obs)                 # Split KGE
+KGEkm(sim=sim, obs=obs)                # Knowable Moments KGE
+JDKGE(sim=sim, obs=obs)                # Joint Divergence KGE
 
-d(sim=sim, obs=obs, fun=log)                  # Index of agreement (d)
-rd(sim=sim, obs=obs, fun=log)                 # Relative d
-md(sim=sim, obs=obs, fun=log)                 # Modified d
-dr(sim=sim, obs=obs, fun=log)                 # Refined d
+d(sim=sim, obs=obs)                    # Index of Agreement
+dr(sim=sim, obs=obs)                   # Refined Index of Agreement
+md(sim=sim, obs=obs)                   # Modified Index of Agreement
+rd(sim=sim, obs=obs)                   # Relative Index of Agreement
 
-VE(sim=sim, obs=obs, fun=log)                 # Volumetric efficiency
-cp(sim=sim, obs=obs, fun=log)                 # Coefficient of persistence
+VE(sim=sim, obs=obs)                   # Volumetric Efficiency
+cp(sim=sim, obs=obs)                   # Coefficient of Persistence
+APFB(sim=sim, obs=obs)                 # Annual Peak Flow Bias
+HFB(sim=sim, obs=obs)                  # High Flow Bias
+LME(sim=sim, obs=obs)                  # Liu-Mean Efficiency
+LCE(sim=sim, obs=obs)                  # Lee and Choi Efficiency
+PMR(sim=sim, obs=obs)                  # Proxy for Model Robustness
 
-pbias(sim=sim, obs=obs, fun=log)              # Percent bias (PBIAS)
-pbiasfdc(sim=sim, obs=obs, fun=log)           # PBIAS in the slope of the midsegment of the FDC
+pbias(sim=sim, obs=obs)                # Percent bias (PBIAS)
+pbiasfdc(sim=sim, obs=obs)             # PBIAS in the slope of the midsegment of the FDC
 
-rmse(sim=sim, obs=obs, fun=log)               # Root mean square error (RMSE)
-ubRMSE(sim=sim, obs=obs, fun=log)             # Unbiased RMSE
+me(sim=sim, obs=obs)                   # Mean Error
+mae(sim=sim, obs=obs)                  # Mean Absolute Error
+mse(sim=sim, obs=obs)                  # Mean Squared Error 
+rmse(sim=sim, obs=obs)                 # Root Mean Square Error (RMSE)
+ubRMSE(sim=sim, obs=obs)               # Unbiased RMSE
+nrmse(sim=sim, obs=obs, norm="sd")     # Normalised Root Mean Square Error
+nrmse(sim=sim, obs=obs, norm="maxmin") # Normalised Root Mean Square Error
+nrmse(sim=sim, obs=obs, norm="mean")   # Normalised Root Mean Square Error
+nrmse(sim=sim, obs=obs, norm="IQR")    # Normalised Root Mean Square Error
 
-rPearson(sim=sim, obs=obs, fun=log)           # Pearson correlation coefficient (r)
-rSpearman(sim=sim, obs=obs, fun=log)          # Spearman rank correlation coefficient (rho)
-R2(sim=sim, obs=obs, fun=log)                 # Coefficient of determination (R2)
-br2(sim=sim, obs=obs, fun=log)                # R2 multiplied by the slope of the regression line
+rPearson(sim=sim, obs=obs)             # Pearson correlation coefficient
+rSpearman(sim=sim, obs=obs)            # Spearman rank correlation coefficient
+R2(sim=sim, obs=obs)                   # Coefficient of determination (R2)
+br2(sim=sim, obs=obs)                  # R2 multiplied by the slope of the regression line
 ```
 
-## Example 5
+## Ex 6: random noise, logarithmic transformation and Pushpalatha2012 constant 
 
-NSE for simulated values equal to observations plus random noise on the first half of the observed values and applying (natural) logarithm to 'sim' and 'obs' and adding the Pushpalatha2012 constant during computations
+NSE for simulated values equal to observations plus random noise on the first half of the observed values and applying (natural) logarithm to 'sim' and 'obs' and adding the Pushpalatha2012 constant during computations.
 
-```{r Example5-1}
+```{r Example6-1}
 NSE(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
 ```
 
 Verifying the previous value, with the epsilon value following Pushpalatha2012:
 
-```{r Example5-2}
+```{r Example6-2}
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
@@ -207,22 +261,22 @@ NSE(sim=lsim, obs=lobs)
 
 Let's have a look at other goodness-of-fit measures:
 
-```{r Example5-3}
-gof(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012", do.spearman=TRUE, do.pbfdc=TRUE)
+```{r Example6-3}
+gof(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012", do.spearman=TRUE, do.pbfdc=TRUE, do.pmr=TRUE)
 ```
 
-## Example 6
+## Ex 7: random noise, logarithmic transformation and user-defined constant 
 
 NSE for simulated values equal to observations plus random noise on the first half of the observed values and applying (natural) logarithm to 'sim' and 'obs' and adding a user-defined constant during computations
 
-```{r Example6-1}
+```{r Example7-1}
 eps <- 0.01
 NSE(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
 ```
 
 Verifying the previous value:
 
-```{r Example6-2}
+```{r Example7-2}
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 NSE(sim=lsim, obs=lobs)
@@ -230,22 +284,22 @@ NSE(sim=lsim, obs=lobs)
 
 Let's have a look at other goodness-of-fit measures:
 
-```{r Example6-3}
-gof(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps, do.spearman=TRUE, do.pbfdc=TRUE)
+```{r Example7-3}
+gof(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps, do.spearman=TRUE, do.pbfdc=TRUE, do.pmr=TRUE)
 ```
 
-## Example 7
+## Ex 8: random noise, logarithmic transformation and user-defined factor 
 
 NSE for simulated values equal to observations plus random noise on the first half of the observed values and applying (natural) logarithm to 'sim' and 'obs' and using a user-defined factor to multiply the mean of the observed values to obtain the constant to be added to 'sim' and 'obs' during computations
 
-```{r Example7-1}
+```{r Example8-1}
 fact <- 1/50
 NSE(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
 ```
 
 Verifying the previous value:
 
-```{r Example7-2}
+```{r Example8-2}
 fact <- 1/50
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
@@ -255,30 +309,31 @@ NSE(sim=lsim, obs=lobs)
 
 Let's have a look at other goodness-of-fit measures:
 
-```{r Example7-3}
-gof(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact, do.spearman=TRUE, do.pbfdc=TRUE)
+```{r Example8-3}
+gof(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact, do.spearman=TRUE, do.pbfdc=TRUE, do.pmr=TRUE)
 ```
 
-## Example 8
+## Ex 9: random noise, user-defined transformation 
 
 NSE for simulated values equal to observations plus random noise on the first half of the observed values and applying a user-defined function to 'sim' and 'obs' during computations:
 
-```{r Example8-1}
+```{r Example9-1}
 fun1 <- function(x) {sqrt(x+1)}
 NSE(sim=sim, obs=obs, fun=fun1)
 ```
 
 Verifying the previous value, with the epsilon value following Pushpalatha2012:
 
-```{r Example8-2}
+```{r Example9-2}
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 NSE(sim=sim1, obs=obs1)
 ```
 
-```{r Example8-3}
-gof(sim=sim, obs=obs, fun=fun1, do.spearman=TRUE, do.pbfdc=TRUE)
+```{r Example9-3}
+gof(sim=sim, obs=obs, fun=fun1, do.spearman=TRUE, do.pbfdc=TRUE, do.pmr=TRUE)
 ```
+
 
 # A short example from hydrological modelling
 
@@ -296,10 +351,23 @@ Generating a simulated daily time series, initially equal to the observed values
 sim <- obs 
 ```
 
-Computing the numeric goodness-of-fit measures for the "best" (unattainable) case
+Plotting the graphical comparison of 'obs' against 'sim', along with the default goodness-of-fit measures:
+
+```{r ggof-1, fig.width=8, fig.height=5}
+ggof(sim, obs)
+```
+
+Plotting the graphical comparison of 'obs' against 'sim', along with user-defined goodness-of-fit measures:
+
+```{r ggof-1, fig.width=8, fig.height=5}
+ggof(sim, obs, 
+     gofs=c( "PBIAS", "dr", "R2",  "NSE", "KGE",  "LCE", "JDKGE", "APFB", "HFB"))
+```
+
+Computing the numeric goodness-of-fit measures for the "best" (unattainable) case, including the following three measures that -due to slighly high computation time- are not computed by default: i) the Spearman's Rank Correlation Coefficient (rSpearman), ii) the percent bias in the Slope of the Midsegment of the Flow Duration Curve (pbiasFDC), and iii) the Proxy for Model Robustness (PMR).
 
 ```{r ComputingGOFs}
-gof(sim=sim, obs=obs)
+gof(sim=sim, obs=obs, do.spearman=TRUE, do.pbfdc=TRUE, do.pmr=TRUE)
 ```
 
 -  Randomly changing the first 1826 elements of 'sim' (half of the ts), by using a normal distribution with mean 10 and standard deviation equal to 1 (default of 'rnorm').
@@ -308,10 +376,17 @@ gof(sim=sim, obs=obs)
 sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
 ```
 
-Plotting the graphical comparison of 'obs' against 'sim', along with the numeric goodness-of-fit measures for the daily and monthly time series 
+Plotting the graphical comparison of 'obs' against 'sim', along with the default goodness-of-fit measures for the daily and monthly time series:
 
 ```{r ComputingGGOF, fig=TRUE, pdf=TRUE, eps=FALSE, fig.width=10, fig.height=7}
 ggof(sim=sim, obs=obs, ftype="dm", FUN=mean)
+```
+
+Plotting the graphical comparison of 'obs' against 'sim', along with user-defined goodness-of-fit measures for the daily and monthly time series:
+
+```{r ggof-1, fig.width=8, fig.height=5}
+ggof(sim=sim, obs=obs, ftype="dm", FUN=mean,
+     gofs=c( "PBIAS", "dr", "R2",  "NSE", "KGE",  "LCE", "JDKGE", "APFB", "HFB"))
 ```
 
 
@@ -340,7 +415,6 @@ Generating fictitious lower and upper uncertainty bounds:
 ```{r ubands1, fig.width=8, fig.height=5}
 lband <- obs - 5
 uband <- obs + 5
-plotbands(obs, lband, uband)
 ```
 
 Plotting the previously generated uncertainty bands:
@@ -355,13 +429,39 @@ Randomly generating a simulated time series:
 sim <- obs + rnorm(length(obs), mean=3)
 ```
 
-Plotting the previously generated simualted time series along the obsertations and the uncertainty bounds:
+Plotting the previously generated simulated time series along the observations and the uncertainty bounds:
 
 ```{r ubands4, fig.width=8, fig.height=5}
 plotbands(obs, lband, uband, sim)
 ```
 
+## Computing P-factor
 
+The **P-factor** quantifies the percentage of observed values that fall within the prediction uncertainty band defined by the lower and upper bounds. It is a measure of the coverage of the uncertainty interval.
+
+The **P-factor** ranges from 0 to 1. A value of 1 indicates that all observations are bracketed by the uncertainty bounds, whereas a value of 0 indicates that none of the observations fall within the bounds.
+
+Computing the P-factor:
+
+```{r P-Factor, fig.width=8, fig.height=5}
+( pfactor(x=obs, lband=lband, uband=uband) )
+```
+
+## Computing R-factor
+
+The **R-factor** quantifies the average width of the prediction uncertainty band relative to the variability of the observed data. It is a measure of the magnitude of predictive uncertainty associated with a model simulation.
+
+The **R-factor** ranges from 0 to infinity, with an optimal value of 0 indicating perfect agreement between simulated and observed values (i.e., zero prediction uncertainty). In practical applications, the **R-factor** represents the width of the uncertainty interval and should be as small as possible. Values close to or smaller than 1 are commonly considered indicative of an acceptable level of predictive uncertainty, although acceptable thresholds depend on the quality of observations and the modelling context.
+
+Computing the R-factor:
+
+```{r R-Factor, fig.width=8, fig.height=5}
+( rfactor(x=obs, lband=lband, uband=uband) )
+```
+
+**Important note**:
+
+> Because a larger fraction of observations can often be bracketed by widening the uncertainty bounds, the **R-factor** is typically interpreted jointly with the **P-factor**. A balance between a high **P-factor** (good coverage) and a low **R-factor** (narrow uncertainty bounds) is therefore sought during model calibration and uncertainty analysis.
 
 ## Analysis of the residuals
 
@@ -407,9 +507,10 @@ sessionInfo()$R.version$version.string
 paste("hydroGOF", sessionInfo()$otherPkgs$hydroGOF$Version)
 ```
 
-# Version history
+# Version history of this vignette
 
-* v0.3: Jan-2024
+* v0.4: 30-Apr-2026
+* v0.3: 21-Jan-2024
 * v0.2: Mar-2020
 * v0.1: Aug 2011
 
