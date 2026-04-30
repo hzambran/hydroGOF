@@ -97,8 +97,11 @@ Valid values of \code{epsilon.type} are:
 4) \kbd{"otherValue"}: the numeric value defined in the \code{epsilon.value} argument is directly added to both \code{sim} and \code{obs}, before applying \code{fun}.
 }
   \item{epsilon.value}{
+
  -) when \code{epsilon.type="otherValue"} it represents the numeric value to be added to both \code{sim} and \code{obs} before applying \code{fun}. \cr
+
  -) when \code{epsilon.type="otherFactor"} it represents the numeric factor used to multiply the mean of the observed values, instead of the one hundredth (1/100) described in Pushpalatha et al. (2012). The resulting value is then added to both \code{sim} and \code{obs} before applying \code{fun}.
+
 }
 }
 
@@ -109,7 +112,7 @@ emphasis on the reproduction of high-flow conditions.
 
 The HFB ranges from 0 to \kbd{Inf}, with an optimal value of \kbd{0}. Values close to 0 indicate that the simulated high flows closely match the observed high flows, whereas larger values indicate increasing discrepancies between the simulated and observed high-flow magnitudes.
 
-The HFB function is inspired by the annual peak-flow bias (APFB) objective function proposed by Mizukami et al. (2019). However, it differs from that metric in four important aspects:
+The current formulation of the HFB function was proposed by Zambrano-Bigiarini (2026), inspired by the annual peak-flow bias (APFB) objective function proposed by Mizukami et al. (2019). However, HFB differs from APFB in four important aspects:
 
 1) Instead of considering only the single observed annual peak flow in each year, it considers all high flows in each year, where "high flows" are defined as all values equal to or greater than a user-defined exceedance probability threshold of the observed values. By default, high flows correspond to the upper 10\% of observed flows (i.e., \code{hQ.thr=0.1}).
 
@@ -150,7 +153,11 @@ numeric with the median annual high flow bias between \code{sim} and \code{obs}.
 }
 }
 \references{
+
+\cite{Zambrano-Bigiarini, Mauricio (2026). hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series. R package version 0.7-0. URL:https://cran.r-project.org/package=hydroGOF. doi:10.32614/CRAN.package.hydroGOF.}
+
 \cite{Mizukami, N.; Rakovec, O.; Newman, A.J.; Clark, M.P.; Wood, A.W.; Gupta, H.V.; Kumar, R.: (2019). On the choice of calibration metrics for "high-flow" estimation using hydrologic models, Hydrology Earth System Sciences 23, 2601-2614, doi:10.5194/hess-23-2601-2019.}
+
 }
 \author{
 Mauricio Zambrano-Bigiarini <mzb.devel@gmail.com>

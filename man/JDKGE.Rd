@@ -18,11 +18,11 @@ Joint Divergence Kling-Gupta Efficiency
 }
 
 \description{
-Joint Divergence Kling-Gupta Efficiency between \code{sim} and \code{obs}, with treatment of missing values.
+Joint Divergence Kling-Gupta Efficiency between \code{sim} and \code{obs}, with treatment of missing values. 
 
-This implementation follows the technical formulation described by Ficchi et al. (2026): the KGE' variability term is used, and the distributional component is computed from a histogram-based Jensen-Shannon divergence applied to log-transformed flows after paper-specific zero handling.
+This implementation follows the technical formulation described by Ficchi et al. (2026), using by defualt the KGE-2012 variability term, and computing the distributional component from a histogram-based Jensen-Shannon divergence applied to log-transformed flows after paper-specific zero handling. However, this function also allows JDKGE-style variants based on the 2009 and 2021 KGE formulations, different methods for the distributional component, and  different methods for the handling of low streamflow values.
 
-The function also allows JDKGE-style variants based on the 2009 and 2021 KGE formulations, while keeping the paper's 2012 variant as the default.
+Results by Ficchi et al. (2026) show that calibrations using JDKGE significantly improve \bold{low-flow simulations} compared to KGE, NSE and other competitors, while maintaining comparable or improved performance in other regimes, including \bold{high flows}.
 }
 
 \usage{
@@ -140,6 +140,10 @@ If \code{out.type="full"}: a list with two elements:
 \cite{Kling, H.; Fuchs, M.; Paulin, M. (2012). Runoff conditions in the upper Danube basin under an ensemble of climate change scenarios. Journal of Hydrology, 424, 264-277, doi:10.1016/j.jhydrol.2012.01.011.}
 
 \cite{Tang, G.; Clark, M.P.; Papalexiou, S.M. (2021). SC-earth: a station-based serially complete earth dataset from 1950 to 2019. Journal of Climate, 34(16), 6493-6511. doi:10.1175/JCLI-D-21-0067.1.}
+}
+
+\seealso{
+\code{\link{NSE}}, \code{\link{wNSE}}, \code{\link{wsNSE}}, \code{\link{HFB}}, \code{\link{JDKGE}}, \code{\link{KGElf}}, \code{\link{rNSE}}, \code{\link{gof}}, \code{\link{ggof}}
 }
 
 \examples{

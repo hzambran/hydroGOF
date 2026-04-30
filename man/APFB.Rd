@@ -111,9 +111,9 @@ where:
 
 \itemize{
 
-\item \kbd{\mu_{peak\,Q_s}}: mean of the simulated annual peak flow series
+\item \eqn{\mu_{peak\,Q_s}}: mean of the simulated annual peak flow series
 
-\item \kbd{\mu_{peak\,Q_o}}: mean of the observed annual peak flow series
+\item \eqn{\mu_{peak\,Q_o}}: mean of the observed annual peak flow series
 
 }
 

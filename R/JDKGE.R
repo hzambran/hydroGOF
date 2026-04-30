@@ -45,6 +45,11 @@
 # signal structural deficiencies in the model representation of the 
 # hydrological regime.
 ################################################################################
+# Results by Ficchi et al. (2026) show that calibrations using JDKGE 
+# significantly improve low-flow simulations compared to KGE, NSE and other 
+# competitors, while maintaining comparable or improved performance in other 
+# regimes, including high flows.
+################################################################################
 # 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values
 # 'sim'   : numeric 'data.frame', 'matrix' or 'vector' with simulated values
 # 'Result': Joint Divergence Kling-Gupta Efficiency between 'sim' and 'obs'
