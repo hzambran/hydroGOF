@@ -16,4 +16,4 @@ BugReports: https://github.com/hzambran/hydroGOF/issues
 LazyLoad: yes
 NeedsCompilation: no
 Repository: CRAN
-Packaged: Tue Apr 30 07:42:35 -04 2026 ; hzambran
+Packaged: Tue Apr 30 08:01:35 -04 2026 ; hzambran
