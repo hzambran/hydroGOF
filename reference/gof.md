@@ -10,31 +10,47 @@ two vectors, matrices or data.frames
 gof(sim, obs, ...)
 
 # Default S3 method
-gof(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
-        j=1, lambda=0.95, norm="sd", s=c(1,1,1), method=c("2009", "2012", "2021"), 
-        lQ.thr=0.6, hQ.thr=0.1, start.month=1, digits=2, fun=NULL, ...,
+gof(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
+        do.pmr=FALSE, j=1, lambda=0.95, norm="sd", s=c(1,1,1,1), 
+        method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, start.month=1, 
+        k=NULL, min.years=5, days.per.year=365, 
+        density.method=c("hist", "kde", "wasserstein"), 
+        nbins="paper", timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512,
+        digits=2, fun=NULL, ...,
         epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
         epsilon.value=NA)
 
 # S3 method for class 'matrix'
-gof(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
-        j=1, lambda=0.95, norm="sd", s=c(1,1,1), method=c("2009", "2012", "2021"),
-        lQ.thr=0.6, hQ.thr=0.1, start.month=1, digits=2, fun=NULL, ...,
-        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
+gof(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
+        do.pmr=FALSE, j=1, lambda=0.95, norm="sd", s=c(1,1,1,1), 
+        method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, start.month=1, 
+        k=NULL, min.years=5, days.per.year=365, 
+        density.method=c("hist", "kde", "wasserstein"), 
+        nbins="paper", timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512,
+        digits=2, fun=NULL, ...,
+        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
         epsilon.value=NA)
 
 # S3 method for class 'data.frame'
-gof(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
-        j=1, lambda=0.95, norm="sd", s=c(1,1,1), method=c("2009", "2012", "2021"),
-        lQ.thr=0.6, hQ.thr=0.1, start.month=1, digits=2, fun=NULL, ...,
-        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
+gof(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
+        do.pmr=FALSE, j=1, lambda=0.95, norm="sd", s=c(1,1,1,1), 
+        method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, start.month=1, 
+        k=NULL, min.years=5, days.per.year=365, 
+        density.method=c("hist", "kde", "wasserstein"), 
+        nbins="paper", timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512,
+        digits=2, fun=NULL, ...,
+        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
         epsilon.value=NA)
 
 # S3 method for class 'zoo'
-gof(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
-        j=1, lambda=0.95, norm="sd", s=c(1,1,1), method=c("2009", "2012", "2021"),
-        lQ.thr=0.6, hQ.thr=0.1, start.month=1, digits=2, fun=NULL, ...,
-        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
+gof(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
+        do.pmr=FALSE, j=1, lambda=0.95, norm="sd", s=c(1,1,1,1), 
+        method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, start.month=1, 
+        k=NULL, min.years=5, days.per.year=365, 
+        density.method=c("hist", "kde", "wasserstein"), 
+        nbins="paper", timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512,
+        digits=2, fun=NULL, ...,
+        epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"), 
         epsilon.value=NA)
 ```
 
@@ -68,6 +84,12 @@ gof(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
   ([`pbiasfdc`](https://hzambran.github.io/hydroGOF/reference/pbiasfdc.md))
   has to be computed. The default is FALSE.
 
+- do.pmr:
+
+  logical. Indicates if the Proxy for Model Robustness
+  ([`PMR`](https://hzambran.github.io/hydroGOF/reference/PMR.md)) has to
+  be computed. The default is FALSE.
+
 - j:
 
   argument passed to the
@@ -92,9 +114,17 @@ gof(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
   argument passed to the
   [`KGE`](https://hzambran.github.io/hydroGOF/reference/KGE.md),
   [`KGElf`](https://hzambran.github.io/hydroGOF/reference/KGElf.md),
-  [`sKGE`](https://hzambran.github.io/hydroGOF/reference/sKGE.md) and
-  [`KGEkm`](https://hzambran.github.io/hydroGOF/reference/KGEkm.md)
-  functions.
+  [`sKGE`](https://hzambran.github.io/hydroGOF/reference/sKGE.md),
+  [`KGEkm`](https://hzambran.github.io/hydroGOF/reference/KGEkm.md) and
+  [`JDKGE`](https://hzambran.github.io/hydroGOF/reference/JDKGE.md)
+  functions. The fourth element in `s` is only used in the
+  [`JDKGE`](https://hzambran.github.io/hydroGOF/reference/JDKGE.md)
+  function; while
+  [`KGE`](https://hzambran.github.io/hydroGOF/reference/KGE.md),
+  [`KGElf`](https://hzambran.github.io/hydroGOF/reference/KGElf.md),
+  [`sKGE`](https://hzambran.github.io/hydroGOF/reference/sKGE.md), and
+  [`KGEkm`](https://hzambran.github.io/hydroGOF/reference/KGEkm.md) only
+  uses the first three elements in `s`.
 
 - method:
 
@@ -129,6 +159,95 @@ gof(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
   numeric in \[1:12\] indicating the starting month of the
   (hydrological) year. Numeric values in \[1, 12\] represent months in
   \[January, December\]. By default `start.month=1`.
+
+- k:
+
+  Only used for the computation of the Proxy for Model Robustness
+  (`PMR`).  
+
+  integer value representing the length of the moving window (number of
+  time steps) used to compute the bias over sub-periods.  
+
+  The k argument should reflect the temporal scale at which robustness
+  is intended to be evaluated, and therefore depends primarily on the
+  time resolution of the data. Royer-Gaspard et al. (2021) recommended
+  to use multi-year windows, typically in the range of 3 to 5 years, to
+  ensure that each sub-period captures meaningful hydroclimatic
+  variability while still allowing enough windows for comparison.
+
+- min.years:
+
+  Only used for the computation of the Proxy for Model Robustness
+  (`PMR`).  
+
+  Numeric, only used when the user does not explicitly define the value
+  of `k`, i.e., when `k=NULL`.  
+
+  Minimum numbers of years used to ensure that each sub-period used int
+  eh computation of PMR captures meaningful hydroclimatic variability
+  while still allowing enough windows for comparison. By default,
+  `min.years=5`.
+
+- days.per.year:
+
+  Only used for the computation of the Proxy for Model Robustness
+  (`PMR`).  
+
+  Numeric, only used when the user does not explicitly define the value
+  of `k`, i.e., when `k=NULL`.  
+
+  Number of days in a year. A value of Use 365.25 is recoomended instead
+  of the default value of 365 when `sim` and `obs` are long
+  climatological series.
+
+- density.method:
+
+  Only used for the computation of the Joint Divergence Kling-Gupta
+  Efficiency (`JDKGE`).  
+
+  Character, representing the method used to compute the divergence
+  component. "hist" uses the paper-faithful histogram-based
+  Jensen-Shannon divergence, "kde" uses a common-grid kernel density
+  estimate followed by Jensen-Shannon divergence, and "wasserstein" uses
+  a Wasserstein-distance similarity on log-flows.
+
+- nbins:
+
+  Only used for the computation of the Joint Divergence Kling-Gupta
+  Efficiency (`JDKGE`).  
+
+  Character, representing the binning rule used by the histogram
+  divergence component. The default "paper" uses the procedure described
+  by Ficchi et al. (2026). This argument is ignored for
+  `density.method="kde"` and `density.method="wasserstein"`.
+
+- timestep:
+
+  Only used for the computation of the Joint Divergence Kling-Gupta
+  Efficiency (`JDKGE`).  
+
+  Numeric, representing the sampling time step in seconds used by the
+  paper's bin-count adjustment. For `zoo` inputs this is inferred from
+  the time index when omitted. The default for plain numeric vectors is
+  one day (86400 seconds).
+
+- kde.n.grid:
+
+  Only used for the computation of the Joint Divergence Kling-Gupta
+  Efficiency (`JDKGE`).  
+
+  Integer, number of grid points used when `density.method="kde"`.
+  Larger values provide a finer common support grid at higher
+  computational cost.
+
+- wasserstein.n.quantiles:
+
+  Only used for the computation of the Joint Divergence Kling-Gupta
+  Efficiency (`JDKGE`).  
+
+  Integer, number of quantile levels used to approximate the first
+  Wasserstein distance when `density.method="wasserstein"`. Larger
+  values provide a finer approximation at higher computational cost.
 
 - digits:
 
@@ -642,6 +761,9 @@ gof(sim, obs)
 #> KGElf      0
 #> KGEnp      1
 #> KGEkm      1
+#> JDKGE      1
+#> LME        1
+#> LCE        1
 
 obs <- 1:10
 sim <- 2:11
@@ -674,6 +796,9 @@ gof(sim, obs)
 #> KGElf   -0.03
 #> KGEnp    0.81
 #> KGEkm    0.81
+#> JDKGE    0.81
+#> LME      0.82
+#> LCE      0.82
 
 ##################
 # Example 2: 
@@ -714,6 +839,9 @@ gof(sim=sim, obs=obs)
 #> KGElf      0
 #> KGEnp      1
 #> KGEkm      1
+#> JDKGE      1
+#> LME        1
+#> LCE        1
 #> sKGE       0
 #> APFB       0
 #> HFB        1
@@ -759,6 +887,9 @@ gof(sim=sim, obs=obs)
 #> KGElf   -0.08
 #> KGEnp    0.64
 #> KGEkm    0.66
+#> JDKGE    0.67
+#> LME      0.68
+#> LCE      0.68
 #> sKGE    -0.34
 #> APFB     0.03
 #> HFB      0.92
@@ -797,6 +928,9 @@ gof(sim=sim, obs=obs, fun=log)
 #> KGElf   -0.08
 #> KGEnp    0.74
 #> KGEkm    0.74
+#> JDKGE    0.70
+#> LME      0.67
+#> LCE      0.66
 #> sKGE    -0.46
 #> APFB     0.01
 #> HFB      0.98
@@ -833,6 +967,9 @@ gof(sim=lsim, obs=lobs)
 #> KGElf   -0.18
 #> KGEnp    0.74
 #> KGEkm    0.74
+#> JDKGE    0.70
+#> LME      0.67
+#> LCE      0.66
 #> sKGE    -0.24
 #> APFB     0.01
 #> HFB      0.98
@@ -872,6 +1009,9 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
 #> KGElf   -0.08
 #> KGEnp    0.74
 #> KGEkm    0.74
+#> JDKGE    0.72
+#> LME      0.68
+#> LCE      0.67
 #> sKGE    -0.39
 #> APFB     0.01
 #> HFB      0.98
@@ -909,6 +1049,9 @@ gof(sim=lsim, obs=lobs)
 #> KGElf   -0.12
 #> KGEnp    0.75
 #> KGEkm    0.74
+#> JDKGE    0.71
+#> LME      0.68
+#> LCE      0.67
 #> sKGE    -0.23
 #> APFB     0.01
 #> HFB      0.98

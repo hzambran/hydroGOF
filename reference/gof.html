@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-34</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-38</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,31 +45,47 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gof</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
-<span><span class="fu">gof</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, do.spearman<span class="op">=</span><span class="cn">FALSE</span>, do.pbfdc<span class="op">=</span><span class="cn">FALSE</span>,</span>
-<span>        j<span class="op">=</span><span class="fl">1</span>, lambda<span class="op">=</span><span class="fl">0.95</span>, norm<span class="op">=</span><span class="st">"sd"</span>, s<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2009"</span>, <span class="st">"2012"</span>, <span class="st">"2021"</span><span class="op">)</span>, </span>
-<span>        lQ.thr<span class="op">=</span><span class="fl">0.6</span>, hQ.thr<span class="op">=</span><span class="fl">0.1</span>, start.month<span class="op">=</span><span class="fl">1</span>, digits<span class="op">=</span><span class="fl">2</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
+<span><span class="fu">gof</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, do.spearman<span class="op">=</span><span class="cn">FALSE</span>, do.pbfdc<span class="op">=</span><span class="cn">FALSE</span>, </span>
+<span>        do.pmr<span class="op">=</span><span class="cn">FALSE</span>, j<span class="op">=</span><span class="fl">1</span>, lambda<span class="op">=</span><span class="fl">0.95</span>, norm<span class="op">=</span><span class="st">"sd"</span>, s<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, </span>
+<span>        method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2009"</span>, <span class="st">"2012"</span>, <span class="st">"2021"</span><span class="op">)</span>, lQ.thr<span class="op">=</span><span class="fl">0.6</span>, hQ.thr<span class="op">=</span><span class="fl">0.1</span>, start.month<span class="op">=</span><span class="fl">1</span>, </span>
+<span>        k<span class="op">=</span><span class="cn">NULL</span>, min.years<span class="op">=</span><span class="fl">5</span>, days.per.year<span class="op">=</span><span class="fl">365</span>, </span>
+<span>        density.method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hist"</span>, <span class="st">"kde"</span>, <span class="st">"wasserstein"</span><span class="op">)</span>, </span>
+<span>        nbins<span class="op">=</span><span class="st">"paper"</span>, timestep<span class="op">=</span><span class="fl">86400</span>, kde.n.grid<span class="op">=</span><span class="fl">512</span>, wasserstein.n.quantiles<span class="op">=</span><span class="fl">512</span>,</span>
+<span>        digits<span class="op">=</span><span class="fl">2</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
 <span>        epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span>, <span class="st">"otherValue"</span><span class="op">)</span>, </span>
 <span>        epsilon.value<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'matrix'</span></span>
-<span><span class="fu">gof</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, do.spearman<span class="op">=</span><span class="cn">FALSE</span>, do.pbfdc<span class="op">=</span><span class="cn">FALSE</span>,</span>
-<span>        j<span class="op">=</span><span class="fl">1</span>, lambda<span class="op">=</span><span class="fl">0.95</span>, norm<span class="op">=</span><span class="st">"sd"</span>, s<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2009"</span>, <span class="st">"2012"</span>, <span class="st">"2021"</span><span class="op">)</span>,</span>
-<span>        lQ.thr<span class="op">=</span><span class="fl">0.6</span>, hQ.thr<span class="op">=</span><span class="fl">0.1</span>, start.month<span class="op">=</span><span class="fl">1</span>, digits<span class="op">=</span><span class="fl">2</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
-<span>        epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span>, <span class="st">"otherValue"</span><span class="op">)</span>,</span>
+<span><span class="fu">gof</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, do.spearman<span class="op">=</span><span class="cn">FALSE</span>, do.pbfdc<span class="op">=</span><span class="cn">FALSE</span>, </span>
+<span>        do.pmr<span class="op">=</span><span class="cn">FALSE</span>, j<span class="op">=</span><span class="fl">1</span>, lambda<span class="op">=</span><span class="fl">0.95</span>, norm<span class="op">=</span><span class="st">"sd"</span>, s<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, </span>
+<span>        method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2009"</span>, <span class="st">"2012"</span>, <span class="st">"2021"</span><span class="op">)</span>, lQ.thr<span class="op">=</span><span class="fl">0.6</span>, hQ.thr<span class="op">=</span><span class="fl">0.1</span>, start.month<span class="op">=</span><span class="fl">1</span>, </span>
+<span>        k<span class="op">=</span><span class="cn">NULL</span>, min.years<span class="op">=</span><span class="fl">5</span>, days.per.year<span class="op">=</span><span class="fl">365</span>, </span>
+<span>        density.method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hist"</span>, <span class="st">"kde"</span>, <span class="st">"wasserstein"</span><span class="op">)</span>, </span>
+<span>        nbins<span class="op">=</span><span class="st">"paper"</span>, timestep<span class="op">=</span><span class="fl">86400</span>, kde.n.grid<span class="op">=</span><span class="fl">512</span>, wasserstein.n.quantiles<span class="op">=</span><span class="fl">512</span>,</span>
+<span>        digits<span class="op">=</span><span class="fl">2</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
+<span>        epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span>, <span class="st">"otherValue"</span><span class="op">)</span>, </span>
 <span>        epsilon.value<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'data.frame'</span></span>
-<span><span class="fu">gof</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, do.spearman<span class="op">=</span><span class="cn">FALSE</span>, do.pbfdc<span class="op">=</span><span class="cn">FALSE</span>,</span>
-<span>        j<span class="op">=</span><span class="fl">1</span>, lambda<span class="op">=</span><span class="fl">0.95</span>, norm<span class="op">=</span><span class="st">"sd"</span>, s<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2009"</span>, <span class="st">"2012"</span>, <span class="st">"2021"</span><span class="op">)</span>,</span>
-<span>        lQ.thr<span class="op">=</span><span class="fl">0.6</span>, hQ.thr<span class="op">=</span><span class="fl">0.1</span>, start.month<span class="op">=</span><span class="fl">1</span>, digits<span class="op">=</span><span class="fl">2</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
-<span>        epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span>, <span class="st">"otherValue"</span><span class="op">)</span>,</span>
+<span><span class="fu">gof</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, do.spearman<span class="op">=</span><span class="cn">FALSE</span>, do.pbfdc<span class="op">=</span><span class="cn">FALSE</span>, </span>
+<span>        do.pmr<span class="op">=</span><span class="cn">FALSE</span>, j<span class="op">=</span><span class="fl">1</span>, lambda<span class="op">=</span><span class="fl">0.95</span>, norm<span class="op">=</span><span class="st">"sd"</span>, s<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, </span>
+<span>        method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2009"</span>, <span class="st">"2012"</span>, <span class="st">"2021"</span><span class="op">)</span>, lQ.thr<span class="op">=</span><span class="fl">0.6</span>, hQ.thr<span class="op">=</span><span class="fl">0.1</span>, start.month<span class="op">=</span><span class="fl">1</span>, </span>
+<span>        k<span class="op">=</span><span class="cn">NULL</span>, min.years<span class="op">=</span><span class="fl">5</span>, days.per.year<span class="op">=</span><span class="fl">365</span>, </span>
+<span>        density.method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hist"</span>, <span class="st">"kde"</span>, <span class="st">"wasserstein"</span><span class="op">)</span>, </span>
+<span>        nbins<span class="op">=</span><span class="st">"paper"</span>, timestep<span class="op">=</span><span class="fl">86400</span>, kde.n.grid<span class="op">=</span><span class="fl">512</span>, wasserstein.n.quantiles<span class="op">=</span><span class="fl">512</span>,</span>
+<span>        digits<span class="op">=</span><span class="fl">2</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
+<span>        epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span>, <span class="st">"otherValue"</span><span class="op">)</span>, </span>
 <span>        epsilon.value<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'zoo'</span></span>
-<span><span class="fu">gof</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, do.spearman<span class="op">=</span><span class="cn">FALSE</span>, do.pbfdc<span class="op">=</span><span class="cn">FALSE</span>,</span>
-<span>        j<span class="op">=</span><span class="fl">1</span>, lambda<span class="op">=</span><span class="fl">0.95</span>, norm<span class="op">=</span><span class="st">"sd"</span>, s<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2009"</span>, <span class="st">"2012"</span>, <span class="st">"2021"</span><span class="op">)</span>,</span>
-<span>        lQ.thr<span class="op">=</span><span class="fl">0.6</span>, hQ.thr<span class="op">=</span><span class="fl">0.1</span>, start.month<span class="op">=</span><span class="fl">1</span>, digits<span class="op">=</span><span class="fl">2</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
-<span>        epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span>, <span class="st">"otherValue"</span><span class="op">)</span>,</span>
+<span><span class="fu">gof</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, do.spearman<span class="op">=</span><span class="cn">FALSE</span>, do.pbfdc<span class="op">=</span><span class="cn">FALSE</span>, </span>
+<span>        do.pmr<span class="op">=</span><span class="cn">FALSE</span>, j<span class="op">=</span><span class="fl">1</span>, lambda<span class="op">=</span><span class="fl">0.95</span>, norm<span class="op">=</span><span class="st">"sd"</span>, s<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, </span>
+<span>        method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2009"</span>, <span class="st">"2012"</span>, <span class="st">"2021"</span><span class="op">)</span>, lQ.thr<span class="op">=</span><span class="fl">0.6</span>, hQ.thr<span class="op">=</span><span class="fl">0.1</span>, start.month<span class="op">=</span><span class="fl">1</span>, </span>
+<span>        k<span class="op">=</span><span class="cn">NULL</span>, min.years<span class="op">=</span><span class="fl">5</span>, days.per.year<span class="op">=</span><span class="fl">365</span>, </span>
+<span>        density.method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hist"</span>, <span class="st">"kde"</span>, <span class="st">"wasserstein"</span><span class="op">)</span>, </span>
+<span>        nbins<span class="op">=</span><span class="st">"paper"</span>, timestep<span class="op">=</span><span class="fl">86400</span>, kde.n.grid<span class="op">=</span><span class="fl">512</span>, wasserstein.n.quantiles<span class="op">=</span><span class="fl">512</span>,</span>
+<span>        digits<span class="op">=</span><span class="fl">2</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
+<span>        epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span>, <span class="st">"otherValue"</span><span class="op">)</span>, </span>
 <span>        epsilon.value<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -92,6 +108,9 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
   <dt id="arg-do-pbfdc">do.pbfdc<a class="anchor" aria-label="anchor" href="#arg-do-pbfdc"></a></dt>
 <dd><p>logical. Indicates if the Percent Bias in the Slope of the midsegment of the Flow Duration Curve (<code><a href="pbiasfdc.html">pbiasfdc</a></code>) has to be computed. The default is FALSE.</p></dd>
 
+  <dt id="arg-do-pmr">do.pmr<a class="anchor" aria-label="anchor" href="#arg-do-pmr"></a></dt>
+<dd><p>logical. Indicates if the Proxy for Model Robustness (<code><a href="PMR.html">PMR</a></code>) has to be computed. The default is FALSE.</p></dd>
+
   <dt id="arg-j">j<a class="anchor" aria-label="anchor" href="#arg-j"></a></dt>
 <dd><p>argument passed to the <code><a href="mNSE.html">mNSE</a></code> and <code><a href="wsNSE.html">wsNSE</a></code> functions.</p></dd>
 
@@ -102,7 +121,7 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <dd><p>argument passed to the <code><a href="nrmse.html">nrmse</a></code> function</p></dd>
 
   <dt id="arg-s">s<a class="anchor" aria-label="anchor" href="#arg-s"></a></dt>
-<dd><p>argument passed to the <code><a href="KGE.html">KGE</a></code>, <code><a href="KGElf.html">KGElf</a></code>, <code><a href="sKGE.html">sKGE</a></code> and <code><a href="KGEkm.html">KGEkm</a></code> functions.</p></dd>
+<dd><p>argument passed to the <code><a href="KGE.html">KGE</a></code>, <code><a href="KGElf.html">KGElf</a></code>, <code><a href="sKGE.html">sKGE</a></code>, <code><a href="KGEkm.html">KGEkm</a></code> and <code><a href="JDKGE.html">JDKGE</a></code> functions. The fourth element in <code>s</code> is only used in the <code><a href="JDKGE.html">JDKGE</a></code> function; while <code><a href="KGE.html">KGE</a></code>, <code><a href="KGElf.html">KGElf</a></code>, <code><a href="sKGE.html">sKGE</a></code>, and <code><a href="KGEkm.html">KGEkm</a></code> only uses the first three elements in <code>s</code>.</p></dd>
 
   <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p>argument passed to the <code><a href="KGE.html">KGE</a></code>, <code><a href="KGElf.html">KGElf</a></code>, <code><a href="sKGE.html">sKGE</a></code> and <code><a href="KGEkm.html">KGEkm</a></code> functions.</p></dd>
@@ -116,6 +135,46 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
   <dt id="arg-start-month">start.month<a class="anchor" aria-label="anchor" href="#arg-start-month"></a></dt>
 <dd><p>[OPTIONAL]. Only used for the computation of the split KGE (<code>sKGE</code>), annual peak flow bias (<code>APFB</code>) and high flow bias (<code>HFB</code>) when the (hydrological) year of interest is different from the calendar year.</p>
 <p>numeric in [1:12] indicating the starting month of the (hydrological) year. Numeric values in [1, 12] represent months in [January, December]. By default <code>start.month=1</code>.</p></dd>
+
+  <dt id="arg-k">k<a class="anchor" aria-label="anchor" href="#arg-k"></a></dt>
+<dd><p>Only used for the computation of the Proxy for Model Robustness (<code>PMR</code>). <br></p>
+<p>integer value representing the length of the moving window (number of time steps) used to compute the bias over sub-periods. <br></p>
+<p>The k argument should reflect the temporal scale at which robustness is intended to be evaluated, and therefore depends primarily on the time resolution of the data. Royer-Gaspard et al. (2021) recommended to use multi-year windows, typically in the range of 3 to 5 years, to ensure that each sub-period captures meaningful hydroclimatic variability while still allowing enough windows for comparison.</p></dd>
+
+  <dt id="arg-min-years">min.years<a class="anchor" aria-label="anchor" href="#arg-min-years"></a></dt>
+<dd><p>Only used for the computation of the Proxy for Model Robustness (<code>PMR</code>). <br></p>
+<p>Numeric, only used when the user does not explicitly define the value of <code>k</code>, i.e., when <code>k=NULL</code>. <br></p>
+<p>Minimum numbers of years used to ensure that each sub-period used int eh computation of PMR captures meaningful hydroclimatic variability while still allowing enough windows for comparison. By default, <code>min.years=5</code>.</p></dd>
+
+  <dt id="arg-days-per-year">days.per.year<a class="anchor" aria-label="anchor" href="#arg-days-per-year"></a></dt>
+<dd><p>Only used for the computation of the Proxy for Model Robustness (<code>PMR</code>). <br></p>
+<p>Numeric, only used when the user does not explicitly define the value of <code>k</code>, i.e., when <code>k=NULL</code>.  <br></p>
+<p>Number of days in a year. A value of Use 365.25 is recoomended instead of the default value of 365 when <code>sim</code> and <code>obs</code> are long climatological series.</p></dd>
+
+<dt id="arg-density-method">density.method<a class="anchor" aria-label="anchor" href="#arg-density-method"></a></dt>
+<dd><p>Only used for the computation of the Joint Divergence Kling-Gupta Efficiency (<code>JDKGE</code>). <br></p>
+<p>Character, representing the method used to compute the divergence component. <kbd>"hist"</kbd> uses the paper-faithful histogram-based Jensen-Shannon divergence, <kbd>"kde"</kbd> uses a common-grid kernel density estimate followed by Jensen-Shannon divergence, and <kbd>"wasserstein"</kbd> uses a Wasserstein-distance similarity on log-flows.</p></dd>
+
+
+<dt id="arg-nbins">nbins<a class="anchor" aria-label="anchor" href="#arg-nbins"></a></dt>
+<dd><p>Only used for the computation of the Joint Divergence Kling-Gupta Efficiency (<code>JDKGE</code>). <br></p>
+<p>Character, representing the binning rule used by the histogram divergence component. The default <kbd>"paper"</kbd> uses the procedure described by Ficchi et al. (2026). This argument is ignored for <code>density.method="kde"</code> and <code>density.method="wasserstein"</code>.</p></dd>
+
+
+<dt id="arg-timestep">timestep<a class="anchor" aria-label="anchor" href="#arg-timestep"></a></dt>
+<dd><p>Only used for the computation of the Joint Divergence Kling-Gupta Efficiency (<code>JDKGE</code>). <br></p>
+<p>Numeric, representing the sampling time step in seconds used by the paper's bin-count adjustment. For <code>zoo</code> inputs this is inferred from the time index when omitted. The default for plain numeric vectors is one day (86400 seconds).</p></dd>
+
+
+<dt id="arg-kde-n-grid">kde.n.grid<a class="anchor" aria-label="anchor" href="#arg-kde-n-grid"></a></dt>
+<dd><p>Only used for the computation of the Joint Divergence Kling-Gupta Efficiency (<code>JDKGE</code>). <br></p>
+<p>Integer, number of grid points used when <code>density.method="kde"</code>. Larger values provide a finer common support grid at higher computational cost.</p></dd>
+
+
+<dt id="arg-wasserstein-n-quantiles">wasserstein.n.quantiles<a class="anchor" aria-label="anchor" href="#arg-wasserstein-n-quantiles"></a></dt>
+<dd><p>Only used for the computation of the Joint Divergence Kling-Gupta Efficiency (<code>JDKGE</code>). <br></p>
+<p>Integer, number of quantile levels used to approximate the first Wasserstein distance when <code>density.method="wasserstein"</code>. Larger values provide a finer approximation at higher computational cost.</p></dd>
+
 
   <dt id="arg-digits">digits<a class="anchor" aria-label="anchor" href="#arg-digits"></a></dt>
 <dd><p>decimal places used for rounding the goodness-of-fit indexes.</p></dd>
@@ -354,6 +413,9 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGElf      0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGEnp      1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGEkm      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> JDKGE      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LME        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LCE        1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span></span>
 <span class="r-in"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fl">2</span><span class="op">:</span><span class="fl">11</span></span></span>
@@ -386,6 +448,9 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGElf   -0.03</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGEnp    0.81</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGEkm    0.81</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> JDKGE    0.81</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LME      0.82</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LCE      0.82</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 2: </span></span></span>
@@ -426,6 +491,9 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGElf      0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGEnp      1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGEkm      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> JDKGE      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LME        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LCE        1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sKGE       0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> APFB       0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> HFB        1</span>
@@ -471,6 +539,9 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGElf   -0.08</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGEnp    0.64</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGEkm    0.66</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> JDKGE    0.67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LME      0.68</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LCE      0.68</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sKGE    -0.34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> APFB     0.03</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> HFB      0.92</span>
@@ -509,6 +580,9 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGElf   -0.08</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGEnp    0.74</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGEkm    0.74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> JDKGE    0.70</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LME      0.67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LCE      0.66</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sKGE    -0.46</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> APFB     0.01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> HFB      0.98</span>
@@ -545,6 +619,9 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGElf   -0.18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGEnp    0.74</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGEkm    0.74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> JDKGE    0.70</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LME      0.67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LCE      0.66</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sKGE    -0.24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> APFB     0.01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> HFB      0.98</span>
@@ -584,6 +661,9 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGElf   -0.08</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGEnp    0.74</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGEkm    0.74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> JDKGE    0.72</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LME      0.68</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LCE      0.67</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sKGE    -0.39</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> APFB     0.01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> HFB      0.98</span>
@@ -621,6 +701,9 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGElf   -0.12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGEnp    0.75</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> KGEkm    0.74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> JDKGE    0.71</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LME      0.68</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LCE      0.67</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sKGE    -0.23</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> APFB     0.01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> HFB      0.98</span>

@@ -9,39 +9,41 @@ computations.
 
 ## Details
 
-|             |                                                                          |
-|-------------|--------------------------------------------------------------------------|
-| Package:    | hydroGOF                                                                 |
-| Type:       | Package                                                                  |
-| Version:    | 0.6-0                                                                    |
-| Date:       | 2024-05-08                                                               |
-| License:    | GPL \>= 2                                                                |
-| LazyLoad:   | yes                                                                      |
-| Packaged:   | Wed 08 May 2024 05:13:53 PM -04 ; MZB                                    |
-| BuiltUnder: | R version 4.4.0 (2024-04-24) – "Puppy Cup" ;x86_64-pc-linux-gnu (64-bit) |
+|  |  |
+|----|----|
+| Package: | hydroGOF |
+| Type: | Package |
+| Version: | 0.7-0 |
+| Date: | 2026-04-30 |
+| License: | GPL \>= 2 |
+| LazyLoad: | yes |
+| Packaged: | Wed Apr 30 07:54:58 -04 2026 ; MZB |
+| BuiltUnder: | R version 4.6.0 (2026-04-24) – "Because it was There" ; aarch64-apple-darwin23 |
 
 Quantitative statistics included in this package are:
 
-|                                                                                                                                         |                                                                                                                                               |
-|-----------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| [`me`](https://hzambran.github.io/hydroGOF/reference/me.md) Mean Error                                                                  | [`mae`](https://hzambran.github.io/hydroGOF/reference/mae.md) Mean Absolute Error                                                             |
-| [`mse`](https://hzambran.github.io/hydroGOF/reference/mse.md) Mean Squared Error                                                        | [`rmse`](https://hzambran.github.io/hydroGOF/reference/rmse.md) Root Mean Square Error                                                        |
-| [`ubRMSE`](https://hzambran.github.io/hydroGOF/reference/ubRMSE.md) Unbiased Root Mean Square Error                                     | [`nrmse`](https://hzambran.github.io/hydroGOF/reference/nrmse.md) Normalized Root Mean Square Error                                           |
-| [`pbias`](https://hzambran.github.io/hydroGOF/reference/pbias.md) Percent Bias                                                          | [`rsr`](https://hzambran.github.io/hydroGOF/reference/rsr.md) Ratio of RMSE to the Standard Deviation of the Observations                     |
-| [`rSD`](https://hzambran.github.io/hydroGOF/reference/rSD.md) Ratio of Standard Deviations                                              | [`NSE`](https://hzambran.github.io/hydroGOF/reference/NSE.md) Nash-Sutcliffe Efficiency                                                       |
-| [`mNSE`](https://hzambran.github.io/hydroGOF/reference/mNSE.md) Modified Nash-Sutcliffe Efficiency                                      | [`rNSE`](https://hzambran.github.io/hydroGOF/reference/rNSE.md) Relative Nash-Sutcliffe Efficiency                                            |
-| [`wNSE`](https://hzambran.github.io/hydroGOF/reference/wNSE.md) Weighted Nash-Sutcliffe Efficiency                                      | [`wsNSE`](https://hzambran.github.io/hydroGOF/reference/wsNSE.md) Weighted Seasonal Nash-Sutcliffe Efficiency                                 |
-| [`d`](https://hzambran.github.io/hydroGOF/reference/d.md) Index of Agreement                                                            | [`dr`](https://hzambran.github.io/hydroGOF/reference/dr.md) Refined Index of Agreement                                                        |
-| [`md`](https://hzambran.github.io/hydroGOF/reference/md.md) Modified Index of Agreement                                                 | [`rd`](https://hzambran.github.io/hydroGOF/reference/rd.md) Relative Index of Agreement                                                       |
-| [`cp`](https://hzambran.github.io/hydroGOF/reference/cp.md) Persistence Index                                                           | [`rPearson`](https://hzambran.github.io/hydroGOF/reference/rPearson.md) Pearson correlation coefficient                                       |
-| [`R2`](https://hzambran.github.io/hydroGOF/reference/R2.md) Coefficient of determination                                                | [`br2`](https://hzambran.github.io/hydroGOF/reference/br2.md) R2 multiplied by the coefficient of the regression line between `sim` and `obs` |
-| [`VE`](https://hzambran.github.io/hydroGOF/reference/VE.md) Volumetric efficiency                                                       | [`KGE`](https://hzambran.github.io/hydroGOF/reference/KGE.md) Kling-Gupta efficiency                                                          |
-| [`KGElf`](https://hzambran.github.io/hydroGOF/reference/KGElf.md) Kling-Gupta Efficiency for low values                                 | [`KGEnp`](https://hzambran.github.io/hydroGOF/reference/KGEnp.md) Non-parametric version of the Kling-Gupta Efficiency                        |
-| [`KGEkm`](https://hzambran.github.io/hydroGOF/reference/KGEkm.md) Knowable Moments Kling-Gupta Efficiency                               | [`sKGE`](https://hzambran.github.io/hydroGOF/reference/sKGE.md) Split Kling-Gupta Efficiency                                                  |
-| [`APFB`](https://hzambran.github.io/hydroGOF/reference/APFB.md) Annual Peak Flow Bias                                                   | [`HFB`](https://hzambran.github.io/hydroGOF/reference/HFB.md) High Flow Bias                                                                  |
-| [`rSpearman`](https://hzambran.github.io/hydroGOF/reference/rSpearman.md) Spearman's rank correlation coefficient                       | [`ssq`](https://hzambran.github.io/hydroGOF/reference/ssq.md) Sum of the Squared Residuals                                                    |
-| [`pbiasfdc`](https://hzambran.github.io/hydroGOF/reference/pbiasfdc.md) PBIAS in the slope of the midsegment of the flow duration curve | [`pfactor`](https://hzambran.github.io/hydroGOF/reference/pfactor.md) P-factor                                                                |
-| [`rfactor`](https://hzambran.github.io/hydroGOF/reference/rfactor.md) R-factor                                                          | ———————————————————————————————————-                                                                                                          |
+|  |  |
+|----|----|
+| [`me`](https://hzambran.github.io/hydroGOF/reference/me.md) Mean Error | [`mae`](https://hzambran.github.io/hydroGOF/reference/mae.md) Mean Absolute Error |
+| [`mse`](https://hzambran.github.io/hydroGOF/reference/mse.md) Mean Squared Error | [`rmse`](https://hzambran.github.io/hydroGOF/reference/rmse.md) Root Mean Square Error |
+| [`ubRMSE`](https://hzambran.github.io/hydroGOF/reference/ubRMSE.md) Unbiased Root Mean Square Error | [`nrmse`](https://hzambran.github.io/hydroGOF/reference/nrmse.md) Normalized Root Mean Square Error |
+| [`pbias`](https://hzambran.github.io/hydroGOF/reference/pbias.md) Percent Bias | [`rsr`](https://hzambran.github.io/hydroGOF/reference/rsr.md) Ratio of RMSE to the Standard Deviation of the Observations |
+| [`rSD`](https://hzambran.github.io/hydroGOF/reference/rSD.md) Ratio of Standard Deviations | [`NSE`](https://hzambran.github.io/hydroGOF/reference/NSE.md) Nash-Sutcliffe Efficiency |
+| [`mNSE`](https://hzambran.github.io/hydroGOF/reference/mNSE.md) Modified Nash-Sutcliffe Efficiency | [`rNSE`](https://hzambran.github.io/hydroGOF/reference/rNSE.md) Relative Nash-Sutcliffe Efficiency |
+| [`wNSE`](https://hzambran.github.io/hydroGOF/reference/wNSE.md) Weighted Nash-Sutcliffe Efficiency | [`wsNSE`](https://hzambran.github.io/hydroGOF/reference/wsNSE.md) Weighted Seasonal Nash-Sutcliffe Efficiency |
+| [`d`](https://hzambran.github.io/hydroGOF/reference/d.md) Index of Agreement | [`dr`](https://hzambran.github.io/hydroGOF/reference/dr.md) Refined Index of Agreement |
+| [`md`](https://hzambran.github.io/hydroGOF/reference/md.md) Modified Index of Agreement | [`rd`](https://hzambran.github.io/hydroGOF/reference/rd.md) Relative Index of Agreement |
+| [`cp`](https://hzambran.github.io/hydroGOF/reference/cp.md) Persistence Index | [`rPearson`](https://hzambran.github.io/hydroGOF/reference/rPearson.md) Pearson correlation coefficient |
+| [`R2`](https://hzambran.github.io/hydroGOF/reference/R2.md) Coefficient of determination | [`br2`](https://hzambran.github.io/hydroGOF/reference/br2.md) R2 multiplied by the coefficient of the regression line between `sim` and `obs` |
+| [`VE`](https://hzambran.github.io/hydroGOF/reference/VE.md) Volumetric efficiency | [`KGE`](https://hzambran.github.io/hydroGOF/reference/KGE.md) Kling-Gupta efficiency |
+| [`KGElf`](https://hzambran.github.io/hydroGOF/reference/KGElf.md) Kling-Gupta Efficiency for low values | [`KGEnp`](https://hzambran.github.io/hydroGOF/reference/KGEnp.md) Non-parametric version of the Kling-Gupta Efficiency |
+| [`KGEkm`](https://hzambran.github.io/hydroGOF/reference/KGEkm.md) Knowable Moments Kling-Gupta Efficiency | [`sKGE`](https://hzambran.github.io/hydroGOF/reference/sKGE.md) Split Kling-Gupta Efficiency |
+| [`JDKGE`](https://hzambran.github.io/hydroGOF/reference/JDKGE.md) Joint Divergence Kling-Gupta Efficiency | [`APFB`](https://hzambran.github.io/hydroGOF/reference/APFB.md) Annual Peak Flow Bias |
+| [`HFB`](https://hzambran.github.io/hydroGOF/reference/HFB.md) High Flow Bias | [`LME`](https://hzambran.github.io/hydroGOF/reference/LME.md) Liu-Mean Efficiency |
+| [`LCE`](https://hzambran.github.io/hydroGOF/reference/LCE.md) Lee and Choi Efficiency | [`PMR`](https://hzambran.github.io/hydroGOF/reference/PMR.md) Proxy for Model Robustness |
+| [`rSpearman`](https://hzambran.github.io/hydroGOF/reference/rSpearman.md) Spearman's rank correlation coefficient | [`ssq`](https://hzambran.github.io/hydroGOF/reference/ssq.md) Sum of the Squared Residuals |
+| [`pbiasfdc`](https://hzambran.github.io/hydroGOF/reference/pbiasfdc.md) PBIAS in the slope of the midsegment of the flow duration curve | [`pfactor`](https://hzambran.github.io/hydroGOF/reference/pfactor.md) P-factor |
+| [`rfactor`](https://hzambran.github.io/hydroGOF/reference/rfactor.md) R-factor | ———————————————————————————————————- |
 
 ## Author
 
@@ -87,6 +89,12 @@ Entekhabi, D.; Reichle, R.H.; Koster, R.D.; Crow, W.T. (2010).
 Performance metrics for soil moisture retrievals and application
 requirements. Journal of Hydrometeorology, 11(3), 832-840. doi:
 10.1175/2010JHM1223.1.
+
+Ficchi, A.; Bavera, D.; Grimaldi, S.; Moschini, F.; Pistocchi, A.;
+Russo, C.; Salamon, P.; Toreti, A. (2026). Improving low and high flow
+simulations at once: An enhanced metric for hydrological model
+calibrations. EGUsphere \[preprint\],
+https://doi.org/10.5194/egusphere-2026-43.
 
 Fowler, K.; Coxon, G.; Freer, J.; Peel, M.; Wagener, T.; Western, A.;
 Woods, R.; Zhang, L. (2018). Simulating runoff under changing climatic
@@ -147,6 +155,10 @@ br2-weighting Method for Estimating the Effects of Air Pollution on
 Population Health. Journal of Modern Applied Statistical Methods, 15(2),
 42. doi:10.22237/jmasm/1478004000
 
+Lee, J. S., & Choi, H. I. (2022). A rebalanced performance criterion for
+hydrological model calibration. Journal of Hydrology, 606, 127372.
+https://doi.org/10.1016/j.jhydrol.2021.127372
+
 Legates, D.R.; McCabe, G. J. Jr. (1999), Evaluating the Use of
 "Goodness-of-Fit" Measures in Hydrologic and Hydroclimatic Model
 Validation, Water Resour. Res., 35(1), 233-241.
@@ -157,6 +169,10 @@ K.; Xue, Y.; Peng, J. (2021). Comprehensive evaluation of
 satellite-based and reanalysis soil moisture products using in situ
 observations over China. Hydrology and Earth System Sciences, 25(7),
 4209-4229. doi:10.5194/hess-25-4209-2021.
+
+Liu, D.; Chen, X.; Lian, Y.; Lou, Z. (2020). A new performance measure
+for hydrologic models. Journal of Hydrology, 590, 125488.
+doi:10.1016/j.jhydrol.2020.125488.
 
 Mizukami, N.; Rakovec, O.; Newman, A.J.; Clark, M.P.; Wood, A.W.; Gupta,
 H.V.; Kumar, R.: (2019). On the choice of calibration metrics for
@@ -194,6 +210,11 @@ Pushpalatha, R.; Perrin, C.; Le Moine, N.; Andreassian, V. (2012). A
 review of efficiency criteria suitable for evaluating low-flow
 simulations. Journal of Hydrology, 420, 171-182.
 doi:10.1016/j.jhydrol.2011.11.055.
+
+Royer-Gaspard, P., Andreassian, V., and Thirel, G. (2021). Technical
+note: PMR - a proxy metric to assess hydrological model robustness in a
+changing climate. Hydrology and Earth System Sciences, 25, 5703–5716.
+doi:10.5194/hess-25-5703-2021.
 
 Santos, L.; Thirel, G.; Perrin, C. (2018). Pitfalls in using
 log-transformed flows within the KGE criterion.
@@ -267,6 +288,11 @@ Zambrano-Bigiarini, M.; Bellin, A. (2012). Comparing goodness-of-fit
 measures for calibration of models focused on extreme events. EGU
 General Assembly 2012, Vienna, Austria, 22-27 Apr 2012, EGU2012-11549-1.
 
+Zambrano-Bigiarini, Mauricio (2024). hydroGOF: Goodness-of-fit functions
+for comparison of simulated and observed hydrological time series.
+doi:10.5281/zenodo.839854, R package version 0.6-0.1 .
+doi:10.5281/zenodo.839854, https://cran.r-project.org/package=hydroGOF.
+
 ## See also
 
 <https://CRAN.R-project.org/package=hydroPSO>  
@@ -308,6 +334,9 @@ gof(sim,obs)
 #> KGElf      0
 #> KGEnp      1
 #> KGEkm      1
+#> JDKGE      1
+#> LME        1
+#> LCE        1
 
 # Reverting the order of simulated values
 sim <- 100:1
@@ -340,6 +369,9 @@ gof(sim,obs)
 #> KGElf      -0.87
 #> KGEnp      -1.00
 #> KGEkm      -1.00
+#> JDKGE      -1.00
+#> LME        -1.00
+#> LCE        -1.83
 
 if (FALSE) { # \dontrun{
 ggof(sim, obs)
@@ -384,6 +416,9 @@ gof(sim=sim, obs=obs)
 #> KGElf      0
 #> KGEnp      1
 #> KGEkm      1
+#> JDKGE      1
+#> LME        1
+#> LCE        1
 #> sKGE       0
 #> APFB       0
 #> HFB        1
@@ -422,6 +457,9 @@ gof(sim=sim, obs=obs)
 #> KGElf   -0.09
 #> KGEnp    0.61
 #> KGEkm    0.63
+#> JDKGE    0.64
+#> LME      0.65
+#> LCE      0.65
 #> sKGE    -0.37
 #> APFB     0.03
 #> HFB      0.92

@@ -24,7 +24,7 @@ status](https://www.r-pkg.org/badges/version/hydroGOF)](https://CRAN.R-project.o
 package developed to provide a rigorous and consistent framework for
 evaluating the performance of hydrological and environmental models. It
 implements a broad suite of widely used statistical and graphical
-goodness-of-fit metrics to compare simulated values against its observed
+goodness-of-fit metrics to compare simulatd values agains iits observed
 counterparts; such as the coefficient of determination (R²),
 Nash–Sutcliffe efficiency (NSE), Kling–Gupta efficiency (KGE), and
 percent bias (PBIAS); that support objective assessment of model
@@ -57,7 +57,7 @@ Installing the latest stable version from
     install.packages("hydroGOF")
 
 Alternatively, you can also try the under-development version from
-[GitHub](https://github.com/hzambran/hydroGOF):
+[Github](https://github.com/hzambran/hydroGOF):
 
     if (!require(devtools)) install.packages("devtools")
     library(devtools)
@@ -66,9 +66,8 @@ Alternatively, you can also try the under-development version from
 ## Reporting bugs, requesting new features
 
 If you find an error in some function, or want to report a typo in the
-documentation, or to request a new feature (and wish it to be
-implemented :) you can do it
-[here](https://github.com/hzambran/hydroGOF/issues)
+documentation, or to request a new feature (and wish it be implemented
+:) you can do it [here](https://github.com/hzambran/hydroGOF/issues)
 
 ## Citation
 
@@ -96,58 +95,49 @@ A BibTeX entry for LaTeX users is
 
 ## Goodness-of-fit measures
 
-Quantitative statistics included in this package are:
+The quantitative statistics included in this package are:
 
-- **me**: Mean Error (**Hill et al., 2006**)
-- **mae**: Mean Absolute Error (**Hodson, 2022**)  
-- **mse**: Mean Squared Error (**Yapo et al., 1996**)
-- **rmse**: Root Mean Square Error (**Willmott and Matsuura, 2005**)
-- **ubRMSE**: Unbiased Root Mean Square Error (**Entekhabi et al.,
-  2010**)
-- **nrmse**: Normalized Root Mean Square Error
-- **pbias**: Percent Bias (**Yapo et al., 1996**)
-- **rsr**: Ratio of RMSE to the Standard Deviation of the Observations
-  (**Moriasi et al., 2007**)
-- **rSD**: Ratio of Standard Deviations
-- **NSE**: Nash-Sutcliffe Efficiency (**Nash and Sutcliffe, 1970**)
-- **mNSE**: Modified Nash-Sutcliffe Efficiency (**Krause et al., 2005**)
-- **rNSE**: Relative Nash-Sutcliffe Efficiency (**Legates and McCabe,
-  1999**)
-- **wNSE**: Weighted Nash-Sutcliffe Efficiency (**Hundecha and Bardossy,
-  2004**)
-- **wsNSE**: Weighted Seasonal Nash-Sutcliffe Efficiency
-  (**Zambrano-Bigiarini and Bellin, A., 2012**)
-- **d**: Index of Agreement (**Willmott, C.J., 1981**)
-- **dr**: Refined Index of Agreement (**Willmott et al., 2012**)
-- **md**: Modified Index of Agreement (**Krause et al., 2005**)
-- **rd**: Relative Index of Agreement (**Krause et al., 2005**)
-- **cp**: Persistence Index (**Kitanidis and Bras, 1980**)
-- **rPearson**: Pearson correlation coefficient (**Pearson, 1920**)
-- **R2**: Coefficient of determination (**Box, 1966**)
-- **br2**: R2 multiplied by the coefficient of the regression line
-  between and (**Krause et al., 2005**)
-- **VE**: Volumetric efficiency (**Criss and Winston, 2008**)
-- **KGE**: Kling-Gupta efficiency (**Gupta et al., 2009**)
-- **KGElf**: Kling-Gupta Efficiency for low values (**Garcia et al.,
-  2017**)
-- **KGEnp**: Non-parametric version of the Kling-Gupta Efficiency
-  (**Pool et al., 2018**)
-- **KGEkm**: Knowable Moments Kling-Gupta Efficiency (**Pizarro and
-  Jorquera, 2024**)
-- **sKGE**: Split Kling-Gupta Efficiency (**Fowler et al., 2018**)
-- **JDKGE**: Joint Divergence Kling-Gupta Efficiency (**Ficchi et al.,
-  2026**)
-- **APFB**: Annual Peak Flow Bias (**Mizukami et al., 2019**)
-- **HFB**: High Flow Bias
-- **PMR**: Proxy for Model Robustness (**Royer-Gaspard et al., 2021**)
-- **LME**: Liu-Mean Efficiency (**Liu, 2020**)
-- **rSpearman**: Spearman’s rank correlation coefficient (**Spearman,
-  1961**)
-- **ssq**: Sum of the Squared Residuals (**Willmott et al., 2009**)
-- **pbiasfdc**: PBIAS in the slope of the midsegment of the flow
-  duration curve (**Yilmaz et al., 2008**)
-- **pfactor**: P-factor (**Abbaspour et al., 2009**)
-- **rfactor**: R-factor (**Abbaspour et al., 2009**)
+| Acronym | Name | Range of variation | Main reference |
+|----|----|---:|----|
+| **me** | Mean Error | -Inf to +Inf | Hill et al. (2006) |
+| **mae** | Mean Absolute Error | 0 to +Inf | Hodson (2022) |
+| **mse** | Mean Squared Error | 0 to +Inf | Yapo et al. (1996) |
+| **rmse** | Root Mean Square Error | 0 to +Inf | Willmott and Matsuura (2005) |
+| **ubRMSE** | Unbiased Root Mean Square Error | 0 to +Inf | Entekhabi et al. (2010) |
+| **nrmse** | Normalized Root Mean Square Error | 0 to +Inf | Moriasi et al. (2007) |
+| **pbias** | Percent Bias | -Inf to +Inf \[%\] | Yapo et al. (1996) |
+| **rsr** | Ratio of RMSE to the Standard Deviation of the Observations | 0 to +Inf | Moriasi et al. (2007) |
+| **rSD** | Ratio of Standard Deviations | 0 to +Inf | Moriasi et al. (2007) |
+| **NSE** | Nash-Sutcliffe Efficiency | -Inf to 1 | Nash and Sutcliffe (1970) |
+| **mNSE** | Modified Nash-Sutcliffe Efficiency | -Inf to 1 | Krause et al. (2005) |
+| **rNSE** | Relative Nash-Sutcliffe Efficiency | -Inf to 1 | Legates and McCabe (1999) |
+| **wNSE** | Weighted Nash-Sutcliffe Efficiency | -Inf to 1 | Hundecha and Bardossy (2004) |
+| **wsNSE** | Weighted Seasonal Nash-Sutcliffe Efficiency | -Inf to 1 | Zambrano-Bigiarini and Bellin (2012) |
+| **d** | Index of Agreement | 0 to 1 | Willmott (1981) |
+| **dr** | Refined Index of Agreement | -1 to 1 | Willmott et al. (2012) |
+| **md** | Modified Index of Agreement | 0 to 1 | Krause et al. (2005) |
+| **rd** | Relative Index of Agreement | 0 to 1 | Krause et al. (2005) |
+| **cp** | Coefficient of Persistence | 0 to 1 | Kitanidis and Bras (1980) |
+| **rPearson** | Pearson Correlation Coefficient | -1 to 1 | Pearson (1920) |
+| **R2** | Coefficient of Determination | 0 to 1 | Box (1966) |
+| **br2** | Weighted Coefficient of Determination | 0 to 1 | Krause et al. (2005) |
+| **VE** | Volumetric Efficiency | -Inf to 1 | Criss and Winston (2008) |
+| **KGE** | Kling-Gupta Efficiency | -Inf to 1 | Gupta et al. (2009) |
+| **KGElf** | Kling-Gupta Efficiency with Focus on Low Flows | -Inf to 1 | Garcia et al. (2017) |
+| **KGEnp** | Non-parametric Kling-Gupta Efficiency | -Inf to 1 | Pool et al. (2018) |
+| **KGEkm** | Knowable Moments Kling-Gupta Efficiency | -Inf to 1 | Pizarro and Jorquera (2024) |
+| **JDKGE** | Joint Divergence Kling-Gupta Efficiency | -Inf to 1 | Ficchi et al. (2026) |
+| **LME** | Liu-Mean Efficiency | -Inf to 1 | Liu (2020) |
+| **LCE** | Lee and Choi Efficiency | -Inf to 1 | Lee and Choi (2022) |
+| **sKGE** | Split Kling-Gupta Efficiency | -Inf to 1 | Fowler et al. (2018) |
+| **APFB** | Annual Peak Flow Bias | 0 to +Inf | Mizukami et al. (2019) |
+| **HFB** | High Flow Bias | 0 to 1 | Zambrano-Bigiarini (2024) |
+| **PMR** | Proxy for Model Robustness | 0 to +Inf | Royer-Gaspard et al. (2021) |
+| **rSpearman** | Spearman’s Rank Correlation Coefficient | -1 to 1 | Spearman (1961) |
+| **pbiasfdc** | PBIAS in the Slope of the Midsegment of the Flow Duration Curve | 0 to +Inf | Yilmaz et al. (2008) |
+| **ssq** | Sum of the Squared Residuals | 0 to +Inf | Willmott et al. (2009) |
+| **pfactor** | P-factor | 0 to 1 | Abbaspour et al. (2009) |
+| **rfactor** | R-factor | 0 to +Inf | Abbaspour et al. (2009) |
 
 ## References
 
@@ -230,6 +220,10 @@ Quantitative statistics included in this package are:
   exposed](https://www2.hawaii.edu/~cbaajwe/Ph.D.Seminar/Hahn1973.pdf).
   Chemtech, 3(10), 609–612. Aailable online at: .
 
+- Hill, T.; Lewicki, P.; Lewicki, P. (2006). Statistics: methods and
+  applications: a comprehensive reference for science, industry, and
+  data mining. StatSoft, Inc.
+
 - Hodson, T.O. (2022). [Root-mean-square error (RMSE) or mean absolute
   error (MAE): when to use them or
   not](https://doi.org/10.5194/gmd-15-5481-2022), Geoscientific Model
@@ -273,6 +267,11 @@ Quantitative statistics included in this package are:
   “Goodness-of-Fit” Measures in Hydrologic and Hydroclimatic Model
   Validation](https://doi.org/10.1029/1998WR900018), Water Resour. Res.,
   35(1), 233-241. <doi:10.1029/1998WR900018>.
+
+- Lee, J.S.; Choi, H.I. (2022). [A rebalanced performance criterion for
+  hydrological model
+  calibration](https://doi.org/10.1016/j.jhydrol.2021.127372). Journal
+  of Hydrology, 606, 127372. <doi:10.1016/j.jhydrol.2021.127372>.
 
 - Ling, X.; Huang, Y.; Guo, W.; Wang, Y.; Chen, C.; Qiu, B.; Ge, J.;
   Qin, K.; Xue, Y.; Peng, J. (2021). [Comprehensive evaluation of
@@ -424,6 +423,12 @@ Quantitative statistics included in this package are:
   events](http://www.slideshare.net/hzambran/egu2012-11549go-fsforextremeevents4web).
   EGU General Assembly 2012, Vienna, Austria, 22-27 Apr 2012,
   EGU2012-11549-1.
+
+- Zambrano-Bigiarini, Mauricio (2024). hydroGOF: Goodness-of-fit
+  functions for comparison of simulated and observed hydrological time
+  series. <doi:10.5281/zenodo.839854>, R package version 0.6-0.1 .
+  <doi:10.5281/zenodo.839854>,
+  <https://cran.r-project.org/package=hydroGOF>.
 
 ## Vignette
 

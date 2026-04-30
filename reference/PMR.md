@@ -9,26 +9,26 @@ of missing values.
 PMR(sim, obs, ...)
 
 # Default S3 method
-PMR(sim, obs, k=NULL, min.years=5, days.per.year=365,
-             na.rm=TRUE, fun=NULL, ...,
+PMR(sim, obs, na.rm=TRUE, k=NULL, min.years=5, 
+             days.per.year=365, fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
              epsilon.value=NA)
 
 # S3 method for class 'data.frame'
-PMR(sim, obs, k=NULL, min.years=5, days.per.year=365,
-             na.rm=TRUE, fun=NULL, ..., 
+PMR(sim, obs, na.rm=TRUE, k=NULL, min.years=5, 
+             days.per.year=365, fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
              epsilon.value=NA)
 
 # S3 method for class 'matrix'
-PMR(sim, obs, k=NULL, min.years=5, days.per.year=365,
-             na.rm=TRUE, fun=NULL, ..., 
+PMR(sim, obs, na.rm=TRUE, k=NULL, min.years=5, 
+             days.per.year=365, fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
              epsilon.value=NA)
 
 # S3 method for class 'zoo'
-PMR(sim, obs, k=NULL, min.years=5, days.per.year=365,
-             na.rm=TRUE, fun=NULL, ..., 
+PMR(sim, obs, na.rm=TRUE, k=NULL, min.years=5, 
+             days.per.year=365, fun=NULL, ...,
              epsilon.type=c("none", "Pushpalatha2012", "otherFactor", "otherValue"),
              epsilon.value=NA)
 ```
@@ -45,10 +45,22 @@ PMR(sim, obs, k=NULL, min.years=5, days.per.year=365,
   zoo object with observed values. Multicolumn `zoo` objects are
   allowed.
 
+- na.rm:
+
+  a logical value indicating whether 'NA' should be stripped before the
+  computation proceeds.  
+  For the full-period bias, only positions with valid paired values in
+  `obs` and `sim` are used. For the moving-window biases, each
+  fixed-length window is selected first, and invalid pairs are then
+  removed inside that window.
+
 - k:
 
   integer value representing the length of the moving window (number of
   time steps) used to compute the bias over sub-periods.  
+
+  By default `k=NULL`, which means that its value is automatically
+  computed based on the minimum numbers of years defined by `min.years`.
 
   The k argument should reflect the temporal scale at which robustness
   is intended to be evaluated, and therefore depends primarily on the
@@ -59,8 +71,8 @@ PMR(sim, obs, k=NULL, min.years=5, days.per.year=365,
 
 - min.years:
 
-  only used when the user does not explicitly define the value of `k`,
-  i.e., when `k=NULL`.  
+  Numeric, only used when the user does not explicitly define the value
+  of `k`, i.e., when `k=NULL`.  
 
   Minimum numbers of years used to ensure that each sub-period used int
   eh computation of PMR captures meaningful hydroclimatic variability
@@ -69,21 +81,12 @@ PMR(sim, obs, k=NULL, min.years=5, days.per.year=365,
 
 - days.per.year:
 
-  only used when the user does not explicitly define the value of `k`,
-  i.e., when `k=NULL`.  
+  Numeric, only used when the user does not explicitly define the value
+  of `k`, i.e., when `k=NULL`.  
 
   Number of days in a year. A value of Use 365.25 is recoomended instead
   of the default value of 365 when `sim` and `obs` are long
   climatological series.
-
-- na.rm:
-
-  a logical value indicating whether 'NA' should be stripped before the
-  computation proceeds.  
-  For the full-period bias, only positions with valid paired values in
-  `obs` and `sim` are used. For the moving-window biases, each
-  fixed-length window is selected first, and invalid pairs are then
-  removed inside that window.
 
 - fun:
 
@@ -213,6 +216,7 @@ robustness is evaluated.
 ## Examples
 
 ``` r
+
 ##################
 # Example 1: Looking at the difference between PMR and KGE, both with 'method=2009' 
 #            and 'method=2012'
@@ -346,7 +350,6 @@ PMR(sim=sim, obs=obs, fun=fun1)
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 PMR(sim=sim1, obs=obs1)
-} # }
 ##################
 # Example 9: PMR for a two-column data frame where simulated values are equal to 
 #            observations plus random noise on the first half of the observed values 
@@ -355,6 +358,5 @@ SIM <- cbind(sim, sim)
 OBS <- cbind(obs, obs)
 
 PMR(sim=SIM, obs=OBS)
-#>       obs       obs 
-#> 0.3162052 0.3162052 
+} # }
 ```

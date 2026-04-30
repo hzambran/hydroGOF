@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-34</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-38</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,7 +70,7 @@
 <div class="section level2">
 <h2 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h2>
-<p><a href="https://cran.r-project.org/package=hydroGOF" class="external-link"><strong>hydroGOF</strong></a> is an R package developed to provide a rigorous and consistent framework for evaluating the performance of hydrological and environmental models. It implements a broad suite of widely used statistical and graphical goodness-of-fit metrics to compare simulated values against its observed counterparts; such as the coefficient of determination (R²), Nash–Sutcliffe efficiency (NSE), Kling–Gupta efficiency (KGE), and percent bias (PBIAS); that support objective assessment of model behaviour during calibration, validation, and operational application.</p>
+<p><a href="https://cran.r-project.org/package=hydroGOF" class="external-link"><strong>hydroGOF</strong></a> is an R package developed to provide a rigorous and consistent framework for evaluating the performance of hydrological and environmental models. It implements a broad suite of widely used statistical and graphical goodness-of-fit metrics to compare simulatd values agains iits observed counterparts; such as the coefficient of determination (R²), Nash–Sutcliffe efficiency (NSE), Kling–Gupta efficiency (KGE), and percent bias (PBIAS); that support objective assessment of model behaviour during calibration, validation, and operational application.</p>
 <p>The package is designed with practical modelling workflows in mind. Its functions facilitate transparent comparison between observed and simulated time series, enable systematic performance diagnostics, and handle common data challenges such as missing values in a controlled and reproducible manner. By standardising the computation of performance indicators, <a href="https://cran.r-project.org/package=hydroGOF" class="external-link"><strong>hydroGOF</strong></a> helps ensure that model evaluation remains methodologically consistent across studies and applications.</p>
 <p><a href="https://cran.r-project.org/package=hydroGOF" class="external-link"><strong>hydroGOF</strong></a> is widely used in research, teaching, and professional practice, which makes it particularly suitable for users who require dependable, well-documented tools to quantify model accuracy and communicate results with clarity. It provides a technically robust foundation for evidence-based model development, benchmarking, and decision support in hydrology and related environmental sciences.</p>
 <p><img src="./reference/figures/logo.png"></p>
@@ -80,7 +80,7 @@
 </h2>
 <p>Installing the latest stable version from <a href="https://CRAN.R-project.org/package=hydroGOF" class="external-link">CRAN</a>:</p>
 <pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"hydroGOF"</span><span class="op">)</span></span></code></pre>
-<p>Alternatively, you can also try the under-development version from <a href="https://github.com/hzambran/hydroGOF" class="external-link">GitHub</a>:</p>
+<p>Alternatively, you can also try the under-development version from <a href="https://github.com/hzambran/hydroGOF" class="external-link">Github</a>:</p>
 <pre><code><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
 <span><span class="fu">install_github</span><span class="op">(</span><span class="st">"hzambran/hydroGOF"</span><span class="op">)</span></span></code></pre>
@@ -88,7 +88,7 @@
 <div class="section level2">
 <h2 id="reporting-bugs-requesting-new-features">Reporting bugs, requesting new features<a class="anchor" aria-label="anchor" href="#reporting-bugs-requesting-new-features"></a>
 </h2>
-<p>If you find an error in some function, or want to report a typo in the documentation, or to request a new feature (and wish it to be implemented :) you can do it <a href="https://github.com/hzambran/hydroGOF/issues" class="external-link">here</a></p>
+<p>If you find an error in some function, or want to report a typo in the documentation, or to request a new feature (and wish it be implemented :) you can do it <a href="https://github.com/hzambran/hydroGOF/issues" class="external-link">here</a></p>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
@@ -112,86 +112,257 @@ doi = {10.32614/CRAN.package.hydroGOF},<br>
 <div class="section level2">
 <h2 id="goodness-of-fit-measures">Goodness-of-fit measures<a class="anchor" aria-label="anchor" href="#goodness-of-fit-measures"></a>
 </h2>
-<p>Quantitative statistics included in this package are:</p>
-<ul>
-<li>
-<strong>me</strong>: Mean Error (<strong>Hill et al., 2006</strong>)</li>
-<li>
-<strong>mae</strong>: Mean Absolute Error (<strong>Hodson, 2022</strong>)<br>
-</li>
-<li>
-<strong>mse</strong>: Mean Squared Error (<strong>Yapo et al., 1996</strong>)</li>
-<li>
-<strong>rmse</strong>: Root Mean Square Error (<strong>Willmott and Matsuura, 2005</strong>)</li>
-<li>
-<strong>ubRMSE</strong>: Unbiased Root Mean Square Error (<strong>Entekhabi et al., 2010</strong>)</li>
-<li>
-<strong>nrmse</strong>: Normalized Root Mean Square Error</li>
-<li>
-<strong>pbias</strong>: Percent Bias (<strong>Yapo et al., 1996</strong>)</li>
-<li>
-<strong>rsr</strong>: Ratio of RMSE to the Standard Deviation of the Observations (<strong>Moriasi et al., 2007</strong>)</li>
-<li>
-<strong>rSD</strong>: Ratio of Standard Deviations</li>
-<li>
-<strong>NSE</strong>: Nash-Sutcliffe Efficiency (<strong>Nash and Sutcliffe, 1970</strong>)</li>
-<li>
-<strong>mNSE</strong>: Modified Nash-Sutcliffe Efficiency (<strong>Krause et al., 2005</strong>)</li>
-<li>
-<strong>rNSE</strong>: Relative Nash-Sutcliffe Efficiency (<strong>Legates and McCabe, 1999</strong>)</li>
-<li>
-<strong>wNSE</strong>: Weighted Nash-Sutcliffe Efficiency (<strong>Hundecha and Bardossy, 2004</strong>)</li>
-<li>
-<strong>wsNSE</strong>: Weighted Seasonal Nash-Sutcliffe Efficiency (<strong>Zambrano-Bigiarini and Bellin, A., 2012</strong>)</li>
-<li>
-<strong>d</strong>: Index of Agreement (<strong>Willmott, C.J., 1981</strong>)</li>
-<li>
-<strong>dr</strong>: Refined Index of Agreement (<strong>Willmott et al., 2012</strong>)</li>
-<li>
-<strong>md</strong>: Modified Index of Agreement (<strong>Krause et al., 2005</strong>)</li>
-<li>
-<strong>rd</strong>: Relative Index of Agreement (<strong>Krause et al., 2005</strong>)</li>
-<li>
-<strong>cp</strong>: Persistence Index (<strong>Kitanidis and Bras, 1980</strong>)</li>
-<li>
-<strong>rPearson</strong>: Pearson correlation coefficient (<strong>Pearson, 1920</strong>)</li>
-<li>
-<strong>R2</strong>: Coefficient of determination (<strong>Box, 1966</strong>)</li>
-<li>
-<strong>br2</strong>: R2 multiplied by the coefficient of the regression line between  and  (<strong>Krause et al., 2005</strong>)</li>
-<li>
-<strong>VE</strong>: Volumetric efficiency (<strong>Criss and Winston, 2008</strong>)</li>
-<li>
-<strong>KGE</strong>: Kling-Gupta efficiency (<strong>Gupta et al., 2009</strong>)</li>
-<li>
-<strong>KGElf</strong>: Kling-Gupta Efficiency for low values (<strong>Garcia et al., 2017</strong>)</li>
-<li>
-<strong>KGEnp</strong>: Non-parametric version of the Kling-Gupta Efficiency (<strong>Pool et al., 2018</strong>)</li>
-<li>
-<strong>KGEkm</strong>: Knowable Moments Kling-Gupta Efficiency (<strong>Pizarro and Jorquera, 2024</strong>)</li>
-<li>
-<strong>sKGE</strong>: Split Kling-Gupta Efficiency (<strong>Fowler et al., 2018</strong>)</li>
-<li>
-<strong>JDKGE</strong>: Joint Divergence Kling-Gupta Efficiency (<strong>Ficchi et al., 2026</strong>)</li>
-<li>
-<strong>APFB</strong>: Annual Peak Flow Bias (<strong>Mizukami et al., 2019</strong>)</li>
-<li>
-<strong>HFB</strong>: High Flow Bias</li>
-<li>
-<strong>PMR</strong>: Proxy for Model Robustness (<strong>Royer-Gaspard et al., 2021</strong>)</li>
-<li>
-<strong>LME</strong>: Liu-Mean Efficiency (<strong>Liu, 2020</strong>)</li>
-<li>
-<strong>rSpearman</strong>: Spearman’s rank correlation coefficient (<strong>Spearman, 1961</strong>)</li>
-<li>
-<strong>ssq</strong>: Sum of the Squared Residuals (<strong>Willmott et al., 2009</strong>)</li>
-<li>
-<strong>pbiasfdc</strong>: PBIAS in the slope of the midsegment of the flow duration curve (<strong>Yilmaz et al., 2008</strong>)</li>
-<li>
-<strong>pfactor</strong>: P-factor (<strong>Abbaspour et al., 2009</strong>)</li>
-<li>
-<strong>rfactor</strong>: R-factor (<strong>Abbaspour et al., 2009</strong>)</li>
-</ul>
+<p>The quantitative statistics included in this package are:</p>
+<table class="table">
+<colgroup>
+<col width="17%">
+<col width="23%">
+<col width="27%">
+<col width="31%">
+</colgroup>
+<thead><tr>
+<th>Acronym</th>
+<th>Name</th>
+<th align="right">Range of variation</th>
+<th>Main reference</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>me</strong></td>
+<td>Mean Error</td>
+<td align="right">-Inf to +Inf</td>
+<td>Hill et al. (2006)</td>
+</tr>
+<tr>
+<td><strong>mae</strong></td>
+<td>Mean Absolute Error</td>
+<td align="right">0 to +Inf</td>
+<td>Hodson (2022)</td>
+</tr>
+<tr>
+<td><strong>mse</strong></td>
+<td>Mean Squared Error</td>
+<td align="right">0 to +Inf</td>
+<td>Yapo et al. (1996)</td>
+</tr>
+<tr>
+<td><strong>rmse</strong></td>
+<td>Root Mean Square Error</td>
+<td align="right">0 to +Inf</td>
+<td>Willmott and Matsuura (2005)</td>
+</tr>
+<tr>
+<td><strong>ubRMSE</strong></td>
+<td>Unbiased Root Mean Square Error</td>
+<td align="right">0 to +Inf</td>
+<td>Entekhabi et al. (2010)</td>
+</tr>
+<tr>
+<td><strong>nrmse</strong></td>
+<td>Normalized Root Mean Square Error</td>
+<td align="right">0 to +Inf</td>
+<td>Moriasi et al. (2007)</td>
+</tr>
+<tr>
+<td><strong>pbias</strong></td>
+<td>Percent Bias</td>
+<td align="right">-Inf to +Inf [%]</td>
+<td>Yapo et al. (1996)</td>
+</tr>
+<tr>
+<td><strong>rsr</strong></td>
+<td>Ratio of RMSE to the Standard Deviation of the Observations</td>
+<td align="right">0 to +Inf</td>
+<td>Moriasi et al. (2007)</td>
+</tr>
+<tr>
+<td><strong>rSD</strong></td>
+<td>Ratio of Standard Deviations</td>
+<td align="right">0 to +Inf</td>
+<td>Moriasi et al. (2007)</td>
+</tr>
+<tr>
+<td><strong>NSE</strong></td>
+<td>Nash-Sutcliffe Efficiency</td>
+<td align="right">-Inf to 1</td>
+<td>Nash and Sutcliffe (1970)</td>
+</tr>
+<tr>
+<td><strong>mNSE</strong></td>
+<td>Modified Nash-Sutcliffe Efficiency</td>
+<td align="right">-Inf to 1</td>
+<td>Krause et al. (2005)</td>
+</tr>
+<tr>
+<td><strong>rNSE</strong></td>
+<td>Relative Nash-Sutcliffe Efficiency</td>
+<td align="right">-Inf to 1</td>
+<td>Legates and McCabe (1999)</td>
+</tr>
+<tr>
+<td><strong>wNSE</strong></td>
+<td>Weighted Nash-Sutcliffe Efficiency</td>
+<td align="right">-Inf to 1</td>
+<td>Hundecha and Bardossy (2004)</td>
+</tr>
+<tr>
+<td><strong>wsNSE</strong></td>
+<td>Weighted Seasonal Nash-Sutcliffe Efficiency</td>
+<td align="right">-Inf to 1</td>
+<td>Zambrano-Bigiarini and Bellin (2012)</td>
+</tr>
+<tr>
+<td><strong>d</strong></td>
+<td>Index of Agreement</td>
+<td align="right">0 to 1</td>
+<td>Willmott (1981)</td>
+</tr>
+<tr>
+<td><strong>dr</strong></td>
+<td>Refined Index of Agreement</td>
+<td align="right">-1 to 1</td>
+<td>Willmott et al. (2012)</td>
+</tr>
+<tr>
+<td><strong>md</strong></td>
+<td>Modified Index of Agreement</td>
+<td align="right">0 to 1</td>
+<td>Krause et al. (2005)</td>
+</tr>
+<tr>
+<td><strong>rd</strong></td>
+<td>Relative Index of Agreement</td>
+<td align="right">0 to 1</td>
+<td>Krause et al. (2005)</td>
+</tr>
+<tr>
+<td><strong>cp</strong></td>
+<td>Coefficient of Persistence</td>
+<td align="right">0 to 1</td>
+<td>Kitanidis and Bras (1980)</td>
+</tr>
+<tr>
+<td><strong>rPearson</strong></td>
+<td>Pearson Correlation Coefficient</td>
+<td align="right">-1 to 1</td>
+<td>Pearson (1920)</td>
+</tr>
+<tr>
+<td><strong>R2</strong></td>
+<td>Coefficient of Determination</td>
+<td align="right">0 to 1</td>
+<td>Box (1966)</td>
+</tr>
+<tr>
+<td><strong>br2</strong></td>
+<td>Weighted Coefficient of Determination</td>
+<td align="right">0 to 1</td>
+<td>Krause et al. (2005)</td>
+</tr>
+<tr>
+<td><strong>VE</strong></td>
+<td>Volumetric Efficiency</td>
+<td align="right">-Inf to 1</td>
+<td>Criss and Winston (2008)</td>
+</tr>
+<tr>
+<td><strong>KGE</strong></td>
+<td>Kling-Gupta Efficiency</td>
+<td align="right">-Inf to 1</td>
+<td>Gupta et al. (2009)</td>
+</tr>
+<tr>
+<td><strong>KGElf</strong></td>
+<td>Kling-Gupta Efficiency with Focus on Low Flows</td>
+<td align="right">-Inf to 1</td>
+<td>Garcia et al. (2017)</td>
+</tr>
+<tr>
+<td><strong>KGEnp</strong></td>
+<td>Non-parametric Kling-Gupta Efficiency</td>
+<td align="right">-Inf to 1</td>
+<td>Pool et al. (2018)</td>
+</tr>
+<tr>
+<td><strong>KGEkm</strong></td>
+<td>Knowable Moments Kling-Gupta Efficiency</td>
+<td align="right">-Inf to 1</td>
+<td>Pizarro and Jorquera (2024)</td>
+</tr>
+<tr>
+<td><strong>JDKGE</strong></td>
+<td>Joint Divergence Kling-Gupta Efficiency</td>
+<td align="right">-Inf to 1</td>
+<td>Ficchi et al. (2026)</td>
+</tr>
+<tr>
+<td><strong>LME</strong></td>
+<td>Liu-Mean Efficiency</td>
+<td align="right">-Inf to 1</td>
+<td>Liu (2020)</td>
+</tr>
+<tr>
+<td><strong>LCE</strong></td>
+<td>Lee and Choi Efficiency</td>
+<td align="right">-Inf to 1</td>
+<td>Lee and Choi (2022)</td>
+</tr>
+<tr>
+<td><strong>sKGE</strong></td>
+<td>Split Kling-Gupta Efficiency</td>
+<td align="right">-Inf to 1</td>
+<td>Fowler et al. (2018)</td>
+</tr>
+<tr>
+<td><strong>APFB</strong></td>
+<td>Annual Peak Flow Bias</td>
+<td align="right">0 to +Inf</td>
+<td>Mizukami et al. (2019)</td>
+</tr>
+<tr>
+<td><strong>HFB</strong></td>
+<td>High Flow Bias</td>
+<td align="right">0 to 1</td>
+<td>Zambrano-Bigiarini (2024)</td>
+</tr>
+<tr>
+<td><strong>PMR</strong></td>
+<td>Proxy for Model Robustness</td>
+<td align="right">0 to +Inf</td>
+<td>Royer-Gaspard et al. (2021)</td>
+</tr>
+<tr>
+<td><strong>rSpearman</strong></td>
+<td>Spearman’s Rank Correlation Coefficient</td>
+<td align="right">-1 to 1</td>
+<td>Spearman (1961)</td>
+</tr>
+<tr>
+<td><strong>pbiasfdc</strong></td>
+<td>PBIAS in the Slope of the Midsegment of the Flow Duration Curve</td>
+<td align="right">0 to +Inf</td>
+<td>Yilmaz et al. (2008)</td>
+</tr>
+<tr>
+<td><strong>ssq</strong></td>
+<td>Sum of the Squared Residuals</td>
+<td align="right">0 to +Inf</td>
+<td>Willmott et al. (2009)</td>
+</tr>
+<tr>
+<td><strong>pfactor</strong></td>
+<td>P-factor</td>
+<td align="right">0 to 1</td>
+<td>Abbaspour et al. (2009)</td>
+</tr>
+<tr>
+<td><strong>rfactor</strong></td>
+<td>R-factor</td>
+<td align="right">0 to +Inf</td>
+<td>Abbaspour et al. (2009)</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
@@ -212,6 +383,7 @@ doi = {10.32614/CRAN.package.hydroGOF},<br>
 <li><p>Gupta, H.V.; Kling, H.; Yilmaz, K.K.; Martinez, G.F. (2009). <a href="https://doi.org/10.1016/j.jhydrol.2009.08.003.%20ISSN%200022-1694" class="external-link">Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological modelling</a>. Journal of hydrology, 377(1-2), 80–91. <a href="doi:10.1016/j.jhydrol.2009.08.003" class="uri">doi:10.1016/j.jhydrol.2009.08.003</a>. ISSN 0022-1694.</p></li>
 <li><p>Gupta, H.V.; Kling, H. (2011). <a href="https://doi.org/10.1029/2011WR010962" class="external-link">On typical range, sensitivity, and normalization of Mean Squared Error and Nash-Sutcliffe Efficiency type metrics</a>. Water Resources Research, 47(10). <a href="doi:10.1029/2011WR010962" class="uri">doi:10.1029/2011WR010962</a>.</p></li>
 <li><p>Hahn, G.J. (1973). <a href="https://www2.hawaii.edu/~cbaajwe/Ph.D.Seminar/Hahn1973.pdf" class="external-link">The coefficient of determination exposed</a>. Chemtech, 3(10), 609–612. Aailable online at: .</p></li>
+<li><p>Hill, T.; Lewicki, P.; Lewicki, P. (2006). Statistics: methods and applications: a comprehensive reference for science, industry, and data mining. StatSoft, Inc.</p></li>
 <li><p>Hodson, T.O. (2022). <a href="https://doi.org/10.5194/gmd-15-5481-2022" class="external-link">Root-mean-square error (RMSE) or mean absolute error (MAE): when to use them or not</a>, Geoscientific Model Development, 15, 5481–5487, <a href="doi:10.5194/gmd-15-5481-2022" class="uri">doi:10.5194/gmd-15-5481-2022</a>.</p></li>
 <li><p>Hundecha, Y., Bardossy, A. (2004). <a href="https://doi.org/10.1016/j.jhydrol.2004.01.002" class="external-link">Modeling of the effect of land use changes on the runoff generation of a river basin through parameter regionalization of a watershed model</a>. Journal of hydrology, 292(1-4), 281–295. <a href="doi:10.1016/j.jhydrol.2004.01.002" class="uri">doi:10.1016/j.jhydrol.2004.01.002</a>.</p></li>
 <li><p>Kitanidis, P.K.; Bras, R.L. (1980). <a href="https://doi.org/10.1029/WR016i006p01034" class="external-link">Real-time forecasting with a conceptual hydrologic model</a>. 2. Applications and results. Water Resources Research, Vol. 16, No. 6, pp. 1034:1044. <a href="doi:10.1029/WR016i006p01034" class="uri">doi:10.1029/WR016i006p01034</a>.</p></li>
@@ -220,6 +392,7 @@ doi = {10.32614/CRAN.package.hydroGOF},<br>
 <li><p>Krause, P.; Boyle, D.P.; Base, F. (2005). <a href="https://doi.org/10.5194/adgeo-5-89-2005" class="external-link">Comparison of different efficiency criteria for hydrological model assessment</a>, Advances in Geosciences, 5, 89–97. <a href="doi:10.5194/adgeo-5-89-2005" class="uri">doi:10.5194/adgeo-5-89-2005</a>.</p></li>
 <li><p>Krstic, G.; Krstic, N.S.; Zambrano-Bigiarini, M. (2016). <a href="https://doi.org/10.22237/jmasm/1478004000" class="external-link">The br2-weighting Method for Estimating the Effects of Air Pollution on Population Health</a>. Journal of Modern Applied Statistical Methods, 15(2), 42. <a href="doi:10.22237/jmasm/1478004000" class="uri">doi:10.22237/jmasm/1478004000</a>.</p></li>
 <li><p>Legates, D.R.; McCabe, G. J. Jr. (1999), <a href="https://doi.org/10.1029/1998WR900018" class="external-link">Evaluating the Use of “Goodness-of-Fit” Measures in Hydrologic and Hydroclimatic Model Validation</a>, Water Resour. Res., 35(1), 233-241. <a href="doi:10.1029/1998WR900018" class="uri">doi:10.1029/1998WR900018</a>.</p></li>
+<li><p>Lee, J.S.; Choi, H.I. (2022). <a href="https://doi.org/10.1016/j.jhydrol.2021.127372" class="external-link">A rebalanced performance criterion for hydrological model calibration</a>. Journal of Hydrology, 606, 127372. <a href="doi:10.1016/j.jhydrol.2021.127372" class="uri">doi:10.1016/j.jhydrol.2021.127372</a>.</p></li>
 <li><p>Ling, X.; Huang, Y.; Guo, W.; Wang, Y.; Chen, C.; Qiu, B.; Ge, J.; Qin, K.; Xue, Y.; Peng, J. (2021). <a href="https://doi.org/10.5194/hess-25-4209-2021" class="external-link">Comprehensive evaluation of satellite-based and reanalysis soil moisture products using in situ observations over China</a>. Hydrology and Earth System Sciences, 25(7), 4209-4229. <a href="doi:10.5194/hess-25-4209-2021" class="uri">doi:10.5194/hess-25-4209-2021</a>.</p></li>
 <li><p>Liu, D. (2020). <a href="https://doi.org/10.1016/j.jhydrol.2020.125488" class="external-link">A rational performance criterion for hydrological model</a>. Journal of Hydrology, 590, 125488. <a href="doi:10.1016/j.jhydrol.2020.125488" class="uri">doi:10.1016/j.jhydrol.2020.125488</a>.</p></li>
 <li><p>Mizukami, N.; Rakovec, O.; Newman, A.J.; Clark, M.P.; Wood, A.W.; Gupta, H.V.; Kumar, R.: (2019). <a href="https://doi.org/10.5194/hess-23-2601-2019" class="external-link">On the choice of calibration metrics for “high-flow” estimation using hydrologic models</a>, Hydrology Earth System Sciences 23, 2601-2614, <a href="doi:10.5194/hess-23-2601-2019" class="uri">doi:10.5194/hess-23-2601-2019</a>.</p></li>
@@ -248,6 +421,7 @@ doi = {10.32614/CRAN.package.hydroGOF},<br>
 <li><p>Willmott, C.J.; Robeson, S.M.; Matsuura, K. (2012). <a href="https://doi.org/10.1002/joc.2419" class="external-link">A refined index of model performance</a>. International Journal of climatology, 32(13), pp.2088-2094. <a href="doi:10.1002/joc.2419" class="uri">doi:10.1002/joc.2419</a>.</p></li>
 <li><p>Willmott, C.J.; Robeson, S.M.; Matsuura, K.; Ficklin, D.L. (2015). <a href="https://doi.org/10.1016/j.envsoft.2015.08.012" class="external-link">Assessment of three dimensionless measures of model performance</a>. Environmental Modelling &amp; Software, 73, pp.167-174. <a href="doi:10.1016/j.envsoft.2015.08.012" class="uri">doi:10.1016/j.envsoft.2015.08.012</a>.</p></li>
 <li><p>Zambrano-Bigiarini, M.; Bellin, A. (2012). <a href="http://www.slideshare.net/hzambran/egu2012-11549go-fsforextremeevents4web" class="external-link">Comparing goodness-of-fit measures for calibration of models focused on extreme events</a>. EGU General Assembly 2012, Vienna, Austria, 22-27 Apr 2012, EGU2012-11549-1.</p></li>
+<li><p>Zambrano-Bigiarini, Mauricio (2024). hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series. <a href="doi:10.5281/zenodo.839854" class="uri">doi:10.5281/zenodo.839854</a>, R package version 0.6-0.1 . <a href="doi:10.5281/zenodo.839854" class="uri">doi:10.5281/zenodo.839854</a>, <a href="https://cran.r-project.org/package=hydroGOF" class="external-link uri">https://cran.r-project.org/package=hydroGOF</a>.</p></li>
 </ul>
 </div>
 <div class="section level2">

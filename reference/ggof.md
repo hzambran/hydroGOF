@@ -12,8 +12,8 @@ ggof(sim, obs, na.rm = TRUE, dates, date.fmt = "%Y-%m-%d",
      pt.style = "ts", ftype = "o",  FUN, 
      stype="default", season.names=c("Winter", "Spring", "Summer", "Autumn"),
      gof.leg = TRUE,  digits=2, 
-     gofs=c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", 
-             "rNSE", "d", "md", "rd", "r", "R2", "bR2", "KGE", "VE"),
+     gofs=c( "ME",  "MAE",  "RMSE", "NRMSE", "PBIAS", "NSE",   "d",    
+             "dr",    "r",    "R2",   "KGE",  "LCE", "JDKGE", "VE"),
      legend, leg.cex=1,
      tick.tstep = "auto", lab.tstep = "auto", lab.fmt=NULL,
      cal.ini=NA, val.ini=NA,
@@ -421,6 +421,12 @@ Performance metrics for soil moisture retrievals and application
 requirements. Journal of Hydrometeorology, 11(3), 832-840. doi:
 10.1175/2010JHM1223.1.
 
+Ficchi, A.; Bavera, D.; Grimaldi, S.; Moschini, F.; Pistocchi, A.;
+Russo, C.; Salamon, P.; Toreti, A. (2026). Improving low and high flow
+simulations at once: An enhanced metric for hydrological model
+calibrations. EGUsphere \[preprint\],
+https://doi.org/10.5194/egusphere-2026-43.
+
 Fowler, K.; Coxon, G.; Freer, J.; Peel, M.; Wagener, T.; Western, A.;
 Woods, R.; Zhang, L. (2018). Simulating runoff under changing climatic
 conditions: A framework for model improvement. Water Resources Research,
@@ -480,6 +486,10 @@ br2-weighting Method for Estimating the Effects of Air Pollution on
 Population Health. Journal of Modern Applied Statistical Methods, 15(2),
 42. doi:10.22237/jmasm/1478004000
 
+Lee, J. S.; Choi, H. I. (2022). A rebalanced performance criterion for
+hydrological model calibration. Journal of Hydrology, 606, 127372.
+https://doi.org/10.1016/j.jhydrol.2021.127372
+
 Legates, D.R.; McCabe, G. J. Jr. (1999), Evaluating the Use of
 "Goodness-of-Fit" Measures in Hydrologic and Hydroclimatic Model
 Validation, Water Resour. Res., 35(1), 233-241.
@@ -490,6 +500,10 @@ K.; Xue, Y.; Peng, J. (2021). Comprehensive evaluation of
 satellite-based and reanalysis soil moisture products using in situ
 observations over China. Hydrology and Earth System Sciences, 25(7),
 4209-4229. doi:10.5194/hess-25-4209-2021.
+
+Liu, D.; Chen, X.; Lian, Y.; Lou, Z. (2020). A new performance measure
+for hydrologic models. Journal of Hydrology, 590, 125488.
+doi:10.1016/j.jhydrol.2020.125488.
 
 Mizukami, N.; Rakovec, O.; Newman, A.J.; Clark, M.P.; Wood, A.W.; Gupta,
 H.V.; Kumar, R.: (2019). On the choice of calibration metrics for
@@ -527,6 +541,11 @@ Pushpalatha, R.; Perrin, C.; Le Moine, N.; Andreassian, V. (2012). A
 review of efficiency criteria suitable for evaluating low-flow
 simulations. Journal of Hydrology, 420, 171-182.
 doi:10.1016/j.jhydrol.2011.11.055.
+
+Royer-Gaspard, P., Andreassian, V., and Thirel, G. (2021). Technical
+note: PMR - a proxy metric to assess hydrological model robustness in a
+changing climate. Hydrology and Earth System Sciences, 25, 5703–5716.
+doi:10.5194/hess-25-5703-2021.
 
 Santos, L.; Thirel, G.; Perrin, C. (2018). Pitfalls in using
 log-transformed flows within the KGE criterion.
@@ -685,6 +704,9 @@ gof(sim=sim, obs=obs)
 #> KGElf      0
 #> KGEnp      1
 #> KGEkm      1
+#> JDKGE      1
+#> LME        1
+#> LCE        1
 #> sKGE       0
 #> APFB       0
 #> HFB        1
@@ -723,6 +745,9 @@ gof(sim=sim, obs=obs)
 #> KGElf   -0.09
 #> KGEnp    0.61
 #> KGEkm    0.63
+#> JDKGE    0.64
+#> LME      0.65
+#> LCE      0.65
 #> sKGE    -0.37
 #> APFB     0.03
 #> HFB      0.91

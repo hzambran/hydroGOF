@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-34</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-38</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,26 +45,26 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PMR</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
-<span><span class="fu">PMR</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, k<span class="op">=</span><span class="cn">NULL</span>, min.years<span class="op">=</span><span class="fl">5</span>, days.per.year<span class="op">=</span><span class="fl">365</span>,</span>
-<span>             na.rm<span class="op">=</span><span class="cn">TRUE</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
+<span><span class="fu">PMR</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, k<span class="op">=</span><span class="cn">NULL</span>, min.years<span class="op">=</span><span class="fl">5</span>, </span>
+<span>             days.per.year<span class="op">=</span><span class="fl">365</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
 <span>             epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span>, <span class="st">"otherValue"</span><span class="op">)</span>,</span>
 <span>             epsilon.value<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'data.frame'</span></span>
-<span><span class="fu">PMR</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, k<span class="op">=</span><span class="cn">NULL</span>, min.years<span class="op">=</span><span class="fl">5</span>, days.per.year<span class="op">=</span><span class="fl">365</span>,</span>
-<span>             na.rm<span class="op">=</span><span class="cn">TRUE</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>, </span>
+<span><span class="fu">PMR</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, k<span class="op">=</span><span class="cn">NULL</span>, min.years<span class="op">=</span><span class="fl">5</span>, </span>
+<span>             days.per.year<span class="op">=</span><span class="fl">365</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
 <span>             epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span>, <span class="st">"otherValue"</span><span class="op">)</span>,</span>
 <span>             epsilon.value<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'matrix'</span></span>
-<span><span class="fu">PMR</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, k<span class="op">=</span><span class="cn">NULL</span>, min.years<span class="op">=</span><span class="fl">5</span>, days.per.year<span class="op">=</span><span class="fl">365</span>,</span>
-<span>             na.rm<span class="op">=</span><span class="cn">TRUE</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>, </span>
+<span><span class="fu">PMR</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, k<span class="op">=</span><span class="cn">NULL</span>, min.years<span class="op">=</span><span class="fl">5</span>, </span>
+<span>             days.per.year<span class="op">=</span><span class="fl">365</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
 <span>             epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span>, <span class="st">"otherValue"</span><span class="op">)</span>,</span>
 <span>             epsilon.value<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'zoo'</span></span>
-<span><span class="fu">PMR</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, k<span class="op">=</span><span class="cn">NULL</span>, min.years<span class="op">=</span><span class="fl">5</span>, days.per.year<span class="op">=</span><span class="fl">365</span>,</span>
-<span>             na.rm<span class="op">=</span><span class="cn">TRUE</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>, </span>
+<span><span class="fu">PMR</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, k<span class="op">=</span><span class="cn">NULL</span>, min.years<span class="op">=</span><span class="fl">5</span>, </span>
+<span>             days.per.year<span class="op">=</span><span class="fl">365</span>, fun<span class="op">=</span><span class="cn">NULL</span>, <span class="va">...</span>,</span>
 <span>             epsilon.type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"Pushpalatha2012"</span>, <span class="st">"otherFactor"</span>, <span class="st">"otherValue"</span><span class="op">)</span>,</span>
 <span>             epsilon.value<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -82,23 +82,23 @@
 <dd><p>zoo object with observed values. Multicolumn <code>zoo</code> objects are allowed.</p></dd>
 
 
-  <dt id="arg-k">k<a class="anchor" aria-label="anchor" href="#arg-k"></a></dt>
-<dd><p>integer value representing the length of the moving window (number of time steps) used to compute the bias over sub-periods. <br></p>
-<p>The k argument should reflect the temporal scale at which robustness is intended to be evaluated, and therefore depends primarily on the time resolution of the data. Royer-Gaspard et al. (2021) recommended to use multi-year windows, typically in the range of 3 to 5 years, to ensure that each sub-period captures meaningful hydroclimatic variability while still allowing enough windows for comparison.</p></dd>
-
-  <dt id="arg-min-years">min.years<a class="anchor" aria-label="anchor" href="#arg-min-years"></a></dt>
-<dd><p>only used when the user does not explicitly define the value of <code>k</code>, i.e., when <code>k=NULL</code>. <br></p>
-<p>Minimum numbers of years used to ensure that each sub-period used int eh computation of PMR captures meaningful hydroclimatic variability while still allowing enough windows for comparison. By default, <code>min.years=5</code>.</p></dd>
-
-  <dt id="arg-days-per-year">days.per.year<a class="anchor" aria-label="anchor" href="#arg-days-per-year"></a></dt>
-<dd><p>only used when the user does not explicitly define the value of <code>k</code>, i.e., when <code>k=NULL</code>.  <br></p>
-<p>Number of days in a year. A value of Use 365.25 is recoomended instead of the default value of 365 when <code>sim</code> and <code>obs</code> are long climatological series.</p></dd>
-
-
   <dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>
 <dd><p>a logical value indicating whether 'NA' should be stripped before the computation proceeds. <br>
 For the full-period bias, only positions with valid paired values in <code>obs</code> and <code>sim</code> are used. For the moving-window biases, each fixed-length window is selected first, and invalid pairs are then removed inside that window.</p></dd>
 
+
+  <dt id="arg-k">k<a class="anchor" aria-label="anchor" href="#arg-k"></a></dt>
+<dd><p>integer value representing the length of the moving window (number of time steps) used to compute the bias over sub-periods. <br></p>
+<p>By default <code>k=NULL</code>, which means that its value is automatically computed based on the minimum numbers of years defined by <code>min.years</code>.</p>
+<p>The k argument should reflect the temporal scale at which robustness is intended to be evaluated, and therefore depends primarily on the time resolution of the data. Royer-Gaspard et al. (2021) recommended to use multi-year windows, typically in the range of 3 to 5 years, to ensure that each sub-period captures meaningful hydroclimatic variability while still allowing enough windows for comparison.</p></dd>
+
+  <dt id="arg-min-years">min.years<a class="anchor" aria-label="anchor" href="#arg-min-years"></a></dt>
+<dd><p>Numeric, only used when the user does not explicitly define the value of <code>k</code>, i.e., when <code>k=NULL</code>. <br></p>
+<p>Minimum numbers of years used to ensure that each sub-period used int eh computation of PMR captures meaningful hydroclimatic variability while still allowing enough windows for comparison. By default, <code>min.years=5</code>.</p></dd>
+
+  <dt id="arg-days-per-year">days.per.year<a class="anchor" aria-label="anchor" href="#arg-days-per-year"></a></dt>
+<dd><p>Numeric, only used when the user does not explicitly define the value of <code>k</code>, i.e., when <code>k=NULL</code>.  <br></p>
+<p>Number of days in a year. A value of Use 365.25 is recoomended instead of the default value of 365 when <code>sim</code> and <code>obs</code> are long climatological series.</p></dd>
 
   <dt id="arg-fun">fun<a class="anchor" aria-label="anchor" href="#arg-fun"></a></dt>
 <dd><p>function to be applied to <code>sim</code> and <code>obs</code> in order to obtain transformed values thereof before computing the proxy for model robustness.</p>
@@ -321,7 +321,6 @@ Pushpalatha, R.; Perrin, C.; Le Moine, N.; Andreassian, V. (2012). A review of e
 <span class="r-in"><span><span class="va">sim1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">obs1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">PMR</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim1</span>, obs<span class="op">=</span><span class="va">obs1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 9: PMR for a two-column data frame where simulated values are equal to </span></span></span>
 <span class="r-in"><span><span class="co">#            observations plus random noise on the first half of the observed values </span></span></span>
@@ -330,8 +329,7 @@ Pushpalatha, R.; Perrin, C.; Le Moine, N.; Andreassian, V. (2012). A review of e
 <span class="r-in"><span><span class="va">OBS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">obs</span>, <span class="va">obs</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">PMR</span><span class="op">(</span>sim<span class="op">=</span><span class="va">SIM</span>, obs<span class="op">=</span><span class="va">OBS</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       obs       obs </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.3162052 0.3162052 </span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

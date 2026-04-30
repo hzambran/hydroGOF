@@ -226,6 +226,7 @@ proceeds, and only those positions with non-missing values in `obs` and
 ## Examples
 
 ``` r
+
 # Example 0: basic ideal case
 obs <- 1:10
 sim <- 1:10

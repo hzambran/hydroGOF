@@ -7,9 +7,10 @@ This implementation follows the technical formulation described by
 Ficchi et al. (2026): the KGE' variability term is used, and the
 distributional component is computed from a histogram-based
 Jensen-Shannon divergence applied to log-transformed flows after
-paper-specific zero handling. The function also allows JDKGE-style
-variants based on the 2009 and 2021 KGE formulations, while keeping the
-paper's 2012 variant as the default.
+paper-specific zero handling.
+
+The function also allows JDKGE-style variants based on the 2009 and 2021
+KGE formulations, while keeping the paper's 2012 variant as the default.
 
 ## Usage
 
@@ -17,32 +18,36 @@ paper's 2012 variant as the default.
 JDKGE(sim, obs, ...)
 
 # Default S3 method
-JDKGE(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
-        method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
+JDKGE(sim, obs, na.rm=TRUE, s=c(1,1,1,1),
+        method=c("2012", "2009", "2021"), out.type=c("single", "full"), 
+        density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512, fun=NULL, ...,
         epsilon.type=c("otherValue", "none", "Pushpalatha2012", "otherFactor"),
-        epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
-        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
+        epsilon.value=NA)
 
 # S3 method for class 'data.frame'
-JDKGE(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
-        method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
+JDKGE(sim, obs, na.rm=TRUE, s=c(1,1,1,1),
+        method=c("2012", "2009", "2021"), out.type=c("single", "full"), 
+        density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512, fun=NULL, ...,
         epsilon.type=c("otherValue", "none", "Pushpalatha2012", "otherFactor"),
-        epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
-        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
+        epsilon.value=NA)
 
 # S3 method for class 'matrix'
-JDKGE(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
-        method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
+JDKGE(sim, obs, na.rm=TRUE, s=c(1,1,1,1),
+        method=c("2012", "2009", "2021"), out.type=c("single", "full"), 
+        density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512, fun=NULL, ...,
         epsilon.type=c("otherValue", "none", "Pushpalatha2012", "otherFactor"),
-        epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
-        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512)
+        epsilon.value=NA)
 
 # S3 method for class 'zoo'
-JDKGE(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
-        method=c("2012", "2009", "2021"), out.type=c("single", "full"), fun=NULL, ...,
+JDKGE(sim, obs, na.rm=TRUE, s=c(1,1,1,1),
+        method=c("2012", "2009", "2021"), out.type=c("single", "full"), 
+        density.method=c("hist", "kde", "wasserstein"), nbins="paper",
+        timestep=86400, kde.n.grid=512, wasserstein.n.quantiles=512, fun=NULL, ...,
         epsilon.type=c("otherValue", "none", "Pushpalatha2012", "otherFactor"),
-        epsilon.value=NA, density.method=c("hist", "kde", "wasserstein"), nbins="paper",
-        timestep=NA, kde.n.grid=512, wasserstein.n.quantiles=512)
+        epsilon.value=NA)
 ```
 
 ## Arguments
@@ -55,16 +60,16 @@ JDKGE(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
 
   numeric, zoo, matrix or data.frame with observed values.
 
+- na.rm:
+
+  logical value indicating whether missing paired values should be
+  removed before computing the metric.
+
 - s:
 
   numeric of length 4 with scaling factors for the Euclidean distance in
   criteria space. If `s` differs from `c(1,1,1,1)`, then `sum(s)` must
   be equal to 1.
-
-- na.rm:
-
-  logical value indicating whether missing paired values should be
-  removed before computing the metric.
 
 - method:
 
@@ -77,6 +82,40 @@ JDKGE(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
   character string indicating the output format. Use "single" to return
   the JDKGE value only, or "full" to also return the four diagnostic
   components.
+
+- density.method:
+
+  character, representing the method used to compute the divergence
+  component. "hist" uses the paper-faithful histogram-based
+  Jensen-Shannon divergence, "kde" uses a common-grid kernel density
+  estimate followed by Jensen-Shannon divergence, and "wasserstein" uses
+  a Wasserstein-distance similarity on log-flows.
+
+- nbins:
+
+  character, representing the binning rule used by the histogram
+  divergence component. The default "paper" uses the procedure described
+  by Ficchi et al. (2026). This argument is ignored for
+  `density.method="kde"` and `density.method="wasserstein"`.
+
+- timestep:
+
+  numeric, representing the sampling time step in seconds used by the
+  paper's bin-count adjustment. For `zoo` inputs this is inferred from
+  the time index when omitted. The default for plain numeric vectors is
+  one day (86400 seconds).
+
+- kde.n.grid:
+
+  integer, number of grid points used when `density.method="kde"`.
+  Larger values provide a finer common support grid at higher
+  computational cost.
+
+- wasserstein.n.quantiles:
+
+  integer, number of quantile levels used to approximate the first
+  Wasserstein distance when `density.method="wasserstein"`. Larger
+  values provide a finer approximation at higher computational cost.
 
 - fun:
 
@@ -100,40 +139,6 @@ JDKGE(sim, obs, s=c(1,1,1,1), na.rm=TRUE,
   `epsilon.value=NA` (the default), the value described by Ficchi et al.
   (2026), \\\epsilon = \min(10^{-6}, 10^{-1} \min(c))\\, is computed
   internally.
-
-- density.method:
-
-  method used to compute the divergence component. "hist" uses the
-  paper-faithful histogram-based Jensen-Shannon divergence, "kde" uses a
-  common-grid kernel density estimate followed by Jensen-Shannon
-  divergence, and "wasserstein" uses a Wasserstein-distance similarity
-  on log-flows.
-
-- nbins:
-
-  binning rule used by the histogram divergence component. The default
-  "paper" uses the procedure described by Ficchi et al. (2026). This
-  argument is ignored for `density.method="kde"` and
-  `density.method="wasserstein"`.
-
-- timestep:
-
-  sampling time step in seconds used by the paper's bin-count
-  adjustment. For `zoo` inputs this is inferred from the time index when
-  omitted. The default for plain numeric vectors is one day (86400
-  seconds).
-
-- kde.n.grid:
-
-  integer, number of grid points used when `density.method="kde"`.
-  Larger values provide a finer common support grid at higher
-  computational cost.
-
-- wasserstein.n.quantiles:
-
-  integer, number of quantile levels used to approximate the first
-  Wasserstein distance when `density.method="wasserstein"`. Larger
-  values provide a finer approximation at higher computational cost.
 
 ## Details
 
