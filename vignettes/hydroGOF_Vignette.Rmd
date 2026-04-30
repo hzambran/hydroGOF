@@ -179,7 +179,7 @@ br2(sim=sim, obs=obs)                  # R2 multiplied by the slope of the regre
 
 ## Ex 5: random noise and logarithmic transformation
 
-NSE for simulated values equal to observations plus random noise on the first half of the observed values and applying (natural) logarithm to 'sim' and 'obs' during computations.
+NSE for simulated values equal to observations plus random noise on the first half of the observed values and applying (natural) logarithm to *obs* against *sim* during computations.
 
 ```{r Example5-1}
 NSE(sim=sim, obs=obs, fun=log)
@@ -244,7 +244,7 @@ br2(sim=sim, obs=obs)                  # R2 multiplied by the slope of the regre
 
 ## Ex 6: random noise, logarithmic transformation and Pushpalatha2012 constant 
 
-NSE for simulated values equal to observations plus random noise on the first half of the observed values and applying (natural) logarithm to 'sim' and 'obs' and adding the Pushpalatha2012 constant during computations.
+NSE for simulated values equal to observations plus random noise on the first half of the observed values and applying (natural) logarithm to *obs* against *sim* and adding the Pushpalatha2012 constant during computations.
 
 ```{r Example6-1}
 NSE(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
@@ -267,7 +267,7 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012", do.spearman=TRUE,
 
 ## Ex 7: random noise, logarithmic transformation and user-defined constant 
 
-NSE for simulated values equal to observations plus random noise on the first half of the observed values and applying (natural) logarithm to 'sim' and 'obs' and adding a user-defined constant during computations
+NSE for simulated values equal to observations plus random noise on the first half of the observed values and applying (natural) logarithm to *obs* against *sim* and adding a user-defined constant during computations
 
 ```{r Example7-1}
 eps <- 0.01
@@ -290,7 +290,7 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps, do.
 
 ## Ex 8: random noise, logarithmic transformation and user-defined factor 
 
-NSE for simulated values equal to observations plus random noise on the first half of the observed values and applying (natural) logarithm to 'sim' and 'obs' and using a user-defined factor to multiply the mean of the observed values to obtain the constant to be added to 'sim' and 'obs' during computations
+NSE for simulated values equal to observations plus random noise on the first half of the observed values and applying (natural) logarithm to *obs* against *sim* and using a user-defined factor to multiply the mean of the observed values to obtain the constant to be added to *obs* against *sim* during computations
 
 ```{r Example8-1}
 fact <- 1/50
@@ -315,7 +315,7 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact, d
 
 ## Ex 9: random noise, user-defined transformation 
 
-NSE for simulated values equal to observations plus random noise on the first half of the observed values and applying a user-defined function to 'sim' and 'obs' during computations:
+NSE for simulated values equal to observations plus random noise on the first half of the observed values and applying a user-defined function to *obs* against *sim* during computations:
 
 ```{r Example9-1}
 fun1 <- function(x) {sqrt(x+1)}
@@ -351,20 +351,20 @@ Generating a simulated daily time series, initially equal to the observed values
 sim <- obs 
 ```
 
-Plotting the graphical comparison of 'obs' against 'sim', along with the default goodness-of-fit measures:
+Plotting the graphical comparison of *obs* against *sim*, along with the **default goodness-of-fit measures**:
 
 ```{r ggof-default1, fig.width=8, fig.height=5}
 ggof(sim, obs)
 ```
 
-Plotting the graphical comparison of 'obs' against 'sim', along with user-defined goodness-of-fit measures:
+Plotting the graphical comparison of *obs* against *sim*, along with **user-defined goodness-of-fit measures**:
 
 ```{r ggof-userdefined1, fig.width=8, fig.height=5}
 ggof(sim, obs, 
      gofs=c( "PBIAS", "dr", "R2",  "NSE", "KGE",  "LCE", "JDKGE", "APFB", "HFB"))
 ```
 
-Computing the numeric goodness-of-fit measures for the "best" (unattainable) case, including the following three measures that -due to slighly high computation time- are not computed by default: i) the Spearman's Rank Correlation Coefficient (rSpearman), ii) the percent bias in the Slope of the Midsegment of the Flow Duration Curve (pbiasFDC), and iii) the Proxy for Model Robustness (PMR).
+Computing the numeric goodness-of-fit measures for the *best* (unattainable) case, including the following three measures that -due to slightly high computation time- are not computed by default: i) the Spearman's Rank Correlation Coefficient (rSpearman), ii) the percent bias in the Slope of the Midsegment of the Flow Duration Curve (pbiasFDC), and iii) the Proxy for Model Robustness (PMR).
 
 ```{r ComputingGOFs}
 gof(sim=sim, obs=obs, do.spearman=TRUE, do.pbfdc=TRUE, do.pmr=TRUE)
@@ -376,13 +376,13 @@ gof(sim=sim, obs=obs, do.spearman=TRUE, do.pbfdc=TRUE, do.pmr=TRUE)
 sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
 ```
 
-Plotting the graphical comparison of 'obs' against 'sim', along with the default goodness-of-fit measures for the daily and monthly time series:
+Plotting the graphical comparison of *obs* against *sim*, along with the **default goodness-of-fit measures** for the daily and monthly time series:
 
 ```{r ggof-default2, fig=TRUE, pdf=TRUE, eps=FALSE, fig.width=10, fig.height=7}
 ggof(sim=sim, obs=obs, ftype="dm", FUN=mean)
 ```
 
-Plotting the graphical comparison of 'obs' against 'sim', along with user-defined goodness-of-fit measures for the daily and monthly time series:
+Plotting the graphical comparison of *obs* against *sim*, along with **user-defined goodness-of-fit measures** for the daily and monthly time series:
 
 ```{r ggof-userdefined2, fig.width=8, fig.height=5}
 ggof(sim=sim, obs=obs, ftype="dm", FUN=mean,
