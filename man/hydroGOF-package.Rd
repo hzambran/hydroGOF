@@ -24,10 +24,10 @@ Missing values in observed and/or simulated values can be removed before computa
 Package: \tab hydroGOF\cr
 Type: \tab Package\cr
 Version: \tab 0.7-0\cr
-Date: \tab 2026-04-29\cr
+Date: \tab 2026-04-30\cr
 License: \tab GPL >= 2\cr
 LazyLoad: \tab yes\cr
-Packaged: \tab Wed Apr 29 22:33:58 -04 2026 ; MZB \cr
+Packaged: \tab Wed Apr 30 07:54:58 -04 2026 ; MZB \cr
 BuiltUnder: \tab R version 4.6.0 (2026-04-24) -- "Because it was There" ; aarch64-apple-darwin23 \cr
 } 
 
@@ -185,6 +185,9 @@ Maintainer: Mauricio Zambrano Bigiarini <mzb.devel@gmail.com>
 \cite{Willmott, C.J.; Robeson, S.M.; Matsuura, K.; Ficklin, D.L. (2015). Assessment of three dimensionless measures of model performance. Environmental Modelling & Software, 73, pp.167-174. doi:10.1016/j.envsoft.2015.08.012}
 
 \cite{Zambrano-Bigiarini, M.; Bellin, A. (2012). Comparing goodness-of-fit measures for calibration of models focused on extreme events. EGU General Assembly 2012, Vienna, Austria, 22-27 Apr 2012, EGU2012-11549-1.}
+
+\cite{Zambrano-Bigiarini, Mauricio (2024). hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series. doi:10.5281/zenodo.839854, R package version 0.6-0.1 . doi:10.5281/zenodo.839854, https://cran.r-project.org/package=hydroGOF. }
+
 }
 %%~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation directory ~~
 \keyword{ package }
