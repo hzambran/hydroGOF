@@ -81,6 +81,39 @@ test_that("KGE returns the expected 2012 components", {
   expect_true(is.finite(KGE(obs, obs, method = "2012")))
 })
 
+test_that("KGE returns the optimum value for perfect agreement, including constant series", {
+  x <- c(1, 1, 1, 1)
+  z <- c(0, 0, 0, 0)
+
+  out_2012 <- KGE(x, x, method = "2012", out.type = "full")
+  out_2009 <- KGE(x, x, method = "2009", out.type = "full")
+  out_2021 <- KGE(x, x, method = "2021", out.type = "full")
+  out_zero <- KGE(z, z, method = "2012", out.type = "full")
+
+  expect_equal(out_2012$KGE.value, 1)
+  expect_equal(unname(out_2012$KGE.elements), c(1, 1, 1))
+
+  expect_equal(out_2009$KGE.value, 1)
+  expect_equal(unname(out_2009$KGE.elements), c(1, 1, 1))
+
+  expect_equal(out_2021$KGE.value, 1)
+  expect_equal(unname(out_2021$KGE.elements), c(1, 0, 1))
+
+  expect_equal(out_zero$KGE.value, 1)
+  expect_equal(unname(out_zero$KGE.elements), c(1, 1, 1))
+})
+
+test_that("KGE returns NA instead of NaN when 2009/2012 bias terms are undefined", {
+  obs <- c(-1, 1)
+  sim <- c(-2, 2)
+
+  expect_warning(out_2012 <- KGE(sim, obs, method = "2012", out.type = "full"))
+  expect_warning(out_2009 <- KGE(sim, obs, method = "2009", out.type = "full"))
+
+  expect_true(is.na(out_2012$KGE.value))
+  expect_true(is.na(out_2009$KGE.value))
+})
+
 test_that("PBIAS matches a simple bias calculation", {
   obs <- c(1, 2, 3)
   sim <- c(2, 3, 4)
@@ -113,7 +146,7 @@ test_that("zoo-only flow diagnostics return ideal values for perfect agreement",
   expect_equal(wsNSE(sim, obs), 1)
   expect_true(is.finite(sKGE(sim, obs)))
   expect_equal(APFB(sim, obs), 0)
-  expect_equal(HFB(sim, obs), 1)
+  expect_equal(HFB(sim, obs), 0)
   expect_equal(pbiasfdc(sim, obs, plot = FALSE), 0)
 })
 

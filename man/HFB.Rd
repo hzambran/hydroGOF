@@ -107,9 +107,9 @@ Valid values of \code{epsilon.type} are:
 The median annual high-flow bias (HFB) is a goodness-of-fit metric designed to support the calibration and evaluation of hydrological models with specific 
 emphasis on the reproduction of high-flow conditions.
 
-The HFB ranges from 0 to 1, with an optimal value of 1. Values close to 1 indicate that the simulated high flows closely match the observed high flows,  whereas values approaching 0 indicate increasing discrepancies between the simulated and observed high-flow magnitudes.
+The HFB ranges from 0 to \kbd{Inf}, with an optimal value of \kbd{0}. Values close to 0 indicate that the simulated high flows closely match the observed high flows, whereas larger values indicate increasing discrepancies between the simulated and observed high-flow magnitudes.
 
-The HFB function was developed by Zambrano-Bigiarini (2024), is inspired by the annual peak-flow bias (APFB) objective function proposed by Mizukami et al. (2019). However, it differs from that metric in four important aspects:
+The HFB function is inspired by the annual peak-flow bias (APFB) objective function proposed by Mizukami et al. (2019). However, it differs from that metric in four important aspects:
 
 1) Instead of considering only the single observed annual peak flow in each year, it considers all high flows in each year, where "high flows" are defined as all values equal to or greater than a user-defined exceedance probability threshold of the observed values. By default, high flows correspond to the upper 10\% of observed flows (i.e., \code{hQ.thr=0.1}).
 
@@ -119,10 +119,10 @@ The HFB function was developed by Zambrano-Bigiarini (2024), is inspired by the 
 
 4) When computing the final performance value, the metric uses the median of the annual values instead of the mean, reducing the influence of extreme years and improving robustness when the distribution of annual biases is asymmetric.
 
-Mathematically, the annual high-flow performance for year \eqn{y} is defined as:
+Mathematically, the annual high-flow bias for year \eqn{y} is defined as:
 
 \deqn{
-HFB_y = 1 - \left| \operatorname{median} \left( \frac{Q^{sim}_{y,i}}{Q^{obs}_{y,i}} \right) - 1 \right|
+HFB_y = \sqrt{\left(\frac{\operatorname{median}(Q^{sim}_{y,i})}{\operatorname{median}(Q^{obs}_{y,i})} - 1\right)^2}
 }
 
 where \eqn{Q^{sim}_{y,i}} and \eqn{Q^{obs}_{y,i}} are the simulated and observed flows corresponding to the set of high-flow events \eqn{i} occurring in year \eqn{y}.
@@ -130,14 +130,14 @@ where \eqn{Q^{sim}_{y,i}} and \eqn{Q^{obs}_{y,i}} are the simulated and observed
 The overall HFB value is then computed as:
 
 \deqn{
-HFB = 1 - \left| \operatorname{median}(HFB_y) - 1 \right|
+HFB = \operatorname{median}(HFB_y)
 }
 
-This formulation ensures that the metric is bounded between 0 and 1, with the maximum value of 1 representing perfect agreement between simulated and observed high flows.
+This formulation yields a non-negative bias metric, with the minimum value of 0 representing perfect agreement between simulated and observed high flows.
 }
 
 \value{
-If \code{out.PerYear=FALSE}: numeric with the median high flow bias between \code{sim} and \code{obs}. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the high flow bias between each column of \code{sim} and \code{obs}.
+If \code{out.PerYear=FALSE}: numeric with the median annual high-flow bias between \code{sim} and \code{obs}. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the high-flow bias between each column of \code{sim} and \code{obs}.
 
 If \code{out.PerYear=TRUE}: a list of two elements:
 \item{HFB.value}{
@@ -150,9 +150,6 @@ numeric with the median annual high flow bias between \code{sim} and \code{obs}.
 }
 }
 \references{
-
-\cite{Zambrano-Bigiarini, Mauricio (2024). hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series. doi:10.5281/zenodo.839854, R package version 0.6-0.1 . doi:10.5281/zenodo.839854, https://cran.r-project.org/package=hydroGOF. }
-
 \cite{Mizukami, N.; Rakovec, O.; Newman, A.J.; Clark, M.P.; Wood, A.W.; Gupta, H.V.; Kumar, R.: (2019). On the choice of calibration metrics for "high-flow" estimation using hydrologic models, Hydrology Earth System Sciences 23, 2601-2614, doi:10.5194/hess-23-2601-2019.}
 }
 \author{

@@ -74,11 +74,11 @@ A BibTeX entry for LaTeX users is
 
 ## Goodness-of-fit measures
 
-The quantitative statistics included in this package are:
+Quantitative statistics included in this package are:
 
 | Acronym | Name | Range of variation | Main reference |
-|---------|------------|-------------:|----------------|
-| **me**  | Mean Error | -Inf to +Inf | Hill et al. (2006) |
+|---|---|---:|---|
+| **me** | Mean Error | -Inf to +Inf | Hill et al. (2006) |
 | **mae** | Mean Absolute Error | 0 to +Inf | Hodson (2022) |
 | **mse** | Mean Squared Error | 0 to +Inf | Yapo et al. (1996) |
 | **rmse** | Root Mean Square Error | 0 to +Inf | Willmott and Matsuura (2005) |
@@ -97,8 +97,7 @@ The quantitative statistics included in this package are:
 | **md** | Modified Index of Agreement | 0 to 1 | Krause et al. (2005) |
 | **rd** | Relative Index of Agreement | 0 to 1 | Krause et al. (2005) |
 | **cp** | Coefficient of Persistence | 0 to 1 | Kitanidis and Bras (1980) |
-| **rPearson**  | Pearson Correlation Coefficient | -1 to 1 | Pearson (1920) |
-| **rSpearman** | Spearman's Rank Correlation Coefficient | -1 to 1 | Spearman (1961) |
+| **rPearson** | Pearson Correlation Coefficient | -1 to 1 | Pearson (1920) |
 | **R2** | Coefficient of Determination | 0 to 1 | Box (1966) |
 | **br2** | Weighted Coefficient of Determination | 0 to 1 | Krause et al. (2005) |
 | **VE** | Volumetric Efficiency | -Inf to 1 | Criss and Winston (2008) |
@@ -106,13 +105,14 @@ The quantitative statistics included in this package are:
 | **KGElf** | Kling-Gupta Efficiency with Focus on Low Flows | -Inf to 1 | Garcia et al. (2017) |
 | **KGEnp** | Non-parametric Kling-Gupta Efficiency | -Inf to 1 | Pool et al. (2018) |
 | **KGEkm** | Knowable Moments Kling-Gupta Efficiency | -Inf to 1 | Pizarro and Jorquera (2024) |
-| **sKGE** | Split Kling-Gupta Efficiency | -Inf to 1 | Fowler et al. (2018) |
 | **JDKGE** | Joint Divergence Kling-Gupta Efficiency | -Inf to 1 | Ficchi et al. (2026) |
 | **LME** | Liu-Mean Efficiency | -Inf to 1 | Liu (2020) |
 | **LCE** | Lee and Choi Efficiency | -Inf to 1 | Lee and Choi (2022) |
+| **sKGE** | Split Kling-Gupta Efficiency | -Inf to 1 | Fowler et al. (2018) |
 | **APFB** | Annual Peak Flow Bias | 0 to +Inf | Mizukami et al. (2019) |
-| **HFB** | High Flow Bias | 0 to 1 | Zambrano-Bigiarini (2024) |
+| **HFB** | High Flow Bias | 0 to +Inf | Mizukami et al. (2019) |
 | **PMR** | Proxy for Model Robustness | 0 to +Inf | Royer-Gaspard et al. (2021) |
+| **rSpearman** | Spearman's Rank Correlation Coefficient | -1 to 1 | Spearman (1961) |
 | **pbiasfdc** | PBIAS in the Slope of the Midsegment of the Flow Duration Curve | 0 to +Inf | Yilmaz et al. (2008) |
 | **ssq** | Sum of the Squared Residuals | 0 to +Inf | Willmott et al. (2009) |
 | **pfactor** | P-factor | 0 to 1 | Abbaspour et al. (2009) |
@@ -226,9 +226,6 @@ The quantitative statistics included in this package are:
 * Willmott, C.J.; Robeson, S.M.; Matsuura, K.; Ficklin, D.L. (2015). [Assessment of three dimensionless measures of model performance](https://doi.org/10.1016/j.envsoft.2015.08.012). Environmental Modelling & Software, 73, pp.167-174. doi:10.1016/j.envsoft.2015.08.012.
 
 * Zambrano-Bigiarini, M.; Bellin, A. (2012). [Comparing goodness-of-fit measures for calibration of models focused on extreme events](http://www.slideshare.net/hzambran/egu2012-11549go-fsforextremeevents4web). EGU General Assembly 2012, Vienna, Austria, 22-27 Apr 2012, EGU2012-11549-1. 
-
-* Zambrano-Bigiarini, Mauricio (2024). hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series. doi:10.5281/zenodo.839854, R package version 0.6-0.1 . doi:10.5281/zenodo.839854, https://cran.r-project.org/package=hydroGOF. 
-
 
 
 ## Vignette 

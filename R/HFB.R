@@ -16,10 +16,10 @@
 #          28-Apr-2026                                                         #
 ################################################################################
 
-# The high flow bias (HFB) ranges from 0 to Inf, with an optimal value of 0. 
-# Higher values of HFB indicate stronger differences between the high values 
-# of \code{sim} and \code{obs}, Essentially, the closer to 0, the more similar 
-# the high values of \code{sim} and \code{obs} are. 
+# The high flow bias (HFB) ranges from 0 to Inf, with an optimal value of 0.
+# Higher values of HFB indicate stronger differences between the high values
+# of \code{sim} and \code{obs}. Essentially, the closer to 0, the more similar
+# the high values of \code{sim} and \code{obs} are.
 
 # The median annual high-flows bias (HFB) is designed to drive the calibration of 
 # hydrological models focused in the reproduction of high-flow events.
@@ -95,9 +95,10 @@ HFB.default <- function(sim, obs, na.rm=TRUE,
     # Selecting values in 'sim' that have the same temporal location than the high values in 'obs'
     llsim.high     <- llsim[llobs.high.pos]
 
-    # Getting the HFB for the year 'i'. Its ideal value is 1
-    #lHFB  <- 1 - sqrt( stats::median( abs(llsim.high / llobs.high - 1), na.rm=na.rm )^2 )
-    lHFB  <- 1 - sqrt( (stats::median( llsim.high / llobs.high, na.rm=na.rm ) - 1)^2 )
+    # Annual high-flow bias as the absolute relative difference between the
+    # annual median simulated and observed high flows.
+    lHFB  <- sqrt((stats::median(llsim.high, na.rm=na.rm) /
+                    stats::median(llobs.high, na.rm=na.rm) - 1)^2)
 
     return(lHFB)
   } #'lHFB.year' END
@@ -164,11 +165,7 @@ HFB.default <- function(sim, obs, na.rm=TRUE,
                             lhQ.val=hQ.val, lna.rm= na.rm)
     names(HFB.yr) <- years.unique
 
-    # ideal value of beta is 1
-    beta <- stats::median(HFB.yr, na.rm=na.rm)
-
-    # ideal value of HFB is 1
-    HFB <- 1 - sqrt( (beta - 1)^2 ) 
+    HFB <- stats::median(HFB.yr, na.rm=na.rm)
 
   } else {
       HFB    <- NA
