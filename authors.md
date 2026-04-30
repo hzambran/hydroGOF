@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/hzambran/hydroGOF/blob/master/inst/CITATION)
+[`inst/CITATION`](https://github.com/hzambran/hydroGOF/blob/v0.7-0/inst/CITATION)
 
 Zambrano-Bigiarini, M. (2026) hydroGOF: Goodness-of-fit functions for
 comparison of simulated and observed hydrological time seriesR package
