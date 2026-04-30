@@ -303,7 +303,6 @@ PMR(sim=sim, obs=obs, fun=fun1)
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 PMR(sim=sim1, obs=obs1)
-}
 ##################
 # Example 9: PMR for a two-column data frame where simulated values are equal to 
 #            observations plus random noise on the first half of the observed values 
@@ -312,6 +311,7 @@ SIM <- cbind(sim, sim)
 OBS <- cbind(obs, obs)
 
 PMR(sim=SIM, obs=OBS)
+}
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the
