@@ -110,7 +110,7 @@ Quantitative statistics included in this package are:
 | **LCE** | Lee and Choi Efficiency | -Inf to 1 | Lee and Choi (2022) |
 | **sKGE** | Split Kling-Gupta Efficiency | -Inf to 1 | Fowler et al. (2018) |
 | **APFB** | Annual Peak Flow Bias | 0 to +Inf | Mizukami et al. (2019) |
-| **HFB** | High Flow Bias | 0 to +Inf | Mizukami et al. (2019) |
+| **HFB** | High Flow Bias | 0 to +Inf | Zambrano-Bigiarini (2026) |
 | **PMR** | Proxy for Model Robustness | 0 to +Inf | Royer-Gaspard et al. (2021) |
 | **rSpearman** | Spearman's Rank Correlation Coefficient | -1 to 1 | Spearman (1961) |
 | **pbiasfdc** | PBIAS in the Slope of the Midsegment of the Flow Duration Curve | 0 to +Inf | Yilmaz et al. (2008) |
@@ -226,6 +226,8 @@ Quantitative statistics included in this package are:
 * Willmott, C.J.; Robeson, S.M.; Matsuura, K.; Ficklin, D.L. (2015). [Assessment of three dimensionless measures of model performance](https://doi.org/10.1016/j.envsoft.2015.08.012). Environmental Modelling & Software, 73, pp.167-174. doi:10.1016/j.envsoft.2015.08.012.
 
 * Zambrano-Bigiarini, M.; Bellin, A. (2012). [Comparing goodness-of-fit measures for calibration of models focused on extreme events](http://www.slideshare.net/hzambran/egu2012-11549go-fsforextremeevents4web). EGU General Assembly 2012, Vienna, Austria, 22-27 Apr 2012, EGU2012-11549-1. 
+
+\cite{Zambrano-Bigiarini, Mauricio (2026). hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series. R package version 0.7-0. URL:https://cran.r-project.org/package=hydroGOF. doi:10.32614/CRAN.package.hydroGOF.}
 
 
 ## Vignette 
