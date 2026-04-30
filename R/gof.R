@@ -63,7 +63,7 @@
 
 gof <-function(sim, obs, ...) UseMethod("gof")
 
-gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, do.PMR=FALSE,
+gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, do.pmr=FALSE,
                         j=1, lambda=0.95, norm="sd", 
                         s=c(1,1,1,1),                                   # The 4th element is only used for JDKGE 
                         method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, 
@@ -78,7 +78,7 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
                         nbins="paper",                                  # JDKGE only
                         timestep=86400,                                 # JDKGE only
                         kde.n.grid=512,                                 # JDKGE only
-                        wasserstein.n.quantiles=512                     # JDKGE only
+                        wasserstein.n.quantiles=512,                    # JDKGE only
 
                         digits=2, 
 
@@ -198,7 +198,7 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
 
          do.PMR <- TRUE
          PMR    <- PMR(sim, obs, na.rm=na.rm, k=k, min.years=min.years,
-                       days.per.year=days.per.years, fun=fun, ..., 
+                       days.per.year=days.per.year, fun=fun, ..., 
                        epsilon.type=epsilon.type, epsilon.value=epsilon.value)
        } # IF end
      } # IF end
@@ -280,7 +280,7 @@ gof.default <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE,
 #          19-Jan-2024 ; 08-May-2024                                           #
 #          29-Apr-2026                                                         #
 ################################################################################
-gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, do.PMR=FALSE, 
+gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, do.pmr=FALSE, 
                        j=1, lambda=0.95, norm="sd", 
                        s=c(1,1,1,1),                                   # The 4th element is only used for JDKGE 
                        method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, 
@@ -325,7 +325,7 @@ gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
                                           digits=digits, fun=fun, ...,  
                                           epsilon.type=epsilon.type, epsilon.value=epsilon.value,
                                           density.method=density.method, nbins=nbins, timestep=timestep, 
-                                          kde.n.grid=kde.n.grid, wasserstein.n.quantile=wasserstein.n.quantiles 
+                                          kde.n.grid=kde.n.grid, wasserstein.n.quantiles=wasserstein.n.quantiles 
                                         )
             }, x=sim, y=obs )            
      
@@ -349,7 +349,7 @@ gof.matrix <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, 
 #          19-Jan-2024 ; 08-May-2024                                           #
 #          29-Apr-2026                                                         #
 ################################################################################
-gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, do.PMR=FALSE, 
+gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, do.pmr=FALSE, 
                            j=1, lambda=0.95, norm="sd", 
                            s=c(1,1,1,1),                                   # The 4th element is only used for JDKGE 
                            method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, 
@@ -382,7 +382,7 @@ gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FAL
              digits=digits, fun=fun, ...,  
              epsilon.type=epsilon.type, epsilon.value=epsilon.value,
              density.method=density.method, nbins=nbins, timestep=timestep, 
-             kde.n.grid=kde.n.grid, wasserstein.n.quantile=wasserstein.n.quantiles)
+             kde.n.grid=kde.n.grid, wasserstein.n.quantiles=wasserstein.n.quantiles)
      
 } # 'gof.data.frame' end 
 
@@ -396,7 +396,7 @@ gof.data.frame <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FAL
 #          19-Jan-2024 ; 08-May-2024                                           #
 #          29-Apr-2026                                                         #
 ################################################################################
-gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, do.PMR=FALSE, 
+gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, do.pmr=FALSE, 
                     j=1, lambda=0.95, norm="sd", 
                     s=c(1,1,1,1),                                   # The 4th element is only used for JDKGE 
                     method=c("2009", "2012", "2021"), lQ.thr=0.6, hQ.thr=0.1, 
@@ -430,7 +430,7 @@ gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, do.
                   digits=digits, fun=fun, ...,  
                   epsilon.type=epsilon.type, epsilon.value=epsilon.value,
                   density.method=density.method, nbins=nbins, timestep=timestep, 
-                  kde.n.grid=kde.n.grid, wasserstein.n.quantile=wasserstein.n.quantiles)
+                  kde.n.grid=kde.n.grid, wasserstein.n.quantiles=wasserstein.n.quantiles)
     } else
         NextMethod(sim, obs, na.rm=na.rm, 
                    do.spearman=do.spearman, do.pbfdc=do.pbfdc, do.pmr=do.pmr,
@@ -441,7 +441,7 @@ gof.zoo <- function(sim, obs, na.rm=TRUE, do.spearman=FALSE, do.pbfdc=FALSE, do.
                    digits=digits, fun=fun, ...,  
                    epsilon.type=epsilon.type, epsilon.value=epsilon.value,
                    density.method=density.method, nbins=nbins, timestep=timestep, 
-                   kde.n.grid=kde.n.grid, wasserstein.n.quantile=wasserstein.n.quantiles)
+                   kde.n.grid=kde.n.grid, wasserstein.n.quantiles=wasserstein.n.quantiles)
      
 } # 'gof.zoo' end
   
