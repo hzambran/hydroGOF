@@ -375,11 +375,11 @@ KGEkm(sim=sim, obs=obs)
 
 # KGE': Kling-Gupta eficiency 2012 (Kling et al.,2012) 
 KGE(sim=sim, obs=obs, method="2012")
-#> [1] -0.4352039
+#> [1] 0.4887559
 
 # Traditional Kling-Gupta eficiency (Gupta and Kling, 2009)
 KGE(sim=sim, obs=obs)
-#> [1] -0.6329255
+#> [1] 0.06833165
 
 # KGE'': Kling-Gupta eficiency 2021 (Tang et al.,2021) 
 KGE(sim=sim, obs=obs, method="2021")
@@ -426,11 +426,11 @@ KGEkm(sim=sim, obs=obs)
 
 # KGE': Kling-Gupta eficiency 2012 (Kling et al.,2012) 
 KGE(sim=sim, obs=obs, method="2012")
-#> [1] -0.1042023
+#> [1] 0.8405711
 
 # Traditional Kling-Gupta eficiency (Gupta and Kling, 2009)
 KGE(sim=sim, obs=obs)
-#> [1] -0.09772871
+#> [1] 0.8943441
 
 # KGE'': Kling-Gupta eficiency 2021 (Tang et al.,2021) 
 KGE(sim=sim, obs=obs, method="2021")
@@ -458,7 +458,7 @@ md(sim=sim, obs=obs)
 
 # KGElf (Garcia et al., 2017):
 KGElf(sim=sim, obs=obs)
-#> [1] 0.00988583
+#> [1] 0.5862099
 
 
 ##################

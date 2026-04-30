@@ -156,21 +156,21 @@ rNSE(sim=sim, obs=obs)               # relative NSE
 KGE(sim=sim, obs=obs)                # Kling-Gupta efficiency (KGE), 2009
 ```
 
-    ## [1] -0.3169356
+    ## [1] 0.6805856
 
 ``` r
 
 KGE(sim=sim, obs=obs, method="2012") # Kling-Gupta efficiency (KGE), 2012
 ```
 
-    ## [1] -0.3338167
+    ## [1] 0.61689
 
 ``` r
 
 KGElf(sim=sim, obs=obs)              # KGE for low flows
 ```
 
-    ## [1] -0.07585665
+    ## [1] 0.5170138
 
 ``` r
 
@@ -184,7 +184,7 @@ KGEnp(sim=sim, obs=obs)              # Non-parametric KGE
 sKGE(sim=sim, obs=obs)               # Split KGE
 ```
 
-    ## [1] -0.3452463
+    ## [1] 0.6547522
 
 ``` r
 
@@ -333,21 +333,21 @@ rNSE(sim=sim, obs=obs, fun=log)               # relative NSE
 KGE(sim=sim, obs=obs, fun=log)                # Kling-Gupta efficiency (KGE), 2009
 ```
 
-    ## [1] -0.20655
+    ## [1] 0.7160166
 
 ``` r
 
 KGE(sim=sim, obs=obs, method="2012", fun=log) # Kling-Gupta efficiency (KGE), 2012
 ```
 
-    ## [1] -0.2279992
+    ## [1] 0.6354924
 
 ``` r
 
 KGElf(sim=sim, obs=obs)                       # KGE for low flows (it does not allow 'fun' argument)
 ```
 
-    ## [1] -0.07585665
+    ## [1] 0.5170138
 
 ``` r
 
@@ -361,7 +361,7 @@ KGEnp(sim=sim, obs=obs, fun=log)              # Non-parametric KGE
 sKGE(sim=sim, obs=obs, fun=log)               # Split KGE
 ```
 
-    ## [1] -0.4594372
+    ## [1] 0.4650784
 
 ``` r
 
@@ -523,14 +523,14 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012", do.spearman=TRUE,
     ## R2           0.49
     ## bR2          0.44
     ## VE           0.82
-    ## KGE         -0.20
-    ## KGElf       -0.08
+    ## KGE          0.72
+    ## KGElf        0.52
     ## KGEnp        0.74
     ## KGEkm        0.74
     ## JDKGE        0.72
     ## LME          0.68
     ## LCE          0.67
-    ## sKGE        -0.39
+    ## sKGE         0.53
     ## APFB         0.01
     ## HFB          0.98
     ## rSpearman    0.84
@@ -592,14 +592,14 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps, do.
     ## R2           0.48
     ## bR2          0.43
     ## VE           0.81
-    ## KGE         -0.21
-    ## KGElf       -0.08
+    ## KGE          0.72
+    ## KGElf        0.51
     ## KGEnp        0.74
     ## KGEkm        0.73
     ## JDKGE        0.71
     ## LME          0.67
     ## LCE          0.66
-    ## sKGE        -0.45
+    ## sKGE         0.48
     ## APFB         0.01
     ## HFB          0.98
     ## rSpearman    0.84
@@ -665,14 +665,14 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact, d
     ## R2           0.49
     ## bR2          0.44
     ## VE           0.82
-    ## KGE         -0.19
-    ## KGElf       -0.07
+    ## KGE          0.73
+    ## KGElf        0.53
     ## KGEnp        0.74
     ## KGEkm        0.75
     ## JDKGE        0.72
     ## LME          0.68
     ## LCE          0.68
-    ## sKGE        -0.35
+    ## sKGE         0.56
     ## APFB         0.01
     ## HFB          0.98
     ## rSpearman    0.84
@@ -733,14 +733,14 @@ gof(sim=sim, obs=obs, fun=fun1, do.spearman=TRUE, do.pbfdc=TRUE)
     ## R2           0.73
     ## bR2          0.65
     ## VE           0.82
-    ## KGE         -0.18
-    ## KGElf       -0.08
+    ## KGE          0.81
+    ## KGElf        0.50
     ## KGEnp        0.75
     ## KGEkm        0.80
     ## JDKGE        0.79
     ## LME          0.80
     ## LCE          0.79
-    ## sKGE        -0.09
+    ## sKGE         0.84
     ## APFB         0.02
     ## HFB          0.96
     ## rSpearman    0.84
@@ -799,14 +799,14 @@ gof(sim=sim, obs=obs)
     ## R2         1
     ## bR2        1
     ## VE         1
-    ## KGE        0
-    ## KGElf      0
+    ## KGE        1
+    ## KGElf      1
     ## KGEnp      1
     ## KGEkm      1
     ## JDKGE      1
     ## LME        1
     ## LCE        1
-    ## sKGE       0
+    ## sKGE       1
     ## APFB       0
     ## HFB        1
 
@@ -877,14 +877,14 @@ gof(sim, obs)
     ## R2       0.89
     ## bR2      0.81
     ## VE       0.75
-    ## KGE     -0.25
-    ## KGElf   -0.06
+    ## KGE      0.74
+    ## KGElf    0.57
     ## KGEnp    0.69
     ## KGEkm    0.73
     ## JDKGE    0.74
     ## LME      0.75
     ## LCE      0.74
-    ## sKGE    -0.30
+    ## sKGE     0.70
     ## APFB     0.03
     ## HFB      1.00
 
@@ -987,7 +987,7 @@ This tutorial was built under:
 
     ## [1] "R version 4.6.0 (2026-04-24)"
 
-    ## [1] "hydroGOF 0.6-39"
+    ## [1] "hydroGOF 0.6-40"
 
 ## Version history
 

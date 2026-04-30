@@ -700,14 +700,14 @@ gof(sim=sim, obs=obs)
 #> R2         1
 #> bR2        1
 #> VE         1
-#> KGE        0
-#> KGElf      0
+#> KGE        1
+#> KGElf      1
 #> KGEnp      1
 #> KGEkm      1
 #> JDKGE      1
 #> LME        1
 #> LCE        1
-#> sKGE       0
+#> sKGE       1
 #> APFB       0
 #> HFB        1
 
@@ -741,14 +741,14 @@ gof(sim=sim, obs=obs)
 #> R2       0.86
 #> bR2      0.76
 #> VE       0.65
-#> KGE     -0.35
-#> KGElf   -0.09
+#> KGE      0.65
+#> KGElf    0.49
 #> KGEnp    0.61
 #> KGEkm    0.63
 #> JDKGE    0.64
 #> LME      0.65
 #> LCE      0.65
-#> sKGE    -0.37
+#> sKGE     0.63
 #> APFB     0.03
 #> HFB      0.91
 
