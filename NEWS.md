@@ -16,10 +16,13 @@ NEWS/ChangeLog for hydroGOF
 
 
 ## Enhancements
-        o 'plot2'  : now it shows and adaptive time axis for sub-daily zoo objects.
+        o 'plot2'  : -) now it shows and adaptive time axis for sub-daily zoo objects.
+                     -) to reduce the large amount of metrics shown by default in the legend, the 18 metrics previously shown by default ( c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", "rNSE", "d", "md", "rd", "r", "R2", "bR2", "KGE", "VE") ) were reduced to only 14 ( c( "ME",  "MAE",  "RMSE", "NRMSE", "PBIAS", "NSE", "d", "dr", "r", "R2", "KGE", "LCE", "JDKGE", "VE") )
         o 'ggof'   : -) now it shows and adaptive time axis for sub-daily zoo objects.
                      -) now it returns the graphical device to its status before calling this function.
-        o 'gof'    : now it does not compute sKGE, APFB and HFB when sim and obs are annual zoo objects.
+                     -) to reduce the large amount of metrics shown by default in the legend, the 18 metrics previously shown by default ( c("ME", "MAE", "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", "NSE", "mNSE", "rNSE", "d", "md", "rd", "r", "R2", "bR2", "KGE", "VE") ) were reduced to only 14 ( c( "ME",  "MAE",  "RMSE", "NRMSE", "PBIAS", "NSE", "d", "dr", "r", "R2", "KGE", "LCE", "JDKGE", "VE") )
+        o 'gof'    : -) now it does not compute sKGE, APFB and HFB when sim and obs are annual zoo objects.
+                     -) it now computes the values of the new PMR, JDKGE, LME, and LCE metrics.
         o 'NRMSE'  : in addition to the standard deviation and the range of observations, now it is possible to normlise the RMSE by the mean and IQRT of observations.
         o 'pfactor': improved 'Details' section in the documentation, including new equations.
         o 'rfactor': improved 'Details' section in the documentation, including new equations.
