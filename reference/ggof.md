@@ -709,7 +709,7 @@ gof(sim=sim, obs=obs)
 #> LCE        1
 #> sKGE       1
 #> APFB       0
-#> HFB        1
+#> HFB        0
 
 # Randomly changing the first 2000 elements of 'sim', by using a normal distribution 
 # with mean 10 and standard deviation equal to 1 (default of 'rnorm').
@@ -718,18 +718,18 @@ sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 # Getting the new numeric goodness-of-fit measures
 gof(sim=sim, obs=obs)
 #>          [,1]
-#> ME       5.46
-#> MAE      5.46
-#> MSE     55.01
-#> RMSE     7.42
-#> ubRMSE   5.02
+#> ME       5.47
+#> MAE      5.47
+#> MSE     55.21
+#> RMSE     7.43
+#> ubRMSE   5.03
 #> NRMSE % 37.10
-#> PBIAS % 34.50
+#> PBIAS % 34.60
 #> RSR      0.37
 #> rSD      1.04
 #> NSE      0.86
 #> mNSE     0.57
-#> rNSE    -0.56
+#> rNSE    -0.57
 #> wNSE     0.97
 #> wsNSE    0.72
 #> d        0.97
@@ -750,7 +750,7 @@ gof(sim=sim, obs=obs)
 #> LCE      0.65
 #> sKGE     0.63
 #> APFB     0.03
-#> HFB      0.91
+#> HFB      0.12
 
 # Getting the graphical representation of 'obs' and 'sim' along with the numeric 
 # goodness-of-fit measures for the daily and monthly time series 

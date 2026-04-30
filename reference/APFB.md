@@ -146,9 +146,9 @@ peak flow.
 
 where:
 
-- \mu\_{peak\\Q_s}: mean of the simulated annual peak flow series
+- \\\mu\_{peak\\Q_s}\\: mean of the simulated annual peak flow series
 
-- \mu\_{peak\\Q_o}: mean of the observed annual peak flow series
+- \\\mu\_{peak\\Q_o}\\: mean of the observed annual peak flow series
 
 The APFB metric ranges from 0 to Inf. The optimal value is 0, indicating
 perfect agreement between simulated and observed annual peak flows.

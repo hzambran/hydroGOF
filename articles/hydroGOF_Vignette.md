@@ -306,7 +306,7 @@ APFB(sim=sim, obs=obs)                 # Annual Peak Flow Bias
 HFB(sim=sim, obs=obs)                  # High Flow Bias
 ```
 
-    ## [1] 0.9189491
+    ## [1] 0.08706977
 
 ``` r
 
@@ -602,7 +602,7 @@ APFB(sim=sim, obs=obs)                 # Annual Peak Flow Bias
 HFB(sim=sim, obs=obs)                  # High Flow Bias
 ```
 
-    ## [1] 0.9189491
+    ## [1] 0.08706977
 
 ``` r
 
@@ -801,7 +801,7 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012", do.spearman=TRUE,
     ## LCE          0.67
     ## sKGE         0.53
     ## APFB         0.01
-    ## HFB          0.98
+    ## HFB          0.02
     ## rSpearman    0.84
     ## pbiasFDC % -45.87
     ## PMR          0.20
@@ -872,7 +872,7 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps, do.
     ## LCE          0.66
     ## sKGE         0.48
     ## APFB         0.01
-    ## HFB          0.98
+    ## HFB          0.02
     ## rSpearman    0.84
     ## pbiasFDC % -46.36
     ## PMR          0.21
@@ -946,7 +946,7 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact, d
     ## LCE          0.68
     ## sKGE         0.56
     ## APFB         0.01
-    ## HFB          0.98
+    ## HFB          0.02
     ## rSpearman    0.84
     ## pbiasFDC % -45.37
     ## PMR          0.19
@@ -1015,7 +1015,7 @@ gof(sim=sim, obs=obs, fun=fun1, do.spearman=TRUE, do.pbfdc=TRUE, do.pmr=TRUE)
     ## LCE          0.79
     ## sKGE         0.84
     ## APFB         0.02
-    ## HFB          0.96
+    ## HFB          0.04
     ## rSpearman    0.84
     ## pbiasFDC % -32.96
     ## PMR          0.19
@@ -1107,7 +1107,7 @@ gof(sim=sim, obs=obs, do.spearman=TRUE, do.pbfdc=TRUE, do.pmr=TRUE)
     ## LCE           1
     ## sKGE          1
     ## APFB          0
-    ## HFB           1
+    ## HFB           0
     ## rSpearman     1
     ## pbiasFDC %    0
     ## PMR           0
@@ -1201,7 +1201,7 @@ gof(sim, obs)
     ## LCE      0.74
     ## sKGE     0.70
     ## APFB     0.03
-    ## HFB      1.00
+    ## HFB      0.00
 
 ### Plotting uncertainty bands
 
@@ -1352,7 +1352,7 @@ This tutorial was built under:
 
     ## [1] "R version 4.6.0 (2026-04-24)"
 
-    ## [1] "hydroGOF 0.6-41"
+    ## [1] "hydroGOF 0.6-42"
 
 ## Version history of this vignette
 

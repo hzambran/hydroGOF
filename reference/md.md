@@ -196,5 +196,5 @@ sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 
 # Computing the new 'd1'
 md(sim=sim, obs=obs)
-#> [1] 0.782248
+#> [1] 0.7824876
 ```

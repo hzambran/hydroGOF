@@ -4,13 +4,18 @@ Joint Divergence Kling-Gupta Efficiency between `sim` and `obs`, with
 treatment of missing values.
 
 This implementation follows the technical formulation described by
-Ficchi et al. (2026): the KGE' variability term is used, and the
-distributional component is computed from a histogram-based
+Ficchi et al. (2026), using by defualt the KGE-2012 variability term,
+and computing the distributional component from a histogram-based
 Jensen-Shannon divergence applied to log-transformed flows after
-paper-specific zero handling.
+paper-specific zero handling. However, this function also allows
+JDKGE-style variants based on the 2009 and 2021 KGE formulations,
+different methods for the distributional component, and different
+methods for the handling of low streamflow values.
 
-The function also allows JDKGE-style variants based on the 2009 and 2021
-KGE formulations, while keeping the paper's 2012 variant as the default.
+Results by Ficchi et al. (2026) show that calibrations using JDKGE
+significantly improve **low-flow simulations** compared to KGE, NSE and
+other competitors, while maintaining comparable or improved performance
+in other regimes, including **high flows**.
 
 ## Usage
 
@@ -236,6 +241,17 @@ Hydrology, 424, 264-277, doi:10.1016/j.jhydrol.2012.01.011.
 Tang, G.; Clark, M.P.; Papalexiou, S.M. (2021). SC-earth: a
 station-based serially complete earth dataset from 1950 to 2019. Journal
 of Climate, 34(16), 6493-6511. doi:10.1175/JCLI-D-21-0067.1.
+
+## See also
+
+[`NSE`](https://hzambran.github.io/hydroGOF/reference/NSE.md),
+[`wNSE`](https://hzambran.github.io/hydroGOF/reference/wNSE.md),
+[`wsNSE`](https://hzambran.github.io/hydroGOF/reference/wsNSE.md),
+[`HFB`](https://hzambran.github.io/hydroGOF/reference/HFB.md), `JDKGE`,
+[`KGElf`](https://hzambran.github.io/hydroGOF/reference/KGElf.md),
+[`rNSE`](https://hzambran.github.io/hydroGOF/reference/rNSE.md),
+[`gof`](https://hzambran.github.io/hydroGOF/reference/gof.md),
+[`ggof`](https://hzambran.github.io/hydroGOF/reference/ggof.md)
 
 ## Examples
 

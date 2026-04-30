@@ -9,7 +9,7 @@ This goodness-of-fit measure was developed by Fowler et al. (2018), as a modific
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-41</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-42</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -268,7 +268,7 @@ $$</p>
 <span class="r-plt img"><img src="sKGE-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">sKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6540206</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6543183</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 4: sKGE for simulated values equal to observations plus random noise </span></span></span>
@@ -276,13 +276,13 @@ $$</p>
 <span class="r-in"><span><span class="co">#            logarithm to 'sim' and 'obs' during computations.</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">sKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4644134</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4646204</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value:</span></span></span>
 <span class="r-in"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">sKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6937886</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6938643</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 5: sKGE for simulated values equal to observations plus random noise </span></span></span>
@@ -291,14 +291,14 @@ $$</p>
 <span class="r-in"><span><span class="co">#            during computations</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">sKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"Pushpalatha2012"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5251737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.525284</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value, with the epsilon value following Pushpalatha2012</span></span></span>
 <span class="r-in"><span><span class="va">eps</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">/</span><span class="fl">100</span></span></span>
 <span class="r-in"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">sKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7010944</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7011667</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 6: sKGE for simulated values equal to observations plus random noise </span></span></span>
@@ -308,13 +308,13 @@ $$</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">eps</span> <span class="op">&lt;-</span> <span class="fl">0.01</span></span></span>
 <span class="r-in"><span><span class="fu">sKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"otherValue"</span>, epsilon.value<span class="op">=</span><span class="va">eps</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4766869</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4768721</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value:</span></span></span>
 <span class="r-in"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">sKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6942692</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6943447</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 7: sKGE for simulated values equal to observations plus random noise </span></span></span>
@@ -325,14 +325,14 @@ $$</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">fact</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">50</span></span></span>
 <span class="r-in"><span><span class="fu">sKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"otherFactor"</span>, epsilon.value<span class="op">=</span><span class="va">fact</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5630446</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5631005</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value:</span></span></span>
 <span class="r-in"><span><span class="va">eps</span>  <span class="op">&lt;-</span> <span class="va">fact</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">sKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7078351</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7079049</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 8: sKGE for simulated values equal to observations plus random noise </span></span></span>
@@ -342,13 +342,13 @@ $$</p>
 <span class="r-in"><span><span class="va">fun1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">sKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">fun1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8405414</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8407244</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value</span></span></span>
 <span class="r-in"><span><span class="va">sim1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">obs1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">sKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim1</span>, obs<span class="op">=</span><span class="va">obs1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7925118</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7927571</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 9: sKGE for a two-column data frame where simulated values are equal to </span></span></span>
@@ -359,7 +359,7 @@ $$</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">sKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">SIM</span>, obs<span class="op">=</span><span class="va">OBS</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       obs       obs </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.6540206 0.6540206 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.6543183 0.6543183 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 10: sKGE for each year, where simulated values are given in a two-column data </span></span></span>
@@ -370,20 +370,20 @@ $$</p>
 <span class="r-in"><span><span class="fu">sKGE</span><span class="op">(</span>sim<span class="op">=</span><span class="va">SIM</span>, obs<span class="op">=</span><span class="va">OBS</span>, out.PerYear<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $sKGE.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       obs       obs </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.6540206 0.6540206 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.6543183 0.6543183 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $sKGE.PerYear</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              obs         obs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1961  0.56126803  0.56126803</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1962  0.38422632  0.38422632</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1963  0.20044986  0.20044986</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1964 -0.09870812 -0.09870812</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1965  0.49297011  0.49297011</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1966  1.00000000  1.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1967  1.00000000  1.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1968  1.00000000  1.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1969  1.00000000  1.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1970  1.00000000  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             obs        obs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1961  0.5603451  0.5603451</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1962  0.3791827  0.3791827</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1963  0.2064272  0.2064272</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1964 -0.0898766 -0.0898766</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1965  0.4871043  0.4871043</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1966  1.0000000  1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1967  1.0000000  1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1968  1.0000000  1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1969  1.0000000  1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1970  1.0000000  1.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

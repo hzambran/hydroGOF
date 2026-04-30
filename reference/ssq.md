@@ -172,5 +172,5 @@ sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 
 # Computing the new 'rNSeff'
 ssq(sim=sim, obs=obs)
-#> [1] 201330
+#> [1] 201981.4
 ```

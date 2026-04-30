@@ -17,7 +17,7 @@ computations.
 | Date: | 2026-04-30 |
 | License: | GPL \>= 2 |
 | LazyLoad: | yes |
-| Packaged: | Wed Apr 30 07:54:58 -04 2026 ; MZB |
+| Packaged: | Thu Apr 30 14:31:35 -04 2026 ; MZB |
 | BuiltUnder: | R version 4.6.0 (2026-04-24) – "Because it was There" ; aarch64-apple-darwin23 |
 
 Quantitative statistics included in this package are:
@@ -421,7 +421,7 @@ gof(sim=sim, obs=obs)
 #> LCE        1
 #> sKGE       1
 #> APFB       0
-#> HFB        1
+#> HFB        0
 
 # Randomly changing the first 2000 elements of 'sim', by using a normal 
 # distribution  with mean 10 and standard deviation equal to 1 (default of 'rnorm').
@@ -430,24 +430,24 @@ sim[1:2000] <- obs[1:2000] + rnorm(2000, mean=10)
 # Getting the new numeric goodness of fit
 gof(sim=sim, obs=obs)
 #>          [,1]
-#> ME       5.47
-#> MAE      5.47
-#> MSE     55.25
-#> RMSE     7.43
-#> ubRMSE   5.03
+#> ME       5.46
+#> MAE      5.46
+#> MSE     55.05
+#> RMSE     7.42
+#> ubRMSE   5.02
 #> NRMSE % 37.10
-#> PBIAS % 34.60
+#> PBIAS % 34.50
 #> RSR      0.37
 #> rSD      1.04
 #> NSE      0.86
 #> mNSE     0.57
-#> rNSE    -0.58
+#> rNSE    -0.56
 #> wNSE     0.97
 #> wsNSE    0.72
 #> d        0.97
 #> dr       0.78
 #> md       0.78
-#> rd       0.62
+#> rd       0.63
 #> cp       0.42
 #> r        0.97
 #> R2       0.86
@@ -462,7 +462,7 @@ gof(sim=sim, obs=obs)
 #> LCE      0.65
 #> sKGE     0.63
 #> APFB     0.03
-#> HFB      0.92
+#> HFB      0.12
 
 # Graphical representation of 'obs' vs 'sim', along with the numeric 
 # goodness-of-fit measures

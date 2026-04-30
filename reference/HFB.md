@@ -129,6 +129,7 @@ HFB(sim, obs, na.rm=TRUE,
 
   -) when `epsilon.type="otherValue"` it represents the numeric value to
   be added to both `sim` and `obs` before applying `fun`.  
+
   -) when `epsilon.type="otherFactor"` it represents the numeric factor
   used to multiply the mean of the observed values, instead of the one
   hundredth (1/100) described in Pushpalatha et al. (2012). The
@@ -142,15 +143,15 @@ designed to support the calibration and evaluation of hydrological
 models with specific emphasis on the reproduction of high-flow
 conditions.
 
-The HFB ranges from 0 to 1, with an optimal value of 1. Values close to
-1 indicate that the simulated high flows closely match the observed high
-flows, whereas values approaching 0 indicate increasing discrepancies
+The HFB ranges from 0 to Inf, with an optimal value of 0. Values close
+to 0 indicate that the simulated high flows closely match the observed
+high flows, whereas larger values indicate increasing discrepancies
 between the simulated and observed high-flow magnitudes.
 
-The HFB function was developed by Zambrano-Bigiarini (2024), is inspired
-by the annual peak-flow bias (APFB) objective function proposed by
-Mizukami et al. (2019). However, it differs from that metric in four
-important aspects:
+The current formulation of the HFB function was proposed by
+Zambrano-Bigiarini (2026), inspired by the annual peak-flow bias (APFB)
+objective function proposed by Mizukami et al. (2019). However, HFB
+differs from APFB in four important aspects:
 
 1\) Instead of considering only the single observed annual peak flow in
 each year, it considers all high flows in each year, where "high flows"
@@ -173,11 +174,11 @@ median of the annual values instead of the mean, reducing the influence
 of extreme years and improving robustness when the distribution of
 annual biases is asymmetric.
 
-Mathematically, the annual high-flow performance for year \\y\\ is
-defined as:
+Mathematically, the annual high-flow bias for year \\y\\ is defined as:
 
-\$\$ HFB_y = 1 - \left\| \operatorname{median} \left(
-\frac{Q^{sim}\_{y,i}}{Q^{obs}\_{y,i}} \right) - 1 \right\| \$\$
+\$\$ HFB_y =
+\sqrt{\left(\frac{\operatorname{median}(Q^{sim}\_{y,i})}{\operatorname{median}(Q^{obs}\_{y,i})} -
+1\right)^2} \$\$
 
 where \\Q^{sim}\_{y,i}\\ and \\Q^{obs}\_{y,i}\\ are the simulated and
 observed flows corresponding to the set of high-flow events \\i\\
@@ -185,17 +186,18 @@ occurring in year \\y\\.
 
 The overall HFB value is then computed as:
 
-\$\$ HFB = 1 - \left\| \operatorname{median}(HFB_y) - 1 \right\| \$\$
+\$\$ HFB = \operatorname{median}(HFB_y) \$\$
 
-This formulation ensures that the metric is bounded between 0 and 1,
-with the maximum value of 1 representing perfect agreement between
-simulated and observed high flows.
+This formulation yields a non-negative bias metric, with the minimum
+value of 0 representing perfect agreement between simulated and observed
+high flows.
 
 ## Value
 
-If `out.PerYear=FALSE`: numeric with the median high flow bias between
-`sim` and `obs`. If `sim` and `obs` are matrices, the output value is a
-vector, with the high flow bias between each column of `sim` and `obs`.
+If `out.PerYear=FALSE`: numeric with the median annual high-flow bias
+between `sim` and `obs`. If `sim` and `obs` are matrices, the output
+value is a vector, with the high-flow bias between each column of `sim`
+and `obs`.
 
 If `out.PerYear=TRUE`: a list of two elements:
 
@@ -218,10 +220,10 @@ If `out.PerYear=TRUE`: a list of two elements:
 
 ## References
 
-Zambrano-Bigiarini, Mauricio (2024). hydroGOF: Goodness-of-fit functions
-for comparison of simulated and observed hydrological time series.
-doi:10.5281/zenodo.839854, R package version 0.6-0.1 .
-doi:10.5281/zenodo.839854, https://cran.r-project.org/package=hydroGOF.
+Zambrano-Bigiarini, Mauricio (2026). hydroGOF: Goodness-of-fit functions
+for comparison of simulated and observed hydrological time series. R
+package version 0.7-0. URL:https://cran.r-project.org/package=hydroGOF.
+doi:10.32614/CRAN.package.hydroGOF.
 
 Mizukami, N.; Rakovec, O.; Newman, A.J.; Clark, M.P.; Wood, A.W.; Gupta,
 H.V.; Kumar, R.: (2019). On the choice of calibration metrics for
@@ -279,7 +281,7 @@ wNSE(sim=sim, obs=obs)
 
 # HFB (Garcia et al., 2017):
 HFB(sim=sim, obs=obs)
-#> [1] -0.1627644
+#> [1] 1.149116
 
 ##################
 # Example 2: 
@@ -292,7 +294,7 @@ sim <- obs
 
 # Computing the 'HFB' for the "best" (unattainable) case
 HFB(sim=sim, obs=obs)
-#> [1] 1
+#> [1] 0
 
 ##################
 # Example 3: HFB for simulated values created equal to the observed values and then 
@@ -309,7 +311,7 @@ ggof(sim, obs)
 
 
 HFB(sim=sim, obs=obs)
-#> [1] 0.6305345
+#> [1] 0.3506699
 
 ##################
 # Example 4: HFB for simulated values created equal to the observed values and then 
@@ -318,13 +320,13 @@ HFB(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 HFB(sim=sim, obs=obs, fun=log)
-#> [1] 0.9233967
+#> [1] 0.07488176
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 HFB(sim=lsim, obs=lobs)
-#> [1] 0.9233967
+#> [1] 0.07488176
 
 
 ##################
@@ -336,11 +338,11 @@ HFB(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 HFB(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.832271
+#> [1] 0.1594608
 
 # Verifying the previous value
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 HFB(sim=sim1, obs=obs1)
-#> [1] 0.832271
+#> [1] 0.1594608
 ```

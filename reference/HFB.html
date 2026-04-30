@@ -13,7 +13,7 @@ This function is designed to identify differences in high values. See Details.">
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-41</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-42</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,8 +123,10 @@ On the other hand, the high values in <code>sim</code> are those located at the 
 <p>4) <kbd>"otherValue"</kbd>: the numeric value defined in the <code>epsilon.value</code> argument is directly added to both <code>sim</code> and <code>obs</code>, before applying <code>fun</code>.</p></dd>
 
   <dt id="arg-epsilon-value">epsilon.value<a class="anchor" aria-label="anchor" href="#arg-epsilon-value"></a></dt>
-<dd><p>-) when <code>epsilon.type="otherValue"</code> it represents the numeric value to be added to both <code>sim</code> and <code>obs</code> before applying <code>fun</code>. <br>
- -) when <code>epsilon.type="otherFactor"</code> it represents the numeric factor used to multiply the mean of the observed values, instead of the one hundredth (1/100) described in Pushpalatha et al. (2012). The resulting value is then added to both <code>sim</code> and <code>obs</code> before applying <code>fun</code>.</p></dd>
+<dd>
+
+<p>-) when <code>epsilon.type="otherValue"</code> it represents the numeric value to be added to both <code>sim</code> and <code>obs</code> before applying <code>fun</code>. <br></p>
+<p>-) when <code>epsilon.type="otherFactor"</code> it represents the numeric factor used to multiply the mean of the observed values, instead of the one hundredth (1/100) described in Pushpalatha et al. (2012). The resulting value is then added to both <code>sim</code> and <code>obs</code> before applying <code>fun</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -133,26 +135,26 @@ On the other hand, the high values in <code>sim</code> are those located at the 
 
 <p>The median annual high-flow bias (HFB) is a goodness-of-fit metric designed to support the calibration and evaluation of hydrological models with specific
 emphasis on the reproduction of high-flow conditions.</p>
-<p>The HFB ranges from 0 to 1, with an optimal value of 1. Values close to 1 indicate that the simulated high flows closely match the observed high flows,  whereas values approaching 0 indicate increasing discrepancies between the simulated and observed high-flow magnitudes.</p>
-<p>The HFB function was developed by Zambrano-Bigiarini (2024), is inspired by the annual peak-flow bias (APFB) objective function proposed by Mizukami et al. (2019). However, it differs from that metric in four important aspects:</p>
+<p>The HFB ranges from 0 to <kbd>Inf</kbd>, with an optimal value of <kbd>0</kbd>. Values close to 0 indicate that the simulated high flows closely match the observed high flows, whereas larger values indicate increasing discrepancies between the simulated and observed high-flow magnitudes.</p>
+<p>The current formulation of the HFB function was proposed by Zambrano-Bigiarini (2026), inspired by the annual peak-flow bias (APFB) objective function proposed by Mizukami et al. (2019). However, HFB differs from APFB in four important aspects:</p>
 <p>1) Instead of considering only the single observed annual peak flow in each year, it considers all high flows in each year, where "high flows" are defined as all values equal to or greater than a user-defined exceedance probability threshold of the observed values. By default, high flows correspond to the upper 10% of observed flows (i.e., <code>hQ.thr=0.1</code>).</p>
 <p>2) Instead of selecting simulated high flows independently of the observed events, it evaluates simulated flows occurring at the same time steps as the observed high flows, thereby preserving temporal correspondence between observed and simulated events.</p>
 <p>3) For each year, the metric uses the median of the individual high-flow ratios rather than a single annual peak-flow value, providing a more robust summary of high-flow bias within that year.</p>
 <p>4) When computing the final performance value, the metric uses the median of the annual values instead of the mean, reducing the influence of extreme years and improving robustness when the distribution of annual biases is asymmetric.</p>
-<p>Mathematically, the annual high-flow performance for year \(y\) is defined as:</p>
+<p>Mathematically, the annual high-flow bias for year \(y\) is defined as:</p>
 <p>$$
-HFB_y = 1 - \left| \operatorname{median} \left( \frac{Q^{sim}_{y,i}}{Q^{obs}_{y,i}} \right) - 1 \right|
+HFB_y = \sqrt{\left(\frac{\operatorname{median}(Q^{sim}_{y,i})}{\operatorname{median}(Q^{obs}_{y,i})} - 1\right)^2}
 $$</p>
 <p>where \(Q^{sim}_{y,i}\) and \(Q^{obs}_{y,i}\) are the simulated and observed flows corresponding to the set of high-flow events \(i\) occurring in year \(y\).</p>
 <p>The overall HFB value is then computed as:</p>
 <p>$$
-HFB = 1 - \left| \operatorname{median}(HFB_y) - 1 \right|
+HFB = \operatorname{median}(HFB_y)
 $$</p>
-<p>This formulation ensures that the metric is bounded between 0 and 1, with the maximum value of 1 representing perfect agreement between simulated and observed high flows.</p>
+<p>This formulation yields a non-negative bias metric, with the minimum value of 0 representing perfect agreement between simulated and observed high flows.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>If <code>out.PerYear=FALSE</code>: numeric with the median high flow bias between <code>sim</code> and <code>obs</code>. If <code>sim</code> and <code>obs</code> are matrices, the output value is a vector, with the high flow bias between each column of <code>sim</code> and <code>obs</code>.</p>
+    <p>If <code>out.PerYear=FALSE</code>: numeric with the median annual high-flow bias between <code>sim</code> and <code>obs</code>. If <code>sim</code> and <code>obs</code> are matrices, the output value is a vector, with the high-flow bias between each column of <code>sim</code> and <code>obs</code>.</p>
 <p>If <code>out.PerYear=TRUE</code>: a list of two elements:</p>
 <dl><dt>HFB.value</dt>
 <dd><p>numeric with the median annual high flow bias between <code>sim</code> and <code>obs</code>. If <code>sim</code> and <code>obs</code> are matrices, the output value is a vector, with the median annual high flow bias between each column of <code>sim</code> and <code>obs</code>.</p></dd>
@@ -166,7 +168,7 @@ $$</p>
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
 
 
-<p><cite>Zambrano-Bigiarini, Mauricio (2024). hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series. doi:10.5281/zenodo.839854, R package version 0.6-0.1 . doi:10.5281/zenodo.839854, https://cran.r-project.org/package=hydroGOF. </cite></p>
+<p><cite>Zambrano-Bigiarini, Mauricio (2026). hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series. R package version 0.7-0. URL:https://cran.r-project.org/package=hydroGOF. doi:10.32614/CRAN.package.hydroGOF.</cite></p>
 <p><cite>Mizukami, N.; Rakovec, O.; Newman, A.J.; Clark, M.P.; Wood, A.W.; Gupta, H.V.; Kumar, R.: (2019). On the choice of calibration metrics for "high-flow" estimation using hydrologic models, Hydrology Earth System Sciences 23, 2601-2614, doi:10.5194/hess-23-2601-2019.</cite></p>
     </div>
     <div class="section level2">
@@ -210,7 +212,7 @@ $$</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># HFB (Garcia et al., 2017):</span></span></span>
 <span class="r-in"><span><span class="fu">HFB</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1627644</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.149116</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 2: </span></span></span>
@@ -223,7 +225,7 @@ $$</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Computing the 'HFB' for the "best" (unattainable) case</span></span></span>
 <span class="r-in"><span><span class="fu">HFB</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 3: HFB for simulated values created equal to the observed values and then </span></span></span>
@@ -240,7 +242,7 @@ $$</p>
 <span class="r-plt img"><img src="HFB-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">HFB</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6305345</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3506699</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 4: HFB for simulated values created equal to the observed values and then </span></span></span>
@@ -249,13 +251,13 @@ $$</p>
 <span class="r-in"><span><span class="co">#            logarithm to 'sim' and 'obs' during computations.</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">HFB</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9233967</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.07488176</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value:</span></span></span>
 <span class="r-in"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">HFB</span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9233967</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.07488176</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
@@ -267,13 +269,13 @@ $$</p>
 <span class="r-in"><span><span class="va">fun1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">HFB</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">fun1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.832271</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1594608</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value</span></span></span>
 <span class="r-in"><span><span class="va">sim1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">obs1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">HFB</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim1</span>, obs<span class="op">=</span><span class="va">obs1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.832271</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1594608</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -191,7 +191,7 @@ ggof(sim, obs)
 
 
 mae(sim=sim, obs=obs)
-#> [1] 4.982706
+#> [1] 5.007622
 
 ##################
 # Example 4: mae for simulated values equal to observations plus random noise 
@@ -199,13 +199,13 @@ mae(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 mae(sim=sim, obs=obs, fun=log)
-#> [1] 0.4224047
+#> [1] 0.4237196
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 mae(sim=lsim, obs=lobs)
-#> [1] 0.4224047
+#> [1] 0.4237196
 
 ##################
 # Example 5: mae for simulated values equal to observations plus random noise 
@@ -214,14 +214,14 @@ mae(sim=lsim, obs=lobs)
 #            during computations
 
 mae(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.4136655
+#> [1] 0.414968
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 mae(sim=lsim, obs=lobs)
-#> [1] 0.4136655
+#> [1] 0.414968
 
 ##################
 # Example 6: mae for simulated values equal to observations plus random noise 
@@ -231,13 +231,13 @@ mae(sim=lsim, obs=lobs)
 
 eps <- 0.01
 mae(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 0.4218357
+#> [1] 0.4231498
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 mae(sim=lsim, obs=lobs)
-#> [1] 0.4218357
+#> [1] 0.4231498
 
 ##################
 # Example 7: mae for simulated values equal to observations plus random noise 
@@ -248,14 +248,14 @@ mae(sim=lsim, obs=lobs)
 
 fact <- 1/50
 mae(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 0.4054352
+#> [1] 0.4067257
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 mae(sim=lsim, obs=lobs)
-#> [1] 0.4054352
+#> [1] 0.4067257
 
 ##################
 # Example 8: mae for simulated values equal to observations plus random noise 
@@ -265,11 +265,11 @@ mae(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 mae(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.6478056
+#> [1] 0.6505247
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 mae(sim=sim1, obs=obs1)
-#> [1] 0.6478056
+#> [1] 0.6505247
 ```

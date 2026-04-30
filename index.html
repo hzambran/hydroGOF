@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-41</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-42</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -112,13 +112,13 @@ doi = {10.32614/CRAN.package.hydroGOF},<br>
 <div class="section level2">
 <h2 id="goodness-of-fit-measures">Goodness-of-fit measures<a class="anchor" aria-label="anchor" href="#goodness-of-fit-measures"></a>
 </h2>
-<p>The quantitative statistics included in this package are:</p>
+<p>Quantitative statistics included in this package are:</p>
 <table class="table">
 <colgroup>
-<col width="17%">
 <col width="23%">
-<col width="27%">
-<col width="31%">
+<col width="23%">
+<col width="30%">
+<col width="23%">
 </colgroup>
 <thead><tr>
 <th>Acronym</th>
@@ -248,12 +248,6 @@ doi = {10.32614/CRAN.package.hydroGOF},<br>
 <td>Pearson (1920)</td>
 </tr>
 <tr>
-<td><strong>rSpearman</strong></td>
-<td>Spearman’s Rank Correlation Coefficient</td>
-<td align="right">-1 to 1</td>
-<td>Spearman (1961)</td>
-</tr>
-<tr>
 <td><strong>R2</strong></td>
 <td>Coefficient of Determination</td>
 <td align="right">0 to 1</td>
@@ -296,12 +290,6 @@ doi = {10.32614/CRAN.package.hydroGOF},<br>
 <td>Pizarro and Jorquera (2024)</td>
 </tr>
 <tr>
-<td><strong>sKGE</strong></td>
-<td>Split Kling-Gupta Efficiency</td>
-<td align="right">-Inf to 1</td>
-<td>Fowler et al. (2018)</td>
-</tr>
-<tr>
 <td><strong>JDKGE</strong></td>
 <td>Joint Divergence Kling-Gupta Efficiency</td>
 <td align="right">-Inf to 1</td>
@@ -320,6 +308,12 @@ doi = {10.32614/CRAN.package.hydroGOF},<br>
 <td>Lee and Choi (2022)</td>
 </tr>
 <tr>
+<td><strong>sKGE</strong></td>
+<td>Split Kling-Gupta Efficiency</td>
+<td align="right">-Inf to 1</td>
+<td>Fowler et al. (2018)</td>
+</tr>
+<tr>
 <td><strong>APFB</strong></td>
 <td>Annual Peak Flow Bias</td>
 <td align="right">0 to +Inf</td>
@@ -328,14 +322,20 @@ doi = {10.32614/CRAN.package.hydroGOF},<br>
 <tr>
 <td><strong>HFB</strong></td>
 <td>High Flow Bias</td>
-<td align="right">0 to 1</td>
-<td>Zambrano-Bigiarini (2024)</td>
+<td align="right">0 to +Inf</td>
+<td>Zambrano-Bigiarini (2026)</td>
 </tr>
 <tr>
 <td><strong>PMR</strong></td>
 <td>Proxy for Model Robustness</td>
 <td align="right">0 to +Inf</td>
 <td>Royer-Gaspard et al. (2021)</td>
+</tr>
+<tr>
+<td><strong>rSpearman</strong></td>
+<td>Spearman’s Rank Correlation Coefficient</td>
+<td align="right">-1 to 1</td>
+<td>Spearman (1961)</td>
 </tr>
 <tr>
 <td><strong>pbiasfdc</strong></td>
@@ -421,8 +421,8 @@ doi = {10.32614/CRAN.package.hydroGOF},<br>
 <li><p>Willmott, C.J.; Robeson, S.M.; Matsuura, K. (2012). <a href="https://doi.org/10.1002/joc.2419" class="external-link">A refined index of model performance</a>. International Journal of climatology, 32(13), pp.2088-2094. <a href="doi:10.1002/joc.2419" class="uri">doi:10.1002/joc.2419</a>.</p></li>
 <li><p>Willmott, C.J.; Robeson, S.M.; Matsuura, K.; Ficklin, D.L. (2015). <a href="https://doi.org/10.1016/j.envsoft.2015.08.012" class="external-link">Assessment of three dimensionless measures of model performance</a>. Environmental Modelling &amp; Software, 73, pp.167-174. <a href="doi:10.1016/j.envsoft.2015.08.012" class="uri">doi:10.1016/j.envsoft.2015.08.012</a>.</p></li>
 <li><p>Zambrano-Bigiarini, M.; Bellin, A. (2012). <a href="http://www.slideshare.net/hzambran/egu2012-11549go-fsforextremeevents4web" class="external-link">Comparing goodness-of-fit measures for calibration of models focused on extreme events</a>. EGU General Assembly 2012, Vienna, Austria, 22-27 Apr 2012, EGU2012-11549-1.</p></li>
-<li><p>Zambrano-Bigiarini, Mauricio (2024). hydroGOF: Goodness-of-fit functions for comparison of simulated and observed hydrological time series. <a href="doi:10.5281/zenodo.839854" class="uri">doi:10.5281/zenodo.839854</a>, R package version 0.6-0.1 . <a href="doi:10.5281/zenodo.839854" class="uri">doi:10.5281/zenodo.839854</a>, <a href="https://cran.r-project.org/package=hydroGOF" class="external-link uri">https://cran.r-project.org/package=hydroGOF</a>.</p></li>
 </ul>
+<p></p>
 </div>
 <div class="section level2">
 <h2 id="vignette">Vignette<a class="anchor" aria-label="anchor" href="#vignette"></a>

@@ -265,6 +265,7 @@ sim <- obs
 PMR(sim=sim, obs=obs)
 #> [1] 0
 
+if (FALSE) { # \dontrun{ 
 ##################
 # Example 3: PMR for simulated values equal to observations plus random noise 
 #            on the first half of the observed values. 
@@ -276,11 +277,8 @@ PMR(sim=sim, obs=obs)
 sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
 ggof(sim, obs)
 
-
 PMR(sim=sim, obs=obs)
-#> [1] 0.3162052
 
-if (FALSE) { # \dontrun{ 
 ##################
 # Example 4: PMR for simulated values equal to observations plus random noise 
 #            on the first half of the observed values and applying (natural) 

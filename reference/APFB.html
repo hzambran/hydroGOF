@@ -9,7 +9,7 @@ This function was prposed by Mizukami et al. (2019) to identify differences in h
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-41</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-42</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,8 +123,8 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <p>The annual peak flow bias is defined as the absolute relative difference between the mean simulated annual peak flow and the mean observed annual peak flow.</p>
 <p>$$APFB = \sqrt{ \left( \frac{\mu_{peak\,Q_s}}{\mu_{peak\,Q_o}} - 1 \right)^2 }$$</p>
 <p>where:</p>
-<ul><li><p><kbd>\mu_{peak\,Q_s}</kbd>: mean of the simulated annual peak flow series</p></li>
-<li><p><kbd>\mu_{peak\,Q_o}</kbd>: mean of the observed annual peak flow series</p></li>
+<ul><li><p>\(\mu_{peak\,Q_s}\): mean of the simulated annual peak flow series</p></li>
+<li><p>\(\mu_{peak\,Q_o}\): mean of the observed annual peak flow series</p></li>
 </ul><p>The APFB metric ranges from 0 to <kbd>Inf</kbd>. The optimal value is <kbd>0</kbd>, indicating perfect agreement between simulated and observed annual peak flows.</p>
 <p>Essentially, the closer to 0, the more similar the magnitude of simulated and observed annual peak flows.</p>
 <p>Because APFB focuses exclusively on annual maxima, it is particularly suitable for calibration tasks targeting flood estimation, extreme-flow simulation, or infrastructure design applications. However, because APFB evaluates only annual maxima, it does not assess overall hydrograph dynamics and is typically used in combination with complementary metrics (e.g., KGE or NSE) when broader performance evaluation is required.</p>

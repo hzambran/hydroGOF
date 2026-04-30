@@ -1,6 +1,6 @@
 # Changelog
 
-## Changes in version 0.7-0 ongoing
+## Changes in version 0.7-0 30-Apr-2026
 
 ### New functions
 
@@ -33,7 +33,8 @@
     o 'NRMSE'  : in addition to the standard deviation and the range of observations, now it is possible to normlise the RMSE by the mean and IQRT of observations.
     o 'pfactor': improved 'Details' section in the documentation, including new equations.
     o 'rfactor': improved 'Details' section in the documentation, including new equations.
-    o 'HFB'    : improved 'Details' section in the documentation, including new equations.
+    o 'HFB'    : -) improved 'Details' section in the documentation, including new equations.
+                 -) it mathematical formualtion was completly changed, in order to make it more compatible with APFB and PBIAS, with an optimum value in 0 and not in 1, as it was previpusly implmented in version 0.6-0.1.
 ```
 
 ### Package files

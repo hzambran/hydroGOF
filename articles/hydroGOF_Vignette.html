@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-41</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-42</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -245,7 +245,7 @@ distribution with mean 10 and standard deviation equal to 1 (default of
 <pre><code><span><span class="co">## [1] 0.03202514</span></span></code></pre>
 <div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/HFB.html">HFB</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># High Flow Bias</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.9189491</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 0.08706977</span></span></code></pre>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/LME.html">LME</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># Liu-Mean Efficiency</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.6838398</span></span></code></pre>
@@ -378,7 +378,7 @@ to <em>obs</em> against <em>sim</em> during computations.</p>
 <pre><code><span><span class="co">## [1] 0.03202514</span></span></code></pre>
 <div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/HFB.html">HFB</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># High Flow Bias</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.9189491</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 0.08706977</span></span></code></pre>
 <div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/LME.html">LME</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># Liu-Mean Efficiency</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.6838398</span></span></code></pre>
@@ -491,7 +491,7 @@ Pushpalatha2012:</p>
 <span><span class="co">## LCE          0.67</span></span>
 <span><span class="co">## sKGE         0.53</span></span>
 <span><span class="co">## APFB         0.01</span></span>
-<span><span class="co">## HFB          0.98</span></span>
+<span><span class="co">## HFB          0.02</span></span>
 <span><span class="co">## rSpearman    0.84</span></span>
 <span><span class="co">## pbiasFDC % -45.87</span></span>
 <span><span class="co">## PMR          0.20</span></span></code></pre>
@@ -550,7 +550,7 @@ during computations</p>
 <span><span class="co">## LCE          0.66</span></span>
 <span><span class="co">## sKGE         0.48</span></span>
 <span><span class="co">## APFB         0.01</span></span>
-<span><span class="co">## HFB          0.98</span></span>
+<span><span class="co">## HFB          0.02</span></span>
 <span><span class="co">## rSpearman    0.84</span></span>
 <span><span class="co">## pbiasFDC % -46.36</span></span>
 <span><span class="co">## PMR          0.21</span></span></code></pre>
@@ -612,7 +612,7 @@ added to <em>obs</em> against <em>sim</em> during computations</p>
 <span><span class="co">## LCE          0.68</span></span>
 <span><span class="co">## sKGE         0.56</span></span>
 <span><span class="co">## APFB         0.01</span></span>
-<span><span class="co">## HFB          0.98</span></span>
+<span><span class="co">## HFB          0.02</span></span>
 <span><span class="co">## rSpearman    0.84</span></span>
 <span><span class="co">## pbiasFDC % -45.37</span></span>
 <span><span class="co">## PMR          0.19</span></span></code></pre>
@@ -669,7 +669,7 @@ Pushpalatha2012:</p>
 <span><span class="co">## LCE          0.79</span></span>
 <span><span class="co">## sKGE         0.84</span></span>
 <span><span class="co">## APFB         0.02</span></span>
-<span><span class="co">## HFB          0.96</span></span>
+<span><span class="co">## HFB          0.04</span></span>
 <span><span class="co">## rSpearman    0.84</span></span>
 <span><span class="co">## pbiasFDC % -32.96</span></span>
 <span><span class="co">## PMR          0.19</span></span></code></pre>
@@ -743,7 +743,7 @@ bias in the Slope of the Midsegment of the Flow Duration Curve
 <span><span class="co">## LCE           1</span></span>
 <span><span class="co">## sKGE          1</span></span>
 <span><span class="co">## APFB          0</span></span>
-<span><span class="co">## HFB           1</span></span>
+<span><span class="co">## HFB           0</span></span>
 <span><span class="co">## rSpearman     1</span></span>
 <span><span class="co">## pbiasFDC %    0</span></span>
 <span><span class="co">## PMR           0</span></span></code></pre>
@@ -816,7 +816,7 @@ after removing the warm-up period:</p>
 <span><span class="co">## LCE      0.74</span></span>
 <span><span class="co">## sKGE     0.70</span></span>
 <span><span class="co">## APFB     0.03</span></span>
-<span><span class="co">## HFB      1.00</span></span></code></pre>
+<span><span class="co">## HFB      0.00</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="plotting-uncertainty-bands">Plotting uncertainty bands<a class="anchor" aria-label="anchor" href="#plotting-uncertainty-bands"></a>
@@ -926,7 +926,7 @@ package):</p>
 <p>This tutorial was built under:</p>
 <pre><code><span><span class="co">## [1] "x86_64-pc-linux-gnu"</span></span></code></pre>
 <pre><code><span><span class="co">## [1] "R version 4.6.0 (2026-04-24)"</span></span></code></pre>
-<pre><code><span><span class="co">## [1] "hydroGOF 0.6-41"</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "hydroGOF 0.6-42"</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="version-history-of-this-vignette">Version history of this vignette<a class="anchor" aria-label="anchor" href="#version-history-of-this-vignette"></a>

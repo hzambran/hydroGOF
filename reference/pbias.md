@@ -199,7 +199,7 @@ ggof(sim, obs)
 
 
 pbias(sim=sim, obs=obs)
-#> [1] 31.6
+#> [1] 31.7
 
 ##################
 # Example 4: pbias for simulated values equal to observations plus random noise 
