@@ -2,7 +2,7 @@
 # Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 #                                 https://cran.r-project.org/package=hydroGOF
 #                                 http://www.rforge.net/hydroGOF/
-# Copyright 2010-2025 Mauricio Zambrano-Bigiarini
+# Copyright 2010-2026 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ################################################################################
@@ -21,7 +21,8 @@
 #          06-Aug-2017                                                         #
 #          28-Dec-2022                                                         #
 #          22-Mar-2024 ; 23-Mar-204 ; 08-May-2024                              #
-#          01-Nov-2025                                                         #                            
+#          01-Nov-2025                                                         #   
+#          29-Apr-2026                                                         #                         
 ################################################################################
                 
 plot2 <- function (x, y, 
@@ -41,9 +42,9 @@ plot2 <- function (x, y,
                    
                    gof.leg= FALSE, 
                    gof.digits=2, 
-                   gofs=c("ME" , "MAE" , "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", 
-                         "NSE", "mNSE", "rNSE",     "d",    "md",  "rd",   "r", 
-                         "R2",   "bR2", "KGE" ,    "VE"),
+                   gofs=c( "ME",  "MAE",  "RMSE", "NRMSE", "PBIAS", 
+                          "NSE",    "d",    "dr",     "r",    "R2",  
+                          "KGE",  "LCE", "JDKGE",    "VE"),
                    
                    legend,
                    leg.cex=1,                       
@@ -74,13 +75,14 @@ plot2 <- function (x, y,
   # Checking that the user provided 'y'
   if ( missing(y) ) stop("Missing argument: 'y'")
 
-  # Checking 'gofs'.  'rSpearman' and 'pbiasFDC' are not computed
+  # Checking 'gofs'.  'rSpearman', 'pbiasFDC' and 'PMR' are not computed
   gofs.all=c(   "ME",    "MAE",    "MSE",  "RMSE", "ubRMSE", 
              "NRMSE",  "PBIAS",   "RSR",    "rSD",    "NSE",  
              "mNSE" ,   "rNSE",  "wNSE",  "wsNSE",      "d",     
                 "dr",     "md",    "rd",     "cp",      "r",     
                 "R2",    "bR2",    "VE",    "KGE",  "KGElf",  
-             "KGEnp",  "KGEkm",  "sKGE",   "APFB",    "HFB")  
+             "KGEnp",  "KGEkm", "JDKGE",    "LME",    "LCE", 
+              "sKGE",    "HFB",  "APFB")  
 
   # Removing 'sKGE', 'APFB' and 'HFB' when 'x' and 'y' are not zoo objects
   if ( !( zoo::is.zoo(x) & zoo::is.zoo(y) ) )
@@ -340,8 +342,10 @@ plot2 <- function (x, y,
    gof.index <- pmatch(gofs, gofs.all)
    gof.index <- gof.index[!is.na(gof.index)]  
    
-   #gof.xy <- gof(sim=as.numeric(x), obs=as.numeric(y), do.spearman=FALSE, do.pbfdc=FALSE, digits=gof.digits, ...)
-   gof.xy <- gof(sim=x, obs=y, do.spearman=FALSE, do.pbfdc=FALSE, digits=gof.digits, ...)
+   ######################
+   # Computing the GoFs #
+   ######################
+   gof.xy <- gof(sim=x, obs=y, do.spearman=FALSE, do.pbfdc=FALSE, do.pmr=FALSE, digits=gof.digits, ...)
 
    gofs.stg  <- gofs.all[gof.index] 
    gofs.num  <- gof.xy[gof.index, 1] 

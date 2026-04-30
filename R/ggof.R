@@ -17,7 +17,7 @@
 #            15-Apr-2013 ; 15-May-2013                                         #
 #            20-Jan-2024 ; 22-Mar-2024 ; 23-Mar-2024 ; 08-May-2024             #
 #            01-Nov-2025                                                       #
-#            26-Apr-2026                                                       #
+#            26-Apr-2026 ;29-Apr-2026                                          #
 ################################################################################     
                                           
       
@@ -35,9 +35,9 @@ ggof <- function (sim, obs,
                   
                   gof.leg = TRUE, 
                   digits=2, 
-                  gofs=c("ME" , "MAE" , "RMSE", "NRMSE", "PBIAS", "RSR", "rSD", 
-                         "NSE", "mNSE", "rNSE",     "d",    "md",  "rd",   "r", 
-                         "R2",   "bR2", "KGE" ,    "VE"),
+                  gofs=c( "ME",  "MAE",  "RMSE", "NRMSE", "PBIAS", 
+                         "NSE",    "d",    "dr",     "r",    "R2",  
+                         "KGE",  "LCE", "JDKGE",    "VE"),
                   
                   legend,
                   leg.cex=1,
@@ -86,13 +86,14 @@ ggof <- function (sim, obs,
      stop("Invalid argument: 'obs' and 'sim' must have the same length ! (", 
           length(obs), " vs ", length(sim), ")")
 
-  # Checking 'gofs'.  'rSpearman' and 'pbiasFDC' are not computed
+  # Checking 'gofs'.  'rSpearman', 'pbiasFDC' and 'PMR' are not computed
   gofs.all=c(   "ME",    "MAE",    "MSE",  "RMSE", "ubRMSE", 
              "NRMSE",  "PBIAS",   "RSR",    "rSD",    "NSE",  
              "mNSE" ,   "rNSE",  "wNSE",  "wsNSE",      "d",     
                 "dr",     "md",    "rd",     "cp",      "r",     
                 "R2",    "bR2",    "VE",    "KGE",  "KGElf",  
-             "KGEnp",  "KGEkm",  "sKGE",   "APFB",    "HFB")  
+             "KGEnp",  "KGEkm", "JDKGE",    "LME",    "LCE", 
+              "sKGE",    "HFB",  "APFB")   
 
   # Removing 'sKGE', 'APFB' and 'HFB' when 'sim' and 'obs' are not zoo objects
   if ( !( zoo::is.zoo(sim) & zoo::is.zoo(obs) ) )
