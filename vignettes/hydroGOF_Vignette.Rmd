@@ -74,7 +74,7 @@ NSE(sim, obs)
 
 Basic ideal case with a numeric sequence of integers:
 
-```{r Example1}
+```{r Example2}
 obs <- 1:10 + 0.1
 sim <- 1:10 +0.1
 NSE(sim, obs)
@@ -90,25 +90,25 @@ From this example onwards, a streamflow time series will be used.
 
 First, we load the daily streamflows of the Ega River (Spain), from 1961 to 1970:
 
-```{r Example2-Loading}
+```{r Example3-Loading}
 data(EgaEnEstellaQts)
 obs <- EgaEnEstellaQts
 ```
 
 
 Generating a simulated daily time series, initially equal to the observed series:
-```{r Example2-1}
+```{r Example3-1}
 sim <- obs 
 ```
 
 Visualising the observed and simulated time series:
 
-```{r Example2-2, fig.width=8, fig.height=5}
+```{r Example3-2, fig.width=8, fig.height=5}
 ggof(sim, obs)
 ```
 
 Computing the 'NSE' for the "best" (unattainable) case
-```{r Example2-3}
+```{r Example3-3}
 NSE(sim=sim, obs=obs)
 ```
 
@@ -353,13 +353,13 @@ sim <- obs
 
 Plotting the graphical comparison of 'obs' against 'sim', along with the default goodness-of-fit measures:
 
-```{r ggof-1, fig.width=8, fig.height=5}
+```{r ggof-default1, fig.width=8, fig.height=5}
 ggof(sim, obs)
 ```
 
 Plotting the graphical comparison of 'obs' against 'sim', along with user-defined goodness-of-fit measures:
 
-```{r ggof-1, fig.width=8, fig.height=5}
+```{r ggof-userdefined1, fig.width=8, fig.height=5}
 ggof(sim, obs, 
      gofs=c( "PBIAS", "dr", "R2",  "NSE", "KGE",  "LCE", "JDKGE", "APFB", "HFB"))
 ```
@@ -378,13 +378,13 @@ sim[1:1826] <- obs[1:1826] + rnorm(1826, mean=10)
 
 Plotting the graphical comparison of 'obs' against 'sim', along with the default goodness-of-fit measures for the daily and monthly time series:
 
-```{r ComputingGGOF, fig=TRUE, pdf=TRUE, eps=FALSE, fig.width=10, fig.height=7}
+```{r ggof-default2, fig=TRUE, pdf=TRUE, eps=FALSE, fig.width=10, fig.height=7}
 ggof(sim=sim, obs=obs, ftype="dm", FUN=mean)
 ```
 
 Plotting the graphical comparison of 'obs' against 'sim', along with user-defined goodness-of-fit measures for the daily and monthly time series:
 
-```{r ggof-1, fig.width=8, fig.height=5}
+```{r ggof-userdefined2, fig.width=8, fig.height=5}
 ggof(sim=sim, obs=obs, ftype="dm", FUN=mean,
      gofs=c( "PBIAS", "dr", "R2",  "NSE", "KGE",  "LCE", "JDKGE", "APFB", "HFB"))
 ```
