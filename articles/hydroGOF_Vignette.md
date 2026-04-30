@@ -1352,7 +1352,7 @@ This tutorial was built under:
 
     ## [1] "R version 4.6.0 (2026-04-24)"
 
-    ## [1] "hydroGOF 0.6-42"
+    ## [1] "hydroGOF 0.6-43"
 
 ## Version history of this vignette
 

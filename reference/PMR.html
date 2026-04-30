@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-42</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-43</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -120,8 +120,10 @@ For the full-period bias, only positions with valid paired values in <code>obs</
 
 
   <dt id="arg-epsilon-value">epsilon.value<a class="anchor" aria-label="anchor" href="#arg-epsilon-value"></a></dt>
-<dd><p>-) when <code>epsilon.type="otherValue"</code> it represents the numeric value to be added to both <code>sim</code> and <code>obs</code> before applying <code>fun</code>. <br>
- -) when <code>epsilon.type="otherFactor"</code> it represents the numeric factor used to multiply the mean of the observed values to obtain the constant to be added to both <code>sim</code> and <code>obs</code> before applying <code>fun</code>.</p></dd>
+<dd>
+
+<p>-) when <code>epsilon.type="otherValue"</code> it represents the numeric value to be added to both <code>sim</code> and <code>obs</code> before applying <code>fun</code>. <br></p>
+<p>-) when <code>epsilon.type="otherFactor"</code> it represents the numeric factor used to multiply the mean of the observed values to obtain the constant to be added to both <code>sim</code> and <code>obs</code> before applying <code>fun</code>.</p></dd>
 
 
 </dl></div>
@@ -130,14 +132,7 @@ For the full-period bias, only positions with valid paired values in <code>obs</
 
 
 <p>$$
-PMR = 2 \times \frac{1}{N}
-\sum_{i=1}^{N}
-\left|
-(\bar{S}_i - \bar{O}_i)
--
-(\bar{S} - \bar{O})
-\right|
-\frac{1}{\bar{O}}
+PMR = 2 \times \frac{1}{N} \sum_{i=1}^{N} \left| (\bar{S}_i - \bar{O}_i) - (\bar{S} - \bar{O}) \right| \frac{1}{ \bar{O} }
 $$</p>
 <p>where:</p>
 <ul><li><p>\(\bar{S}_i\) and \(\bar{O}_i\) are the mean simulated and observed values computed over the i-th moving window of length <code>k</code>,</p></li>
@@ -161,10 +156,8 @@ $$</p>
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
 
 
-<p><cite>
-Royer-Gaspard, P., Andreassian, V., and Thirel, G. (2021). Technical note: PMR - a proxy metric to assess hydrological model robustness in a changing climate. Hydrology and Earth System Sciences, 25, 5703–5716. doi:10.5194/hess-25-5703-2021. </cite></p>
-<p><cite>
-Pushpalatha, R.; Perrin, C.; Le Moine, N.; Andreassian, V. (2012). A review of efficiency criteria suitable for evaluating low-flow simulations. Journal of Hydrology, 420, 171–182. doi:10.1016/j.jhydrol.2011.11.055.</cite></p>
+<p><cite>Royer-Gaspard, P., Andreassian, V., and Thirel, G. (2021). Technical note: PMR - a proxy metric to assess hydrological model robustness in a changing climate. Hydrology and Earth System Sciences, 25, 5703–5716. doi:10.5194/hess-25-5703-2021. </cite></p>
+<p><cite>Pushpalatha, R.; Perrin, C.; Le Moine, N.; Andreassian, V. (2012). A review of efficiency criteria suitable for evaluating low-flow simulations. Journal of Hydrology, 420, 171–182. doi:10.1016/j.jhydrol.2011.11.055.</cite></p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -223,6 +216,7 @@ Pushpalatha, R.; Perrin, C.; Le Moine, N.; Andreassian, V. (2012). A review of e
 <span class="r-in"><span><span class="fu">PMR</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05886164</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{ </span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 2: </span></span></span>
 <span class="r-in"><span><span class="co"># Loading daily streamflows of the Ega River (Spain), from 1961 to 1970</span></span></span>
@@ -234,9 +228,7 @@ Pushpalatha, R.; Perrin, C.; Le Moine, N.; Andreassian, V. (2012). A review of e
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Computing the 'PMR' for the "best" (unattainable) case</span></span></span>
 <span class="r-in"><span><span class="fu">PMR</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{ </span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 3: PMR for simulated values equal to observations plus random noise </span></span></span>
 <span class="r-in"><span><span class="co">#            on the first half of the observed values. </span></span></span>

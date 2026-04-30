@@ -132,6 +132,7 @@ PMR(sim, obs, na.rm=TRUE, k=NULL, min.years=5,
 
   -) when `epsilon.type="otherValue"` it represents the numeric value to
   be added to both `sim` and `obs` before applying `fun`.  
+
   -) when `epsilon.type="otherFactor"` it represents the numeric factor
   used to multiply the mean of the observed values to obtain the
   constant to be added to both `sim` and `obs` before applying `fun`.
@@ -139,7 +140,7 @@ PMR(sim, obs, na.rm=TRUE, k=NULL, min.years=5,
 ## Details
 
 \$\$ PMR = 2 \times \frac{1}{N} \sum\_{i=1}^{N} \left\| (\bar{S}\_i -
-\bar{O}\_i) - (\bar{S} - \bar{O}) \right\| \frac{1}{\bar{O}} \$\$
+\bar{O}\_i) - (\bar{S} - \bar{O}) \right\| \frac{1}{ \bar{O} } \$\$
 
 where:
 
@@ -252,6 +253,7 @@ KGE(sim=sim, obs=obs, method="2012", out.type="full")
 PMR(sim=sim, obs=obs)
 #> [1] 0.05886164
 
+if (FALSE) { # \dontrun{ 
 ##################
 # Example 2: 
 # Loading daily streamflows of the Ega River (Spain), from 1961 to 1970
@@ -263,9 +265,7 @@ sim <- obs
 
 # Computing the 'PMR' for the "best" (unattainable) case
 PMR(sim=sim, obs=obs)
-#> [1] 0
 
-if (FALSE) { # \dontrun{ 
 ##################
 # Example 3: PMR for simulated values equal to observations plus random noise 
 #            on the first half of the observed values. 
