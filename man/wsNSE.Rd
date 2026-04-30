@@ -2,7 +2,7 @@
 %% Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 %%                                 https://cran.r-project.org/package=hydroGOF
 %%                                 http://www.rforge.net/hydroGOF/
-%% Copyright 2024-2024 Mauricio Zambrano-Bigiarini
+%% Copyright 2024-2026 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or late
 
 \name{wsNSE}
@@ -105,11 +105,43 @@ Valid values of \code{epsilon.type} are:
 }
 }
 \details{
-The weighted seasonal Nash-Sutcliffe Efficiency was proposed by Zambrano-Bigiarini and Bellin (2012), inspired by the well-known Nash-Sutcliffe efficiency (NSE, Nash and Sutcliffe, 1970), and the  commentaries made by Schaefli and Gupta (2007) and Criss and Winston (2008).
- 
-This function gives different weights to the high/low values in the (obs_i - sim_i) terms used in the Nash-Sutcliffe formula, using high weights for high or low flows, depending on how close the user-defined 'lambda' value is to 1 or zero, respectively. Between  high and low values there is a linear transition from \code{lambda} to \code{1-lambda}, respectively.
+The weighted seasonal Nash-Sutcliffe Efficiency was proposed by Zambrano-Bigiarini and Bellin (2012), inspired by the classical Nash-Sutcliffe efficiency (NSE, Nash and Sutcliffe, 1970), but designed to give more emphasis to either high or low observed values.
 
-Following the traditional Nash-Sutcliffe efficiency, the weighted seasonal Nash-Sutcliffe Efficiency (wsNSE) ranges from -Inf to 1, with an optimal value of 1. Higher values of wsNSE indicate lower differences between \code{sim} and \code{obs}. Essentially, the closer to 1, the more similar\code{sim} and \code{obs} are.
+In the implemented formulation, the low- and high-flow thresholds are obtained from the observed series as:
+
+\deqn{lQ = Q_{obs}(1-lQ.thr)}
+\deqn{hQ = Q_{obs}(1-hQ.thr)}
+
+where \eqn{Q_{obs}(p)} is the empirical quantile of \code{obs} at probability \eqn{p}. A weight \eqn{w_i} is then assigned to each observed value \eqn{obs_i} according to the following piecewise-linear function:
+
+\deqn{
+w_i =
+\left\{
+\begin{array}{ll}
+\lambda, & obs_i \ge hQ \cr
+1-\lambda, & obs_i \le lQ \cr
+(1-\lambda) + (2\lambda - 1)\frac{obs_i - lQ}{hQ - lQ}, & lQ < obs_i < hQ
+\end{array}
+\right.
+}
+
+Hence, \code{lambda} controls the emphasis of the metric:
+\itemize{
+\item when \code{lambda > 0.5}, high observed values receive larger weights than low values;
+\item when \code{lambda < 0.5}, low observed values receive larger weights than high values;
+\item when \code{lambda = 0.5}, all values receive the same weight and the weighting becomes uniform.
+}
+
+Using these weights, \code{wsNSE} is computed as:
+
+\deqn{
+wsNSE = 1 - \frac{\sum_{i=1}^{n} \left| w_i (obs_i - sim_i) \right|^j}
+                 {\sum_{i=1}^{n} \left| w_i (obs_i - \overline{obs}) \right|^j}
+}
+
+where \eqn{\overline{obs}} is the arithmetic mean of the observed series after removing missing pairs, and \eqn{j} is the user-defined exponent. Therefore, the numerator is a weighted error term and the denominator is the corresponding weighted dispersion of \code{obs} around its mean. This is the exact mathematical formulation implemented in \code{wsNSE.R}.
+
+Following the traditional NSE, \code{wsNSE} ranges from \eqn{-\infty} to 1, with an optimal value of 1. Larger values indicate smaller weighted discrepancies between \code{sim} and \code{obs}.
 }
 \value{
 numeric with the the weighted seasonal Nash-Sutcliffe Efficiency (wsNSE) between \code{sim} and \code{obs}. If \code{sim} and \code{obs} are matrices, the output value is a vector, with the the weighted seasonal Nash-Sutcliffe Efficiency (wsNSE) between each column of \code{sim} and \code{obs}.
