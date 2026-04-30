@@ -2,7 +2,7 @@
 %% Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 %%                                 https://cran.r-project.org/package=hydroGOF
 %%                                 http://www.rforge.net/hydroGOF/
-%% Copyright 2011-2024 Mauricio Zambrano-Bigiarini
+%% Copyright 2011-2026 Mauricio Zambrano-Bigiarini
 %% Distributed under GPL 2 or later
 
 \name{ggof}
@@ -210,6 +210,8 @@ The following outputs are only produced when both \code{sim} and \code{obs} are 
 
 \cite{Entekhabi, D.; Reichle, R.H.; Koster, R.D.; Crow, W.T. (2010). Performance metrics for soil moisture retrievals and application requirements. Journal of Hydrometeorology, 11(3), 832-840. doi: 10.1175/2010JHM1223.1.}
 
+\cite{Ficchi, A.; Bavera, D.; Grimaldi, S.; Moschini, F.; Pistocchi, A.; Russo, C.; Salamon, P.; Toreti, A. (2026). Improving low and high flow simulations at once: An enhanced metric for hydrological model calibrations. EGUsphere [preprint], https://doi.org/10.5194/egusphere-2026-43.}
+
 \cite{Fowler, K.; Coxon, G.; Freer, J.; Peel, M.; Wagener, T.; Western, A.; Woods, R.; Zhang, L. (2018). Simulating runoff under changing climatic conditions: A framework for model improvement. Water Resources Research, 54(12), 812-9832. doi:10.1029/2018WR023989.}
 
 \cite{Garcia, F.; Folton, N.; Oudin, L. (2017). Which objective function to calibrate rainfall-runoff models for low-flow index simulations?. Hydrological sciences journal, 62(7), 1149-1166. doi:10.1080/02626667.2017.1308511.}
@@ -236,9 +238,13 @@ The following outputs are only produced when both \code{sim} and \code{obs} are 
 
 \cite{Krstic, G.; Krstic, N.S.; Zambrano-Bigiarini, M. (2016). The br2-weighting Method for Estimating the Effects of Air Pollution on Population Health. Journal of Modern Applied Statistical Methods, 15(2), 42. doi:10.22237/jmasm/1478004000}
 
+\cite{Lee, J. S.; Choi, H. I. (2022). A rebalanced performance criterion for hydrological model calibration. Journal of Hydrology, 606, 127372. https://doi.org/10.1016/j.jhydrol.2021.127372}
+
 \cite{Legates, D.R.; McCabe, G. J. Jr. (1999), Evaluating the Use of "Goodness-of-Fit" Measures in Hydrologic and Hydroclimatic Model Validation, Water Resour. Res., 35(1), 233-241. doi:10.1029/1998WR900018.} 
 
 \cite{Ling, X.; Huang, Y.; Guo, W.; Wang, Y.; Chen, C.; Qiu, B.; Ge, J.; Qin, K.; Xue, Y.; Peng, J. (2021). Comprehensive evaluation of satellite-based and reanalysis soil moisture products using in situ observations over China. Hydrology and Earth System Sciences, 25(7), 4209-4229. doi:10.5194/hess-25-4209-2021.}
+
+\cite{Liu, D.; Chen, X.; Lian, Y.; Lou, Z. (2020). A new performance measure for hydrologic models. Journal of Hydrology, 590, 125488. doi:10.1016/j.jhydrol.2020.125488.}
 
 \cite{Mizukami, N.; Rakovec, O.; Newman, A.J.; Clark, M.P.; Wood, A.W.; Gupta, H.V.; Kumar, R.: (2019). On the choice of calibration metrics for "high-flow" estimation using hydrologic models, Hydrology Earth System Sciences 23, 2601-2614, doi:10.5194/hess-23-2601-2019.}
 
@@ -255,6 +261,8 @@ The following outputs are only produced when both \code{sim} and \code{obs} are 
 \cite{Pool, S.; Vis, M.; Seibert, J. (2018). Evaluating model performance: towards a non-parametric variant of the Kling-Gupta efficiency. Hydrological Sciences Journal, 63(13-14), pp.1941-1953. doi:/10.1080/02626667.2018.1552002.}
 
 \cite{Pushpalatha, R.; Perrin, C.; Le Moine, N.; Andreassian, V. (2012). A review of efficiency criteria suitable for evaluating low-flow simulations. Journal of Hydrology, 420, 171-182. doi:10.1016/j.jhydrol.2011.11.055.}  
+
+\cite{Royer-Gaspard, P., Andreassian, V., and Thirel, G. (2021). Technical note: PMR - a proxy metric to assess hydrological model robustness in a changing climate. Hydrology and Earth System Sciences, 25, 5703--5716. doi:10.5194/hess-25-5703-2021.}
 
 \cite{Santos, L.; Thirel, G.; Perrin, C. (2018). Pitfalls in using log-transformed flows within the KGE criterion. doi:10.5194/hess-22-4583-2018.}
 
