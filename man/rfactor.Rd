@@ -50,7 +50,7 @@ further arguments passed to or from other methods.
 }
 \details{
 
-The R-factor quantifies the average width of the prediction uncertainty band relative to the variability of the observed data. It is a measure of the magnitude of predictive uncertainty associated with a model simulation.
+The \var{R-factor} quantifies the average width of the prediction uncertainty band relative to the variability of the observed data. It is a measure of the magnitude of predictive uncertainty associated with a model simulation.
 
 Mathematically, the R-factor is defined as:
 
@@ -66,7 +66,7 @@ where \eqn{\sigma_x} is the standard deviation of the observed variable \eqn{x},
 
 where \eqn{N} is the total number of observations, and \eqn{lband_i} and \eqn{uband_i} are the lower and upper uncertainty bounds, respectively, at time step \eqn{i}.
 
-The \var{R-factor} ranges from 0 to infinity, with an optimal value of 0 indicating perfect agreement between simulated and observed values (i.e., zero prediction uncertainty). In practical applications, the \var{R-factor} represents the width of the uncertainty interval and should be as small as possible. Values close to or smaller than 1 are commonly considered indicative of an acceptable level of predictive uncertainty, although acceptable thresholds depend on the quality of observations and the modeling context.
+The \var{R-factor} ranges from 0 to infinity, with an optimal value of 0 indicating perfect agreement between simulated and observed values (i.e., zero prediction uncertainty). In practical applications, the \var{R-factor} represents the width of the uncertainty interval and should be as small as possible. Values close to or smaller than 1 are commonly considered indicative of an acceptable level of predictive uncertainty, although acceptable thresholds depend on the quality of observations and the modelling context.
 
 Because a larger fraction of observations can often be bracketed by widening the uncertainty bounds, the \var{R-factor} is typically interpreted jointly with the \var{P-factor}. A balance between a high \var{P-factor} (good coverage) and a low \var{R-factor} (narrow uncertainty bounds) is therefore sought during model calibration and uncertainty analysis.
 }
