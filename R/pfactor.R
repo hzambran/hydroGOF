@@ -2,7 +2,7 @@
 # Part of the hydroGOF R package, https://github.com/hzambran/hydroGOF ; 
 #                                 https://cran.r-project.org/package=hydroGOF
 #                                 http://www.rforge.net/hydroGOF/
-# Copyright 2010-2024 Mauricio Zambrano-Bigiarini
+# Copyright 2010-2026 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
 ##########################################################################
@@ -74,7 +74,7 @@ pfactor.default <- function(x, lband, uband, na.rm=TRUE, ...)  {
 pfactor.matrix <- function (x, lband, uband, na.rm=TRUE, ...){
 
     # Checking that 'x' and 'lband', 'uband' have the same dimensions
-    if ( all.equal(dim(x), dim(lband), , dim(uband)) != TRUE )
+    if ( !identical(dim(x), dim(lband)) | !identical(dim(x), dim(uband)) )
     stop( paste("Invalid argument: 'dim(x)', 'dim(lband)', and/or 'dim(uband)' doesn't match ( [", 
           paste(dim(x), collapse=" "), "], [", 
           paste(dim(lband), collapse=" "), "], [", 
@@ -83,7 +83,7 @@ pfactor.matrix <- function (x, lband, uband, na.rm=TRUE, ...){
     pfactor <- rep(NA, ncol(x))       
           
     pfactor <- sapply(1:ncol(x), function(i,x,l,u) { 
-                 pfactor[i] <- pfactor.default( x[,i], l[,i], u[i], na.rm=na.rm, ... )
+                 pfactor[i] <- pfactor.default( x[,i], l[,i], u[,i], na.rm=na.rm, ... )
             }, x=x, l=lband, u=uband )            
            
     return(pfactor)  
