@@ -18,7 +18,6 @@
 #          28-Feb-2016 ; 17-Jul-2016                                           #
 #          12-Jul-2022 ; 13-Jul-2022                                           #
 #          11-Jul-2023 ; 08-Nov-2023                                           #
-#          28-Apr-2026 ; 29-Apr-2026 ; 30-Apr-2026                             #
 ################################################################################
 # References:
 
@@ -95,63 +94,101 @@ KGE.default <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
       obs  <- new[["obs"]]
     } # IF end
 
-    # Mean values
-    mean.sim <- mean(sim, na.rm=na.rm)
-    mean.obs <- mean(obs, na.rm=na.rm)
+    # Perfect agreement should return the optimum KGE even when some
+    # intermediate moments are undefined (e.g. constant identical series).
+    if (isTRUE(all.equal(sim, obs, check.attributes=FALSE))) {
+      r <- 1
+      if (method == "2012") {
+        br <- 1
+        br.stg <- "Beta"
+        vr <- 1
+        vr.stg <- "Gamma"
+      } else if (method == "2009") {
+        br <- 1
+        br.stg <- "Beta"
+        vr <- 1
+        vr.stg <- "Alpha"
+      } else {
+        br <- 0
+        br.stg <- "Beta.2021"
+        vr <- 1
+        vr.stg <- "Alpha"
+      }
+      KGE <- 1
+    } else {
 
-    # Standard deviations
-    sigma.sim <- sd(sim, na.rm=na.rm)
-    sigma.obs <- sd(obs, na.rm=na.rm)
+      # Mean values
+      mean.sim <- mean(sim, na.rm=na.rm)
+      mean.obs <- mean(obs, na.rm=na.rm)
+
+      # Standard deviations
+      sigma.sim <- sd(sim, na.rm=na.rm)
+      sigma.obs <- sd(obs, na.rm=na.rm)
          
-    # Pearson product-moment correlation coefficient
-    r     <- rPearson(sim, obs)
+      # Pearson product-moment correlation coefficient
+      r     <- rPearson(sim, obs)
 
-    # Alpha is a measure of relative variability between simulated and observed values (See Ref1)
-    Alpha <- sigma.sim / sigma.obs
+      # Alpha is a measure of relative variability between simulated and observed values (See Ref1)
+      Alpha <- sigma.sim / sigma.obs
 
-    # Beta is the ratio between the mean of the simulated values to the mean of observations
-    Beta <- mean.sim / mean.obs
+      # Beta is the ratio between the mean of the simulated values to the mean of observations
+      Beta <- mean.sim / mean.obs
 
-    # Beta.2021 is the bias term proposed by Tang et al. (2021) to avoid the 
-    # anomalously negative KE or KGE' values when the mean value is close to zero 
-    Beta.2021 <- (mean.sim - mean.obs) / sigma.obs
+      # Beta.2021 is the bias term proposed by Tang et al. (2021) to avoid the 
+      # anomalously negative KE or KGE' values when the mean value is close to zero 
+      Beta.2021 <- (mean.sim - mean.obs) / sigma.obs
        
-    # CV.sim is the coefficient of variation of the simulated values [dimensionless]
-    # CV.obs is the coefficient of variation of the observations [dimensionless]
-    CV.sim <- sigma.sim / mean.sim
-    CV.obs <- sigma.obs / mean.obs
+      # CV.sim is the coefficient of variation of the simulated values [dimensionless]
+      # CV.obs is the coefficient of variation of the observations [dimensionless]
+      CV.sim <- sigma.sim / mean.sim
+      CV.obs <- sigma.obs / mean.obs
        
-    # Gamma is the variability ratio, which is used instead of Alpha (See Ref2)
-    Gamma <- CV.sim / CV.obs
+      # Gamma is the variability ratio, which is used instead of Alpha (See Ref2)
+      Gamma <- CV.sim / CV.obs
        
-    # Variability ratio depending on 'method'
-    if (method=="2012") {
-      br     <- Beta
-      br.stg <- "Beta"
-      vr     <- Gamma
-      vr.stg <- "Gamma"
-    } else if (method=="2009") {
+      # Variability ratio depending on 'method'
+      if (method=="2012") {
         br     <- Beta
         br.stg <- "Beta"
-        vr     <- Alpha
-        vr.stg <- "Alpha"
-      } else if (method=="2021") {
-          br     <- Beta.2021
-          br.stg <- "Beta.2021"
+        vr     <- Gamma
+        vr.stg <- "Gamma"
+      } else if (method=="2009") {
+          br     <- Beta
+          br.stg <- "Beta"
           vr     <- Alpha
           vr.stg <- "Alpha"
-        } # ELSE end
+        } else if (method=="2021") {
+            br     <- Beta.2021
+            br.stg <- "Beta.2021"
+            vr     <- Alpha
+            vr.stg <- "Alpha"
+          } # ELSE end
 
-    # KGE Computation
-    if ( (mean.obs != 0) | (sigma.obs != 0) ) {
-        if ( (method=="2009") | (method=="2012") ) {
-          KGE <- 1 - sqrt( (s[1]*(r-1))^2 + (s[2]*(vr-1))^2 + (s[3]*(br-1))^2 )
-        } else KGE <- 1 - sqrt( (s[1]*(r-1))^2 + (s[2]*(vr-1))^2 + (s[3]*(br))^2 )
-    } else {
-        if ( mean.obs != 0)  warning("Warning: 'mean(obs)==0'. Beta = Inf")
-        if ( sigma.obs != 0) warning("Warning: 'sd(obs)==0'. ", vr.stg, " = Inf")
-        KGE <- NA
-      } # ELSE end    
+      # KGE Computation
+      valid.r    <- is.finite(r)
+      valid.beta <- is.finite(br)
+      valid.vr   <- is.finite(vr)
+
+      if (valid.r && valid.beta && valid.vr) {
+          if ( (method=="2009") | (method=="2012") ) {
+            KGE <- 1 - sqrt( (s[1]*(r-1))^2 + (s[2]*(vr-1))^2 + (s[3]*(Beta-1))^2 )
+          } else KGE <- 1 - sqrt( (s[1]*(r-1))^2 + (s[2]*(vr-1))^2 + (s[3]*(Beta.2021))^2 )
+      } else {
+          if (!valid.r) {
+            warning("Warning: Pearson correlation coefficient is undefined")
+            r <- NA_real_
+          } # IF end
+          if (!valid.beta) {
+            warning("Warning: ", br.stg, " is undefined")
+            br <- NA_real_
+          } # IF end
+          if (!valid.vr) {
+            warning("Warning: ", vr.stg, " is undefined")
+            vr <- NA_real_
+          } # IF end
+          KGE <- NA
+        } # ELSE end
+    }
             
   } else {
       r    <- NA

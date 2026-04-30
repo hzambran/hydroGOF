@@ -112,6 +112,8 @@ test_that("KGE returns NA instead of NaN when 2009/2012 bias terms are undefined
 
   expect_true(is.na(out_2012$KGE.value))
   expect_true(is.na(out_2009$KGE.value))
+  expect_equal(unname(out_2012$KGE.elements), c(1, NA, NA))
+  expect_equal(unname(out_2009$KGE.elements), c(1, NA, 2))
 })
 
 test_that("PBIAS matches a simple bias calculation", {
