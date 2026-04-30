@@ -119,6 +119,7 @@ The quantitative statistics included in this package are:
 | **rd** | Relative Index of Agreement | 0 to 1 | Krause et al. (2005) |
 | **cp** | Coefficient of Persistence | 0 to 1 | Kitanidis and Bras (1980) |
 | **rPearson** | Pearson Correlation Coefficient | -1 to 1 | Pearson (1920) |
+| **rSpearman** | Spearman’s Rank Correlation Coefficient | -1 to 1 | Spearman (1961) |
 | **R2** | Coefficient of Determination | 0 to 1 | Box (1966) |
 | **br2** | Weighted Coefficient of Determination | 0 to 1 | Krause et al. (2005) |
 | **VE** | Volumetric Efficiency | -Inf to 1 | Criss and Winston (2008) |
@@ -126,14 +127,13 @@ The quantitative statistics included in this package are:
 | **KGElf** | Kling-Gupta Efficiency with Focus on Low Flows | -Inf to 1 | Garcia et al. (2017) |
 | **KGEnp** | Non-parametric Kling-Gupta Efficiency | -Inf to 1 | Pool et al. (2018) |
 | **KGEkm** | Knowable Moments Kling-Gupta Efficiency | -Inf to 1 | Pizarro and Jorquera (2024) |
+| **sKGE** | Split Kling-Gupta Efficiency | -Inf to 1 | Fowler et al. (2018) |
 | **JDKGE** | Joint Divergence Kling-Gupta Efficiency | -Inf to 1 | Ficchi et al. (2026) |
 | **LME** | Liu-Mean Efficiency | -Inf to 1 | Liu (2020) |
 | **LCE** | Lee and Choi Efficiency | -Inf to 1 | Lee and Choi (2022) |
-| **sKGE** | Split Kling-Gupta Efficiency | -Inf to 1 | Fowler et al. (2018) |
 | **APFB** | Annual Peak Flow Bias | 0 to +Inf | Mizukami et al. (2019) |
 | **HFB** | High Flow Bias | 0 to 1 | Zambrano-Bigiarini (2024) |
 | **PMR** | Proxy for Model Robustness | 0 to +Inf | Royer-Gaspard et al. (2021) |
-| **rSpearman** | Spearman’s Rank Correlation Coefficient | -1 to 1 | Spearman (1961) |
 | **pbiasfdc** | PBIAS in the Slope of the Midsegment of the Flow Duration Curve | 0 to +Inf | Yilmaz et al. (2008) |
 | **ssq** | Sum of the Squared Residuals | 0 to +Inf | Willmott et al. (2009) |
 | **pfactor** | P-factor | 0 to 1 | Abbaspour et al. (2009) |

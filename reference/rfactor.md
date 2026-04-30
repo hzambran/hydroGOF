@@ -58,10 +58,10 @@ rfactor(x, lband, uband, na.rm=TRUE, ...)
 
 ## Details
 
-The R-factor quantifies the average width of the prediction uncertainty
-band relative to the variability of the observed data. It is a measure
-of the magnitude of predictive uncertainty associated with a model
-simulation.
+The `R-factor` quantifies the average width of the prediction
+uncertainty band relative to the variability of the observed data. It is
+a measure of the magnitude of predictive uncertainty associated with a
+model simulation.
 
 Mathematically, the R-factor is defined as:
 
@@ -85,7 +85,7 @@ indicating perfect agreement between simulated and observed values
 be as small as possible. Values close to or smaller than 1 are commonly
 considered indicative of an acceptable level of predictive uncertainty,
 although acceptable thresholds depend on the quality of observations and
-the modeling context.
+the modelling context.
 
 Because a larger fraction of observations can often be bracketed by
 widening the uncertainty bounds, the `R-factor` is typically interpreted

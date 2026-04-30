@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-40</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-41</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,7 @@
 Zambrano-Bigiarini<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;&lt;a href="mailto:mauricio.zambrano@ufrontera.cl" class="email"&gt;mauricio.zambrano@ufrontera.cl&lt;/a&gt;&lt;/p&gt;'><sup>1</sup></a>
 </h4>
             
-            <h4 data-toc-skip class="date">version 0.3, 21-Jan-2024</h4>
+            <h4 data-toc-skip class="date">version 0.4, 30-Apr-2026</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hzambran/hydroGOF/blob/master/vignettes/hydroGOF_Vignette.Rmd" class="external-link"><code>vignettes/hydroGOF_Vignette.Rmd</code></a></small>
       <div class="d-none name"><code>hydroGOF_Vignette.Rmd</code></div>
@@ -77,10 +77,10 @@ Zambrano-Bigiarini<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" 
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>If you use <em><a href="https://cran.r-project.org/package=hydroGOF" class="external-link">hydroGOF</a></em>,
-please cite it as Zambrano-Bigiarini (2024):</p>
-<p>Zambrano-Bigiarini, M. (2024) hydroGOF: Goodness-of-fit functions for
+please cite it as Zambrano-Bigiarini (2026):</p>
+<p>Zambrano-Bigiarini, M. (2026) hydroGOF: Goodness-of-fit functions for
 comparison of simulated and observed hydrological time series R package
-version 0.5-4. URL: <a href="https://cran.r-project.org/package=hydroGOF" class="external-link uri">https://cran.r-project.org/package=hydroGOF</a>. <a href="doi:10.5281/zenodo.839854" class="uri">doi:10.5281/zenodo.839854</a>.</p>
+version 0.7-0. URL: <a href="https://cran.r-project.org/package=hydroGOF" class="external-link uri">https://cran.r-project.org/package=hydroGOF</a>. <a href="doi:10.32614/CRAN.package.hydroGOF" class="uri">doi:10.32614/CRAN.package.hydroGOF</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -117,7 +117,7 @@ functions used in this analysis:</p>
 goodness-of-fit measures included in the <em>hydroGOF</em> package
 (e.g., KGE, ubRMSE, dr).</p>
 <div class="section level3">
-<h3 id="example-1">Example 1<a class="anchor" aria-label="anchor" href="#example-1"></a>
+<h3 id="ex-1-ideal-integer-values">Ex 1: ideal integer values<a class="anchor" aria-label="anchor" href="#ex-1-ideal-integer-values"></a>
 </h3>
 <p>Basic ideal case with a numeric sequence of integers:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -132,25 +132,44 @@ goodness-of-fit measures included in the <em>hydroGOF</em> package
 <pre><code><span><span class="co">## [1] 0.8787879</span></span></code></pre>
 </div>
 <div class="section level3">
-<h3 id="example-2">Example 2<a class="anchor" aria-label="anchor" href="#example-2"></a>
+<h3 id="ex-2-ideal-real-values">Ex 2: ideal real values<a class="anchor" aria-label="anchor" href="#ex-2-ideal-real-values"></a>
+</h3>
+<p>Basic ideal case with a numeric sequence of integers:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">+</span> <span class="fl">0.1</span></span>
+<span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">+</span><span class="fl">0.1</span></span>
+<span><span class="fu"><a href="../reference/NSE.html">NSE</a></span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 1</span></span></code></pre>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">+</span> <span class="fl">0.1</span></span>
+<span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fl">2</span><span class="op">:</span><span class="fl">11</span> <span class="op">+</span> <span class="fl">0.1</span></span>
+<span><span class="fu"><a href="../reference/NSE.html">NSE</a></span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.8787879</span></span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="ex-3-ideal-daily-ts">Ex 3: ideal daily ts<a class="anchor" aria-label="anchor" href="#ex-3-ideal-daily-ts"></a>
 </h3>
 <p>From this example onwards, a streamflow time series will be used.</p>
 <p>First, we load the daily streamflows of the Ega River (Spain), from
 1961 to 1970:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">EgaEnEstellaQts</span><span class="op">)</span></span>
 <span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="va">EgaEnEstellaQts</span></span></code></pre></div>
 <p>Generating a simulated daily time series, initially equal to the
 observed series:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="va">obs</span> </span></code></pre></div>
+<p>Visualising the observed and simulated time series:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggof.html">ggof</a></span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span><span class="op">)</span></span></code></pre></div>
+<p><img src="hydroGOF_Vignette_files/figure-html/Example3-2-1.png" class="r-plt" alt="" width="768"></p>
 <p>Computing the ‘NSE’ for the “best” (unattainable) case</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/NSE.html">NSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 1</span></span></code></pre>
 </div>
 <div class="section level3">
-<h3 id="example-3">Example 3<a class="anchor" aria-label="anchor" href="#example-3"></a>
+<h3 id="ex-4-random-noise-in-the-first-half-of-the-simulated-values">Ex 4: random noise in the first half of the simulated values<a class="anchor" aria-label="anchor" href="#ex-4-random-noise-in-the-first-half-of-the-simulated-values"></a>
 </h3>
 <p>NSE for simulated values equal to observations plus random noise on
 the first half of the observed values.</p>
@@ -159,183 +178,286 @@ medium and high flows.</p>
 <p>Randomly changing the first 1826 elements of ‘sim’, by using a normal
 distribution with mean 10 and standard deviation equal to 1 (default of
 ‘rnorm’).</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sim</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1826</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">obs</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1826</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1826</span>, mean<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggof.html">ggof</a></span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span><span class="op">)</span></span></code></pre></div>
-<p><img src="hydroGOF_Vignette_files/figure-html/Example3-1-1.png" class="r-plt" alt="" width="768"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<p><img src="hydroGOF_Vignette_files/figure-html/Example4-1-1.png" class="r-plt" alt="" width="768"></p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/NSE.html">NSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.8739885</span></span></code></pre>
 <p>Let’s have a look at other goodness-of-fit measures:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/mNSE.html">mNSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>               <span class="co"># modified NSE</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mNSE.html">mNSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Modified NSE</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.6049584</span></span></code></pre>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rNSE.html">rNSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>               <span class="co"># relative NSE</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rNSE.html">rNSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Relative NSE</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] -0.5687206</span></span></code></pre>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGE.html">KGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                <span class="co"># Kling-Gupta efficiency (KGE), 2009</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/wNSE.html">wNSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Weighted NSE</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.9769178</span></span></code></pre>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/wsNSE.html">wsNSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                <span class="co"># Weighted Seasonal NSE</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.9686072</span></span></code></pre>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGE.html">KGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># Kling-Gupta efficiency (KGE), 2009</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.6805856</span></span></code></pre>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGE.html">KGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, method<span class="op">=</span><span class="st">"2012"</span><span class="op">)</span> <span class="co"># Kling-Gupta efficiency (KGE), 2012</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGE.html">KGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, method<span class="op">=</span><span class="st">"2012"</span><span class="op">)</span>   <span class="co"># Kling-Gupta efficiency (KGE), 2012</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.61689</span></span></code></pre>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGElf.html">KGElf</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>              <span class="co"># KGE for low flows</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGE.html">KGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, method<span class="op">=</span><span class="st">"2021"</span><span class="op">)</span>   <span class="co"># Kling-Gupta efficiency (KGE), 2021</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.7461172</span></span></code></pre>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGElf.html">KGElf</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                <span class="co"># KGE for low flows</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.5170138</span></span></code></pre>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGEnp.html">KGEnp</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>              <span class="co"># Non-parametric KGE</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGEnp.html">KGEnp</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                <span class="co"># Non-parametric KGE</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.6340134</span></span></code></pre>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/sKGE.html">sKGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>               <span class="co"># Split KGE</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/sKGE.html">sKGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Split KGE</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.6547522</span></span></code></pre>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/d.html">d</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># Index of agreement (d)</span></span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGEkm.html">KGEkm</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                <span class="co"># Knowable Moments KGE</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.6467934</span></span></code></pre>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/JDKGE.html">JDKGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                <span class="co"># Joint Divergence KGE</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.6080188</span></span></code></pre>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/d.html">d</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                    <span class="co"># Index of Agreement</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.9697286</span></span></code></pre>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rd.html">rd</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Relative d</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.6231506</span></span></code></pre>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/md.html">md</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Modified d</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.7980307</span></span></code></pre>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/dr.html">dr</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Refined d</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.8024792</span></span></code></pre>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/VE.html">VE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Volumetric efficiency</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.6838531</span></span></code></pre>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/cp.html">cp</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Coefficient of persistence</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.4683536</span></span></code></pre>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/pbias.html">pbias</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>              <span class="co"># Percent bias (PBIAS)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 31.6</span></span></code></pre>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/pbiasfdc.html">pbiasfdc</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>           <span class="co"># PBIAS in the slope of the midsegment of the FDC</span></span></code></pre></div>
-<pre><code><span><span class="co">## [Note: 'thr.shw' was set to FALSE to avoid confusing legends...]</span></span></code></pre>
-<p><img src="hydroGOF_Vignette_files/figure-html/Example3-2-1.png" class="r-plt" alt="" width="768"></p>
-<pre><code><span><span class="co">## [1] -34.95419</span></span></code></pre>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rmse.html">rmse</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>               <span class="co"># Root mean square error (RMSE)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 7.104063</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dr.html">dr</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                   <span class="co"># Refined Index of Agreement</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.8024792</span></span></code></pre>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ubRMSE.html">ubRMSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>             <span class="co"># Unbiased RMSE</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 5.047547</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/md.html">md</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                   <span class="co"># Modified Index of Agreement</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.7980307</span></span></code></pre>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rPearson.html">rPearson</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>           <span class="co"># Pearson correlation coefficient</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.9698058</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rd.html">rd</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                   <span class="co"># Relative Index of Agreement</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.6231506</span></span></code></pre>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rSpearman.html">rSpearman</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>          <span class="co"># Spearman rank correlation coefficient</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.8362479</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/VE.html">VE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                   <span class="co"># Volumetric Efficiency</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.6838531</span></span></code></pre>
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/R2.html">R2</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Coefficient of determination (R2)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.8739885</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/cp.html">cp</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                   <span class="co"># Coefficient of Persistence</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.4683536</span></span></code></pre>
 <div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/br2.html">br2</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                <span class="co"># R2 multiplied by the slope of the regression line</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/APFB.html">APFB</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Annual Peak Flow Bias</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.03202514</span></span></code></pre>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/HFB.html">HFB</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># High Flow Bias</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.9189491</span></span></code></pre>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/LME.html">LME</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># Liu-Mean Efficiency</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.6838398</span></span></code></pre>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/LCE.html">LCE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># Lee and Choi Efficiency</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.6777786</span></span></code></pre>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/PMR.html">PMR</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># Proxy for Model Robustness</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.3156247</span></span></code></pre>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/pbias.html">pbias</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                <span class="co"># Percent bias (PBIAS)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 31.6</span></span></code></pre>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/pbiasfdc.html">pbiasfdc</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>             <span class="co"># PBIAS in the slope of the midsegment of the FDC</span></span></code></pre></div>
+<pre><code><span><span class="co">## [Note: 'thr.shw' was set to FALSE to avoid confusing legends...]</span></span></code></pre>
+<p><img src="hydroGOF_Vignette_files/figure-html/Example4-2-1.png" class="r-plt" alt="" width="768"></p>
+<pre><code><span><span class="co">## [1] -34.95419</span></span></code></pre>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/me.html">me</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                   <span class="co"># Mean Error</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 4.998998</span></span></code></pre>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mae.html">mae</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># Mean Absolute Error</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 4.998998</span></span></code></pre>
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mse.html">mse</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># Mean Squared Error </span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 50.46771</span></span></code></pre>
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rmse.html">rmse</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Root Mean Square Error (RMSE)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 7.104063</span></span></code></pre>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ubRMSE.html">ubRMSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>               <span class="co"># Unbiased RMSE</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 5.047547</span></span></code></pre>
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/nrmse.html">nrmse</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, norm<span class="op">=</span><span class="st">"sd"</span><span class="op">)</span>     <span class="co"># Normalised Root Mean Square Error</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 35.5</span></span></code></pre>
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/nrmse.html">nrmse</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, norm<span class="op">=</span><span class="st">"maxmin"</span><span class="op">)</span> <span class="co"># Normalised Root Mean Square Error</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 3</span></span></code></pre>
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/nrmse.html">nrmse</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, norm<span class="op">=</span><span class="st">"mean"</span><span class="op">)</span>   <span class="co"># Normalised Root Mean Square Error</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 44.9</span></span></code></pre>
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/nrmse.html">nrmse</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, norm<span class="op">=</span><span class="st">"IQR"</span><span class="op">)</span>    <span class="co"># Normalised Root Mean Square Error</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 47.1</span></span></code></pre>
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rPearson.html">rPearson</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>             <span class="co"># Pearson correlation coefficient</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.9698058</span></span></code></pre>
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rSpearman.html">rSpearman</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>            <span class="co"># Spearman rank correlation coefficient</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.8362479</span></span></code></pre>
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/R2.html">R2</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                   <span class="co"># Coefficient of determination (R2)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.8739885</span></span></code></pre>
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/br2.html">br2</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># R2 multiplied by the slope of the regression line</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.7780545</span></span></code></pre>
 </div>
 <div class="section level3">
-<h3 id="example-4">Example 4:<a class="anchor" aria-label="anchor" href="#example-4"></a>
+<h3 id="ex-5-random-noise-and-logarithmic-transformation">Ex 5: random noise and logarithmic transformation<a class="anchor" aria-label="anchor" href="#ex-5-random-noise-and-logarithmic-transformation"></a>
 </h3>
 <p>NSE for simulated values equal to observations plus random noise on
 the first half of the observed values and applying (natural) logarithm
-to ‘sim’ and ‘obs’ during computations.</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+to <em>obs</em> against <em>sim</em> during computations.</p>
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/NSE.html">NSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.4799297</span></span></code></pre>
 <p>Verifying the previous value:</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span>
 <span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/NSE.html">NSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.4799297</span></span></code></pre>
 <p>Let’s have a look at other goodness-of-fit measures:</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/mNSE.html">mNSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>               <span class="co"># modified NSE</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.4822804</span></span></code></pre>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rNSE.html">rNSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>               <span class="co"># relative NSE</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] -4.560383</span></span></code></pre>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGE.html">KGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>                <span class="co"># Kling-Gupta efficiency (KGE), 2009</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.7160166</span></span></code></pre>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGE.html">KGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, method<span class="op">=</span><span class="st">"2012"</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span> <span class="co"># Kling-Gupta efficiency (KGE), 2012</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.6354924</span></span></code></pre>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGElf.html">KGElf</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                       <span class="co"># KGE for low flows (it does not allow 'fun' argument)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.5170138</span></span></code></pre>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGEnp.html">KGEnp</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>              <span class="co"># Non-parametric KGE</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.7437751</span></span></code></pre>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/sKGE.html">sKGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>               <span class="co"># Split KGE</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.4650784</span></span></code></pre>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/d.html">d</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>                  <span class="co"># Index of agreement (d)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.8609788</span></span></code></pre>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rd.html">rd</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>                 <span class="co"># Relative d</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] -0.4863585</span></span></code></pre>
-<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/md.html">md</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>                 <span class="co"># Modified d</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.7385673</span></span></code></pre>
-<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/dr.html">dr</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>                 <span class="co"># Refined d</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.7411402</span></span></code></pre>
-<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/VE.html">VE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>                 <span class="co"># Volumetric efficiency</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.8124419</span></span></code></pre>
-<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/cp.html">cp</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>                 <span class="co"># Coefficient of persistence</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] -7.948224</span></span></code></pre>
-<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/pbias.html">pbias</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>              <span class="co"># Percent bias (PBIAS)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 18.8</span></span></code></pre>
-<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/pbiasfdc.html">pbiasfdc</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>           <span class="co"># PBIAS in the slope of the midsegment of the FDC</span></span></code></pre></div>
-<pre><code><span><span class="co">## [Note: 'thr.shw' was set to FALSE to avoid confusing legends...]</span></span></code></pre>
-<p><img src="hydroGOF_Vignette_files/figure-html/Example4-3-1.png" class="r-plt" alt="" width="768"></p>
-<pre><code><span><span class="co">## [1] -46.39001</span></span></code></pre>
-<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rmse.html">rmse</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>               <span class="co"># Root mean square error (RMSE)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.6955452</span></span></code></pre>
-<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ubRMSE.html">ubRMSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>             <span class="co"># Unbiased RMSE</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.5520467</span></span></code></pre>
-<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rPearson.html">rPearson</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>           <span class="co"># Pearson correlation coefficient (r)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.8221915</span></span></code></pre>
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rSpearman.html">rSpearman</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>          <span class="co"># Spearman rank correlation coefficient (rho)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.8362479</span></span></code></pre>
 <div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/R2.html">R2</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>                 <span class="co"># Coefficient of determination (R2)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.4799297</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mNSE.html">mNSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Modified NSE</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.6049584</span></span></code></pre>
 <div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/br2.html">br2</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span>                <span class="co"># R2 multiplied by the slope of the regression line</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.4299904</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rNSE.html">rNSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Relative NSE</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] -0.5687206</span></span></code></pre>
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/wNSE.html">wNSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Weighted NSE</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.9769178</span></span></code></pre>
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/wsNSE.html">wsNSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                <span class="co"># Weighted Seasonal NSE</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.9686072</span></span></code></pre>
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGE.html">KGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># Kling-Gupta efficiency (KGE), 2009</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.6805856</span></span></code></pre>
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGE.html">KGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, method<span class="op">=</span><span class="st">"2012"</span><span class="op">)</span>   <span class="co"># Kling-Gupta efficiency (KGE), 2012</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.61689</span></span></code></pre>
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGE.html">KGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, method<span class="op">=</span><span class="st">"2021"</span><span class="op">)</span>   <span class="co"># Kling-Gupta efficiency (KGE), 2021</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.7461172</span></span></code></pre>
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGElf.html">KGElf</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                <span class="co"># KGE for low flows</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.5170138</span></span></code></pre>
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGEnp.html">KGEnp</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                <span class="co"># Non-parametric KGE</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.6340134</span></span></code></pre>
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/sKGE.html">sKGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Split KGE</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.6547522</span></span></code></pre>
+<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/KGEkm.html">KGEkm</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                <span class="co"># Knowable Moments KGE</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.6467934</span></span></code></pre>
+<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/JDKGE.html">JDKGE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                <span class="co"># Joint Divergence KGE</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.6080188</span></span></code></pre>
+<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/d.html">d</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                    <span class="co"># Index of Agreement</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.9697286</span></span></code></pre>
+<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dr.html">dr</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                   <span class="co"># Refined Index of Agreement</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.8024792</span></span></code></pre>
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/md.html">md</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                   <span class="co"># Modified Index of Agreement</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.7980307</span></span></code></pre>
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rd.html">rd</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                   <span class="co"># Relative Index of Agreement</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.6231506</span></span></code></pre>
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/VE.html">VE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                   <span class="co"># Volumetric Efficiency</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.6838531</span></span></code></pre>
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/cp.html">cp</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                   <span class="co"># Coefficient of Persistence</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.4683536</span></span></code></pre>
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/APFB.html">APFB</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Annual Peak Flow Bias</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.03202514</span></span></code></pre>
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/HFB.html">HFB</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># High Flow Bias</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.9189491</span></span></code></pre>
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/LME.html">LME</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># Liu-Mean Efficiency</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.6838398</span></span></code></pre>
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/LCE.html">LCE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># Lee and Choi Efficiency</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.6777786</span></span></code></pre>
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/PMR.html">PMR</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># Proxy for Model Robustness</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.3156247</span></span></code></pre>
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/pbias.html">pbias</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                <span class="co"># Percent bias (PBIAS)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 31.6</span></span></code></pre>
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/pbiasfdc.html">pbiasfdc</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>             <span class="co"># PBIAS in the slope of the midsegment of the FDC</span></span></code></pre></div>
+<pre><code><span><span class="co">## [Note: 'thr.shw' was set to FALSE to avoid confusing legends...]</span></span></code></pre>
+<p><img src="hydroGOF_Vignette_files/figure-html/Example5-3-1.png" class="r-plt" alt="" width="768"></p>
+<pre><code><span><span class="co">## [1] -34.95419</span></span></code></pre>
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/me.html">me</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                   <span class="co"># Mean Error</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 4.998998</span></span></code></pre>
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mae.html">mae</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># Mean Absolute Error</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 4.998998</span></span></code></pre>
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mse.html">mse</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># Mean Squared Error </span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 50.46771</span></span></code></pre>
+<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rmse.html">rmse</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                 <span class="co"># Root Mean Square Error (RMSE)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 7.104063</span></span></code></pre>
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ubRMSE.html">ubRMSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>               <span class="co"># Unbiased RMSE</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 5.047547</span></span></code></pre>
+<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/nrmse.html">nrmse</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, norm<span class="op">=</span><span class="st">"sd"</span><span class="op">)</span>     <span class="co"># Normalised Root Mean Square Error</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 35.5</span></span></code></pre>
+<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/nrmse.html">nrmse</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, norm<span class="op">=</span><span class="st">"maxmin"</span><span class="op">)</span> <span class="co"># Normalised Root Mean Square Error</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 3</span></span></code></pre>
+<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/nrmse.html">nrmse</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, norm<span class="op">=</span><span class="st">"mean"</span><span class="op">)</span>   <span class="co"># Normalised Root Mean Square Error</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 44.9</span></span></code></pre>
+<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/nrmse.html">nrmse</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, norm<span class="op">=</span><span class="st">"IQR"</span><span class="op">)</span>    <span class="co"># Normalised Root Mean Square Error</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 47.1</span></span></code></pre>
+<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rPearson.html">rPearson</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>             <span class="co"># Pearson correlation coefficient</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.9698058</span></span></code></pre>
+<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rSpearman.html">rSpearman</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>            <span class="co"># Spearman rank correlation coefficient</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.8362479</span></span></code></pre>
+<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/R2.html">R2</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                   <span class="co"># Coefficient of determination (R2)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.8739885</span></span></code></pre>
+<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/br2.html">br2</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span>                  <span class="co"># R2 multiplied by the slope of the regression line</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.7780545</span></span></code></pre>
 </div>
 <div class="section level3">
-<h3 id="example-5">Example 5<a class="anchor" aria-label="anchor" href="#example-5"></a>
+<h3 id="ex-6-random-noise-logarithmic-transformation-and-pushpalatha2012-constant">Ex 6: random noise, logarithmic transformation and Pushpalatha2012
+constant<a class="anchor" aria-label="anchor" href="#ex-6-random-noise-logarithmic-transformation-and-pushpalatha2012-constant"></a>
 </h3>
 <p>NSE for simulated values equal to observations plus random noise on
 the first half of the observed values and applying (natural) logarithm
-to ‘sim’ and ‘obs’ and adding the Pushpalatha2012 constant during
-computations</p>
-<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+to <em>obs</em> against <em>sim</em> and adding the Pushpalatha2012
+constant during computations.</p>
+<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/NSE.html">NSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"Pushpalatha2012"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.4871177</span></span></code></pre>
 <p>Verifying the previous value, with the epsilon value following
 Pushpalatha2012:</p>
-<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">eps</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">/</span><span class="fl">100</span></span>
 <span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span>
 <span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/NSE.html">NSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.4871177</span></span></code></pre>
 <p>Let’s have a look at other goodness-of-fit measures:</p>
-<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/gof.html">gof</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"Pushpalatha2012"</span>, do.spearman<span class="op">=</span><span class="cn">TRUE</span>, do.pbfdc<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/gof.html">gof</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"Pushpalatha2012"</span>, do.spearman<span class="op">=</span><span class="cn">TRUE</span>, do.pbfdc<span class="op">=</span><span class="cn">TRUE</span>, do.pmr<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##              [,1]</span></span>
 <span><span class="co">## ME           0.41</span></span>
 <span><span class="co">## MAE          0.41</span></span>
@@ -371,28 +493,30 @@ Pushpalatha2012:</p>
 <span><span class="co">## APFB         0.01</span></span>
 <span><span class="co">## HFB          0.98</span></span>
 <span><span class="co">## rSpearman    0.84</span></span>
-<span><span class="co">## pbiasFDC % -45.87</span></span></code></pre>
+<span><span class="co">## pbiasFDC % -45.87</span></span>
+<span><span class="co">## PMR          0.20</span></span></code></pre>
 </div>
 <div class="section level3">
-<h3 id="example-6">Example 6<a class="anchor" aria-label="anchor" href="#example-6"></a>
+<h3 id="ex-7-random-noise-logarithmic-transformation-and-user-defined-constant">Ex 7: random noise, logarithmic transformation and user-defined
+constant<a class="anchor" aria-label="anchor" href="#ex-7-random-noise-logarithmic-transformation-and-user-defined-constant"></a>
 </h3>
 <p>NSE for simulated values equal to observations plus random noise on
 the first half of the observed values and applying (natural) logarithm
-to ‘sim’ and ‘obs’ and adding a user-defined constant during
-computations</p>
-<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+to <em>obs</em> against <em>sim</em> and adding a user-defined constant
+during computations</p>
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">eps</span> <span class="op">&lt;-</span> <span class="fl">0.01</span></span>
 <span><span class="fu"><a href="../reference/NSE.html">NSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"otherValue"</span>, epsilon.value<span class="op">=</span><span class="va">eps</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.4804</span></span></code></pre>
 <p>Verifying the previous value:</p>
-<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span>
 <span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/NSE.html">NSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.4804</span></span></code></pre>
 <p>Let’s have a look at other goodness-of-fit measures:</p>
-<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/gof.html">gof</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"otherValue"</span>, epsilon.value<span class="op">=</span><span class="va">eps</span>, do.spearman<span class="op">=</span><span class="cn">TRUE</span>, do.pbfdc<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/gof.html">gof</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"otherValue"</span>, epsilon.value<span class="op">=</span><span class="va">eps</span>, do.spearman<span class="op">=</span><span class="cn">TRUE</span>, do.pbfdc<span class="op">=</span><span class="cn">TRUE</span>, do.pmr<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##              [,1]</span></span>
 <span><span class="co">## ME           0.42</span></span>
 <span><span class="co">## MAE          0.42</span></span>
@@ -428,22 +552,24 @@ computations</p>
 <span><span class="co">## APFB         0.01</span></span>
 <span><span class="co">## HFB          0.98</span></span>
 <span><span class="co">## rSpearman    0.84</span></span>
-<span><span class="co">## pbiasFDC % -46.36</span></span></code></pre>
+<span><span class="co">## pbiasFDC % -46.36</span></span>
+<span><span class="co">## PMR          0.21</span></span></code></pre>
 </div>
 <div class="section level3">
-<h3 id="example-7">Example 7<a class="anchor" aria-label="anchor" href="#example-7"></a>
+<h3 id="ex-8-random-noise-logarithmic-transformation-and-user-defined-factor">Ex 8: random noise, logarithmic transformation and user-defined
+factor<a class="anchor" aria-label="anchor" href="#ex-8-random-noise-logarithmic-transformation-and-user-defined-factor"></a>
 </h3>
 <p>NSE for simulated values equal to observations plus random noise on
 the first half of the observed values and applying (natural) logarithm
-to ‘sim’ and ‘obs’ and using a user-defined factor to multiply the mean
-of the observed values to obtain the constant to be added to ‘sim’ and
-‘obs’ during computations</p>
-<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+to <em>obs</em> against <em>sim</em> and using a user-defined factor to
+multiply the mean of the observed values to obtain the constant to be
+added to <em>obs</em> against <em>sim</em> during computations</p>
+<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fact</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">50</span></span>
 <span><span class="fu"><a href="../reference/NSE.html">NSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"otherFactor"</span>, epsilon.value<span class="op">=</span><span class="va">fact</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.4938294</span></span></code></pre>
 <p>Verifying the previous value:</p>
-<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fact</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">50</span></span>
 <span><span class="va">eps</span>  <span class="op">&lt;-</span> <span class="va">fact</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span>
@@ -451,8 +577,8 @@ of the observed values to obtain the constant to be added to ‘sim’ and
 <span><span class="fu"><a href="../reference/NSE.html">NSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.4938294</span></span></code></pre>
 <p>Let’s have a look at other goodness-of-fit measures:</p>
-<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/gof.html">gof</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"otherFactor"</span>, epsilon.value<span class="op">=</span><span class="va">fact</span>, do.spearman<span class="op">=</span><span class="cn">TRUE</span>, do.pbfdc<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/gof.html">gof</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"otherFactor"</span>, epsilon.value<span class="op">=</span><span class="va">fact</span>, do.spearman<span class="op">=</span><span class="cn">TRUE</span>, do.pbfdc<span class="op">=</span><span class="cn">TRUE</span>, do.pmr<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##              [,1]</span></span>
 <span><span class="co">## ME           0.41</span></span>
 <span><span class="co">## MAE          0.41</span></span>
@@ -488,27 +614,28 @@ of the observed values to obtain the constant to be added to ‘sim’ and
 <span><span class="co">## APFB         0.01</span></span>
 <span><span class="co">## HFB          0.98</span></span>
 <span><span class="co">## rSpearman    0.84</span></span>
-<span><span class="co">## pbiasFDC % -45.37</span></span></code></pre>
+<span><span class="co">## pbiasFDC % -45.37</span></span>
+<span><span class="co">## PMR          0.19</span></span></code></pre>
 </div>
 <div class="section level3">
-<h3 id="example-8">Example 8<a class="anchor" aria-label="anchor" href="#example-8"></a>
+<h3 id="ex-9-random-noise-user-defined-transformation">Ex 9: random noise, user-defined transformation<a class="anchor" aria-label="anchor" href="#ex-9-random-noise-user-defined-transformation"></a>
 </h3>
 <p>NSE for simulated values equal to observations plus random noise on
 the first half of the observed values and applying a user-defined
-function to ‘sim’ and ‘obs’ during computations:</p>
-<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+function to <em>obs</em> against <em>sim</em> during computations:</p>
+<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fun1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">}</span></span>
 <span><span class="fu"><a href="../reference/NSE.html">NSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">fun1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.7265255</span></span></code></pre>
 <p>Verifying the previous value, with the epsilon value following
 Pushpalatha2012:</p>
-<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sim1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">obs1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/NSE.html">NSE</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim1</span>, obs<span class="op">=</span><span class="va">obs1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.7265255</span></span></code></pre>
-<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/gof.html">gof</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">fun1</span>, do.spearman<span class="op">=</span><span class="cn">TRUE</span>, do.pbfdc<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/gof.html">gof</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">fun1</span>, do.spearman<span class="op">=</span><span class="cn">TRUE</span>, do.pbfdc<span class="op">=</span><span class="cn">TRUE</span>, do.pmr<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##              [,1]</span></span>
 <span><span class="co">## ME           0.65</span></span>
 <span><span class="co">## MAE          0.65</span></span>
@@ -544,7 +671,8 @@ Pushpalatha2012:</p>
 <span><span class="co">## APFB         0.02</span></span>
 <span><span class="co">## HFB          0.96</span></span>
 <span><span class="co">## rSpearman    0.84</span></span>
-<span><span class="co">## pbiasFDC % -32.96</span></span></code></pre>
+<span><span class="co">## pbiasFDC % -32.96</span></span>
+<span><span class="co">## PMR          0.19</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -552,78 +680,105 @@ Pushpalatha2012:</p>
 </h2>
 <p>Loading observed streamflows of the Ega River (Spain), with daily
 data from 1961-Jan-01 up to 1970-Dec-31</p>
-<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://zoo.R-Forge.R-project.org/" class="external-link">zoo</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">EgaEnEstellaQts</span><span class="op">)</span></span>
 <span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="va">EgaEnEstellaQts</span></span></code></pre></div>
 <p>Generating a simulated daily time series, initially equal to the
 observed values (simulated values are usually read from the output files
 of the hydrological model)</p>
-<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="va">obs</span> </span></code></pre></div>
-<p>Computing the numeric goodness-of-fit measures for the “best”
-(unattainable) case</p>
-<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/gof.html">gof</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##         [,1]</span></span>
-<span><span class="co">## ME         0</span></span>
-<span><span class="co">## MAE        0</span></span>
-<span><span class="co">## MSE        0</span></span>
-<span><span class="co">## RMSE       0</span></span>
-<span><span class="co">## ubRMSE     0</span></span>
-<span><span class="co">## NRMSE %    0</span></span>
-<span><span class="co">## PBIAS %    0</span></span>
-<span><span class="co">## RSR        0</span></span>
-<span><span class="co">## rSD        1</span></span>
-<span><span class="co">## NSE        1</span></span>
-<span><span class="co">## mNSE       1</span></span>
-<span><span class="co">## rNSE       1</span></span>
-<span><span class="co">## wNSE       1</span></span>
-<span><span class="co">## wsNSE      1</span></span>
-<span><span class="co">## d          1</span></span>
-<span><span class="co">## dr         1</span></span>
-<span><span class="co">## md         1</span></span>
-<span><span class="co">## rd         1</span></span>
-<span><span class="co">## cp         1</span></span>
-<span><span class="co">## r          1</span></span>
-<span><span class="co">## R2         1</span></span>
-<span><span class="co">## bR2        1</span></span>
-<span><span class="co">## VE         1</span></span>
-<span><span class="co">## KGE        1</span></span>
-<span><span class="co">## KGElf      1</span></span>
-<span><span class="co">## KGEnp      1</span></span>
-<span><span class="co">## KGEkm      1</span></span>
-<span><span class="co">## JDKGE      1</span></span>
-<span><span class="co">## LME        1</span></span>
-<span><span class="co">## LCE        1</span></span>
-<span><span class="co">## sKGE       1</span></span>
-<span><span class="co">## APFB       0</span></span>
-<span><span class="co">## HFB        1</span></span></code></pre>
+<p>Plotting the graphical comparison of <em>obs</em> against
+<em>sim</em>, along with the <strong>default goodness-of-fit
+measures</strong>:</p>
+<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggof.html">ggof</a></span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span><span class="op">)</span></span></code></pre></div>
+<p><img src="hydroGOF_Vignette_files/figure-html/ggof-default1-1.png" class="r-plt" alt="" width="768"></p>
+<p>Plotting the graphical comparison of <em>obs</em> against
+<em>sim</em>, along with <strong>user-defined goodness-of-fit
+measures</strong>:</p>
+<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggof.html">ggof</a></span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span>, </span>
+<span>     gofs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">"PBIAS"</span>, <span class="st">"dr"</span>, <span class="st">"R2"</span>,  <span class="st">"NSE"</span>, <span class="st">"KGE"</span>,  <span class="st">"LCE"</span>, <span class="st">"JDKGE"</span>, <span class="st">"APFB"</span>, <span class="st">"HFB"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="hydroGOF_Vignette_files/figure-html/ggof-userdefined1-1.png" class="r-plt" alt="" width="768"></p>
+<p>Computing the numeric goodness-of-fit measures for the <em>best</em>
+(unattainable) case, including the following three measures that -due to
+slightly high computation time- are not computed by default: i) the
+Spearman’s Rank Correlation Coefficient (rSpearman), ii) the percent
+bias in the Slope of the Midsegment of the Flow Duration Curve
+(pbiasFDC), and iii) the Proxy for Model Robustness (PMR).</p>
+<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/gof.html">gof</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, do.spearman<span class="op">=</span><span class="cn">TRUE</span>, do.pbfdc<span class="op">=</span><span class="cn">TRUE</span>, do.pmr<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##            [,1]</span></span>
+<span><span class="co">## ME            0</span></span>
+<span><span class="co">## MAE           0</span></span>
+<span><span class="co">## MSE           0</span></span>
+<span><span class="co">## RMSE          0</span></span>
+<span><span class="co">## ubRMSE        0</span></span>
+<span><span class="co">## NRMSE %       0</span></span>
+<span><span class="co">## PBIAS %       0</span></span>
+<span><span class="co">## RSR           0</span></span>
+<span><span class="co">## rSD           1</span></span>
+<span><span class="co">## NSE           1</span></span>
+<span><span class="co">## mNSE          1</span></span>
+<span><span class="co">## rNSE          1</span></span>
+<span><span class="co">## wNSE          1</span></span>
+<span><span class="co">## wsNSE         1</span></span>
+<span><span class="co">## d             1</span></span>
+<span><span class="co">## dr            1</span></span>
+<span><span class="co">## md            1</span></span>
+<span><span class="co">## rd            1</span></span>
+<span><span class="co">## cp            1</span></span>
+<span><span class="co">## r             1</span></span>
+<span><span class="co">## R2            1</span></span>
+<span><span class="co">## bR2           1</span></span>
+<span><span class="co">## VE            1</span></span>
+<span><span class="co">## KGE           1</span></span>
+<span><span class="co">## KGElf         1</span></span>
+<span><span class="co">## KGEnp         1</span></span>
+<span><span class="co">## KGEkm         1</span></span>
+<span><span class="co">## JDKGE         1</span></span>
+<span><span class="co">## LME           1</span></span>
+<span><span class="co">## LCE           1</span></span>
+<span><span class="co">## sKGE          1</span></span>
+<span><span class="co">## APFB          0</span></span>
+<span><span class="co">## HFB           1</span></span>
+<span><span class="co">## rSpearman     1</span></span>
+<span><span class="co">## pbiasFDC %    0</span></span>
+<span><span class="co">## PMR           0</span></span></code></pre>
 <ul>
 <li>Randomly changing the first 1826 elements of ‘sim’ (half of the ts),
 by using a normal distribution with mean 10 and standard deviation equal
 to 1 (default of ‘rnorm’).</li>
 </ul>
-<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sim</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1826</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">obs</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1826</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1826</span>, mean<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
-<p>Plotting the graphical comparison of ‘obs’ against ‘sim’, along with
-the numeric goodness-of-fit measures for the daily and monthly time
-series</p>
-<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<p>Plotting the graphical comparison of <em>obs</em> against
+<em>sim</em>, along with the <strong>default goodness-of-fit
+measures</strong> for the daily and monthly time series:</p>
+<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggof.html">ggof</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, ftype<span class="op">=</span><span class="st">"dm"</span>, FUN<span class="op">=</span><span class="va">mean</span><span class="op">)</span></span></code></pre></div>
-<p><img src="hydroGOF_Vignette_files/figure-html/ComputingGGOF-1.png" class="r-plt" alt="" width="960"></p>
+<p><img src="hydroGOF_Vignette_files/figure-html/ggof-default2-1.png" class="r-plt" alt="" width="960"></p>
+<p>Plotting the graphical comparison of <em>obs</em> against
+<em>sim</em>, along with <strong>user-defined goodness-of-fit
+measures</strong> for the daily and monthly time series:</p>
+<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggof.html">ggof</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, ftype<span class="op">=</span><span class="st">"dm"</span>, FUN<span class="op">=</span><span class="va">mean</span>,</span>
+<span>     gofs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">"PBIAS"</span>, <span class="st">"dr"</span>, <span class="st">"R2"</span>,  <span class="st">"NSE"</span>, <span class="st">"KGE"</span>,  <span class="st">"LCE"</span>, <span class="st">"JDKGE"</span>, <span class="st">"APFB"</span>, <span class="st">"HFB"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="hydroGOF_Vignette_files/figure-html/ggof-userdefined2-1.png" class="r-plt" alt="" width="768"></p>
 <div class="section level3">
 <h3 id="removing-warm-up-period">Removing warm-up period<a class="anchor" aria-label="anchor" href="#removing-warm-up-period"></a>
 </h3>
 <p>Using the first two years (1961-1962) as warm-up period, and removing
 the corresponding observed and simulated values from the computation of
 the goodness-of-fit measures:</p>
-<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggof.html">ggof</a></span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, ftype<span class="op">=</span><span class="st">"dm"</span>, FUN<span class="op">=</span><span class="va">mean</span>, cal.ini<span class="op">=</span><span class="st">"1963-01-01"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="hydroGOF_Vignette_files/figure-html/ggof2-1.png" class="r-plt" alt="" width="960"></p>
 <p>Verification of the goodness-of-fit measures for the daily values
 after removing the warm-up period:</p>
-<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/window.html" class="external-link">window</a></span><span class="op">(</span><span class="va">sim</span>, start<span class="op">=</span><span class="st">"1963-01-01"</span><span class="op">)</span></span>
 <span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/window.html" class="external-link">window</a></span><span class="op">(</span><span class="va">obs</span>, start<span class="op">=</span><span class="st">"1963-01-01"</span><span class="op">)</span></span>
 <span></span>
@@ -667,34 +822,77 @@ after removing the warm-up period:</p>
 <h3 id="plotting-uncertainty-bands">Plotting uncertainty bands<a class="anchor" aria-label="anchor" href="#plotting-uncertainty-bands"></a>
 </h3>
 <p>Generating fictitious lower and upper uncertainty bounds:</p>
-<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lband</span> <span class="op">&lt;-</span> <span class="va">obs</span> <span class="op">-</span> <span class="fl">5</span></span>
-<span><span class="va">uband</span> <span class="op">&lt;-</span> <span class="va">obs</span> <span class="op">+</span> <span class="fl">5</span></span>
-<span><span class="fu"><a href="../reference/plotbands.html">plotbands</a></span><span class="op">(</span><span class="va">obs</span>, <span class="va">lband</span>, <span class="va">uband</span><span class="op">)</span></span></code></pre></div>
-<p><img src="hydroGOF_Vignette_files/figure-html/ubands1-1.png" class="r-plt" alt="" width="768"></p>
+<span><span class="va">uband</span> <span class="op">&lt;-</span> <span class="va">obs</span> <span class="op">+</span> <span class="fl">5</span></span></code></pre></div>
 <p>Plotting the previously generated uncertainty bands:</p>
-<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plotbands.html">plotbands</a></span><span class="op">(</span><span class="va">obs</span>, <span class="va">lband</span>, <span class="va">uband</span><span class="op">)</span></span></code></pre></div>
 <p><img src="hydroGOF_Vignette_files/figure-html/ubands2-1.png" class="r-plt" alt="" width="768"></p>
 <p>Randomly generating a simulated time series:</p>
-<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="va">obs</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">obs</span><span class="op">)</span>, mean<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p>Plotting the previously generated simualted time series along the
-obsertations and the uncertainty bounds:</p>
-<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<p>Plotting the previously generated simulated time series along the
+observations and the uncertainty bounds:</p>
+<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plotbands.html">plotbands</a></span><span class="op">(</span><span class="va">obs</span>, <span class="va">lband</span>, <span class="va">uband</span>, <span class="va">sim</span><span class="op">)</span></span></code></pre></div>
 <p><img src="hydroGOF_Vignette_files/figure-html/ubands4-1.png" class="r-plt" alt="" width="768"></p>
+</div>
+<div class="section level3">
+<h3 id="computing-p-factor">Computing P-factor<a class="anchor" aria-label="anchor" href="#computing-p-factor"></a>
+</h3>
+<p>The <strong>P-factor</strong> quantifies the percentage of observed
+values that fall within the prediction uncertainty band defined by the
+lower and upper bounds. It is a measure of the coverage of the
+uncertainty interval.</p>
+<p>The <strong>P-factor</strong> ranges from 0 to 1. A value of 1
+indicates that all observations are bracketed by the uncertainty bounds,
+whereas a value of 0 indicates that none of the observations fall within
+the bounds.</p>
+<p>Computing the P-factor:</p>
+<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span> <span class="fu"><a href="../reference/pfactor.html">pfactor</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">obs</span>, lband<span class="op">=</span><span class="va">lband</span>, uband<span class="op">=</span><span class="va">uband</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.9993155</span></span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="computing-r-factor">Computing R-factor<a class="anchor" aria-label="anchor" href="#computing-r-factor"></a>
+</h3>
+<p>The <strong>R-factor</strong> quantifies the average width of the
+prediction uncertainty band relative to the variability of the observed
+data. It is a measure of the magnitude of predictive uncertainty
+associated with a model simulation.</p>
+<p>The <strong>R-factor</strong> ranges from 0 to infinity, with an
+optimal value of 0 indicating perfect agreement between simulated and
+observed values (i.e., zero prediction uncertainty). In practical
+applications, the <strong>R-factor</strong> represents the width of the
+uncertainty interval and should be as small as possible. Values close to
+or smaller than 1 are commonly considered indicative of an acceptable
+level of predictive uncertainty, although acceptable thresholds depend
+on the quality of observations and the modelling context.</p>
+<p>Computing the R-factor:</p>
+<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span> <span class="fu"><a href="../reference/rfactor.html">rfactor</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">obs</span>, lband<span class="op">=</span><span class="va">lband</span>, uband<span class="op">=</span><span class="va">uband</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.5488274</span></span></code></pre>
+<p><strong>Important note</strong>:</p>
+<blockquote>
+<p>Because a larger fraction of observations can often be bracketed by
+widening the uncertainty bounds, the <strong>R-factor</strong> is
+typically interpreted jointly with the <strong>P-factor</strong>. A
+balance between a high <strong>P-factor</strong> (good coverage) and a
+low <strong>R-factor</strong> (narrow uncertainty bounds) is therefore
+sought during model calibration and uncertainty analysis.</p>
+</blockquote>
 </div>
 <div class="section level3">
 <h3 id="analysis-of-the-residuals">Analysis of the residuals<a class="anchor" aria-label="anchor" href="#analysis-of-the-residuals"></a>
 </h3>
 <p>Computing the daily residuals (even if this is a dummy example, it is
 enough for illustrating the capability)</p>
-<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="va">sim</span><span class="op">-</span><span class="va">obs</span></span></code></pre></div>
 <p>Summarizing and plotting the residuals (it requires the hydroTSM
 package):</p>
-<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://hzambran.github.io/hydroTSM/" class="external-link">hydroTSM</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://hzambran.github.io/hydroTSM/reference/smry.html" class="external-link">smry</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span> </span></code></pre></div>
 <pre><code><span><span class="co">##               Index         r</span></span>
@@ -711,12 +909,12 @@ package):</p>
 <span><span class="co">## Kurtosis       &lt;NA&gt;   -0.0253</span></span>
 <span><span class="co">## NA's           &lt;NA&gt;    2.0000</span></span>
 <span><span class="co">## n              &lt;NA&gt; 2922.0000</span></span></code></pre>
-<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># daily, monthly and annual plots, boxplots and histograms</span></span>
 <span><span class="fu"><a href="https://hzambran.github.io/hydroTSM/reference/hydroplot.html" class="external-link">hydroplot</a></span><span class="op">(</span><span class="va">r</span>, FUN<span class="op">=</span><span class="va">mean</span><span class="op">)</span></span></code></pre></div>
 <p><img src="hydroGOF_Vignette_files/figure-html/hydroplot2-1.png" class="r-plt" alt="" width="960"></p>
 <p>Seasonal plots and boxplots</p>
-<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># daily, monthly and annual plots, boxplots and histograms</span></span>
 <span><span class="fu"><a href="https://hzambran.github.io/hydroTSM/reference/hydroplot.html" class="external-link">hydroplot</a></span><span class="op">(</span><span class="va">r</span>, FUN<span class="op">=</span><span class="va">mean</span>, pfreq<span class="op">=</span><span class="st">"seasonal"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="hydroGOF_Vignette_files/figure-html/hydroplo3-1.png" class="r-plt" alt="" width="768"></p>
@@ -728,13 +926,14 @@ package):</p>
 <p>This tutorial was built under:</p>
 <pre><code><span><span class="co">## [1] "x86_64-pc-linux-gnu"</span></span></code></pre>
 <pre><code><span><span class="co">## [1] "R version 4.6.0 (2026-04-24)"</span></span></code></pre>
-<pre><code><span><span class="co">## [1] "hydroGOF 0.6-40"</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "hydroGOF 0.6-41"</span></span></code></pre>
 </div>
 <div class="section level2">
-<h2 id="version-history">Version history<a class="anchor" aria-label="anchor" href="#version-history"></a>
+<h2 id="version-history-of-this-vignette">Version history of this vignette<a class="anchor" aria-label="anchor" href="#version-history-of-this-vignette"></a>
 </h2>
 <ul>
-<li>v0.3: Jan-2024</li>
+<li>v0.4: 30-Apr-2026</li>
+<li>v0.3: 21-Jan-2024</li>
 <li>v0.2: Mar-2020</li>
 <li>v0.1: Aug 2011</li>
 </ul>
