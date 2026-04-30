@@ -108,9 +108,17 @@ PMR.default <- function(sim, obs, na.rm=TRUE,
   if (!is.null(fun)) {
     fun1 <- match.fun(fun)
 
-    new <- preproc(sim=sim, obs=obs, fun=fun1, ...,
-                   epsilon.type=epsilon.type,
-                   epsilon.value=epsilon.value)
+    dots <- list(...)
+
+    if (length(dots) > 0) {
+      new <- do.call(preproc,
+                     c(list(sim=sim, obs=obs, fun=fun1),
+                       dots,
+                       list(epsilon.type=epsilon.type,
+                            epsilon.value=epsilon.value)))
+    } else new <- preproc(sim=sim, obs=obs, fun=fun1,
+                          epsilon.type=epsilon.type,
+                          epsilon.value=epsilon.value)
 
     sim <- new[["sim"]]
     obs <- new[["obs"]]
@@ -272,21 +280,20 @@ PMR.zoo <- function(sim, obs, na.rm=TRUE,
       stop("Invalid argument: ncol(sim) != ncol(obs) !")
 
     PMRval <- sapply(
-      seq_len(NCOL(obs)),
-      function(i, x, y) {
+                seq_len(NCOL(obs)),
+                function(i, x, y) {
 
-        PMR.default( x[, i], y[, i], na.rm=na.rm, 
-                     k=k, min.years=min.years,
-                     days.per.year=days.per.year,
-                     fun=fun, ...,
-                     epsilon.type=epsilon.type,
-                     epsilon.value=epsilon.value
-                    )
+                  PMR.default(x[, i], y[, i], na.rm=na.rm, 
+                              k=k, min.years=min.years,
+                              days.per.year=days.per.year,
+                              fun=fun, ...,
+                              epsilon.type=epsilon.type,
+                              epsilon.value=epsilon.value)
 
-      },
-      x=sim,
-      y=obs
-    ) # sapply END
+                },
+                x=sim,
+                y=obs
+              )
 
     names(PMRval) <- colnames(obs)
 
@@ -294,14 +301,22 @@ PMR.zoo <- function(sim, obs, na.rm=TRUE,
 
   } else {
 
-      NextMethod( sim, obs, na.rm=na.rm, 
-                  k=k, min.years=min.years,
-                  days.per.year=days.per.year,
-                  fun=fun, ...,
-                  epsilon.type=epsilon.type,
-                  epsilon.value=epsilon.value
-                )
+      dots <- list(...)
 
-    } # ELSE end
+      args <- list(sim=sim, obs=obs,
+                   na.rm=na.rm,
+                   k=k,
+                   min.years=min.years,
+                   days.per.year=days.per.year,
+                   fun=fun,
+                   epsilon.type=epsilon.type,
+                   epsilon.value=epsilon.value)
+
+      if (length(dots) > 0)
+        args <- c(args, dots)
+
+      do.call(PMR.default, args)
+
+    }
 
 } # 'PMR.zoo' end
