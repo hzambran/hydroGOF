@@ -220,6 +220,7 @@ sim <- obs
 # Computing the 'PMR' for the "best" (unattainable) case
 PMR(sim=sim, obs=obs)
 
+\dontrun{ 
 ##################
 # Example 3: PMR for simulated values equal to observations plus random noise 
 #            on the first half of the observed values. 
@@ -233,7 +234,6 @@ ggof(sim, obs)
 
 PMR(sim=sim, obs=obs)
 
-\dontrun{ 
 ##################
 # Example 4: PMR for simulated values equal to observations plus random noise 
 #            on the first half of the observed values and applying (natural) 
