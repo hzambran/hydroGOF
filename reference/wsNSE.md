@@ -155,23 +155,49 @@ wsNSE(sim, obs, na.rm=TRUE,
 ## Details
 
 The weighted seasonal Nash-Sutcliffe Efficiency was proposed by
-Zambrano-Bigiarini and Bellin (2012), inspired by the well-known
-Nash-Sutcliffe efficiency (NSE, Nash and Sutcliffe, 1970), and the
-commentaries made by Schaefli and Gupta (2007) and Criss and Winston
-(2008).
+Zambrano-Bigiarini and Bellin (2012), inspired by the classical
+Nash-Sutcliffe efficiency (NSE, Nash and Sutcliffe, 1970), but designed
+to give more emphasis to either high or low observed values.
 
-This function gives different weights to the high/low values in the
-(obs_i - sim_i) terms used in the Nash-Sutcliffe formula, using high
-weights for high or low flows, depending on how close the user-defined
-'lambda' value is to 1 or zero, respectively. Between high and low
-values there is a linear transition from `lambda` to `1-lambda`,
-respectively.
+In the implemented formulation, the low- and high-flow thresholds are
+obtained from the observed series as:
 
-Following the traditional Nash-Sutcliffe efficiency, the weighted
-seasonal Nash-Sutcliffe Efficiency (wsNSE) ranges from -Inf to 1, with
-an optimal value of 1. Higher values of wsNSE indicate lower differences
-between `sim` and `obs`. Essentially, the closer to 1, the more
-similar`sim` and `obs` are.
+\$\$lQ = Q\_{obs}(1-lQ.thr)\$\$ \$\$hQ = Q\_{obs}(1-hQ.thr)\$\$
+
+where \\Q\_{obs}(p)\\ is the empirical quantile of `obs` at probability
+\\p\\. A weight \\w_i\\ is then assigned to each observed value
+\\obs_i\\ according to the following piecewise-linear function:
+
+\$\$ w_i = \left\\ \begin{array}{ll} \lambda, & obs_i \ge hQ \cr
+1-\lambda, & obs_i \le lQ \cr (1-\lambda) + (2\lambda - 1)\frac{obs_i -
+lQ}{hQ - lQ}, & lQ \< obs_i \< hQ \end{array} \right. \$\$
+
+Hence, `lambda` controls the emphasis of the metric:
+
+- when `lambda > 0.5`, high observed values receive larger weights than
+  low values;
+
+- when `lambda < 0.5`, low observed values receive larger weights than
+  high values;
+
+- when `lambda = 0.5`, all values receive the same weight and the
+  weighting becomes uniform.
+
+Using these weights, `wsNSE` is computed as:
+
+\$\$ wsNSE = 1 - \frac{\sum\_{i=1}^{n} \left\| w_i (obs_i - sim_i)
+\right\|^j} {\sum\_{i=1}^{n} \left\| w_i (obs_i - \overline{obs})
+\right\|^j} \$\$
+
+where \\\overline{obs}\\ is the arithmetic mean of the observed series
+after removing missing pairs, and \\j\\ is the user-defined exponent.
+Therefore, the numerator is a weighted error term and the denominator is
+the corresponding weighted dispersion of `obs` around its mean. This is
+the exact mathematical formulation implemented in `wsNSE.R`.
+
+Following the traditional NSE, `wsNSE` ranges from \\-\infty\\ to 1,
+with an optimal value of 1. Larger values indicate smaller weighted
+discrepancies between `sim` and `obs`.
 
 ## Value
 

@@ -9,7 +9,7 @@ This function is designed to identify differences in high or low values, dependi
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-44</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6-45</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -124,9 +124,31 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The weighted seasonal Nash-Sutcliffe Efficiency was proposed by Zambrano-Bigiarini and Bellin (2012), inspired by the well-known Nash-Sutcliffe efficiency (NSE, Nash and Sutcliffe, 1970), and the  commentaries made by Schaefli and Gupta (2007) and Criss and Winston (2008).</p>
-<p>This function gives different weights to the high/low values in the (obs_i - sim_i) terms used in the Nash-Sutcliffe formula, using high weights for high or low flows, depending on how close the user-defined 'lambda' value is to 1 or zero, respectively. Between  high and low values there is a linear transition from <code>lambda</code> to <code>1-lambda</code>, respectively.</p>
-<p>Following the traditional Nash-Sutcliffe efficiency, the weighted seasonal Nash-Sutcliffe Efficiency (wsNSE) ranges from -Inf to 1, with an optimal value of 1. Higher values of wsNSE indicate lower differences between <code>sim</code> and <code>obs</code>. Essentially, the closer to 1, the more similar<code>sim</code> and <code>obs</code> are.</p>
+    <p>The weighted seasonal Nash-Sutcliffe Efficiency was proposed by Zambrano-Bigiarini and Bellin (2012), inspired by the classical Nash-Sutcliffe efficiency (NSE, Nash and Sutcliffe, 1970), but designed to give more emphasis to either high or low observed values.</p>
+<p>In the implemented formulation, the low- and high-flow thresholds are obtained from the observed series as:</p>
+<p>$$lQ = Q_{obs}(1-lQ.thr)$$
+$$hQ = Q_{obs}(1-hQ.thr)$$</p>
+<p>where \(Q_{obs}(p)\) is the empirical quantile of <code>obs</code> at probability \(p\). A weight \(w_i\) is then assigned to each observed value \(obs_i\) according to the following piecewise-linear function:</p>
+<p>$$
+w_i =
+\left\{
+\begin{array}{ll}
+\lambda, &amp; obs_i \ge hQ \cr
+1-\lambda, &amp; obs_i \le lQ \cr
+(1-\lambda) + (2\lambda - 1)\frac{obs_i - lQ}{hQ - lQ}, &amp; lQ &lt; obs_i &lt; hQ
+\end{array}
+\right.
+$$</p>
+<p>Hence, <code>lambda</code> controls the emphasis of the metric:</p><ul><li><p>when <code>lambda &gt; 0.5</code>, high observed values receive larger weights than low values;</p></li>
+<li><p>when <code>lambda &lt; 0.5</code>, low observed values receive larger weights than high values;</p></li>
+<li><p>when <code>lambda = 0.5</code>, all values receive the same weight and the weighting becomes uniform.</p></li>
+</ul><p>Using these weights, <code>wsNSE</code> is computed as:</p>
+<p>$$
+wsNSE = 1 - \frac{\sum_{i=1}^{n} \left| w_i (obs_i - sim_i) \right|^j}
+                 {\sum_{i=1}^{n} \left| w_i (obs_i - \overline{obs}) \right|^j}
+$$</p>
+<p>where \(\overline{obs}\) is the arithmetic mean of the observed series after removing missing pairs, and \(j\) is the user-defined exponent. Therefore, the numerator is a weighted error term and the denominator is the corresponding weighted dispersion of <code>obs</code> around its mean. This is the exact mathematical formulation implemented in <code>wsNSE.R</code>.</p>
+<p>Following the traditional NSE, <code>wsNSE</code> ranges from \(-\infty\) to 1, with an optimal value of 1. Larger values indicate smaller weighted discrepancies between <code>sim</code> and <code>obs</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
