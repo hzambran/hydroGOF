@@ -2,6 +2,8 @@
 
 ## Changes in version 0.7-0 30-Apr-2026
 
+CRAN release: 2026-05-01
+
 ### New functions
 
 ``` R
