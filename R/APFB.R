@@ -71,7 +71,7 @@ APFB.default <- function(sim, obs, na.rm=TRUE,
   mu.sim.annual.max <- mean(sim.annual.max, na.rm=na.rm)
 
   # Overall APFB
-  APFB.value <- sqrt((mu.obs.annual.max / mu.sim.annual.max - 1) ^ 2)
+  APFB.value <- sqrt((mu.sim.annual.max / mu.obs.annual.max - 1) ^ 2)
 
   if (!out.PerYear) {
 
@@ -80,9 +80,9 @@ APFB.default <- function(sim, obs, na.rm=TRUE,
   } else {
 
     # Per-year APFB
-    APFB.PerYear <- sqrt((coredata(obs.annual.max) / coredata(sim.annual.max) - 1) ^ 2)
+    APFB.PerYear <- sqrt((coredata(sim.annual.max) / coredata(obs.annual.max) - 1) ^ 2)
 
-    names(APFB.PerYear) <- format( time(obs.annual.max), "%Y" )
+    names(APFB.PerYear) <- format(time(obs.annual.max), "%Y")
 
     return(list(APFB.value=APFB.value, APFB.PerYear = APFB.PerYear))
 
