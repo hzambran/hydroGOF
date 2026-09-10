@@ -43,6 +43,16 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - name: Install R-devel macOS flang
+        if: runner.os == 'macOS' && matrix.config.r == 'devel'
+        run: |
+          if [ ! -x /opt/R/flang-23/bin/flang ]; then
+            curl -fsSL https://mac.r-project.org/tools/flang-23.1.0-darwin23.tar.xz -o /tmp/flang-23.1.0-darwin23.tar.xz
+            sudo tar -xJf /tmp/flang-23.1.0-darwin23.tar.xz -C /
+          fi
+          /opt/R/flang-23/bin/flang --version
+          echo "SDKROOT=$(xcrun --show-sdk-path)" >> "$GITHUB_ENV"
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck

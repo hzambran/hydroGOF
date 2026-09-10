@@ -5,22 +5,9 @@
 # Copyright 2024-2024 Mauricio Zambrano-Bigiarini
 # Distributed under GPL 2 or later
 
-# The coefficient of determination (R2) is the proportion of the variation in the dependent 
-# variable that is predictable from the independent variable(s).
-
-# It is a statistic used in the context of statistical models whose main purpose is either 
-# the prediction of future outcomes or the testing of hypotheses, on the basis of other 
-# related information. It provides a measure of how well observed outcomes are replicated 
-# by the model, based on the proportion of total variation of outcomes explained by the model.
-
-# The coefficient of determination is a statistical measure of how well the regression 
-# predictions approximate the real data points. An R2 of 1 indicates that the regression 
-# predictions perfectly fit the data.
-
-# Values of R2 outside the range 0 to 1 occur when the model fits the data worse than the 
-# worst possible least-squares predictor (equivalent to a horizontal hyperplane at a 
-# height equal to the mean of the observed data). This occurs when a wrong model was chosen,
-# or nonsensical constraints were applied by mistake.
+# The coefficient of determination (R2) is computed as the squared Pearson
+# product-moment correlation coefficient between simulated and observed values.
+# It ranges from 0 to 1 when the correlation is defined.
 
 # References:
 #1) https://en.wikipedia.org/wiki/Coefficient_of_determination
@@ -73,10 +60,8 @@ R2.default <- function(sim, obs, fun=NULL, ...,
       obs  <- new[["obs"]]
     } # IF end 
 
-    Om    <- mean(obs)
-    SSres <- sum( (obs - sim)^2 )
-    SStot <- sum( (obs - Om)^2 )
-    R2    <- 1 - SSres/SStot
+    r  <- cor(sim, obs, method="pearson", use="pairwise.complete.obs")
+    R2 <- r^2
   
   } else {
            R2 <- NA
@@ -149,4 +134,3 @@ R2.zoo <- function(sim, obs, na.rm=TRUE, fun=NULL, ...,
                       epsilon.type=epsilon.type, epsilon.value=epsilon.value)
      
 } # 'R2.zoo' end
-

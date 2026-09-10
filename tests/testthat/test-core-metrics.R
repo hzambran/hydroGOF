@@ -53,10 +53,10 @@ test_that("correlation and efficiency decomposition metrics behave as expected",
   expect_equal(rPearson(sim, obs), 0.8944272, tolerance = 1e-7)
 
   expect_equal(R2(obs, obs), 1)
-  expect_equal(R2(sim, obs), 0.6)
+  expect_equal(R2(sim, obs), rPearson(sim, obs)^2, tolerance = 1e-12)
 
   expect_equal(br2(obs, obs), 1)
-  expect_equal(br2(sim, obs), 0.5806452, tolerance = 1e-7)
+  expect_equal(br2(sim, obs), 0.7741935, tolerance = 1e-7)
 
   expect_equal(VE(obs, obs), 1)
   expect_equal(VE(sim, obs), 0.8, tolerance = 1e-12)
@@ -66,6 +66,17 @@ test_that("correlation and efficiency decomposition metrics behave as expected",
 
   expect_equal(KGEnp(obs, obs), 1)
   expect_equal(KGEnp(sim, obs), 0.8876016, tolerance = 1e-7)
+})
+
+test_that("R2 remains bounded because it is the squared Pearson correlation", {
+  obs <- 1:4
+  sim <- c(100, -100, 100, -100)
+
+  out <- R2(sim, obs)
+
+  expect_equal(out, rPearson(sim, obs)^2, tolerance = 1e-12)
+  expect_true(out >= 0)
+  expect_true(out <= 1)
 })
 
 test_that("KGE returns the expected 2012 components", {
@@ -150,6 +161,12 @@ test_that("zoo-only flow diagnostics return ideal values for perfect agreement",
   expect_equal(APFB(sim, obs), 0)
   expect_equal(HFB(sim, obs), 0)
   expect_equal(pbiasfdc(sim, obs, plot = FALSE), 0)
+
+  sim_high <- 2 * obs
+
+  expect_equal(APFB(sim_high, obs), 1)
+  expect_equal(APFB(obs, sim_high), 0.5)
+  expect_equal(unname(APFB(sim_high, obs, out.PerYear = TRUE)$APFB.PerYear), rep(1, 3))
 })
 
 test_that("d and dr match hand-computed values", {

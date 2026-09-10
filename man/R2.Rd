@@ -79,13 +79,9 @@ numeric value to be added to both \code{sim} and \code{obs} when \code{epsilon.t
 }
 }
 \details{
-The coefficient of determination (R2) is the proportion of the variation in the dependent variable that is predictable from the independent variable(s).
+The coefficient of determination (R2) is computed as the squared Pearson product-moment correlation coefficient between simulated and observed values.
 
-It is a statistic used in the context of statistical models whose main purpose is either the prediction of future outcomes or the testing of hypotheses, on the basis of other related information. It provides a measure of how well observed outcomes are replicated by the model, based on the proportion of total variation of outcomes explained by the model.
-
-The coefficient of determination is a statistical measure of how well the regression predictions approximate the real data points. An R2 of 1 indicates that the regression predictions perfectly fit the data.
-
-Values of R2 outside the range 0 to 1 occur when the model fits the data worse than the worst possible least-squares predictor (equivalent to a horizontal hyperplane at a height equal to the mean of the observed data). This occurs when a wrong model was chosen, or nonsensical constraints were applied by mistake.
+It ranges from 0 to 1 when the correlation is defined. A value of 1 indicates a perfect positive or negative linear relationship between \code{sim} and \code{obs}, while a value of 0 indicates no linear relationship.
 }
 \value{
 Coefficient of determination between \code{sim} and \code{obs}. \cr
