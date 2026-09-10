@@ -68,21 +68,18 @@ NEWS/ChangeLog for hydroGOF
         o References in most functions have been revised and improved.
 
 
---------------------------
 # Changes in version 0.5-4  21-Jan-2024
 
 ## Bug fixes
 
         o CITATION file: citEntry was replaced by bibentry, after CRAN note in v0.5-3.
         
---------------------------
 # Changes in version 0.5-3  21-Jan-2024
 
 ## Bug fixes
         o 'ssq'       : Tiny change. Space in documentation file removed after CRAN notes in v0.5-0.
         o 'wNSE'      : Tiny change. Space in documentation file removed after CRAN notes in v0.5-0.
         
---------------------------
 # Changes in version 0.5-0  20-Jan-2024
 
 ## New functions
