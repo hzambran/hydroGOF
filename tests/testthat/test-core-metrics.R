@@ -150,6 +150,12 @@ test_that("zoo-only flow diagnostics return ideal values for perfect agreement",
   expect_equal(APFB(sim, obs), 0)
   expect_equal(HFB(sim, obs), 0)
   expect_equal(pbiasfdc(sim, obs, plot = FALSE), 0)
+
+  sim_high <- 2 * obs
+
+  expect_equal(APFB(sim_high, obs), 1)
+  expect_equal(APFB(obs, sim_high), 0.5)
+  expect_equal(unname(APFB(sim_high, obs, out.PerYear = TRUE)$APFB.PerYear), rep(1, 3))
 })
 
 test_that("d and dr match hand-computed values", {

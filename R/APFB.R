@@ -13,7 +13,7 @@
 # Started: 04-May-2024                                                         #
 # Updates: 05-May-2024                                                         #
 #          02-May-2025 (EGU 2025) ; 03-May-2025                                #
-#          28-Apr-2026                                                         #
+#          28-Apr-2026 ; 07-Sep-2026 (HGF)                                     #
 ################################################################################
 # The optimal value of APFB is 0
 
@@ -69,7 +69,7 @@ APFB.default <- function(sim, obs, na.rm=TRUE,
   mu.sim.annual.max <- mean(sim.annual.max, na.rm=na.rm)
 
   # Overall APFB
-  APFB.value <- sqrt(( mu.obs.annual.max / mu.sim.annual.max - 1)^2 )
+  APFB.value <- sqrt(( mu.sim.annual.max / mu.obs.annual.max - 1)^2 )
 
   if (!out.PerYear) {
 
@@ -78,7 +78,7 @@ APFB.default <- function(sim, obs, na.rm=TRUE,
   } else {
 
       # Per-year APFB
-      APFB.PerYear <- sqrt( ( coredata(obs.annual.max) / coredata(sim.annual.max) - 1)^2 )
+      APFB.PerYear <- sqrt( ( coredata(sim.annual.max) / coredata(obs.annual.max) - 1)^2 )
 
       names(APFB.PerYear) <- format( time(obs.annual.max), "%Y" )
 

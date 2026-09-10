@@ -1,5 +1,10 @@
 NEWS/ChangeLog for hydroGOF
 
+# Changes in version 0.7-1  07-Sep-2026
+
+## Bug fixes
+        o 'APFB' : -) Previously the inner APFB ratio was incorrectly computed as `mu.obs.annual.max / mu.sim.annual.max`, rather than following the original formulation proposed by Mizukami et al. (2019). Thanks to Hector Garcés (PR #29).
+
 # Changes in version 0.7-0  30-Apr-2026
 
 ## New functions
@@ -27,7 +32,7 @@ NEWS/ChangeLog for hydroGOF
         o 'pfactor': improved 'Details' section in the documentation, including new equations.
         o 'rfactor': improved 'Details' section in the documentation, including new equations.
         o 'HFB'    : -) improved 'Details' section in the documentation, including new equations.
-                     -) it mathematical formualtion was completly changed, in order to make it more compatible with APFB and PBIAS, with an optimum value in 0 and not in 1, as it was previpusly implmented in version 0.6-0.1.
+                     -) it mathematical formualtion was completly changed, in order to make it more compatible with APFB and PBIAS, with an optimum value in 0 and not in 1, as it was previously implemented in version 0.6-0.1.
 
 
 ## Package files
