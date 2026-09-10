@@ -246,7 +246,7 @@ wNSE(sim=sim, obs=obs)
 
 # APFB (Mizukami et al., 2019):
 APFB(sim=sim, obs=obs)
-#> [1] 0.2941325
+#> [1] 0.4166966
 
 ##################
 # Example 2: 
@@ -275,7 +275,7 @@ ggof(sim, obs)
 
 
 APFB(sim=sim, obs=obs)
-#> [1] 0.293427
+#> [1] 0.415282
 
 ##################
 # Example 4: APFB for simulated values created equal to the observed values and then 
@@ -284,13 +284,13 @@ APFB(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 APFB(sim=sim, obs=obs, fun=log)
-#> [1] 0.06809021
+#> [1] 0.07306524
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 APFB(sim=lsim, obs=lobs)
-#> [1] 0.06809021
+#> [1] 0.07306524
 
 
 ##################
@@ -302,11 +302,11 @@ APFB(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 APFB(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.1622292
+#> [1] 0.1936439
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 APFB(sim=sim1, obs=obs1)
-#> [1] 0.1622292
+#> [1] 0.1936439
 ```

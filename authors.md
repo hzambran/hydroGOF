@@ -8,18 +8,18 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/hzambran/hydroGOF/blob/v0.7-0/inst/CITATION)
+[`inst/CITATION`](https://github.com/hzambran/hydroGOF/blob/master/inst/CITATION)
 
 Zambrano-Bigiarini, M. (2026) hydroGOF: Goodness-of-fit functions for
 comparison of simulated and observed hydrological time seriesR package
-version 0.7-0. URL:https://CRAN.R-project.org/package=hydroGOF.
+version 0.7-1. URL:https://CRAN.R-project.org/package=hydroGOF.
 doi:10.32614/CRAN.package.hydroGOF.
 
     @Manual{,
       title = {{hydroGOF}: Goodness-of-fit functions for comparison of simulated and observed hydrological time series},
       author = {{Zambrano-Bigiarini, Mauricio}},
       year = {2026},
-      note = {R package version 0.7-0 . doi:10.32614/CRAN.package.hydroGOF},
+      note = {R package version 0.7-1 . doi:10.32614/CRAN.package.hydroGOF},
       url = {https://CRAN.R-project.org/package=hydroGOF},
       doi = {10.32614/CRAN.package.hydroGOF},
     }

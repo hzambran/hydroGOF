@@ -297,7 +297,7 @@ wsNSE(sim=sim, obs=obs)
 
 # APFB (Mizukami et al., 2019):
 APFB(sim=sim, obs=obs)
-#> [1] 0.2918619
+#> [1] 0.4121539
 
 
 ##################

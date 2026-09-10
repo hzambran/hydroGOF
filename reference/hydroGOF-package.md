@@ -461,7 +461,7 @@ gof(sim=sim, obs=obs)
 #> LME      0.65
 #> LCE      0.65
 #> sKGE     0.63
-#> APFB     0.03
+#> APFB     0.04
 #> HFB      0.12
 
 # Graphical representation of 'obs' vs 'sim', along with the numeric 

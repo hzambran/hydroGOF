@@ -299,7 +299,7 @@ cp(sim=sim, obs=obs)                   # Coefficient of Persistence
 APFB(sim=sim, obs=obs)                 # Annual Peak Flow Bias
 ```
 
-    ## [1] 0.03202514
+    ## [1] 0.03308468
 
 ``` r
 
@@ -595,7 +595,7 @@ cp(sim=sim, obs=obs)                   # Coefficient of Persistence
 APFB(sim=sim, obs=obs)                 # Annual Peak Flow Bias
 ```
 
-    ## [1] 0.03202514
+    ## [1] 0.03308468
 
 ``` r
 
@@ -1350,9 +1350,9 @@ This tutorial was built under:
 
     ## [1] "x86_64-pc-linux-gnu"
 
-    ## [1] "R version 4.6.0 (2026-04-24)"
+    ## [1] "R version 4.6.1 (2026-06-24)"
 
-    ## [1] "hydroGOF 0.7-0"
+    ## [1] "hydroGOF 0.7-1"
 
 ## Version history of this vignette
 
