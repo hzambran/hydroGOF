@@ -23,11 +23,11 @@ Missing values in observed and/or simulated values can be removed before computa
 \tabular{ll}{
 Package: \tab hydroGOF\cr
 Type: \tab Package\cr
-Version: \tab 0.7-0\cr
-Date: \tab 2026-04-30\cr
+Version: \tab 0.7-2\cr
+Date: \tab 2026-09-10\cr
 License: \tab GPL >= 2\cr
 LazyLoad: \tab yes\cr
-Packaged: \tab Thu Apr 30 14:31:35 -04 2026 ; MZB \cr
+Packaged: \tab Thu Sep 10 13:10:25 -03 2026 ; hzambran \cr
 BuiltUnder: \tab R version 4.6.0 (2026-04-24) -- "Because it was There" ; aarch64-apple-darwin23 \cr
 } 
 

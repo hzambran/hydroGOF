@@ -75,8 +75,6 @@ br2.default <- function(sim, obs, na.rm=TRUE, use.abs=FALSE, fun=NULL, ...,
     b <- as.numeric( coefficients(x.lm)["obs"]   )
      
     # computing the r2
-    #r2 <- (.rPearson(sim, obs))^2 # this works only for linear models. 
-    # https://github.com/hzambran/hydroGOF/issues/16#issue-1736556320
     r2 <- R2(sim=sim, obs=obs)
 
     if (!(use.abs)) {
