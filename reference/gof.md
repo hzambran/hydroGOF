@@ -789,8 +789,8 @@ gof(sim, obs)
 #> rd       0.86
 #> cp       0.00
 #> r        1.00
-#> R2       0.88
-#> bR2      0.77
+#> R2       1.00
+#> bR2      0.87
 #> VE       0.82
 #> KGE      0.82
 #> KGElf    0.60
@@ -880,8 +880,8 @@ gof(sim=sim, obs=obs)
 #> rd       0.63
 #> cp       0.47
 #> r        0.97
-#> R2       0.87
-#> bR2      0.78
+#> R2       0.94
+#> bR2      0.84
 #> VE       0.68
 #> KGE      0.68
 #> KGElf    0.51
@@ -921,8 +921,8 @@ gof(sim=sim, obs=obs, fun=log)
 #> rd      -0.44
 #> cp      -7.93
 #> r        0.82
-#> R2       0.48
-#> bR2      0.43
+#> R2       0.68
+#> bR2      0.61
 #> VE       0.81
 #> KGE      0.72
 #> KGElf    0.51
@@ -960,8 +960,8 @@ gof(sim=lsim, obs=lobs)
 #> rd      -0.44
 #> cp      -7.93
 #> r        0.82
-#> R2       0.48
-#> bR2      0.43
+#> R2       0.68
+#> bR2      0.61
 #> VE       0.81
 #> KGE      0.72
 #> KGElf    0.41
@@ -1002,8 +1002,8 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
 #> rd       0.19
 #> cp      -7.67
 #> r        0.83
-#> R2       0.49
-#> bR2      0.44
+#> R2       0.68
+#> bR2      0.61
 #> VE       0.82
 #> KGE      0.72
 #> KGElf    0.52
@@ -1042,8 +1042,8 @@ gof(sim=lsim, obs=lobs)
 #> rd       0.19
 #> cp      -7.67
 #> r        0.83
-#> R2       0.49
-#> bR2      0.44
+#> R2       0.68
+#> bR2      0.61
 #> VE       0.82
 #> KGE      0.72
 #> KGElf    0.49

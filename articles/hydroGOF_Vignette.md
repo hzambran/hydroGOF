@@ -429,14 +429,14 @@ rSpearman(sim=sim, obs=obs)            # Spearman rank correlation coefficient
 R2(sim=sim, obs=obs)                   # Coefficient of determination (R2)
 ```
 
-    ## [1] 0.8739885
+    ## [1] 0.9405233
 
 ``` r
 
 br2(sim=sim, obs=obs)                  # R2 multiplied by the slope of the regression line
 ```
 
-    ## [1] 0.7780545
+    ## [1] 0.837286
 
 ### Ex 5: random noise and logarithmic transformation
 
@@ -725,14 +725,14 @@ rSpearman(sim=sim, obs=obs)            # Spearman rank correlation coefficient
 R2(sim=sim, obs=obs)                   # Coefficient of determination (R2)
 ```
 
-    ## [1] 0.8739885
+    ## [1] 0.9405233
 
 ``` r
 
 br2(sim=sim, obs=obs)                  # R2 multiplied by the slope of the regression line
 ```
 
-    ## [1] 0.7780545
+    ## [1] 0.837286
 
 ### Ex 6: random noise, logarithmic transformation and Pushpalatha2012 constant
 
@@ -789,8 +789,8 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012", do.spearman=TRUE,
     ## rd           0.18
     ## cp          -7.68
     ## r            0.83
-    ## R2           0.49
-    ## bR2          0.44
+    ## R2           0.68
+    ## bR2          0.61
     ## VE           0.82
     ## KGE          0.72
     ## KGElf        0.52
@@ -860,8 +860,8 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps, do.
     ## rd          -0.39
     ## cp          -7.93
     ## r            0.82
-    ## R2           0.48
-    ## bR2          0.43
+    ## R2           0.68
+    ## bR2          0.61
     ## VE           0.81
     ## KGE          0.72
     ## KGElf        0.51
@@ -934,8 +934,8 @@ gof(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact, d
     ## rd           0.38
     ## cp          -7.43
     ## r            0.83
-    ## R2           0.49
-    ## bR2          0.44
+    ## R2           0.69
+    ## bR2          0.62
     ## VE           0.82
     ## KGE          0.73
     ## KGElf        0.53
@@ -1003,8 +1003,8 @@ gof(sim=sim, obs=obs, fun=fun1, do.spearman=TRUE, do.pbfdc=TRUE, do.pmr=TRUE)
     ## rd           0.83
     ## cp          -1.17
     ## r            0.92
-    ## R2           0.73
-    ## bR2          0.65
+    ## R2           0.85
+    ## bR2          0.76
     ## VE           0.82
     ## KGE          0.81
     ## KGElf        0.50
@@ -1189,8 +1189,8 @@ gof(sim, obs)
     ## rd       0.64
     ## cp       0.52
     ## r        0.97
-    ## R2       0.89
-    ## bR2      0.81
+    ## R2       0.93
+    ## bR2      0.85
     ## VE       0.75
     ## KGE      0.74
     ## KGElf    0.57
@@ -1352,7 +1352,7 @@ This tutorial was built under:
 
     ## [1] "R version 4.6.1 (2026-06-24)"
 
-    ## [1] "hydroGOF 0.7-1"
+    ## [1] "hydroGOF 0.7-2"
 
 ## Version history of this vignette
 

@@ -12,14 +12,14 @@ Source:
 
 Zambrano-Bigiarini, M. (2026) hydroGOF: Goodness-of-fit functions for
 comparison of simulated and observed hydrological time seriesR package
-version 0.7-1. URL:https://CRAN.R-project.org/package=hydroGOF.
+version 0.7-2. URL:https://CRAN.R-project.org/package=hydroGOF.
 doi:10.32614/CRAN.package.hydroGOF.
 
     @Manual{,
       title = {{hydroGOF}: Goodness-of-fit functions for comparison of simulated and observed hydrological time series},
       author = {{Zambrano-Bigiarini, Mauricio}},
       year = {2026},
-      note = {R package version 0.7-1 . doi:10.32614/CRAN.package.hydroGOF},
+      note = {R package version 0.7-2 . doi:10.32614/CRAN.package.hydroGOF},
       url = {https://CRAN.R-project.org/package=hydroGOF},
       doi = {10.32614/CRAN.package.hydroGOF},
     }

@@ -13,11 +13,11 @@ computations.
 |----|----|
 | Package: | hydroGOF |
 | Type: | Package |
-| Version: | 0.7-0 |
-| Date: | 2026-04-30 |
+| Version: | 0.7-2 |
+| Date: | 2026-09-10 |
 | License: | GPL \>= 2 |
 | LazyLoad: | yes |
-| Packaged: | Thu Apr 30 14:31:35 -04 2026 ; MZB |
+| Packaged: | Thu Sep 10 13:10:25 -03 2026 ; hzambran |
 | BuiltUnder: | R version 4.6.0 (2026-04-24) – "Because it was There" ; aarch64-apple-darwin23 |
 
 Quantitative statistics included in this package are:
@@ -362,8 +362,8 @@ gof(sim,obs)
 #> rd       -113.64
 #> cp      -3266.67
 #> r          -1.00
-#> R2         -3.00
-#> bR2        -1.52
+#> R2          1.00
+#> bR2         0.51
 #> VE          0.01
 #> KGE        -1.00
 #> KGElf      -0.56
@@ -450,8 +450,8 @@ gof(sim=sim, obs=obs)
 #> rd       0.63
 #> cp       0.42
 #> r        0.97
-#> R2       0.86
-#> bR2      0.76
+#> R2       0.94
+#> bR2      0.83
 #> VE       0.65
 #> KGE      0.65
 #> KGElf    0.49

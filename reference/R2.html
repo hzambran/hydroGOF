@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">hydroGOF</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7-1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7-2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,10 +101,8 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The coefficient of determination (R2) is the proportion of the variation in the dependent variable that is predictable from the independent variable(s).</p>
-<p>It is a statistic used in the context of statistical models whose main purpose is either the prediction of future outcomes or the testing of hypotheses, on the basis of other related information. It provides a measure of how well observed outcomes are replicated by the model, based on the proportion of total variation of outcomes explained by the model.</p>
-<p>The coefficient of determination is a statistical measure of how well the regression predictions approximate the real data points. An R2 of 1 indicates that the regression predictions perfectly fit the data.</p>
-<p>Values of R2 outside the range 0 to 1 occur when the model fits the data worse than the worst possible least-squares predictor (equivalent to a horizontal hyperplane at a height equal to the mean of the observed data). This occurs when a wrong model was chosen, or nonsensical constraints were applied by mistake.</p>
+    <p>The coefficient of determination (R2) is computed as the squared Pearson product-moment correlation coefficient between simulated and observed values.</p>
+<p>It ranges from 0 to 1 when the correlation is defined. A value of 1 indicates a perfect positive or negative linear relationship between <code>sim</code> and <code>obs</code>, while a value of 0 indicates no linear relationship.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -144,7 +142,7 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-in"><span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span></span>
 <span class="r-in"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fl">2</span><span class="op">:</span><span class="fl">11</span></span></span>
 <span class="r-in"><span><span class="fu">R2</span><span class="op">(</span><span class="va">sim</span>, <span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8787879</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 2: </span></span></span>
@@ -172,7 +170,7 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-plt img"><img src="R2-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">R2</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8741494</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9405409</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 4: R2 for simulated values equal to observations plus random noise </span></span></span>
@@ -180,13 +178,13 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-in"><span><span class="co">#            logarithm to 'sim' and 'obs' during computations.</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">R2</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4784969</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6747968</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value:</span></span></span>
 <span class="r-in"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">R2</span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4784969</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6747968</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 5: R2 for simulated values equal to observations plus random noise </span></span></span>
@@ -195,14 +193,14 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-in"><span><span class="co">#            during computations</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">R2</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"Pushpalatha2012"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4856832</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6808599</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value, with the epsilon value following Pushpalatha2012</span></span></span>
 <span class="r-in"><span><span class="va">eps</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">/</span><span class="fl">100</span></span></span>
 <span class="r-in"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">R2</span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4856832</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6808599</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 6: R2 for simulated values equal to observations plus random noise </span></span></span>
@@ -212,13 +210,13 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">eps</span> <span class="op">&lt;-</span> <span class="fl">0.01</span></span></span>
 <span class="r-in"><span><span class="fu">R2</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"otherValue"</span>, epsilon.value<span class="op">=</span><span class="va">eps</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.478967</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6751954</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value:</span></span></span>
 <span class="r-in"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">R2</span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.478967</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6751954</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 7: R2 for simulated values equal to observations plus random noise </span></span></span>
@@ -229,14 +227,14 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">fact</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">50</span></span></span>
 <span class="r-in"><span><span class="fu">R2</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">log</span>, epsilon.type<span class="op">=</span><span class="st">"otherFactor"</span>, epsilon.value<span class="op">=</span><span class="va">fact</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4923961</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6864648</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value:</span></span></span>
 <span class="r-in"><span><span class="va">eps</span>  <span class="op">&lt;-</span> <span class="va">fact</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">obs</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lsim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="va">eps</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">R2</span><span class="op">(</span>sim<span class="op">=</span><span class="va">lsim</span>, obs<span class="op">=</span><span class="va">lobs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4923961</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6864648</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##################</span></span></span>
 <span class="r-in"><span><span class="co"># Example 8: R2 for simulated values equal to observations plus random noise </span></span></span>
@@ -246,13 +244,13 @@ When an 'NA' value is found at the i-th position in <code>obs</code> <b>OR</b> <
 <span class="r-in"><span><span class="va">fun1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">R2</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim</span>, obs<span class="op">=</span><span class="va">obs</span>, fun<span class="op">=</span><span class="va">fun1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7259939</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8533436</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Verifying the previous value, with the epsilon value following Pushpalatha2012</span></span></span>
 <span class="r-in"><span><span class="va">sim1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">sim</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">obs1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">obs</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">R2</span><span class="op">(</span>sim<span class="op">=</span><span class="va">sim1</span>, obs<span class="op">=</span><span class="va">obs1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7259939</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8533436</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -181,9 +181,9 @@ r2 <- (cor(sim1, obs, method="pearson"))^2 # r2=1
 
 # 'br2' effectively penalises the systematic over-estimation
 br2(sim1, obs) # br2 = 0.3684211
-#> [1] -4.923445
+#> [1] 0.3684211
 br2(sim2, obs) # br2 = 0.1794872
-#> [1] -20.23854
+#> [1] 0.1794872
 
 ggof(sim1, obs)
 #> [ Note: You did not provide dates, so only a numeric index will be used in the time axis ]
@@ -221,7 +221,7 @@ ggof(sim, obs)
 
 
 br2(sim=sim, obs=obs)
-#> [1] 0.7775568
+#> [1] 0.8369002
 
 ##################
 # Example 4: br2 for simulated values equal to observations plus random noise 
@@ -229,13 +229,13 @@ br2(sim=sim, obs=obs)
 #            logarithm to 'sim' and 'obs' during computations.
 
 br2(sim=sim, obs=obs, fun=log)
-#> [1] 0.4295402
+#> [1] 0.605311
 
 # Verifying the previous value:
 lsim <- log(sim)
 lobs <- log(obs)
 br2(sim=lsim, obs=lobs)
-#> [1] 0.4295402
+#> [1] 0.605311
 
 ##################
 # Example 5: br2 for simulated values equal to observations plus random noise 
@@ -244,14 +244,14 @@ br2(sim=lsim, obs=lobs)
 #            during computations
 
 br2(sim=sim, obs=obs, fun=log, epsilon.type="Pushpalatha2012")
-#> [1] 0.4362199
+#> [1] 0.6110949
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 eps  <- mean(obs, na.rm=TRUE)/100
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 br2(sim=lsim, obs=lobs)
-#> [1] 0.4362199
+#> [1] 0.6110949
 
 ##################
 # Example 6: br2 for simulated values equal to observations plus random noise 
@@ -261,13 +261,13 @@ br2(sim=lsim, obs=lobs)
 
 eps <- 0.01
 br2(sim=sim, obs=obs, fun=log, epsilon.type="otherValue", epsilon.value=eps)
-#> [1] 0.4299742
+#> [1] 0.6056873
 
 # Verifying the previous value:
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 br2(sim=lsim, obs=lobs)
-#> [1] 0.4299742
+#> [1] 0.6056873
 
 ##################
 # Example 7: br2 for simulated values equal to observations plus random noise 
@@ -278,14 +278,14 @@ br2(sim=lsim, obs=lobs)
 
 fact <- 1/50
 br2(sim=sim, obs=obs, fun=log, epsilon.type="otherFactor", epsilon.value=fact)
-#> [1] 0.4425449
+#> [1] 0.61656
 
 # Verifying the previous value:
 eps  <- fact*mean(obs, na.rm=TRUE)
 lsim <- log(sim+eps)
 lobs <- log(obs+eps)
 br2(sim=lsim, obs=lobs)
-#> [1] 0.4425449
+#> [1] 0.61656
 
 ##################
 # Example 8: br2 for simulated values equal to observations plus random noise 
@@ -295,11 +295,11 @@ br2(sim=lsim, obs=lobs)
 fun1 <- function(x) {sqrt(x+1)}
 
 br2(sim=sim, obs=obs, fun=fun1)
-#> [1] 0.6475741
+#> [1] 0.7612512
 
 # Verifying the previous value, with the epsilon value following Pushpalatha2012
 sim1 <- sqrt(sim+1)
 obs1 <- sqrt(obs+1)
 br2(sim=sim1, obs=obs1)
-#> [1] 0.6475741
+#> [1] 0.7612512
 ```

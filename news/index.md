@@ -1,5 +1,13 @@
 # Changelog
 
+## Changes in version 0.7-2 10-Sep-2026
+
+### Bug fixes
+
+``` R
+    o 'R2'   : -) It is now computed again as the square of the Pearson product-moment correlation coefficient, keeping it in the expected 0 to 1 range when the correlation is defined.
+```
+
 ## Changes in version 0.7-1 07-Sep-2026
 
 ### Bug fixes
