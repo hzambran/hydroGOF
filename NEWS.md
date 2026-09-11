@@ -1,9 +1,9 @@
 NEWS/ChangeLog for hydroGOF
-# Changes in version 0.7-1  07-Sep-2026
 
-## Bug fixes
-        o 'APFB' : -) Previously the inner APFB ratio was incorrectly computed as `mu.obs.annual.max / mu.sim.annual.max`, rather than following the original formulation proposed by Mizukami et al. (2019).
+# Changes in version 0.7-3  11-Sep-2026
 
+## Package files
+        o DESCRIPTION file: Hector Garces-Figueroa added as contributor
 
 # Changes in version 0.7-2  10-Sep-2026
 
