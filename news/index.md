@@ -1,5 +1,13 @@
 # Changelog
 
+## Changes in version 0.7-3 11-Sep-2026
+
+### Package files
+
+``` R
+    o DESCRIPTION file: Hector Garces-Figueroa added as contributor
+```
+
 ## Changes in version 0.7-2 10-Sep-2026
 
 ### Bug fixes
