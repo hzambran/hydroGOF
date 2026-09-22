@@ -229,6 +229,9 @@ ggof(sim, obs, na.rm = TRUE, dates, date.fmt = "%Y-%m-%d",
 
 Plots observed and simulated values in the same graph.
 
+All writable graphical parameters are restored when the function exits,
+including when plotting stops with an error.
+
 If `gof.leg=TRUE`, it computes the numerical values of:  
 'me', 'mae', 'rmse', 'nrmse', 'PBIAS', 'RSR, 'rSD', 'NSE', 'mNSE',
 'rNSE', 'd', 'md, 'rd', 'cp', 'r', 'r.Spearman', 'R2', 'bR2', 'KGE',
