@@ -5,6 +5,9 @@ NEWS/ChangeLog for hydroGOF
 ## Package files
         o DESCRIPTION file: Hector Garces-Figueroa added as contributor
 
+## Bug fixes
+        o 'ggof': graphical parameters are now restored in dependency order, ensuring that user session settings are preserved for all plot types, legend choices, and plotting errors.
+
 # Changes in version 0.7-2  10-Sep-2026
 
 ## Bug fixes

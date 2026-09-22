@@ -149,6 +149,9 @@ further arguments passed to or from other methods.
 \details{
 Plots observed and simulated values in the same graph.
 
+All writable graphical parameters are restored when the function exits,
+including when plotting stops with an error.
+
 If \code{gof.leg=TRUE}, it computes the numerical values of: \cr
 'me', 'mae', 'rmse', 'nrmse', 'PBIAS',  'RSR, 'rSD', 'NSE', 'mNSE', 'rNSE', 'd', 'md, 'rd', 'cp', 'r', 'r.Spearman', 'R2', 'bR2', 'KGE', 'VE'
 }

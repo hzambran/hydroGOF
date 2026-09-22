@@ -17,7 +17,7 @@
 #            15-Apr-2013 ; 15-May-2013                                         #
 #            20-Jan-2024 ; 22-Mar-2024 ; 23-Mar-2024 ; 08-May-2024             #
 #            01-Nov-2025                                                       #
-#            26-Apr-2026 ;29-Apr-2026                                          #
+#            26-Apr-2026 ;29-Apr-2026 ; 21-Sep-2026                            #
 ################################################################################     
                                           
       
@@ -65,13 +65,24 @@ ggof <- function (sim, obs,
                    
                    ...) {
 
-  # Saving the current graphical parameter settings,
-  # and restoring them on exit
+  # Save all writable graphical parameters before changing the current device.
   oldpars <- par(no.readonly=TRUE)
 
+  # Restore layout-dependent parameters first because they reset other values.
   on.exit({
     layout(1)
-    par(oldpars)
+    par(mfrow=oldpars$mfrow)
+    par(cex=oldpars$cex, mex=oldpars$mex,
+        mar=oldpars$mar, oma=oldpars$oma)
+    par(mfg=oldpars$mfg)
+
+    # Restore the remaining independent parameters after selecting the panel.
+    skippars <- c("cex", "fig", "fin", "mai", "mar", "mex", "mfcol",
+                  "mfg", "mfrow", "new", "oma", "omd", "omi", "pin", "plt")
+    par(oldpars[setdiff(names(oldpars), skippars)])
+
+    # Restore 'new' last because selecting a panel sets it to TRUE.
+    par(new=oldpars$new)
   }, add=TRUE)
 
   # Checking class 'sim' &'obs'   

@@ -1,7 +1,7 @@
 Package: hydroGOF
 Type: Package
 Title: Goodness-of-Fit Functions for Comparison of Simulated and Observed Hydrological Time Series
-Version: 0.7-3
+Version: 0.7-4
 Date: 2026-09-11
 Authors@R: c( person("Mauricio Zambrano-Bigiarini", email="mzb.devel@gmail.com", role=c("aut", "cre", "cph"), comment=c(ORCID = "0000-0002-9536-643X")), person("Hector", "Garces-Figueroa", email="hegarcesf@gmail.com", role="ctb", comment=c(ORCID = "0009-0001-2496-4854")))
 Maintainer: Mauricio Zambrano-Bigiarini <mzb.devel@gmail.com>
@@ -17,4 +17,4 @@ BugReports: https://github.com/hzambran/hydroGOF/issues
 LazyLoad: yes
 NeedsCompilation: no
 Repository: CRAN
-Packaged: Thu Sep 11 12:52:57 -03 2026 ; hgarcesf
+Packaged: Mon 21 Sep 2026 22:58:13 -03 ; hgarcesf
